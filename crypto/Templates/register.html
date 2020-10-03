@@ -1,0 +1,30 @@
+<form action="{% url 'register' %}" method="POST">
+{% csrf_token %}
+<input type="text" name="name" value="{{name}}" placeholder="first_name"  enctype="multipart/form-data">
+<input type="text" name="username" value="{{username}}" placeholder="username">
+<input type="text" name="email" value="{{email}}" placeholder="email">
+<input type="text" name="phone" value="{{phone}}" placeholder="phone">
+<input type="password" name="password" value="{{password}}" placeholder="password">
+<input type="password" name="cnf_password" value="{{cnf_password}}" placeholder="cnf_password">
+<input type="text" name="invite_code" value="{{invite_code}}" placeholder="invite_code">
+{%if submit == 'verify'%}
+<input type="number" name="verification_code" placeholder="verification_code">
+{%endif%}
+<input type="file" name="f1">
+<input type="file" name="f2">
+<input type="submit" name="submit" value="{{submit}}">
+</form>
+
+
+login:
+<form action="{% url 'login' %}" method="POST">
+{% csrf_token %}
+<input type="text" name="password" placeholder="password">
+<input type="text" name="username" placeholder="username">
+
+<input type="submit">
+</form>
+
+{{error}}
+
+<div _ngcontent-lbs-c93="" class="avatar img-fluid rounded-circle z-depth-1 photo rotate2degClass ng-star-inserted" style="z-index: 998; background-image: url(&quot;https://www.sahamyab.com/guest/image/user/ed55f5af-9cef-4217-a3ed-d1a685931719.jpg&quot;);"></div>
