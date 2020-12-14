@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
-    'twits.apps.TwitsConfig'
+    'twits.apps.TwitsConfig',
+    'products.apps.ProductsConfig'
 
 ]
 
@@ -97,6 +98,12 @@ DATABASES = {
     }
 }
 
+#mydb = mysql.connector.connect(
+#  host="217.182.112.49",
+#  user="applyeri_user",
+#  password="4420888024ZyDJnYe5",
+#  port='3306'
+#)
 
 
 # Password validation

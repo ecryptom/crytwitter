@@ -50,7 +50,6 @@ def register(req, invite_code=''):
     if req.method == 'GET':
         return render(req, 'register.html', {'submit':'info', 'invite_code':invite_code, 'tab':'register'})
     else:
-        return 1
         data = {'tab':'register', 'username':req.POST.get('username'), 'phone':req.POST.get('phone'), 'email':req.POST.get('email'), 'password':req.POST.get('password'), 'cnf_password':req.POST.get('cnf_password'), 'name':req.POST.get('name'), 'invite_code':req.POST.get('invite_code')}
         #the first submit of user(info)
         if req.POST.get('submit') == 'info':

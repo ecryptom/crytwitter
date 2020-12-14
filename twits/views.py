@@ -46,8 +46,8 @@ def last_twits(req):
             data['file'] = t.File.url
         if t.retwit:
             data['retwit'] = {
-                'id': t.reply_to.id,
-               'text': 'sdfsdfsf',
+               'id': t.reply_to.id,
+               'text': t.reply_to.text.decode(),
                'username': t.reply_to.user.username,
                'fullname': t.reply_to.user.name.decode(),
                'currency': t.reply_to.currency
@@ -56,3 +56,5 @@ def last_twits(req):
     print(datas[-1]['text'])
     return JsonResponse(datas, safe=False)
 
+def ajax(req):
+    return render(req, 'ajax.html')
