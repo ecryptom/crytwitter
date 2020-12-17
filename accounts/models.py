@@ -37,6 +37,6 @@ class user(AbstractUser):
     followings = models.ManyToManyField('user', related_name='followers') 
     first_name = None
     last_name = None
-    name = models.BinaryField(default=b'A')
+    name = models.BinaryField(default=b'')
     objects = UserManager()
 
