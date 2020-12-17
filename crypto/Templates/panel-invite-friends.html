@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <title>ارز توییت</title>
+    <link rel="stylesheet" href="{% static 'css/panel.min.css' %}"/>
+{% endblock header %}
+
+
+{% block page %}
+    <div class="page-wrapper">
+        <section class="panel">
+            <div class="container panel-container">
+                <div class="row panel-row">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 panel-right-col">
+                        <div class="panel-right">
+                            <div class="panel-right-profile">
+                                <img src="{% static 'img/default-user.jpg' %}" class="panel-right-profile-image" alt="" />
+                                <h2 class="panel-right-profile-heading-two">
+                                    مهدی صادقی
+                                </h2>
+                            </div>
+                            <ul class="panel-right-list">
+                                <li class="panel-right-item panel-right-item-active">
+                                    <a href="panel-invite-friends.html" class="panel-right-link">
+                                        <i class="fa fa-invite-friends panel-right-icon"></i>
+                                        داشبورد
+                                    </a>
+                                </li>
+                                <li class="panel-right-item">
+                                    <a href="#" class="panel-right-link">
+                                        <i class="fa fa-edit panel-right-icon"></i>
+                                        ویرایش اطلاعات شخصی
+                                    </a>
+                                </li>
+                                <li class="panel-right-item">
+                                    <a href="panel-change-password.html" class="panel-right-link">
+                                        <i class="fa fa-lock panel-right-icon"></i>
+                                        تغییر کلمه عبور
+                                    </a>
+                                </li>
+                                <li class="panel-right-item">
+                                    <a href="#" class="panel-right-link">
+                                        <i class="fa fa-shopping-cart panel-right-icon"></i>
+                                        سبد خريد
+                                    </a>
+                                </li>
+                                <li class="panel-right-item">
+                                    <a href="#" class="panel-right-link">
+                                        <i class="fa fa-users panel-right-icon"></i>
+                                        دعوت از دوستان
+                                    </a>
+                                </li>
+                                <li class="panel-right-item">
+                                    <a href="#" class="panel-right-link">
+                                        <i class="fa fa-sign-out panel-right-icon"></i>
+                                        خروج از حساب کاربری
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 panel-left-col">
+                        <div class="panel-left">
+                            <div class="panel-left-invite-friends">
+                                <div class="panel-left-invite-friends-header">
+                                    <h3 class="panel-left-invite-friends-header-heading-three">
+                                        دعوت از دوستان
+                                </div>
+                                <div class="panel-left-invite-friends-content">
+                                    <div class="panel-left-invite-friends-content-alert">
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
+                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        کاربردی می باشد.
+                                    </div>
+                                    <input id="uniqCode" type="hidden"
+                                        value="{{user.invite_code}}" />
+                                    <button class="panel-left-invite-friends-button" id="inviteFriendsButton">دریافت
+                                        لینک دعوت</button>
+                                    <p id="inviteFriendsText" class="panel-left-invite-friends-content-paragraph panel-left-invite-friends-content-paragraph-hidden">
+                                        لینک دعوت شما با موفقیت کپی شد.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+    </div>
+{% endblock page %}
+
+
+{% block scripts %}
+    <script>
+        let input = document.getElementById("uniqCode");
+        let btn = document.getElementById("inviteFriendsButton");
+        let text = document.getElementById("inviteFriendsText");
+        btn.addEventListener("click", function () {
+            navigator.clipboard.writeText(window.location.host + '/account/register/' + input.value);
+            text.classList.remove("panel-left-invite-friends-content-paragraph-hidden");
+        })
+    </script>
+{% endblock scripts %}

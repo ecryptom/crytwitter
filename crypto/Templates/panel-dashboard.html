@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <title>ارز توییت</title>
+    <link rel="stylesheet" href="{% static 'css/panel.min.css' %}"/>
+{% endblock header %}
+
+
+{% block page %}
+    <div class="page-wrapper">
+        <section class="panel">
+            <div class="container panel-container">
+                <div class="row panel-row">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 panel-right-col">
+                        <div class="panel-right">
+                            <div class="panel-right-profile">
+                                <img src="{{user.image.url}}" class="panel-right-profile-image" alt="{{user.name}}" />
+                                <h2 class="panel-right-profile-heading-two">
+                                    {{user.name.decode}}
+                                </h2>
+                            </div>
+                                <ul class="panel-right-list">
+                                    <li class="panel-right-item panel-right-item-active">
+                                        <a href="{% url 'dashboard' %}" class="panel-right-link">
+                                            <i class="fa fa-dashboard panel-right-icon"></i>
+                                            داشبورد
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="#" class="panel-right-link">
+                                            <i class="fa fa-edit panel-right-icon"></i>
+                                            ویرایش اطلاعات شخصی
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="panel-change-password.html" class="panel-right-link">
+                                            <i class="fa fa-lock panel-right-icon"></i>
+                                            تغییر کلمه عبور
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="#" class="panel-right-link">
+                                            <i class="fa fa-shopping-cart panel-right-icon"></i>
+                                           سبد خريد
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="#" class="panel-right-link">
+                                            <i class="fa fa-users panel-right-icon"></i>
+                                           دعوت از دوستان
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="#" class="panel-right-link">
+                                            <i class="fa fa-sign-out panel-right-icon"></i>
+                                            خروج از حساب کاربری
+                                        </a>
+                                    </li>
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 panel-left-col">
+                            <div class="panel-left">
+                                <div class="panel-left-dashboard">
+                                    <div class="panel-left-dashboard-header">
+                                        <h3 class="panel-left-dashboard-header-heading-three">
+                                         داشبورد
+                                        </h3>
+                                    </div>
+                                    <div class="panel-left-dashboard-content">
+                                        <ul class="panel-left-dashboard-content-list">
+                                            <li class="panel-left-dashboard-content-item">
+                                                <img src="{{user.image.url}}" class="panel-left-dashboard-content-image" alt="مهدي صادقي" />
+                                            </li>
+                                            <li class="panel-left-dashboard-content-item">
+                                                نام كاربري:
+                                                {{user.username}}
+                                           </li>
+                                           <li class="panel-left-dashboard-content-item">
+                                            امتياز:
+                                            {{user.score}}
+                                            </li>
+                                            <li class="panel-left-dashboard-content-item">
+                                                ايميل : 
+                                                {{user.email}}
+                                            </li>
+                                            <li class="panel-left-dashboard-content-item">
+                                                نام و نام خانوادگي:
+                                                {{user.name.decode}}
+                                            </li>
+                                            <li class="panel-left-dashboard-content-item">
+                                                شماره همراه:
+                                                {{user.phone}}
+                                            </li>
+                                            <li class="panel-left-dashboard-content-item">
+                                                تاریخ عضویت:
+                                                {{user.shamsi_joined_date}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+{% endblock page %}
+
+ 

@@ -1,16 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from string import ascii_letters
+from utils.date_convertor import gregorian_to_shamsi
+from django.utils import timezone
 import random
 
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
-    def create_user(self, username, phone, email, password, name=None):
-        email = self.normalize_email(email)
+    def create_user(self, username, phone, password, name, introducer):
         invite_code = ''.join(random.choice(ascii_letters) for i in range(10))
-        User = self.model(username=username, phone=phone, email=email, invite_code=invite_code, name=name)
+        while user.objects.filter(invite_code=invite_code):
+            invite_code = ''.join(random.choice(ascii_letters) for i in range(10))
+        User = self.model(username=username, phone=phone, invite_code=invite_code, name=name)
         User.set_password(password)
+        User.introducer = introducer
+        User.shamsi_joined_date = gregorian_to_shamsi(timezone.now())
         User.save(using=self._db)
         return User
     def create_superuser(self, username , password):
@@ -29,14 +34,15 @@ class user(AbstractUser):
     email = models.EmailField(null=True, blank=True)
     verified_email = models.BooleanField(default=False)
     verify_code = models.IntegerField(null=True, blank=True)
-    verify_code_time = models.DateTimeField(auto_now=True)
+    verify_code_time = models.DateTimeField(null=True, blank=True)
     invite_code = models.CharField(max_length=10, unique=True)
-    introducer = models.ForeignKey('user', null=True, blank=True,related_name='invited_set' , on_delete=models.PROTECT)
+    introducer = models.ForeignKey('user', null=True, blank=True,related_name='invited_set' , on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='profiles', default='profiles/none.png') 
+    image = models.ImageField(upload_to='profiles', default='profiles/default-user.jpg') 
     followings = models.ManyToManyField('user', related_name='followers') 
     first_name = None
     last_name = None
     name = models.BinaryField(default=b'')
+    shamsi_joined_date = models.CharField(max_length=11, null=True)
     objects = UserManager()
 

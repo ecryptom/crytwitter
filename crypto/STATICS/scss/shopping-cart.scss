@@ -1,0 +1,60 @@
+@import "colors";
+@import "mixin";
+
+.page-wrapper{
+    margin: 60px 0;
+}
+
+.shopping-cart{
+    .shopping-cart-table{
+        text-align: center;
+        color: $color-primary-two;
+        .shopping-cart-table-header{
+            background-color: lighten($color:$color-primary-one, $amount: 10%);
+            color: $color-white;
+            .shopping-cart-table-row{
+                .shopping-cart-table-heading{
+                    font-size: 16px;
+                }
+            }
+        }
+        .shopping-cart-table-content{
+            .shopping-cart-table-row{
+                .shopping-cart-table-data{
+                    font-size: 14px;
+                    .shopping-cart-table-link{
+                        font-size: 13px;
+                        margin:0 5px;
+                        transition: all ease .3s;
+                        cursor: pointer;
+                        &:first-child{
+                        color: $color-red;
+                        }
+                        &:last-child{
+                            color: $color-green;
+                            }
+                        .shopping-cart-table-icon{
+                            vertical-align: middle;
+                        }
+                    }
+                    .shopping-cart-table-count{
+                        vertical-align: middle;
+                        font-size: 16px;
+                        color: $color-secondary-dark;
+                    }
+                }
+            }
+        }
+        .shopping-cart-table-footer{
+            text-align: center;
+        }
+    }
+    .shopping-cart-link{
+        @include Button5($color-primary-one, 20px);
+        padding: 12px 25px;
+        text-align: center;
+        width: 50%;
+        margin: 50px auto;
+    }
+}
+

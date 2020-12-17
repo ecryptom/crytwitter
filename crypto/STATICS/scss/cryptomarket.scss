@@ -1,0 +1,19 @@
+@import "colors";
+@import "units";
+@import "mixin";
+
+.page-wrapper{
+    margin: 60px auto;
+}
+
+.cryptomarket{
+    .cryptomarket-heading-two{
+        @include MainTitle($color-primary-one,$color-primary-two);
+        font-size: 25px;
+        margin-bottom: 40px;
+    }
+    .cryptomarket-frame{
+        width: 100%;
+        height: 500px;
+    }
+}

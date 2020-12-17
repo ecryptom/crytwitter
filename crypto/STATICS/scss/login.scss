@@ -1,0 +1,132 @@
+@import "colors";
+@import "units";
+@import "mixin";
+
+.page-wrapper {
+    margin: 60px 0;
+}
+.login {
+    .login-container {
+        position: relative;
+    }
+
+    .login-left-col {
+        padding-right: 0;
+        background-image:url('../img/login-register.jpg');
+        background-repeat: no-repeat;
+        background-position: top right;
+    }
+
+    .login-right-col {
+        padding-left: 0;
+        background-color: $color-white;
+
+    }
+
+    .login-image {
+        position: absolute;
+        top: -30px;
+        left: calc(50% - 30px);
+        right: calc(50% - 30px);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        z-index: 2;
+    }
+
+  
+
+    .login-right {
+        padding: 50px 0;
+        border-radius: 0 5px 5px 0;
+
+        .login-right-heading-two {
+            @include MainTitle($color-primary-one,$color-primary-two);
+            font-size: 25px;
+        }
+
+        .login-right-input-group {
+            margin: 30px auto;
+
+            .login-right-input-wrapper {
+                width: 80%;
+                margin: auto;
+                position: relative;
+
+                .login-right-input {
+                    width: 100%;
+                    padding: 30px 10px 10px;
+                    border-bottom: 1px solid $color-secondary;
+                    transition: all ease .5s;
+
+                    &:focus {
+                        border-bottom: 1px solid $color-primary-one;
+                        &+.login-right-icon{
+                            transform: rotate(360deg);
+                            color: $color-primary-one;
+                        }
+                    }
+      
+                }
+                .login-right-icon{
+                    position: absolute;
+                    top: 60%;
+                    left: 0;
+                    transition: all ease 1s;
+                }
+            }
+
+            .login-right-submit {
+                @include Button5($color-primary-one, 20px);
+                padding: 12px 25px;
+                text-align: center;
+                width: 70%;
+                margin: auto;
+            }
+        }
+
+        .login-right-anchors {
+            text-align: right;
+            width: 80%;
+            margin: auto;
+            margin-bottom: 100px;
+
+            .login-right-link {
+                margin: 30px auto;
+                color: $color-secondary;
+                transition: all ease .5s;
+
+                &:first-child {
+                    float: right;
+                }
+
+                &:last-child {
+                    float: left;
+                }
+
+                &:hover {
+                    color: $color-primary-one;
+
+                }
+            }
+        }
+    }
+
+    .login-left {
+        padding: 50px 0;
+        .login-left-heading-two {
+            color: $color-white;
+            font-size: 22px;
+            text-align: center;
+        }
+    }
+}
+
+@media only screen and (max-width:992px){
+    .login-right-col{
+        order: 2;
+    }
+    .login-left-col{
+        order: 1;
+    }
+}

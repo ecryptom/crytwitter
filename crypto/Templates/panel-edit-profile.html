@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <title>ارز توییت</title>
+    <link rel="stylesheet" href="{% static 'css/panel.min.css' %}"/>
+{% endblock header %}
+
+
+{% block page %}
+    <div class="page-wrapper">
+        <section class="panel">
+            <div class="container panel-container">
+                <div class="row panel-row">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 panel-right-col">
+                        <div class="panel-right">
+                            <div class="panel-right-profile">
+                                <img src="{% static 'img/default-user.jpg' %}" class="panel-right-profile-image" alt="" />
+                                <h2 class="panel-right-profile-heading-two">
+                                    مهدی صادقی
+                                </h2>
+                            </div>
+                                <ul class="panel-right-list">
+                                    <li class="panel-right-item">
+                                        <a href="panel-dashboard.html" class="panel-right-link">
+                                            <i class="fa fa-dashboard panel-right-icon"></i>
+                                            داشبورد
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item panel-right-item-active">
+                                        <a href="#" class="panel-right-link">
+                                            <i class="fa fa-edit panel-right-icon"></i>
+                                            ویرایش اطلاعات شخصی
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="panel-edit-profile.html" class="panel-right-link">
+                                            <i class="fa fa-lock panel-right-icon"></i>
+                                            تغییر کلمه عبور
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="#" class="panel-right-link">
+                                            <i class="fa fa-shopping-cart panel-right-icon"></i>
+                                           سبد خريد
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="#" class="panel-right-link">
+                                            <i class="fa fa-users panel-right-icon"></i>
+                                           دعوت از دوستان
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="#" class="panel-right-link">
+                                            <i class="fa fa-sign-out panel-right-icon"></i>
+                                            خروج از حساب کاربری
+                                        </a>
+                                    </li>
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 panel-left-col">
+                            <div class="panel-left">
+                                <div class="panel-left-edit-profile">
+                                    <div class="panel-left-edit-profile-header">
+                                        <h3 class="panel-left-dashboard-header-heading-three">
+                                         ویرایش اطلاعات کاربری
+                                        </h3>
+                                    </div>
+                                    <div class="panel-left-edit-profile-content">
+                                        <div class="panel-left-edit-profile-content-alert">
+                                            توجه: شما هنوز ایمیل خود را وارد نکرده اید.لطفاً پس از وارد کردن ایمیل خود،آن را تایید نمایید.
+                                        </div>
+                                        <form action="" method="" class="panel-left-edit-profile-content-form">
+                                            <div class="panel-left-edit-profile-content-input-group">
+                                                <label class="panel-left-edit-profile-content-label">پست الکترونیک</label>
+                                                <input type="text" class="panel-left-edit-profile-content-input" />
+                                            </div>
+                                            <div class="panel-left-edit-profile-content-input-group">
+                                                <label class="panel-left-edit-profile-content-label">نام و نام خانوادگی:</label>
+                                                <input type="text" class="panel-left-edit-profile-content-input" value="مهدی صادقی" />
+                                            </div>
+                                            <div class="panel-left-edit-profile-content-input-group">
+                                                <label for="profile" class="panel-left-edit-profile-content-label-file">
+                                                انتخاب عکس
+                                                </label>
+                                                <input type="file" class="panel-left-edit-profile-content-input-file" id="profile" />
+                                            </div>
+                                            <div class="panel-left-edit-profile-content-input-group">
+                                                <button type="submit" class="panel-left-edit-profile-content-submit">اعمال تغييرات</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+{% endblock page %}
+
