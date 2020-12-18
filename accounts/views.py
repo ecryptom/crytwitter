@@ -3,6 +3,9 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.http import JsonResponse
+from django.core.mail import send_mail
+from crypto import settings
+from django.template.loader import render_to_string
 import random, requests
 from .models import user
 
@@ -81,49 +84,38 @@ def register(req, invite_code=''):
         User.save()
         try:
             requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={sms_text(User.verify_code)}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
-            return render(req, 'verify.html', {'type':'phone', 'phone':User.phone})
+            return render(req, 'verify.html', {'phone':User.phone, 'seconds':119})
         except:
             data.update({'error':'شماره تلفن نادرست است!'})
             return render(req, 'register.html', data)
 
 
 def verify_code(req):
-    #verify phone
-    if req.POST['type'] == 'phone':
-        User = user.objects.get(phone=req.POST.get('phone'))
-        #check verification code
-        if (timezone.now()-User.verify_code_time).total_seconds()>120:
-            return render(req, 'verify.html', {'type':'resend_phone', 'phone': User.phone, 'error': 'زمان وارد کردن کد تایید بیش از حد مجاز'})
-        if req.POST.get('verification_code') != str(User.verify_code):
-            return render(req, 'verify.html', {'type':'phone', 'phone': User.phone, 'error': 'کد تایید اشتباه است'})
-        User.verified_phone = True
-        User.save()
-        auth.login(req, User) 
-        return redirect('home')
-    #verify email
-    if req.POST['type'] == 'email':
-        User = req.user
-        #check verification code
-        if req.POST.get('verification_code') != str(User.verify_code):
-            return render(req, 'verify.html', {'type':'email', 'email': User.email, 'error': 'کد تایید اشتباه است'})
-        if (timezone.now()-User.verify_code_time).total_seconds()>120:
-            return render(req, 'verify.html', {'type':'resend_email', 'email': User.phone, 'error': 'زمان وارد کردن کد تایید بیش از حد مجاز'})
-        User.verified_email = True
-        User.save()
-        return render('home.html')
+    User = user.objects.get(phone=req.POST.get('phone'))
+    #check verification code
+    if (timezone.now()-User.verify_code_time).total_seconds()>120:
+        return render(req, 'verify.html', {'phone': User.phone, 'error': 'زمان وارد کردن کد تایید بیش از حد مجاز', 'seconds':0})
+    if req.POST.get('verification_code') != str(User.verify_code):
+        return render(req, 'verify.html', {'phone': User.phone, 'error': 'کد تایید اشتباه است', 'seconds':int(119-(timezone.now()-User.verify_code_time).total_seconds())})
+    User.verified_phone = True
+    User.save()
+    auth.login(req, User) 
+    return redirect('home')
+    
 
 
 def resend_phone_code(req):
-    User = user.objects.get(phone=req.POST.get('phone'))
+    User = user.objects.get(phone=req.GET.get('phone'))
     User.verify_code = random.randint(10000, 99999)
     User.verify_code_time = timezone.now()
     User.save()
     try:
         text = f'arztwitter verification code: {User.verify_code}'
         requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={text}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
-        return render(req, 'verify.html', {'type':'phone', 'phone': User.phone})
+        return render(req, 'verify.html', {'phone': User.phone, 'seconds':119})
     except:
-        return render(req, 'register.html')
+        return JsonResponse({'status':'failed'})
+
 
 
 @login_required(login_url='login')
@@ -145,8 +137,29 @@ def change_pass(req):
 
 @login_required(login_url='login')
 def edit_profile(req):
-    if method == 'GET':
+    if req.method == 'GET':
+        message = render_to_string('emails/email_verification.html', {'baseurl':settings.BASE_URL, 'username':req.user.username, 'session':req.user.get_session_auth_hash()})
+        print(message)
+        send_mail(
+        subject='verify',
+        message='',
+        html_message=message,
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=['mr.mirshamsi.78@gmail.com']
+    )
         return render(req, 'panel-edit-profile.html')
+
+
+def verify_email(req):
+    try:
+        User = user.objects.get(username=req.GET.get('username'))
+        if User.get_session_auth_hash() == req.GET.get('session'):
+            User.verified_email = True
+            User.save()
+        return redirect('home')
+    except:
+        return redirect('home')
+        
 
 @login_required(login_url='login')
 def invite_friends(req):

@@ -1,263 +1,13 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block header %}
     <title>ارز توییت</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'css/main.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/product.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}" />
-
-</head>
+{% endblock header %}
 
 
-<body>
-    <!-- START PRELOADER -->
-    <!-- <div class="preloader">
-        <ul class="preloader-list">
-            <li class="preloader-item"></li>
-            <li class="preloader-item"></li>
-            <li class="preloader-item"></li>
-            <li class="preloader-item"></li>
-            <li class="preloader-item"></li>
-        </ul>
-    </div> -->
-    <!-- END PRELOADER -->
-
-  <!-- START HEADER -->
-  <header class="header" id="header">
-    <div class="header-large ">
-        <div class="container header-container">
-            <div class="row header-row">
-                <div class="col-lg-2 col-xl-1 logo-col wow animate__animated animate__jello"
-                    data-wow-duration="1.5s">
-                    <div class="logo">
-                        <a href="#" class="logo-link">
-                            <img src="{% static 'img/logo.png' %}" class="logo-image" />
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-xl-8 main-menu-col">
-                    <nav class="main-menu">
-                        <ul class="main-menu-list">
-                            <li class="main-menu-item main-menu-item-active">
-                                <a href="#" class="main-menu-link">
-                                    خانه
-                                </a>
-                            </li>
-                            <li class="main-menu-item">
-                                <a href="#" class="main-menu-link">
-                                    توئیت
-                                </a>
-                            </li>
-                            <li class="main-menu-item">
-                                <a href="#" class="main-menu-link">
-                                    رمز ارزها
-                                </a>
-                            </li>
-                            <li class="main-menu-item">
-                                <a href="#" class="main-menu-link">
-                                    نقشه بازار
-                                </a>
-                            </li>
-                            <li class="main-menu-item">
-                                <a href="#" class="main-menu-link">
-                                    دیده بان
-                                </a>
-                            </li>
-                            <li class="main-menu-item main-submenu">
-                                <a href="#" class="main-menu-link">
-                                    محصولات
-                                </a>
-                                <ul class="main-submenu-list">
-                                    <li class="main-submenu-item">
-                                        <a href="#" class="main-submenu-link">
-                                            وی پی ان
-                                        </a>
-                                    </li>
-                                    <li class="main-submenu-item">
-                                        <a href="#" class="main-submenu-link">
-                                            محصولات آموزشی
-                                        </a>
-                                    </li>
-                                    <li class="main-submenu-item">
-                                        <a href="#" class="main-submenu-link">
-                                            سیگنال
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="main-menu-item">
-                                <a href="#" class="main-menu-link">
-                                    مقالات
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- <div class="col-lg-3 col-xl-3 login-register-col">
-                    <div class="login-register">
-                        <i class="fa fa-user login-register-icon"></i>
-                        <a href="login-register.html" class="login-register-link">
-                            <span class="login-register-span">ورود</span>
-                        </a>
-                        <span class="login-register-span">|</span>
-                        <a href="login-register.html" class="login-register-link">
-                            <span class="login-register-span">ثبت نام</span>
-                        </a>
-                    </div>
-                </div> -->
-                <div class="col-lg-3 col-xl-3 account-col">
-                    <div class="account">
-                        <div class="account-panel">
-                            <div class="account-panel-collapse" id="account-collapse">
-                                <button class="account-panel-collapse-button" id="account-button">
-                                    <img src="{% static 'img/default-user.jpg' %}" class="account-panel-collapse-image" />
-                                </button>
-                            </div>
-                            <div class="account-panel-content" id="account-content">
-                                <ul class="account-panel-content-list">
-                                    <li class="account-panel-content-item">
-                                        MohammadRezaSohrabi
-                                        <br>
-                                        عزيز،خوش آمدي!
-                                    </li>
-                                    <li class="account-panel-content-item">
-                                        ورود به پنل كاربري
-                                    </li>
-                                    <li class="account-panel-content-item">
-                                        امتیاز شما : 80
-                                    </li>
-                                    <li class="account-panel-content-item">
-                                        خروج از حساب كاربري
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="account-cart">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="header-medium">
-        <div class="container header-container">
-            <div class="row header-row">
-                <div class="col-3 col-sm-4 col-md-4">
-                    <nav class="responsive-menu" id="responsiveMenu">
-                        <div class="responsive-menu-header">
-                            <img src="{% static 'img/logo.png' %}" class="responsive-menu-header-image" />
-                            <button class="responsive-menu-header-button" id="closeNav">
-                                <i class="fa fa-times responsive-menu-header-icon"></i>
-                            </button>
-                        </div>
-                        <div class="responsive-menu-content">
-                            <ul class="responsive-menu-content-list">
-                                <li class="responsive-menu-content-item">
-                                    <a href="#" class="responsive-menu-content-link">خانه</a>
-                                </li>
-                                <li class="responsive-menu-content-item">
-                                    <a href="#" class="responsive-menu-content-link">توییت</a>
-                                </li>
-                                <li class="responsive-menu-content-item">
-                                    <a class="responsive-menu-content-link">رمزارزها</a>
-                                </li>
-                                <li class="responsive-menu-content-item">
-                                    <a href="#" class="responsive-menu-content-link">نقشه بازار</a>
-                                </li>
-                                <li class="responsive-menu-content-item">
-                                    <a href="#" class="responsive-menu-content-link">دیده بان</a>
-                                </li>
-                                <li class="responsive-menu-content-item responsive-submenu-content">
-                                    <a href="#" class="responsive-menu-content-link">محصولات</a>
-                                    <ul class="responsive-submenu-content-list">
-                                        <li class="responsive-submenu-content-item">
-                                            <a class="responsive-submenu-content-link">وی پی ان</a>
-                                        </li>
-                                        <li class="responsive-submenu-content-item">
-                                            <a class="responsive-submenu-content-link">محصولات آموزشی</a>
-                                        </li>
-                                        <li class="responsive-submenu-content-item">
-                                            <a class="responsive-submenu-content-link">سیگنال</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="responsive-menu-content-item">
-                                    <a href="#" class="responsive-menu-content-link">مقالات</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <div class="responsive-menu-overlay" id="overlay"></div>
-                    <button class="responsive-menu-button" id="openNav">
-                        <i class="fa fa-bars responsive-menu-icon"></i>
-                    </button>
-                </div>
-                <div class="col-4 col-sm-4 col-md-4">
-                    <div class="logo">
-                        <a href="#" class="logo-link">
-                            <img src="{% static 'img/logo.png' %}" class="logo-image" />
-                        </a>
-                    </div>
-                </div>
-                <!-- <div class="col-5 col-sm-4 col-md-4">
-                    <div class="login-register">
-                        <i class="fa fa-user login-register-icon"></i>
-                        <a href="login-register.html" class="login-register-link">
-                            <span class="login-register-span">ورود</span>
-                        </a>
-                        <span class="login-register-span">|</span>
-                        <a href="login-register.html" class="login-register-link">
-                            <span class="login-register-span">ثبت نام</span>
-                        </a>
-                    </div>
-                </div> -->
-                <div class="col-5 col-sm-4 col-md-4 account-col">
-                    <div class="account">
-                        <div class="account-panel">
-                            <div class="account-panel-collapse" id="account-collapse">
-                                <button class="account-panel-collapse-button" id="account-button">
-                                    <img src="{% static 'img/default-user.jpg' %}" class="account-panel-collapse-image" />
-                                </button>
-                            </div>
-                            <div class="account-panel-content" id="account-content">
-                                <ul class="account-panel-content-list">
-                                    <li class="account-panel-content-item">
-                                        Mohammad
-                                        <br>
-                                        عزيز،خوش آمدي!
-                                    </li>
-                                    <li class="account-panel-content-item">
-                                        ورود به پنل كاربري
-                                    </li>
-                                    <li class="account-panel-content-item">
-                                        امتیاز شما : 80
-                                    </li>
-                                    <li class="account-panel-content-item">
-                                        خروج از حساب كاربري
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="account-cart">
-                            <a href="" class="account-cart-link">
-                                <span class="account-cart-count">0</span>
-                                <i class="fa fa-shopping-cart account-cart-icon"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<!-- END HEADER -->
-
+{% block page %}
     <div class="page-wrapper">
         <section class="product">
             <div class="container product-container">
@@ -265,18 +15,18 @@
                     <div class="row  product-features-row">
                         <div class="col-12 col-sm-12 col-md-8 col-lg-7 col-xl-8 product-features-details-col">
                             <div class="product-features-details">
-                                <h1 class="product-features-details-heading-one">عنوان تستی محصول در اینجا قرار می گیرد
+                                <h1 class="product-features-details-heading-one">{{product.name.decode}}
                                 </h1>
-                                <p class="product-features-details-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد
+                                <p class="product-features-details-paragraph">{{product.details.decode}}
                                 </p>
                                 <div class="product-features-details-price">
                                     <span class="product-features-details-price-title">قیمت :</span>
-                                    <span class="product-features-details-price-value">180000 تومان</span>
-                                    <span class="product-features-details-price-value">162000 تومان</span>
-                                    <span class="product-features-details-price-percent">10 درصد تخفیف</span>
+                                    <span class="product-features-details-price-value">{{product.price}} تومان</span>
+                                    <span class="product-features-details-price-value">{{product.net_price}} تومان</span>
+                                    <span class="product-features-details-price-percent">{{product.off}} درصد تخفیف</span>
                                 </div>
                                 <div class="product-features-details-add-to-cart">
-                                    <a href="#" class="product-features-details-add-to-cart-link">
+                                    <a href="{% url 'add_product_to_cart' product.id %}" class="product-features-details-add-to-cart-link">
                                         <svg class="product-features-details-add-to-cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                             <path d="M121.263 390.737c-11.144 0-20.21-9.065-20.21-20.21V87.578c0-33.433-27.2-60.633-60.633-60.633H0v40.42h40.42c11.145 0 20.212 9.067 20.212 20.212v282.946c0 33.434 27.2 60.632 60.632 60.632h336.842v-40.42H121.263zM154.947 431.158c-14.86 0-26.947 12.09-26.947 26.947s12.09 26.947 26.947 26.947 26.947-12.09 26.947-26.947-12.088-26.947-26.947-26.947zM384 431.158c-14.86 0-26.947 12.09-26.947 26.947s12.09 26.947 26.947 26.947c14.86 0 26.947-12.09 26.947-26.947S398.86 431.158 384 431.158z"></path>
                                             <path d="M141.474 114.526v87.58h343.158L512 114.525M141.474 242.526v87.58h303.158l27.37-87.58"></path>
@@ -289,26 +39,26 @@
                         <div class="col-12 col-sm-12 col-md-4 col-lg-5 col-xl-4 product-features-picture-col">
                             <div class="product-features-picture">
                                 <div class=" product-features-picture-main">
-                                    <img id="productImage" src="{% static 'pic/product-1.png' %}"
+                                    <img id="productImage" src="{{product.image1.url}}"
                                         class="product-features-picture-main-image" alt="" />
                                 </div>
                                 <div class="product-features-picture-gallery">
                                     <div class="swiper-container product-features-picture-gallery-swiper-container">
                                         <div class="swiper-wrapper product-features-picture-gallery-swiper-wrapper">
                                             <div class="swiper-slide product-features-picture-gallery-swiper-slide">
-                                                <img src="{% static 'pic/product-1.png' %}"
+                                                <img src="{{product.image1.url}}"
                                                     class="product-features-picture-gallery-image" alt="" />
                                             </div>
                                             <div class="swiper-slide product-features-picture-gallery-swiper-slide">
-                                                <img src="{% static 'pic/product-2.png' %}"
+                                                <img src="{{product.image2.url}}"
                                                     class="product-features-picture-gallery-image" alt="" />
                                             </div>
                                             <div class="swiper-slide product-features-picture-gallery-swiper-slide">
-                                                <img src="{% static 'pic/product-1.png' %}"
+                                                <img src="{{product.image3.url}}"
                                                     class="product-features-picture-gallery-image" alt="" />
                                             </div>
                                             <div class="swiper-slide product-features-picture-gallery-swiper-slide">
-                                                <img src="{% static 'pic/product-2.png' %}"
+                                                <img src="{{product.image1.url}}"
                                                     class="product-features-picture-gallery-image" alt="" />
                                             </div>
                                         </div>
@@ -324,7 +74,7 @@
                 </div>
                 <div class="product-description">
                     <p>
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                        {{product.details.decode}}
                     </p>
                 </div>
                 <div class="product-tags">
@@ -332,15 +82,11 @@
                         برچسب ها
                     </h5>
                     <ul class="product-tags-list">
-                        <li class="product-tags-item">
-                            ارز دیجیتال
-                        </li>
-                        <li class="product-tags-item">
-                            بیت کوین
-                        </li>
-                        <li class="product-tags-item">
-                            بلاک چین
-                        </li>
+                        {% for tag in product.split_tags %}
+                            <li class="product-tags-item">
+                                {{tag}}
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="product-comments">
@@ -348,193 +94,38 @@
                         <h5 class="product-comments-send-heading-five">
                           دیدگاه خود را با ما به اشتراک بگذارید
                         </h5>
-                        <form action="" method="">
-                            <textarea placeholder="متن دیدگاه" class="product-comments-send-text-area"></textarea>
+                        <form action="{% url 'product_comment' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <textarea placeholder="متن دیدگاه" name="text" class="product-comments-send-text-area"></textarea>
                             <button type="submit" class="product-comments-send-submit"> ارسال دیدگاه</button>
                         </form>
                     </div>
                     <ul class="product-comments-list">
                         <li class="product-comments-item">
-                            <div class="product-comments-header">
-                                <div class="product-comments-header-right">
-                                    <img src="{% static 'img/default-user.jpg' %}"
-                                        class="product-comments-header-right-image" />
-                                </div>
-                                <div class="product-comments-header-left">
-                                    <span class="product-comments-header-left-name">مسعود
-                                        جهانی</span>
-                                    <span
-                                        class="product-comments-header-left-date">1397/05/02</span>
-                                </div>
-                            </div>
-                            <div class="product-comments-content">
-                                <p class="product-comments-content-paragraph">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                                    از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                    سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
-                                    متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
-                                    درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با
-                                    نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان
-                                    خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                    داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان
-                                    رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
-                                    پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                                </p>
-                            </div>
-                            <div class="product-comments-footer">
-                                <i class="fa fa-reply product-comments-footer-icon"></i>
-                            </div>   
                             <div class="product-comments-reply">
                                 <ul class="product-comments-reply-list">
-                                    <li class="product-comments-reply-item">
+                                    {% for comment in product.product_comment_set.all %}
+                                        <li class="product-comments-reply-item">
                                         <div class="product-comments-reply-header">
                                             <div class="product-comments-reply-header-right">
-                                                <img src="{% static 'img/default-user.jpg' %}"
+                                                <img src="{{comment.user.image.url}}"
                                                     class="product-comments-reply-header-right-image" />
                                             </div>
                                             <div class="product-comments-reply-header-left">
-                                                <span class="product-comments-reply-header-left-name">مسعود
-                                                    جهانی</span>
+                                                <span class="product-comments-reply-header-left-name">{{comment.user.name.decode}}</span>
                                                 <span
-                                                    class="product-comments-reply-header-left-date">1397/05/02</span>
+                                                    class="product-comments-reply-header-left-date">{{comment.shamsi_date}}</span>
                                             </div>
                                         </div>
                                         <div class="product-comments-reply-content">
                                             <p class="product-comments-reply-content-paragraph">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                                                از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                                سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
-                                                متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
-                                                درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با
-                                                نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان
-                                                خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                                داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان
-                                                رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
-                                                پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                                {{comment.text.decode | linebreaksbr}}
                                             </p>
                                         </div>
-                                    </li>
-                                    <li class="product-comments-reply-item">
-                                        <div class="product-comments-reply-header">
-                                            <div class="product-comments-reply-header-right">
-                                                <img src="{% static 'img/default-user.jpg' %}"
-                                                    class="product-comments-reply-header-right-image" />
-                                            </div>
-                                            <div class="product-comments-reply-header-left">
-                                                <span class="product-comments-reply-header-left-name">مسعود
-                                                    جهانی</span>
-                                                <span
-                                                    class="product-comments-reply-header-left-date">1397/05/02</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-comments-reply-content">
-                                            <p class="product-comments-reply-content-paragraph">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                                                از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                                سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
-                                                متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
-                                                درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با
-                                                نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان
-                                                خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                                داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان
-                                                رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
-                                                پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                                            </p>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                      
-                            </div>
-                        </li>
-                        <li class="product-comments-item">
-                            <div class="product-comments-header">
-                                <div class="product-comments-header-right">
-                                    <img src="{% static 'img/default-user.jpg' %}"
-                                        class="product-comments-header-right-image" />
-                                </div>
-                                <div class="product-comments-header-left">
-                                    <span class="product-comments-header-left-name">مسعود
-                                        جهانی</span>
-                                    <span
-                                        class="product-comments-header-left-date">1397/05/02</span>
-                                </div>
-                            </div>
-                            <div class="product-comments-content">
-                                <p class="product-comments-content-paragraph">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                                    از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                    سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
-                                    متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
-                                    درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با
-                                    نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان
-                                    خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                    داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان
-                                    رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
-                                    پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                                </p>
-                            </div>
-                            <div class="product-comments-footer">
-                                <i class="fa fa-reply product-comments-footer-icon"></i>
-                            </div>   
-                            <div class="product-comments-reply">
-                                <ul class="product-comments-reply-list">
-                                    <li class="product-comments-reply-item">
-                                        <div class="product-comments-reply-header">
-                                            <div class="product-comments-reply-header-right">
-                                                <img src="{% static 'img/default-user.jpg' %}"
-                                                    class="product-comments-reply-header-right-image" />
-                                            </div>
-                                            <div class="product-comments-reply-header-left">
-                                                <span class="product-comments-reply-header-left-name">مسعود
-                                                    جهانی</span>
-                                                <span
-                                                    class="product-comments-reply-header-left-date">1397/05/02</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-comments-reply-content">
-                                            <p class="product-comments-reply-content-paragraph">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                                                از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                                سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
-                                                متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
-                                                درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با
-                                                نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان
-                                                خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                                داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان
-                                                رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
-                                                پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="product-comments-reply-item">
-                                        <div class="product-comments-reply-header">
-                                            <div class="product-comments-reply-header-right">
-                                                <img src="{% static 'img/default-user.jpg' %}"
-                                                    class="product-comments-reply-header-right-image" />
-                                            </div>
-                                            <div class="product-comments-reply-header-left">
-                                                <span class="product-comments-reply-header-left-name">مسعود
-                                                    جهانی</span>
-                                                <span
-                                                    class="product-comments-reply-header-left-date">1397/05/02</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-comments-reply-content">
-                                            <p class="product-comments-reply-content-paragraph">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                                                از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                                سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
-                                                متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
-                                                درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با
-                                                نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان
-                                                خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                                داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان
-                                                رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
-                                                پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
                             </div>
                         </li>
                     </ul>
@@ -542,97 +133,9 @@
             </div>
         </section>
     </div>
-    <!-- START FOOTER -->
-    <footer class="footer" id="footer">
-        <div class="footer-top">
-            <div class="container footer-container">
-                <div class="row footer-top-row">
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-right-col">
-                        <div class="footer-right">
-                            <img src="{% static 'img/logo.png' %}" class="footer-right-image" alt="ارز توییت" />
-                            <p class="footer-right-paragraph">
-                                رمز ارز شبکه هوشمند سرمایه گذاری است که تلاش دارد با ارائه خدمات مناسب،سرمایه گذاری را
-                                برای سرمایه گذاران آسان کند.سامانه معاملات آنلاین رمز ارز با همکاری کارگزاری تدبیرگران
-                                فردا راه اندازی شده است.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-center-col">
-                        <div class="footer-center">
-                            <h4 class="footer-center-heading-four">دسترسي سريع</h4>
-                            <ul class="footer-center-list">
-                                <li class="footer-center-item">
-                                    <a href="#" class="footer-center-link">
-                                        صفحه اصلي
-                                    </a>
-                                </li>
-                                <li class="footer-center-item">
-                                    <a href="#" class="footer-center-link">
-                                        توییت
-                                    </a>
-                                </li>
-                                <li class="footer-center-item">
-                                    <a href="#" class="footer-center-link">
-                                        محصولات
-                                    </a>
-                                </li>
-                                <li class="footer-center-item">
-                                    <a href="#" class="footer-center-link">
-                                        نقشه بازار
-                                    </a>
-                                </li>
-                                <li class="footer-center-item">
-                                    <a href="#" class="footer-center-link">
-                                        دیده بان
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-left-col">
-                        <div class="footer-left">
-                            <div class="footer-left-social-networks">
-                                <i class="fa fa-telegram footer-left-social-networks-icon"></i>
-                                <i class="fa fa-instagram footer-left-social-networks-icon"></i>
-                                <i class="fa fa-twitter footer-left-social-networks-icon"></i>
-                            </div>
-                            <div class="footer-left-contact">
-                                <h4 class="footer-left-contact-heading-four">ارتباط با ما</h4>
-                                <ul class="footer-left-contact-list">
-                                    <li class="footer-left-contact-item">
-                                        <i class="fas fa-map-marker-alt footer-left-contact-icon"></i>
-                                        <span class="footer-left-contact-span">تهران،امير آباد،خيابان ثاني</span>
-                                    </li>
-                                    <li class="footer-left-contact-item">
-                                        <i class="fas fa-phone footer-left-contact-icon"></i>
-                                        <span class="footer-left-contact-span">09125412130</span>
-                                    </li>
-                                    <li class="footer-left-contact-item">
-                                        <i class="fas fa-envelope footer-left-contact-icon"></i>
-                                        <span class="footer-left-contact-span">info@ramzarz.com</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p class="footer-bottom-paragraph">
-                <span class="footer-bottom-copyright">&copy;</span>
-                تمامی حقوق برای سایت ارز توییت محفوظ است و بازنشر محتوا با ذکر منبع بلامانع است.
-            </p>
-        </div>
-    </footer>
-    <!-- END FOOTER -->
+{% endblock page %}
 
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/poper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/main.min.js' %}"></script>
-    <script src="{% static 'js/swiper.min.js' %}"></script>
+
+{% block scripts %}
     <script src="{% static 'js/product.js' %}"></script>
-</body>
-
-</html>
+{% endblock scripts %}

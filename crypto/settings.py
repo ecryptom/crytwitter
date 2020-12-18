@@ -25,6 +25,8 @@ SECRET_KEY = 'v@$%6=5jyp6d_fa2p))mc@o2b$zhmxe9$o@u8_3lepr#$ggf)&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+BASE_URL = 'http://127.0.0.1:8000'
+
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'accounts.user'
@@ -150,3 +152,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'crypto/STATICS')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'crypto/MEDIA')
 MEDIA_URL = '/media/'
+
+
+#email informations
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mr.mirshamsi.7888@gmail.com'
+EMAIL_HOST_PASSWORD = 'jyqaqixyjzgjtrlg'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
