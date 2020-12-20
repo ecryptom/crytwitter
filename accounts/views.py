@@ -6,10 +6,11 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 from crypto import settings
 from django.template.loader import render_to_string
-import random, requests
+import random, requests, os
 from .models import user
 
 sms_text = lambda code : f'arztwitter verification code: {code}'
+sms_signature = os.getenv('sms_signature')
 
 
 def login(req):
@@ -83,7 +84,7 @@ def register(req, invite_code=''):
         User.verify_code_time = timezone.now()
         User.save()
         try:
-            requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={sms_text(User.verify_code)}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
+            requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={sms_text(User.verify_code)}&signature={sms_signature}')
             return render(req, 'verify.html', {'phone':User.phone, 'seconds':119})
         except:
             data.update({'error':'شماره تلفن نادرست است!'})

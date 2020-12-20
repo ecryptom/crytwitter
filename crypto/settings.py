@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v@$%6=5jyp6d_fa2p))mc@o2b$zhmxe9$o@u8_3lepr#$ggf)&'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,12 +91,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django', 
         #'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'crypto',
-        'USER': 'unipal_user',
-        'PASSWORD': '4420888024a',
-        'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
-        #'PORT': '5432'
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER_NAME'),
+        'PASSWORD': os.getenv('DATABASE_USER_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),   # Or an IP Address that your DB is hosted on
+        'PORT': os.getenv('DATABASE_PORT'),
     'OPTIONS':{
         'use_pure':True,
     }
@@ -148,16 +150,20 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'crypto/statics')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'crypto/STATICS')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'crypto/MEDIA')
 MEDIA_URL = '/media/'
 
+if os.getenv('on_host') == 'True':
+    STATIC_ROOT = os.getenv('STATIC_ROOT')
+    MEDIA_ROOT = os.getenv('MEDIA_ROOT')
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'crypto/STATICS')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'crypto/MEDIA')
 
 #email informations
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'mr.mirshamsi.7888@gmail.com'
-EMAIL_HOST_PASSWORD = 'jyqaqixyjzgjtrlg'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
