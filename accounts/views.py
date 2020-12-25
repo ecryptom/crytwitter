@@ -138,17 +138,39 @@ def change_pass(req):
 
 @login_required(login_url='login')
 def edit_profile(req):
+    User = req.user
     if req.method == 'GET':
-        message = render_to_string('emails/email_verification.html', {'baseurl':settings.BASE_URL, 'username':req.user.username, 'session':req.user.get_session_auth_hash()})
-        print(message)
-        send_mail(
-        subject='verify',
-        message='',
-        html_message=message,
-        from_email=settings.EMAIL_HOST_USER,
-        recipient_list=['mr.mirshamsi.78@gmail.com']
-    )
+        if User.email and not User.verified_email:
+            return render(req, 'panel-edit-profile.html', {'message': 'شما هنوز ایمیل خود را تایید نکرده اید', 'mode':'warning'})
+        if not User.email:
+            return render(req, 'panel-edit-profile.html', {'message': 'لطفا ایمیل خود را وارد کرده و آن را تایید نمایید', 'mode':'warning'})
         return render(req, 'panel-edit-profile.html')
+    #change name
+    User.name = req.POST['name'].encode()
+    #change image
+    if req.FILES.get('image'):
+        User.image = req.FILES.get('image')
+    User.save()
+    #change email
+    email = req.POST['email']
+    if email != req.user.email:
+        if '@' not in email or '.' not in email:
+            return render(req, 'panel-edit-profile.html', {'message': 'ایمیل نامعتبر است', 'mode':'danger'})
+        #send verification email
+        User.email = email
+        User.verified_email = False
+        User.save()
+        url = f'{settings.BASE_URL}/account/verify_email?username={req.user.username}&session={req.user.get_session_auth_hash()}'
+        message = render_to_string('emails/email_verification.html', {'url':url})
+        send_mail(
+            subject='verify',
+            message='',
+            html_message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=['mr.mirshamsi.78@gmail.com']
+        )
+        return render(req, 'panel-edit-profile.html', {'message': 'لطفا ایمیل خود را تایید کنید', 'mode':'info'})
+    return render(req, 'panel-edit-profile.html')
 
 
 def verify_email(req):

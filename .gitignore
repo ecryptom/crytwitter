@@ -1,8 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 migrations/
-/gallery/STATICS/
-/gallery/MEDIA/
+/crypto/STATICS/
+/crypto/MEDIA/
 *.py[cod]
 *$py.class
 
