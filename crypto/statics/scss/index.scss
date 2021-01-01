@@ -28,16 +28,19 @@ body {
     }
 
     .top-cryptocurrency-boxes {
-      @include IndexBox($color-boxes-index-background);
-
+      @include IndexBox($color-primary-two);
+      box-shadow: 1px 1px 12px rgba($color-black, .3), -1px 1px 12px rgba($color-black, .3), 1px -1px 12px rgba($color-black, .3), -1px -1px 12px rgba($color-black, .3);
       .top-cryptocurrency-boxes-brand {
         display: flex;
         align-items: center;
         justify-content: center;
         color: $color-white;
+        font-weight: bold !important;
 
         .top-cryptocurrency-boxes-brand-name {
           margin: 15px;
+font-weight: bold !important;
+
         }
       }
 
@@ -48,9 +51,12 @@ body {
         margin-top: 20px;
         color: $color-white;
         z-index: 55;
+        font-weight: bold !important;
 
         .top-cryptocurrency-boxes-price-value {
           font-size: 14px;
+font-weight: bold !important;
+
         }
       }
 
@@ -61,6 +67,7 @@ body {
         justify-content: center;
         align-items: center;
         z-index: 55;
+        font-weight: bold !important;
 
         .top-cryptocurrency-boxes-daily-value {
           color: $color-green;
@@ -101,14 +108,23 @@ body {
     text-align: center;
 
     .top-cryptocurrency-all-link {
-      @include Button1($color-boxes-index-background);
+      @include Button5($color-primary-two, 20px);
+      &:hover{
+        .top-cryptocurrency-all-icon{
+          right: 10px;
+        }
+      }
       padding: 15px 25px;
       text-align: center;
-      width: 70%;
+      width: 75%;
+      margin: 0 auto;
       font-size: 16px;
       .top-cryptocurrency-all-icon{
-        margin-left: 10px;
         display: inline-block;
+        transition: all ease .5s;
+        position: relative;
+        right: 0;
+        padding-right: 10px;
       }
     }
   }
@@ -134,7 +150,8 @@ body {
 
       .articles-boxes {
         text-align: center;
-        background-color: $color-boxes-index-background;
+        background-color: $color-primary-two;
+      box-shadow: 1px 1px 12px rgba($color-black, .3), -1px 1px 12px rgba($color-black, .3), 1px -1px 12px rgba($color-black, .3), -1px -1px 12px rgba($color-black, .3);
         transition: all ease .4s;
         user-select: none;
         border-radius: 0 0 $border-radius $border-radius;
@@ -173,7 +190,7 @@ body {
             transition: all ease .5s;
             font-weight: bold;
             &:hover{
-              color: $color-primary-two;
+              color: $color-primary-one;
             }
           }
 
@@ -290,8 +307,7 @@ body {
     margin-top: $margin-40;
 
     .statistics-boxes {
-      @include IndexBox($color-boxes-index-background);
-
+      @include IndexBox($color-primary-two);
       .statistics-boxes-image {
         width: 100%;
         height: 100px;
@@ -328,7 +344,7 @@ body {
   .common-questions-list {
     .common-questions-item {
       padding: $padding-10 $padding-20;
-      background: linear-gradient(-120deg, darken($color-boxes-index-background, 3%), lighten($color-boxes-index-background, 3%));
+      background: linear-gradient(-120deg, darken($color-primary-two, 2%), lighten($color-primary-two, 8%));
       border-radius: $border-radius;
       margin-top: $margin-20;
       box-shadow: $index-shadow;
@@ -347,12 +363,11 @@ body {
         }
 
         .common-questions-header-button {
-          color: $color-primary-one;
-          background-color: $color-white;
-          font-size: $font-size-14;
-          padding: 6px;
+          font-size: $font-size-18;
           border-radius: $border-radius;
           cursor: pointer;
+          color: $color-white;
+          background-color: transparent;
         }
       }
 
@@ -383,8 +398,8 @@ body {
     position: relative;
 
     .comments-boxes {
-      background-color: $color-boxes-index-background;
-      border-radius: $index-box-border-radius;
+      background-color: $color-primary-two;
+      border-radius: $border-radius;
       height: 320px;
       padding: $padding-5 $padding-30;
       user-select: none;

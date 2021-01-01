@@ -1,16 +1,11 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa-IR">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
+{% block header %}
+    <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/watch-list.min.css' %}">
 
-    <title>Document</title>
-<style>
+    <style>
     .bold{
         color: #222;
     }
@@ -74,103 +69,12 @@ text-align: center;
   color: #ffffff;
 }
 </style>
-</head>
 
-<body>
-      <!-- START HEADER -->
-      <header class="header" id="header">
-        <div class="header-large ">
-            <div class="container header-container">
-                <div class="row header-row">
-                    <div class="col-lg-2 col-xl-1 logo-col">
-                        <div class="logo"><a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}"
-                                    class="logo-image" /></a></div>
-                    </div>
-                    <div class="col-lg-7 col-xl-8 main-menu-col">
-                        <nav class="main-menu">
-                            <ul class="main-menu-list">
-                                <li class="main-menu-item main-menu-item-active"><a href="#" class="main-menu-link">خانه
-                                    </a></li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">توئیت </a></li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">رمز ارزها </a></li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">نقشه بازار </a></li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">دیده بان </a></li>
-                                <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات </a>
-                                    <ul class="main-submenu-list">
-                                        <li class="main-submenu-item"><a href="#" class="main-submenu-link">وی پی ان
-                                            </a></li>
-                                        <li class="main-submenu-item"><a href="#" class="main-submenu-link">محصولات
-                                                آموزشی </a></li>
-                                        <li class="main-submenu-item"><a href="#" class="main-submenu-link">سیگنال </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">مقالات </a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-lg-3 col-xl-3 login-register-col">
-                        <div class="login-register"><i class="fa fa-user login-register-icon"></i><a
-                                href="login-register.html" class="login-register-link"><span
-                                    class="login-register-title">ورود</span></a><span
-                                class="login-register-seprator">|</span><a href="login-register.html"
-                                class="login-register-link"><span class="login-register-title">ثبت نام</span></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="header-medium">
-            <div class="container header-container">
-                <div class="row header-row">
-                    <div class="col-4 col-sm-6 col-md-6">
-                        <nav class="responsive-menu" id="responsiveMenu">
-                            <div class="responsive-menu-header"><img src="{% static 'img/logo.png' %}"
-                                    class="responsive-menu-header-image" /><button class="responsive-menu-header-button"
-                                    id="closeNav"><i class="fa fa-times responsive-menu-header-icon"></i></button></div>
-                            <div class="responsive-menu-content">
-                                <ul class="responsive-menu-content-list">
-                                    <li class="responsive-menu-content-item"><a href="#"
-                                            class="responsive-menu-content-link">خانه</a></li>
-                                    <li class="responsive-menu-content-item"><a href="#"
-                                            class="responsive-menu-content-link">توییت</a></li>
-                                    <li class="responsive-menu-content-item"><a
-                                            class="responsive-menu-content-link">رمزارزها</a></li>
-                                    <li class="responsive-menu-content-item"><a href="#"
-                                            class="responsive-menu-content-link">نقشه بازار</a></li>
-                                    <li class="responsive-menu-content-item"><a href="#"
-                                            class="responsive-menu-content-link">دیده بان</a></li>
-                                    <li class="responsive-menu-content-item responsive-submenu-content"><a
-                                            class="responsive-menu-content-link">محصولات</a>
-                                        <ul class="responsive-submenu-content-list">
-                                            <li class="responsive-submenu-content-item"><a
-                                                    class="responsive-submenu-content-link">وی پی ان</a></li>
-                                            <li class="responsive-submenu-content-item"><a
-                                                    class="responsive-submenu-content-link">محصولات آموزشی</a></li>
-                                            <li class="responsive-submenu-content-item"><a
-                                                    class="responsive-submenu-content-link">سیگنال</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="responsive-menu-content-item"><a href="#"
-                                            class="responsive-menu-content-link">مقالات</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                        <div class="responsive-menu-overlay" id="overlay"></div><button class="responsive-menu-button"
-                            id="openNav"><i class="fa fa-bars responsive-menu-icon"></i></button>
-                    </div>
-                    <div class="col-8 col-sm-6 col-md-6">
-                        <div class="login-register"><i class="fa fa-user login-register-icon"></i><a
-                                href="login-register.html" class="login-register-link"><span
-                                    class="login-register-title">ورود</span></a><span
-                                class="login-register-seprator">|</span><a href="login-register.html"
-                                class="login-register-link"><span class="login-register-title">ثبت نام</span></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- END HEADER -->
+{% endblock header %}
+
+
+    
+{% block page %}
 
     <section class="watch-list">
   <div class="container">
@@ -180,10 +84,11 @@ text-align: center;
               لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
             </p>
           </div>
-        <form autocomplete="off" action="">
+        <form action="http://127.0.0.1:8000/sdf" method="POST" autocomplete="off">
+        {% csrf_token %}
         <div class="watch-list-search">
             <div class="watch-list-search-autocomplete">
-              <input id="autocompleteInput" type="text" class="watch-list-search-autocomplete-input"  placeholder="رمز ارز مورد نظر خود را جستجو کنید...">
+              <input id="autocompleteInput" name="crypto" type="text" class="watch-list-search-autocomplete-input"  placeholder="رمز ارز مورد نظر خود را جستجو کنید...">
             <button type="submit" class="watch-list-autocomplete-search-button">افزودن</button>
             </div>
         </div>
@@ -287,69 +192,11 @@ text-align: center;
 
     </section>
 
-        <!-- START FOOTER -->
-        <footer class="footer" id="footer">
-          <div class="footer-top">
-              <div class="container footer-container">
-                  <div class="row footer-top-row">
-                      <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-right-col">
-                          <div class="footer-right"><img src="{% static 'img/logo.png' %}" class="footer-right-image" alt="ارز توییت" />
-                              <p class="footer-right-paragraph">رمز ارز شبکه هوشمند سرمایه گذاری است که تلاش دارد با ارائه
-                                  خدمات مناسب،سرمایه گذاری را برای سرمایه گذاران آسان کند.سامانه معاملات آنلاین رمز ارز با
-                                  همکاری کارگزاری تدبیرگران فردا راه اندازی شده است. </p>
-                          </div>
-                      </div>
-                      <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-center-col">
-                          <div class="footer-center">
-                              <h4 class="footer-center-heading-four">دسترسي سريع</h4>
-                              <ul class="footer-center-list">
-                                  <li class="footer-center-item"><a href="#" class="footer-center-link">صفحه اصلي </a>
-                                  </li>
-                                  <li class="footer-center-item"><a href="#" class="footer-center-link">توییت </a></li>
-                                  <li class="footer-center-item"><a href="#" class="footer-center-link">رمز ارزها </a>
-                                  </li>
-                                  <li class="footer-center-item"><a href="#" class="footer-center-link">نقشه بازار </a>
-                                  </li>
-                                  <li class="footer-center-item"><a href="#" class="footer-center-link">دیده بان </a></li>
-                                  <li class="footer-center-item"><a href="#" class="footer-center-link">محصولات </a></li>
-                                  <li class="footer-center-item"><a href="#" class="footer-center-link">مقالات </a></li>
-                              </ul>
-                          </div>
-                      </div>
-                      <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-left-col">
-                          <div class="footer-left">
-                              <div class="footer-left-social-networks"><a href="#"
-                                      class="footer-left-social-networks-link"><i
-                                          class="fa fa-telegram footer-left-social-networks-icon"></i></a><a href="#"
-                                      class="footer-left-social-networks-link"><i
-                                          class="fa fa-instagram footer-left-social-networks-icon"></i></a><a href="#"
-                                      class="footer-left-social-networks-link"><i
-                                          class="fa fa-twitter footer-left-social-networks-icon"></i></a></div>
-                              <div class="footer-left-contact">
-                                  <h4 class="footer-left-contact-heading-four">ارتباط با ما</h4>
-                                  <ul class="footer-left-contact-list">
-                                      <li class="footer-left-contact-item"><i
-                                              class="fa fa-map-marker footer-left-contact-icon"></i><span
-                                              class="footer-left-contact-span">تهران،امير آباد،خيابان ثاني</span></li>
-                                      <li class="footer-left-contact-item"><i
-                                              class="fa fa-phone footer-left-contact-icon"></i><span
-                                              class="footer-left-contact-span">09125412130</span></li>
-                                      <li class="footer-left-contact-item"><i
-                                              class="fa fa-envelope footer-left-contact-icon"></i><span
-                                              class="footer-left-contact-span">info@ramzarz.com</span></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="footer-bottom">
-              <p class="footer-bottom-paragraph"><span class="footer-bottom-copyright">&copy;</span>تمامی حقوق برای سایت
-                  ارز توييتر محفوظ است و بازنشر محتوا با ذکر منبع بلامانع است. </p>
-          </div>
-      </footer>
-      <!-- END FOOTER -->
+{% endblock page %}
+
+
+{% block scripts %}
+
     <script>
    function autocomplete(inp, arr) {
   var currentFocus;
@@ -421,6 +268,26 @@ document.addEventListener("click", function (e) {
 var countries = ["یزد","تهران" , "شیراز" , "اصفهان" , "مرکزی","البرز" , ""];
 autocomplete(document.getElementById("autocompleteInput"), countries);
     </script>
-</body>
+<script>
+    $.ajax({
+                url: 'https://api.nomics.com/v1/currencies/ticker?key=e46fab48a3538b1ec642482aaa54fb68&ids=BTC&interval=1d',
+                crossOrigin: true,
+                crossDomain: true,
+                dataType: "json",
+                //data: {
+                //    coin: 'BTC',
+                //    convert: 'USD'
+                //},
+                success: function(result, s, x) {
+                    console.log(result);
+                    //price = result['BTC']['quotes']['USD']['price'];
+                    //market_cap = result['BTC']['quotes']['USD']['market_cap'];
+                    //change_24h = result['BTC']['change_24h'];
+                    //console.log(price);
+                    //console.log(market_cap);
+                    //console.log(change_24h);
+                }
+            });
+  </script>
 
-</html>
+{% endblock scripts %}

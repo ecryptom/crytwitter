@@ -11,7 +11,7 @@ let commentsSwiper = new Swiper('.comments-swiper-container', {
         prevEl: '.comments-swiper-button-prev',
     },
     autoplay: {
-        delay: 2000,
+        delay: 8000,
     },
     breakpoints: {
         0: {
@@ -38,7 +38,7 @@ let articlesSwiper = new Swiper('.articles-swiper-container', {
         prevEl: '.articles-swiper-button-prev',
     },
     autoplay: {
-        delay: 2000,
+        delay: 8000,
     },
     breakpoints: {
         0: {

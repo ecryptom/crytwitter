@@ -41,6 +41,18 @@ def comment(req, ID):
     comment.save()
     return redirect('product', ID=ID)
 
+@csrf_exempt
+@login_required(login_url='login')
+def reply_comment(req, ID):
+    Text = req.POST.get('text').encode()
+    Date = gregorian_to_shamsi(timezone.now())
+    Comment = product_comment.objects.get(id=ID)
+    Reply_comment = product_comment(product=Comment.product, user=req.user, shamsi_date=Date, text=Text, reply_to=Comment)
+    Reply_comment.save()
+    return redirect('product', ID=Comment.product.id)
+
+
+
 
 
 #############   APIs  ############

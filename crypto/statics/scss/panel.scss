@@ -7,7 +7,7 @@
 }
 
 .panel {
-
+    margin-top: $margin-section;
     .panel-left-col,
     .panel-right-col {
         padding: 0 !important;
@@ -24,7 +24,7 @@
         padding: 40px 0;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         flex-direction: column;
         .panel-right-profile{
             text-align: center;
@@ -432,6 +432,13 @@
 
             .panel-left-shopping-cart-content {
                 padding: 30px;
+                .panel-left-shopping-cart-content-alert{
+                    background-color: lighten($color: $color-primary-one, $amount: 30%);
+                    padding: 20px 15px;
+                    text-align: right;
+                    line-height: 25px;
+                margin-bottom:20px;
+                }
                 .panel-left-shopping-cart-content-table{
                     text-align: center;
                     color: $color-primary-two;
@@ -477,6 +484,14 @@
                     .panel-left-shopping-cart-content-table-footer{
                         text-align: center;
                     }
+                }
+                .panel-left-shopping-cart-content-link{
+                    @include Button1(lighten($color-primary-two, 10%));
+                    min-width: 70%;
+                    margin: 0 auto;
+                    padding: 12px 0;
+                    display: block;
+                    margin-top: 30px;
                 }
             }
         }

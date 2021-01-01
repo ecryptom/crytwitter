@@ -81,6 +81,7 @@ class product_comment(models.Model):
     product = models.ForeignKey(product, on_delete=models.CASCADE)
     shamsi_date = models.CharField(max_length=11)
     text = models.BinaryField()
+    reply_to = models.ForeignKey('products.product_comment', related_name='replies_in', on_delete=models.CASCADE, null=True)
 
 
 

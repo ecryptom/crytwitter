@@ -10,6 +10,7 @@ urlpatterns = [
     path('resend_phone_code', resend_phone_code, name='resend_phone_code'),
     path('edit_profile', edit_profile, name='edit_profile'),
     path('verify_email', verify_email, name='verify_email'),
+    path('watch_list', watch_list, name='watch_list'),
 
     ### APIs ###
     path('validate_email', validate_email),

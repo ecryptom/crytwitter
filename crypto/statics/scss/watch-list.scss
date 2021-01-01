@@ -43,7 +43,7 @@
  
   
     .watch-list-table-header{
-      background-color: lighten($color-primary-one , 10%);
+      background-color: $color-primary-one;
       .watch-list-table-row{
         .watch-list-table-heading{
           border-bottom: 1px solid $color-secondary-light;

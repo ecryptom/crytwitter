@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,MAAM,AAAA,CACF,UAAU,CE0BE,KAAK,CFzBpB",
+    "sources": [
+        "../scss/tweet.scss",
+        "../scss/_colors.scss",
+        "../scss/_units.scss",
+        "../scss/_mixin.scss"
+    ],
+    "names": [],
+    "file": "tweet.min.css"
+}

@@ -167,7 +167,7 @@ def edit_profile(req):
             message='',
             html_message=message,
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=['mr.mirshamsi.78@gmail.com']
+            recipient_list=[User.email]
         )
         return render(req, 'panel-edit-profile.html', {'message': 'لطفا ایمیل خود را تایید کنید', 'mode':'info'})
     return render(req, 'panel-edit-profile.html')
@@ -216,3 +216,8 @@ def validate_invite_code(req):
     if User and User[0].verified_phone:
         status = 'available'
     return JsonResponse({'status':status})
+
+
+@login_required(login_url='login')
+def watch_list(req):
+    return render(req, 'watch-list.html')

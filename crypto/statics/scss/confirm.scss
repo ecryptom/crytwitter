@@ -1,0 +1,53 @@
+@import "colors";
+@import "units";
+@import "mixin";
+.confirm{
+    margin-top: 60px;
+    .confirm-alert{
+        background-color: lighten($color: $color-green, $amount: 25%);
+        padding: 20px 15px;
+        text-align: right;
+        line-height: 30px;
+        color: $color-primary-two;
+    }
+    .confirm-timer{
+        margin-top:30px;
+        text-align: center;
+        color: $color-primary-two;
+        transition: all ease .5s;
+        &.confirm-timer-disabled{
+            color: $color-red;
+        }
+    }
+    .confirm-input{
+        display: block;
+        width: 50%;
+        border-radius: 5px;
+        padding: 5px;
+        margin: 15px auto;
+    }
+    .confirm-submit{
+      @include Button1($color-primary-two);
+      padding: 10px 25px;
+      text-align: center;
+      width: 40%;
+      font-size: 16px;
+      display: none;
+      margin:20px auto;
+      &.confirm-submit-visible{
+          display:block;
+      }
+    }
+    .confirm-link{
+        @include Button1($color-primary-two);
+        padding: 10px 25px;
+        text-align: center;
+        width: 40%;
+        font-size: 16px;
+        display: none;
+        margin:20px auto;
+        &.confirm-link-visible{
+            display:block;
+        }
+      }
+}

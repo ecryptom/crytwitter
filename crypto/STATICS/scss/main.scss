@@ -67,10 +67,12 @@ body {
     position: relative;
     border-bottom: 1px solid $color-white;
     background-color: $color-header-background;
+    padding-top: 11px;
+    position: fixed;
+    top: 0;
 
     &.header-sticky {
-        position: fixed;
-        top: 0;
+        padding-top: 3px; 
     }
 
     .header-large {

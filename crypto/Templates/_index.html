@@ -6,16 +6,7 @@
 {% block header %}
     <title>ارز توييتر</title>
     <link rel="stylesheet" href="{% static 'css/index.min.css' %}" />
-    <style>
-    html{
-        scroll-behavior: smooth;
-    }
-    </style>
-{% endblock header %}
-
-
-
-
+{% endblock header %}}
 
 
 {% block page %}
@@ -213,11 +204,8 @@
                     </div>
                 </div>
             </div>
-            <div class="top-cryptocurrency-all"><a href="#" class="top-cryptocurrency-all-link">
-                    مشاهده همه
-                    <i class="fa fa-angle-left top-cryptocurrency-all-icon"></i>
-                </a>
-            </div>
+            <div class="top-cryptocurrency-all"><a href="#" class="top-cryptocurrency-all-link"><i
+                        class="fa fa-bookmark top-cryptocurrency-all-icon"></i>مشاهده همه </a></div>
         </div>
     </section>
     <!-- END TOP CRYPTOCURRENCY -->
@@ -740,13 +728,9 @@
     </section>
     <!-- END COMMENTS -->
 
-
-{% endblock page %}
+{% endblock page %}}
 
 
 {% block scripts %}
     <script src="{% static 'js/index.js' %}"></script>
-    <script>
-        $('.collapse').collapse();
-    </script>
 {% endblock scripts %}

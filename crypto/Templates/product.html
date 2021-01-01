@@ -95,39 +95,62 @@
                           دیدگاه خود را با ما به اشتراک بگذارید
                         </h5>
                         <form action="{% url 'product_comment' product.id %}" method="POST">
-                            {% csrf_token %}
-                            <textarea placeholder="متن دیدگاه" name="text" class="product-comments-send-text-area"></textarea>
+                        {% csrf_token %}
+                            <textarea name="text" placeholder="متن دیدگاه" class="product-comments-send-text-area"></textarea>
                             <button type="submit" class="product-comments-send-submit"> ارسال دیدگاه</button>
                         </form>
                     </div>
                     <ul class="product-comments-list">
+                    {% for comment in product.product_comment_set.all %}
                         <li class="product-comments-item">
+                            <div class="product-comments-header">
+                                <div class="product-comments-header-right">
+                                    <img src="{{comment.user.image.url}}"
+                                        class="product-comments-header-right-image" />
+                                </div>
+                                <div class="product-comments-header-left">
+                                    <span class="product-comments-header-left-name">{{comment.user.name.decode}}
+                                        </span>
+                                    <span
+                                        class="product-comments-header-left-date">{{comment.shamsi_date}}</span>
+                                </div>
+                            </div>
+                            <div class="product-comments-content">
+                                <p class="product-comments-content-paragraph">
+                                    {{comment.text.decode | linebreaksbr}}
+                                </p>
+                            </div>
+                            <div class="product-comments-footer">
+                                <i class="fa fa-reply product-comments-footer-icon" id="{{comment.id}}"></i>
+                            </div>   
                             <div class="product-comments-reply">
                                 <ul class="product-comments-reply-list">
-                                    {% for comment in product.product_comment_set.all %}
-                                        <li class="product-comments-reply-item">
+                                {% for reply in comment.replies_in.all %}
+                                    <li class="product-comments-reply-item">
                                         <div class="product-comments-reply-header">
                                             <div class="product-comments-reply-header-right">
-                                                <img src="{{comment.user.image.url}}"
+                                                <img src="{{reply.user.image.url}}"
                                                     class="product-comments-reply-header-right-image" />
                                             </div>
                                             <div class="product-comments-reply-header-left">
-                                                <span class="product-comments-reply-header-left-name">{{comment.user.name.decode}}</span>
+                                                <span class="product-comments-reply-header-left-name">{{reply.user.name.decode}}
+                                                    </span>
                                                 <span
-                                                    class="product-comments-reply-header-left-date">{{comment.shamsi_date}}</span>
+                                                    class="product-comments-reply-header-left-date">{{reply.shamsi_date}}</span>
                                             </div>
                                         </div>
                                         <div class="product-comments-reply-content">
                                             <p class="product-comments-reply-content-paragraph">
-                                                {{comment.text.decode | linebreaksbr}}
+                                                {{reply.text.decode | linebreaksbr}}
                                             </p>
                                         </div>
-                                        </li>
-                                    {% endfor %}
+                                    </li>
+                                {% endfor %}
                                 </ul>
                      
                             </div>
                         </li>
+                    {% endfor %}
                     </ul>
                 </div>
             </div>
