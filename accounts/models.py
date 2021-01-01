@@ -44,5 +44,6 @@ class user(AbstractUser):
     last_name = None
     name = models.BinaryField(default=b'')
     shamsi_joined_date = models.CharField(max_length=11, null=True)
+    watch_list = models.ManyToManyField('home.currency')
     objects = UserManager()
 

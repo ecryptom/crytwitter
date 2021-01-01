@@ -3,5 +3,8 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
-    path('<str:page>', page_resp)
+
+
+    ######  APIs  #######
+    path('get_all_currencies', get_all_currencies, name='get_all_currencies')
 ]

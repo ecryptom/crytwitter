@@ -2,12 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from crypto import settings
 from django.template.loader import render_to_string
 import random, requests, os
 from .models import user
+from home.models import currency
 
 sms_text = lambda code : f'arztwitter verification code: {code}'
 sms_signature = os.getenv('sms_signature')
@@ -187,7 +189,31 @@ def verify_email(req):
 @login_required(login_url='login')
 def invite_friends(req):
     return render(req, 'panel-invite-friends.html')
-            
+
+
+@login_required(login_url='login')
+def watch_list_page(req):
+    Watch_list = req.user.watch_list.all()
+    symbols = ','.join([cur.symbol for cur in Watch_list])
+    return render(req, 'watch-list.html', {'watch_list': Watch_list, 'symbols':symbols})
+
+@login_required(login_url='login')
+def add_watch_list(req):
+    cur_name = req.POST['currency'].split('|')
+    try:
+        cur = currency.objects.get(name=cur_name[0])
+        req.user.watch_list.add(cur)
+    except:
+        try:
+            cur = currency.objects.get(name=cur_name[1])
+            req.user.watch_list.add(cur)
+        except:
+            pass    
+    return redirect('watch_list_page')
+
+
+
+##########  APIs   ############
 
 def validate_username(req):
     User = user.objects.filter(username=req.GET.get('username'))
@@ -218,6 +244,14 @@ def validate_invite_code(req):
     return JsonResponse({'status':status})
 
 
+
+@csrf_exempt
 @login_required(login_url='login')
-def watch_list(req):
-    return render(req, 'watch-list.html')
+def get_watch_list(req):
+    return JsonResponse([{
+        'name': cur.name,
+        'symbol' : cur.symbol,
+        'persian_name' : cur.persian_name.decode(),
+        'image_url' : cur.image_url
+    } for cur in req.user.watch_list.all()], safe=False)
+    

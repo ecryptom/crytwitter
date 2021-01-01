@@ -30,7 +30,7 @@ DEBUG = True
 
 BASE_URL = os.getenv('BASE_URL')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST')]
 
 AUTH_USER_MODEL = 'accounts.user'
 LOGIN_URL = 'login'
