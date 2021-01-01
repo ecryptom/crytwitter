@@ -39,12 +39,12 @@
                     <div class="col-lg-7 col-xl-8 main-menu-col">
                         <nav class="main-menu">
                             <ul class="main-menu-list">
-                                <li class="main-menu-item main-menu-item-active"><a href="#" class="main-menu-link">خانه
+                                <li class="main-menu-item main-menu-item-active"><a href="{% url 'home' %}" class="main-menu-link">خانه
                                     </a></li>
                                 <li class="main-menu-item"><a href="#" class="main-menu-link">توئیت </a></li>
                                 <li class="main-menu-item"><a href="#" class="main-menu-link">رمز ارزها </a></li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">نقشه بازار </a></li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">دیده بان </a></li>
+                                <li class="main-menu-item"><a href="{% url 'cryptomarket' %}" class="main-menu-link">نقشه بازار </a></li>
+                                <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
                                 <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات </a>
                                     <ul class="main-submenu-list">
                                         <li class="main-submenu-item"><a href="#" class="main-submenu-link">وی پی ان
@@ -74,7 +74,7 @@
                                 <i class="fa fa-user login-register-icon"></i>
                                 <a href="{% url 'logout' %}" class="login-register-link"><span class="login-register-title">خروج</span></a>
                                 <span class="login-register-seprator">|</span>
-                                <a href="login-register.html" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
+                                <a href="{% url 'dashboard' %}" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
                             </div>
                         </div>
                     {% endif %}
@@ -90,11 +90,11 @@
                             <div class="responsive-menu-header"><img src="{% static 'img/logo.png' %}" class="responsive-menu-header-image" /><button class="responsive-menu-header-button" id="closeNav"><i class="fa fa-times responsive-menu-header-icon"></i></button></div>
                             <div class="responsive-menu-content">
                                 <ul class="responsive-menu-content-list">
-                                    <li class="responsive-menu-content-item"><a href="#" class="responsive-menu-content-link">خانه</a></li>
+                                    <li class="responsive-menu-content-item"><a href="{% url 'home' %}" class="responsive-menu-content-link">خانه</a></li>
                                     <li class="responsive-menu-content-item"><a href="#" class="responsive-menu-content-link">توییت</a></li>
                                     <li class="responsive-menu-content-item"><a class="responsive-menu-content-link">رمزارزها</a></li>
-                                    <li class="responsive-menu-content-item"><a href="#" class="responsive-menu-content-link">نقشه بازار</a></li>
-                                    <li class="responsive-menu-content-item"><a href="#" class="responsive-menu-content-link">دیده بان</a></li>
+                                    <li class="responsive-menu-content-item"><a href="{% url 'cryptomarket' %}" class="responsive-menu-content-link">نقشه بازار</a></li>
+                                    <li class="responsive-menu-content-item"><a href="{% url 'watch_list_page' %}" class="responsive-menu-content-link">دیده بان</a></li>
                                     <li class="responsive-menu-content-item responsive-submenu-content"><a class="responsive-menu-content-link">محصولات</a>
                                         <ul class="responsive-submenu-content-list">
                                             <li class="responsive-submenu-content-item"><a class="responsive-submenu-content-link">وی پی ان</a></li>
@@ -109,8 +109,21 @@
                         <div class="responsive-menu-overlay" id="overlay"></div><button class="responsive-menu-button" id="openNav"><i class="fa fa-bars responsive-menu-icon"></i></button>
                     </div>
                     <div class="col-8 col-sm-6 col-md-6">
-                        <div class="login-register"><i class="fa fa-user login-register-icon"></i><a href="login-register.html" class="login-register-link"><span
-                                    class="login-register-title">ورود</span></a><span class="login-register-seprator">|</span><a href="login-register.html" class="login-register-link"><span class="login-register-title">ثبت نام</span></a></div>
+                    {% if not user.is_authenticated %}
+                        <div class="login-register">
+                            <i class="fa fa-user login-register-icon"></i>
+                            <a href="{% url 'login' %}" class="login-register-link"><span class="login-register-title">ورود</span></a>
+                            <span class="login-register-seprator">|</span>
+                            <a href="{% url 'register' %}" class="login-register-link"><span class="login-register-title">ثبت نام</span></a>
+                        </div>
+                    {% else %}
+                        <div class="login-register">
+                            <i class="fa fa-user login-register-icon"></i>
+                            <a href="{% url 'logout' %}" class="login-register-link"><span class="login-register-title">خروج</span></a>
+                            <span class="login-register-seprator">|</span>
+                            <a href="{% url 'dashboard' %}" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
             </div>
@@ -135,14 +148,14 @@
                         <div class="footer-center">
                             <h4 class="footer-center-heading-four">دسترسي سريع</h4>
                             <ul class="footer-center-list">
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">صفحه اصلي </a>
+                                <li class="footer-center-item"><a href="{% url 'home' %}" class="footer-center-link">صفحه اصلي </a>
                                 </li>
                                 <li class="footer-center-item"><a href="#" class="footer-center-link">توییت </a></li>
                                 <li class="footer-center-item"><a href="#" class="footer-center-link">رمز ارزها </a>
                                 </li>
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">نقشه بازار </a>
+                                <li class="footer-center-item"><a href="{% url 'cryptomarket' %}" class="footer-center-link">نقشه بازار </a>
                                 </li>
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">دیده بان </a></li>
+                                <li class="footer-center-item"><a href="{% url 'watch_list_page' %}" class="footer-center-link">دیده بان </a></li>
                                 <li class="footer-center-item"><a href="#" class="footer-center-link">محصولات </a></li>
                                 <li class="footer-center-item"><a href="#" class="footer-center-link">مقالات </a></li>
                             </ul>

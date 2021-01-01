@@ -9,7 +9,7 @@ from crypto import settings
 from django.template.loader import render_to_string
 import random, requests, os
 from .models import user
-from home.models import currency
+from home.models import currency, dollor
 
 sms_text = lambda code : f'arztwitter verification code: {code}'
 sms_signature = os.getenv('sms_signature')
@@ -195,7 +195,7 @@ def invite_friends(req):
 def watch_list_page(req):
     Watch_list = req.user.watch_list.all()
     symbols = ','.join([cur.symbol for cur in Watch_list])
-    return render(req, 'watch-list.html', {'watch_list': Watch_list, 'symbols':symbols})
+    return render(req, 'watch-list.html', {'watch_list': Watch_list, 'symbols':symbols, 'dollor_rate':dollor.objects.get().rate})
 
 @login_required(login_url='login')
 def add_watch_list(req):

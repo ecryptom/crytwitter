@@ -7,6 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 def home(req):
     return render(req, 'index.html')
 
+def cryptomarket(req):
+    return render(req, 'cryptomarket.html')
+
 
 
 ########  APIs    ########33
@@ -19,3 +22,4 @@ def get_all_currencies(req):
         'persian_name' : cur.persian_name.decode(),
         'image_url' : cur.image_url
     } for cur in currency.objects.all()], safe=False)
+

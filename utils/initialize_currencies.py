@@ -1,9 +1,10 @@
-from home.models import currency
+from home.models import currency, dollor
 import json
 
 with open('utils/nomics_list.txt', 'r') as f:
     all_currencies = json.load(f)
 
+#save cryptocurrencies in database
 i=0
 for cur in all_currencies:
     print(i)
@@ -15,3 +16,7 @@ for cur in all_currencies:
         image_url= cur[3]
     )
     Currency.save()
+
+#save dollor
+d = dollor(rate=25700)
+d.save()

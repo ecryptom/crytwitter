@@ -232,6 +232,7 @@
 
 
 <script>
+    var dollor_rate = {{dollor_rate}};
     //get wath_list from back
     var watch_list = []
     $.ajax({
@@ -259,7 +260,7 @@
             success: function(currencies, s, x) {
                 currencies.forEach(cur => {
                     document.getElementById('1d_change_' + cur.id).innerHTML = cur['1d']['price_change_pct'];
-                    document.getElementById('toman_' + cur.id).innerHTML = cur['price'];
+                    document.getElementById('toman_' + cur.id).innerHTML = parseInt(cur['price'] * dollor_rate);
                     document.getElementById('dollor' + cur.id).innerHTML = cur['price'];
                 });
             }

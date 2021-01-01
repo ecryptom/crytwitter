@@ -5,3 +5,6 @@ class currency(models.Model):
     symbol = models.CharField(max_length=15)
     persian_name = models.BinaryField()
     image_url = models.URLField()
+
+class dollor(models.Model):
+    rate = models.IntegerField()
