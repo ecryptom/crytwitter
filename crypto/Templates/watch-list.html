@@ -244,34 +244,31 @@
         }
     });
 
-    //window.myCallback = function(data) {
-    //  console.log('xdfsdfsfsfdsf');
-    //};
 
     setInterval(() => {
         $.ajax({
             url: 'https://api.nomics.com/v1/currencies/ticker',
             type: 'GET',
-            //crossOrigin: true,
-            //crossDomain: true,
-            dataType: "jsonp",
+            crossOrigin: true,
+            crossDomain: true,
+            dataType: "json",
             data: {
                 key: 'e46fab48a3538b1ec642482aaa54fb68',
                 ids: "{{symbols}}",
                 interval: '1d,7d',
             },
-            jsonp: 'callback',
-            jsonpCallback: function(data) {
-              console.log(data);
-            },
-            //success: function(currencies, s, x) {
-            //  console.log(currencies);
-            //    //currencies.forEach(cur => {
-            //    //    document.getElementById('1d_change_' + cur.id).innerHTML = cur['1d']['price_change_pct'];
-            //    //    document.getElementById('toman_' + cur.id).innerHTML = parseInt(cur['price'] * dollor_rate);
-            //    //    document.getElementById('dollor' + cur.id).innerHTML = cur['price'];
-            //    //});
-            //}
+            //jsonp: 'callback',
+            //jsonpCallback: function(data) {
+            //  console.log(data);
+            //},
+            success: function(currencies, s, x) {
+              console.log(currencies);
+                currencies.forEach(cur => {
+                    document.getElementById('1d_change_' + cur.id).innerHTML = cur['1d']['price_change_pct'];
+                    document.getElementById('toman_' + cur.id).innerHTML = parseInt(cur['price'] * dollor_rate);
+                    document.getElementById('dollor' + cur.id).innerHTML = cur['price'];
+                });
+            }
         });
     }, 3000);
 
