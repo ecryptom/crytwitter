@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 def home(req):
-    return render(req, 'index.html')
+    return render(req, 'index.html', {'top_curs': currency.objects.filter(id__lt=11)})
 
 def cryptomarket(req):
     return render(req, 'cryptomarket.html')

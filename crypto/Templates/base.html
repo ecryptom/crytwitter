@@ -47,12 +47,10 @@
                                 <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
                                 <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات </a>
                                     <ul class="main-submenu-list">
-                                        <li class="main-submenu-item"><a href="#" class="main-submenu-link">وی پی ان
+                                    {% for product in products %}
+                                        <li class="main-submenu-item"><a href="{% url 'product' product.id %}" class="main-submenu-link">{{product.name.decode}}
                                             </a></li>
-                                        <li class="main-submenu-item"><a href="#" class="main-submenu-link">محصولات
-                                                آموزشی </a></li>
-                                        <li class="main-submenu-item"><a href="#" class="main-submenu-link">سیگنال </a>
-                                        </li>
+                                    {% endfor %}
                                     </ul>
                                 </li>
                                 <li class="main-menu-item"><a href="#" class="main-menu-link">مقالات </a></li>

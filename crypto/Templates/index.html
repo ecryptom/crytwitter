@@ -41,12 +41,13 @@
             </div>
             <div class="top-cryptocurrency-boxes-wrapper">
                 <div class="row top-cryptocurrency-boxes-row">
+                {% for cur in top_curs %}
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="top-cryptocurrency-boxes">
                             <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
+                                    class="top-cryptocurrency-boxes-brand-name">{{cur.symbol}}</span><img src="{{cur.image_url}}"
+                                    alt="{{cur.symbol}}" class="top-cryptocurrency-boxes-brand-image" style="width:10%"><span
+                                    class="top-cryptocurrency-boxes-brand-name">{{cur.persian_name.decode}}</span></div>
                             <div class="top-cryptocurrency-boxes-price"><span
                                     class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
                                     class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
@@ -58,159 +59,7 @@
                                     class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="top-cryptocurrency-boxes"><a href="#" class="top-cryptocurrency-boxes-link"></a>
-                            <div class="top-cryptocurrency-boxes-brand"><span
-                                    class="top-cryptocurrency-boxes-brand-name">BTC</span><img src="{% static 'pic/btc.png' %}"
-                                    alt="بیتکویین" class="top-cryptocurrency-boxes-brand-image"><span
-                                    class="top-cryptocurrency-boxes-brand-name">بیتکوین</span></div>
-                            <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
-                            <div class="top-cryptocurrency-boxes-daily"><span
-                                    class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
-                            <div class="top-cryptocurrency-boxes-weekly"><span
-                                    class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
-                        </div>
-                    </div>
+                {% endfor %}
                 </div>
             </div>
             <div class="top-cryptocurrency-all"><a href="#" class="top-cryptocurrency-all-link">
