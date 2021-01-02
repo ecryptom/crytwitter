@@ -28,31 +28,31 @@
                                         </a>
                                     </li>
                                     <li class="panel-right-item">
-                                        <a href="#" class="panel-right-link">
+                                        <a href="{% url 'edit_profile' %}" class="panel-right-link">
                                             <i class="fa fa-edit panel-right-icon"></i>
                                             ویرایش اطلاعات شخصی
                                         </a>
                                     </li>
                                     <li class="panel-right-item">
-                                        <a href="panel-change-password.html" class="panel-right-link">
+                                        <a href="{% url 'change_pass' %}" class="panel-right-link">
                                             <i class="fa fa-lock panel-right-icon"></i>
                                             تغییر کلمه عبور
                                         </a>
                                     </li>
                                     <li class="panel-right-item">
-                                        <a href="#" class="panel-right-link">
+                                        <a href="{% url 'cart' %}" class="panel-right-link">
                                             <i class="fa fa-shopping-cart panel-right-icon"></i>
                                            سبد خريد
                                         </a>
                                     </li>
                                     <li class="panel-right-item">
-                                        <a href="#" class="panel-right-link">
+                                        <a href="{% url 'invite_friends' %}" class="panel-right-link">
                                             <i class="fa fa-users panel-right-icon"></i>
                                            دعوت از دوستان
                                         </a>
                                     </li>
                                     <li class="panel-right-item">
-                                        <a href="#" class="panel-right-link">
+                                        <a href="{% url 'logout' %}" class="panel-right-link">
                                             <i class="fa fa-sign-out panel-right-icon"></i>
                                             خروج از حساب کاربری
                                         </a>
@@ -71,7 +71,7 @@
                                     <div class="panel-left-dashboard-content">
                                         <ul class="panel-left-dashboard-content-list">
                                             <li class="panel-left-dashboard-content-item">
-                                                <img src="{{user.image.url}}" class="panel-left-dashboard-content-image" alt="مهدي صادقي" />
+                                                <img src="{{user.image.url}}" class="panel-left-dashboard-content-image" alt="{{user.name.decode}}" />
                                             </li>
                                             <li class="panel-left-dashboard-content-item">
                                                 نام كاربري:

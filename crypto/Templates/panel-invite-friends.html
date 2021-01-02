@@ -15,49 +15,49 @@
                     <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 panel-right-col">
                         <div class="panel-right">
                             <div class="panel-right-profile">
-                                <img src="{% static 'img/default-user.jpg' %}" class="panel-right-profile-image" alt="" />
+                                <img src="{{user.image.url}}" class="panel-right-profile-image" alt="{{user.name}}" />
                                 <h2 class="panel-right-profile-heading-two">
-                                    مهدی صادقی
+                                    {{user.name.decode}}
                                 </h2>
                             </div>
-                            <ul class="panel-right-list">
-                                <li class="panel-right-item panel-right-item-active">
-                                    <a href="panel-invite-friends.html" class="panel-right-link">
-                                        <i class="fa fa-invite-friends panel-right-icon"></i>
-                                        داشبورد
-                                    </a>
-                                </li>
-                                <li class="panel-right-item">
-                                    <a href="#" class="panel-right-link">
-                                        <i class="fa fa-edit panel-right-icon"></i>
-                                        ویرایش اطلاعات شخصی
-                                    </a>
-                                </li>
-                                <li class="panel-right-item">
-                                    <a href="panel-change-password.html" class="panel-right-link">
-                                        <i class="fa fa-lock panel-right-icon"></i>
-                                        تغییر کلمه عبور
-                                    </a>
-                                </li>
-                                <li class="panel-right-item">
-                                    <a href="#" class="panel-right-link">
-                                        <i class="fa fa-shopping-cart panel-right-icon"></i>
-                                        سبد خريد
-                                    </a>
-                                </li>
-                                <li class="panel-right-item">
-                                    <a href="#" class="panel-right-link">
-                                        <i class="fa fa-users panel-right-icon"></i>
-                                        دعوت از دوستان
-                                    </a>
-                                </li>
-                                <li class="panel-right-item">
-                                    <a href="#" class="panel-right-link">
-                                        <i class="fa fa-sign-out panel-right-icon"></i>
-                                        خروج از حساب کاربری
-                                    </a>
-                                </li>
-                            </ul>
+                                <ul class="panel-right-list">
+                                    <li class="panel-right-item panel-right-item-active">
+                                        <a href="{% url 'dashboard' %}" class="panel-right-link">
+                                            <i class="fa fa-dashboard panel-right-icon"></i>
+                                            داشبورد
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="{% url 'edit_profile' %}" class="panel-right-link">
+                                            <i class="fa fa-edit panel-right-icon"></i>
+                                            ویرایش اطلاعات شخصی
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="{% url 'change_pass' %}" class="panel-right-link">
+                                            <i class="fa fa-lock panel-right-icon"></i>
+                                            تغییر کلمه عبور
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="{% url 'cart' %}" class="panel-right-link">
+                                            <i class="fa fa-shopping-cart panel-right-icon"></i>
+                                           سبد خريد
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="{% url 'invite_friends' %}" class="panel-right-link">
+                                            <i class="fa fa-users panel-right-icon"></i>
+                                           دعوت از دوستان
+                                        </a>
+                                    </li>
+                                    <li class="panel-right-item">
+                                        <a href="{% url 'logout' %}" class="panel-right-link">
+                                            <i class="fa fa-sign-out panel-right-icon"></i>
+                                            خروج از حساب کاربری
+                                        </a>
+                                    </li>
+                                </ul>
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 panel-left-col">
