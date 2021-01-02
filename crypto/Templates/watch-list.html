@@ -245,31 +245,44 @@
     });
 
 
+    //setInterval(() => {
+    //    $.ajax({
+    //        url: 'https://api.nomics.com/v1/currencies/ticker',
+    //        type: 'GET',
+    //        crossOrigin: true,
+    //        crossDomain: true,
+    //        dataType: "json",
+    //        xhrFields: {
+    //            withCredentials: true
+    //        },
+    //        data: {
+    //            key: 'e46fab48a3538b1ec642482aaa54fb68',
+    //            ids: "{{symbols}}",
+    //            interval: '1d,7d'
+    //        },
+    //        jsonpCallback: function(currencies, s, x) {
+    //          console.log(currencies);
+    //            currencies.forEach(cur => {
+    //                document.getElementById('1d_change_' + cur.id).innerHTML = cur['1d']['price_change_pct'];
+    //                document.getElementById('toman_' + cur.id).innerHTML = parseInt(cur['price'] * dollor_rate);
+    //                document.getElementById('dollor' + cur.id).innerHTML = cur['price'];
+    //            });
+    //        }
+    //    });
+    //}, 3000);
+
     setInterval(() => {
-        $.ajax({
-            url: 'https://api.nomics.com/v1/currencies/ticker',
-            type: 'GET',
-            crossOrigin: true,
-            crossDomain: true,
-            dataType: "json",
-            xhrFields: {
-                withCredentials: true
-            },
-            data: {
-                key: 'e46fab48a3538b1ec642482aaa54fb68',
-                ids: "{{symbols}}",
-                interval: '1d,7d'
-            },
-            jsonpCallback: function(currencies, s, x) {
-              console.log(currencies);
+        fetch('https://api.nomics.com/v1/currencies/ticker?key=e46fab48a3538b1ec642482aaa54fb68&ids={{symbols}}&interval=1d')
+            .then(response => response.json()) 
+            .then(currencies => {
                 currencies.forEach(cur => {
                     document.getElementById('1d_change_' + cur.id).innerHTML = cur['1d']['price_change_pct'];
                     document.getElementById('toman_' + cur.id).innerHTML = parseInt(cur['price'] * dollor_rate);
                     document.getElementById('dollor' + cur.id).innerHTML = cur['price'];
                 });
-            }
-        });
+            });
     }, 3000);
+    
 </script>
 
 {% endblock scripts %}
