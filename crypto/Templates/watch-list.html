@@ -251,13 +251,17 @@
             type: 'GET',
             crossOrigin: true,
             crossDomain: true,
-            dataType: "jsonp",
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
             data: {
                 key: 'e46fab48a3538b1ec642482aaa54fb68',
                 ids: "{{symbols}}",
                 interval: '1d,7d'
             },
-            success: function(currencies, s, x) {
+            jsonpCallback: function(currencies, s, x) {
+              console.log(currencies);
                 currencies.forEach(cur => {
                     document.getElementById('1d_change_' + cur.id).innerHTML = cur['1d']['price_change_pct'];
                     document.getElementById('toman_' + cur.id).innerHTML = parseInt(cur['price'] * dollor_rate);
