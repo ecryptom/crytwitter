@@ -7,14 +7,14 @@ then
     cd ..
     rm -rf __pycache__
 
-    cd ../ACN
+    cd ../crypto
     rm -rf __pycache__
     cd ..
 fi
 
 if [ -d "products/migrations" ]
 then
-    cd events/migrations
+    cd products/migrations
     find . -type f -not -name '__init__.py' -delete
     cd ..
     rm -rf __pycache__
@@ -32,7 +32,7 @@ fi
 
 if [ -d "twits/migrations" ]
 then
-    cd chats/migrations
+    cd twits/migrations
     find . -type f -not -name '__init__.py' -delete
     cd ..
     rm -rf __pycache__
