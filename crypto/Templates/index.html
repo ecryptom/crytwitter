@@ -49,14 +49,14 @@
                                     alt="{{cur.symbol}}" class="top-cryptocurrency-boxes-brand-image" style="width:10%"><span
                                     class="top-cryptocurrency-boxes-brand-name">{{cur.persian_name.decode}}</span></div>
                             <div class="top-cryptocurrency-boxes-price"><span
-                                    class="top-cryptocurrency-boxes-price-value">3000 دلار</span><span
-                                    class="top-cryptocurrency-boxes-price-value">250000 تومان</span></div>
+                                    class="top-cryptocurrency-boxes-price-value" id="dollor_{{cur.symbol}}">3000 دلار</span><span
+                                    class="top-cryptocurrency-boxes-price-value" id="toman_{{cur.symbol}}">250000 تومان</span></div>
                             <div class="top-cryptocurrency-boxes-daily"><span
                                     class="top-cryptocurrency-boxes-daily-title">روزانه :</span><span
-                                    class="top-cryptocurrency-boxes-daily-value">5.6%</span></div>
+                                    class="top-cryptocurrency-boxes-daily-value" id="1d_change_{{cur.symbol}}">5.6%</span></div>
                             <div class="top-cryptocurrency-boxes-weekly"><span
                                     class="top-cryptocurrency-boxes-weekly-title">هفتگی :</span><span
-                                    class="top-cryptocurrency-boxes-weekly-value">5.6%</span></div>
+                                    class="top-cryptocurrency-boxes-weekly-value" id="7d_change_{{cur.symbol}}">5.6%</span></div>
                         </div>
                     </div>
                 {% endfor %}
@@ -597,5 +597,63 @@
     <script src="{% static 'js/index.js' %}"></script>
     <script>
         $('.collapse').collapse();
+
+
+    var dollor_rate = {{dollor_rate}}
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
+    //first time
+
+        $.ajax({
+            url: '/get_first_10_currency_info',
+            type: 'GET',
+            dataType: "json",
+            success: function(currencies, s, x) {
+              console.log(currencies);
+                currencies.forEach(cur => {
+                    document.getElementById('1d_change_' + cur.symbol).innerHTML = "%" + cur['1d_change'].toFixed(2);
+                    document.getElementById('7d_change_' + cur.symbol).innerHTML = "%" + cur['7d_change'].toFixed(2);
+                    document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    if(cur['price'] < 10)
+                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4));
+                    else
+                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
+
+                    // fix the color of price_change 
+                    document.getElementById('1d_change_' + cur.symbol).style.color = (cur['1d_change'] > 0) ? '#00ff00' : 'red';
+                    document.getElementById('7d_change_' + cur.symbol).style.color = (cur['7d_change'] > 0) ? '#00ff00' : 'red';
+                });
+            }
+        });
+
+    setInterval(() => {
+        $.ajax({
+            url: '/get_first_10_currency_info',
+            type: 'GET',
+            dataType: "json",
+            success: function(currencies, s, x) {
+              console.log(currencies);
+                currencies.forEach(cur => {
+                    document.getElementById('1d_change_' + cur.symbol).innerHTML = "%" + cur['1d_change'].toFixed(2);
+                    document.getElementById('7d_change_' + cur.symbol).innerHTML = "%" + cur['7d_change'].toFixed(2);
+                    document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    if(cur['price'] < 10)
+                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4));
+                    else
+                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
+
+                    // fix the color of price_change 
+                    document.getElementById('1d_change_' + cur.symbol).style.color = (cur['1d_change'] > 0) ? '#00ff00' : 'red';
+                    document.getElementById('7d_change_' + cur.symbol).style.color = (cur['7d_change'] > 0) ? '#00ff00' : 'red';
+                });
+            }
+        });
+    }, 5000);
+
     </script>
+    
 {% endblock scripts %}

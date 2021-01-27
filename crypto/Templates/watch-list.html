@@ -241,6 +241,26 @@
     }
 
 
+    //first time
+    $.ajax({
+        url: 'get_watch_list_market_info',
+        type: 'GET',
+        dataType: "json",
+        success: function(currencies, s, x) {
+          console.log(currencies);
+            currencies.forEach(cur => {
+                document.getElementById('1d_change_' + cur.symbol).innerHTML = cur['1d_change'].toFixed(2);
+                document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                if(cur['price'] < 10)
+                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4));
+                else
+                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
+                // fix the color of price_change 
+                document.getElementById('1d_change_' + cur.symbol).style.backgroundColor = (cur['1d_change'] > 0) ? '#33cc33' : 'red';
+            });
+        }
+    });
+
     setInterval(() => {
         $.ajax({
             url: 'get_watch_list_market_info',
@@ -257,10 +277,7 @@
                         document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
 
                     // fix the color of price_change 
-                    if(cur['1d_change'] > 0)
-                        document.getElementById('1d_change_' + cur.symbol).style.backgroundColor = 'green';
-                    else
-                        document.getElementById('1d_change_' + cur.symbol).style.backgroundColor = 'red';
+                    document.getElementById('1d_change_' + cur.symbol).style.backgroundColor = (cur['1d_change'] > 0) ? '#33cc33' : 'red';
                 });
             }
         });
