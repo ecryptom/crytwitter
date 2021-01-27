@@ -7,7 +7,7 @@ class product(models.Model):
     price = models.IntegerField()
     off = models.IntegerField(default=0)
     details = models.BinaryField()
-    tags = models.BinaryField(default=b'')  #split tags with ";"
+    tags = models.BinaryField(default=b'crypto;BTC;miner')  #split tags with ";"
     image1 = models.FileField(upload_to='products', null=True)
     image2 = models.FileField(upload_to='products', null=True)
     image3 = models.FileField(upload_to='products', null=True)
