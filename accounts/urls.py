@@ -22,5 +22,5 @@ urlpatterns = [
     path('validate_invite_code', validate_invite_code),
     path('validate_phone', validate_phone),
     path('validate_username', validate_username),
-    path('get_watch_list', get_watch_list, name='get_watch_list')
+    path('get_watch_list_market_info', get_watch_list_market_info, name='get_watch_list_market_info')
 ]

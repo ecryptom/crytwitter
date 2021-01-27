@@ -116,7 +116,7 @@
                         <span class="watch-list-table-name">{{cur.symbol}}</span>
                     </td>
                     <td class="watch-list-table-description">
-                        <span id="dollor{{cur.symbol}}" class="watch-list-table-price">0</span>
+                        <span id="dollor_{{cur.symbol}}" class="watch-list-table-price">0</span>
                         <span class="watch-list-table-unit">دلار</span>
                     </td>
                     <td class="watch-list-table-description">
@@ -233,56 +233,38 @@
 
 <script>
     var dollor_rate = {{dollor_rate}};
-    //get wath_list from back
-    var watch_list = []
-    $.ajax({
-        url: 'get_watch_list',
-        type: 'GET',
-        dataType: "json",
-        success: function(currencies, s, x) {
-            watch_list = currencies;
-        }
-    });
+
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
 
 
     setInterval(() => {
         $.ajax({
-            url: 'https://api.nomics.com/v1/currencies/ticker',
+            url: 'get_watch_list_market_info',
             type: 'GET',
-            crossOrigin: true,
-            crossDomain: true,
             dataType: "json",
-            data: {
-                key: 'e46fab48a3538b1ec642482aaa54fb68',
-                ids: "{{symbols}}",
-                interval: '1d,7d',
-            },
-            //jsonp: 'callback',
-            //jsonpCallback: function(data) {
-            //  console.log(data);
-            //},
             success: function(currencies, s, x) {
               console.log(currencies);
                 currencies.forEach(cur => {
-                    document.getElementById('1d_change_' + cur.id).innerHTML = cur['1d']['price_change_pct'];
-                    document.getElementById('toman_' + cur.id).innerHTML = parseInt(cur['price'] * dollor_rate);
-                    document.getElementById('dollor' + cur.id).innerHTML = cur['price'];
+                    document.getElementById('1d_change_' + cur.symbol).innerHTML = cur['1d_change'].toFixed(2);
+                    document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    if(cur['price'] < 10)
+                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4));
+                    else
+                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
+
+                    // fix the color of price_change 
+                    if(cur['1d_change'] > 0)
+                        document.getElementById('1d_change_' + cur.symbol).style.backgroundColor = 'green';
+                    else
+                        document.getElementById('1d_change_' + cur.symbol).style.backgroundColor = 'red';
                 });
             }
         });
-    }, 3000);
-
-    //setInterval(() => {
-    //    fetch('https://api.nomics.com/v1/currencies/ticker?key=e46fab48a3538b1ec642482aaa54fb68&ids={{symbols}}&interval=1d')
-    //        .then(response => response.json()) 
-    //        .then(currencies => {
-    //            currencies.forEach(cur => {
-    //                document.getElementById('1d_change_' + cur.id).innerHTML = cur['1d']['price_change_pct'];
-    //                document.getElementById('toman_' + cur.id).innerHTML = parseInt(cur['price'] * dollor_rate);
-    //                document.getElementById('dollor' + cur.id).innerHTML = cur['price'];
-    //            });
-    //        });
-    //}, 3000);
+    }, 5000);
     
 </script>
 

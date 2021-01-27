@@ -247,11 +247,11 @@ def validate_invite_code(req):
 
 @csrf_exempt
 @login_required(login_url='login')
-def get_watch_list(req):
+def get_watch_list_market_info(req):
     return JsonResponse([{
-        'name': cur.name,
-        'symbol' : cur.symbol,
-        'persian_name' : cur.persian_name.decode(),
-        'image_url' : cur.image_url
+        'symbol': cur.symbol,
+        'price': cur.price,
+        '1d_change': cur.daily_price_change_pct,
+        '7d_change': cur.weekly_price_change_pct
     } for cur in req.user.watch_list.all()], safe=False)
     

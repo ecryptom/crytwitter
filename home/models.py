@@ -5,7 +5,7 @@ class currency(models.Model):
     symbol = models.CharField(max_length=15)
     persian_name = models.BinaryField()
     image_url = models.URLField()
-    price = models.IntegerField(default=56)
+    price = models.FloatField(default=56.0)
     daily_price_change_pct = models.FloatField(default=-0.01)
     weekly_price_change_pct = models.FloatField(default=1.5)
     
