@@ -1,7 +1,7 @@
 from home.models import currency, dollor
 import json
 
-with open('utils/nomics_list.txt', 'r') as f:
+with open('utils/new_nomics_list.txt', 'r') as f:
     all_currencies = json.load(f)
 
 #save cryptocurrencies in database
