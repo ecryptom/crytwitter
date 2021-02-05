@@ -3,18 +3,18 @@ from utils.date_convertor import gregorian_to_shamsi
 from django.utils import timezone
 
 class product(models.Model):
-    name = models.BinaryField()
+    name = models.CharField(max_length=25)
     price = models.IntegerField()
     off = models.IntegerField(default=0)
-    details = models.BinaryField()
-    tags = models.BinaryField(default=b'crypto;BTC;miner')  #split tags with ";"
+    details = models.TextField(default='')
+    tags = models.CharField(max_length=50 ,default='crypto;BTC;miner')  #split tags with ";"
     image1 = models.FileField(upload_to='products', null=True)
     image2 = models.FileField(upload_to='products', null=True)
     image3 = models.FileField(upload_to='products', null=True)
     def net_price(self):
         return self.price * (100 - self.off) * 0.01
     def split_tags(self):
-        return self.tags.decode().split(';')
+        return self.tags.split(';')
 
 
 class order(models.Model):
@@ -80,7 +80,7 @@ class product_comment(models.Model):
     user = models.ForeignKey('accounts.user', on_delete=models.CASCADE)
     product = models.ForeignKey(product, on_delete=models.CASCADE)
     shamsi_date = models.CharField(max_length=11)
-    text = models.BinaryField()
+    text = models.TextField()
     reply_to = models.ForeignKey('products.product_comment', related_name='replies_in', on_delete=models.CASCADE, null=True)
 
 

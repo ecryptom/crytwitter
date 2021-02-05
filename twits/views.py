@@ -11,7 +11,7 @@ def tweet(req):
     if File and File.size > 1000000:
         return False                             #...
     t = twit(
-        text = req.POST['text'].encode(),
+        text = req.POST['text'],
         currency= req.POST['currency'],
         user = req.user,
         retwit = req.POST['is_retwit'],
@@ -32,10 +32,10 @@ def last_twits(req):
     for t in twits:
         data = {
            'id': t.id,
-           'text': t.text.decode(),
+           'text': t.text,
            'currency': t.currency,
            'username': t.user.username,
-           'fullname': t.user.name.decode(),
+           'fullname': t.user.name,
            'user_image': t.user.image.url,
            'time': t.time,
            'has_image': t.has_image,
@@ -47,9 +47,9 @@ def last_twits(req):
         if t.retwit:
             data['retwit'] = {
                'id': t.reply_to.id,
-               'text': t.reply_to.text.decode(),
+               'text': t.reply_to.text,
                'username': t.reply_to.user.username,
-               'fullname': t.reply_to.user.name.decode(),
+               'fullname': t.reply_to.user.name,
                'currency': t.reply_to.currency
             }
         datas.append(data)

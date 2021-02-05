@@ -19,7 +19,7 @@ def get_all_currencies(req):
     return JsonResponse([{
         'name': cur.name,
         'symbol' : cur.symbol,
-        'persian_name' : cur.persian_name.decode(),
+        'persian_name' : cur.persian_name,
         'image_url' : cur.image_url
     } for cur in currency.objects.all()], safe=False)
 

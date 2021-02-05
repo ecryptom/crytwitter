@@ -33,7 +33,7 @@ def add_product_to_cart(req, ID):
 
 @login_required(login_url='login')
 def comment(req, ID):
-    Text = req.POST.get('text').encode()
+    Text = req.POST.get('text')
     Product = product.objects.get(id=ID)
     User = req.user
     Date = gregorian_to_shamsi(timezone.now())
@@ -44,7 +44,7 @@ def comment(req, ID):
 @csrf_exempt
 @login_required(login_url='login')
 def reply_comment(req, ID):
-    Text = req.POST.get('text').encode()
+    Text = req.POST.get('text')
     Date = gregorian_to_shamsi(timezone.now())
     Comment = product_comment.objects.get(id=ID)
     Reply_comment = product_comment(product=Comment.product, user=req.user, shamsi_date=Date, text=Text, reply_to=Comment)

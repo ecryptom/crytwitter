@@ -1,7 +1,7 @@
 from django.db import models
 
 class twit(models.Model):
-    text = models.BinaryField()
+    text = models.TextField(default='')
     currency = models.CharField(max_length=15)
     user = models.ForeignKey('accounts.user', on_delete=models.CASCADE, related_name='twits')
     time = models.DateTimeField(auto_now=True)
@@ -13,7 +13,7 @@ class twit(models.Model):
 
 
 class comment(models.Model):
-    text = models.BinaryField()
+    text = models.TextField(default='')
     user = models.ForeignKey('accounts.user', on_delete=models.CASCADE, related_name='comments')
     time = models.DateTimeField(auto_now=True)
     reply_to = models.ForeignKey('twit', on_delete=models.CASCADE, related_name='comments')

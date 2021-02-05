@@ -12,7 +12,7 @@ for cur in all_currencies:
     Currency = currency(
         name = cur[0],
         symbol = cur[1],
-        persian_name = cur[2].encode(),
+        persian_name = cur[2],
         image_url= cur[3]
     )
     Currency.save()

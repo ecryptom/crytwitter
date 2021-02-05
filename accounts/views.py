@@ -75,12 +75,12 @@ def register(req, invite_code=''):
                 User = User[0]
                 User.username = data.get('username')
                 User.set_password(data.get('password'))
-                User.name = data.get('name').encode()
+                User.name = data.get('name')
                 User.introducer = introducer
                 User.save()
         #create new user
         if not User:
-            User = user.objects.create_user(data.get('username'), data.get('phone'), data.get('password'), data.get('name').encode(), introducer)
+            User = user.objects.create_user(data.get('username'), data.get('phone'), data.get('password'), data.get('name'), introducer)
         #create and send verification code
         User.verify_code = random.randint(10000, 99999)
         User.verify_code_time = timezone.now()
@@ -148,7 +148,7 @@ def edit_profile(req):
             return render(req, 'panel-edit-profile.html', {'message': 'لطفا ایمیل خود را وارد کرده و آن را تایید نمایید', 'mode':'warning'})
         return render(req, 'panel-edit-profile.html')
     #change name
-    User.name = req.POST['name'].encode()
+    User.name = req.POST['name']
     #change image
     if req.FILES.get('image'):
         User.image = req.FILES.get('image')

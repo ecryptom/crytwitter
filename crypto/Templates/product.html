@@ -15,9 +15,9 @@
                     <div class="row  product-features-row">
                         <div class="col-12 col-sm-12 col-md-8 col-lg-7 col-xl-8 product-features-details-col">
                             <div class="product-features-details">
-                                <h1 class="product-features-details-heading-one">{{product.name.decode}}
+                                <h1 class="product-features-details-heading-one">{{product.name}}
                                 </h1>
-                                <p class="product-features-details-paragraph">{{product.details.decode}}
+                                <p class="product-features-details-paragraph">{{product.details}}
                                 </p>
                                 <div class="product-features-details-price">
                                     <span class="product-features-details-price-title">قیمت :</span>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="product-description">
                     <p>
-                        {{product.details.decode}}
+                        {{product.details}}
                     </p>
                 </div>
                 <div class="product-tags">
@@ -109,7 +109,7 @@
                                         class="product-comments-header-right-image" />
                                 </div>
                                 <div class="product-comments-header-left">
-                                    <span class="product-comments-header-left-name">{{comment.user.name.decode}}
+                                    <span class="product-comments-header-left-name">{{comment.user.name}}
                                         </span>
                                     <span
                                         class="product-comments-header-left-date">{{comment.shamsi_date}}</span>
@@ -117,7 +117,7 @@
                             </div>
                             <div class="product-comments-content">
                                 <p class="product-comments-content-paragraph">
-                                    {{comment.text.decode | linebreaksbr}}
+                                    {{comment.text | linebreaksbr}}
                                 </p>
                             </div>
                             <div class="product-comments-footer">
@@ -133,7 +133,7 @@
                                                     class="product-comments-reply-header-right-image" />
                                             </div>
                                             <div class="product-comments-reply-header-left">
-                                                <span class="product-comments-reply-header-left-name">{{reply.user.name.decode}}
+                                                <span class="product-comments-reply-header-left-name">{{reply.user.name}}
                                                     </span>
                                                 <span
                                                     class="product-comments-reply-header-left-date">{{reply.shamsi_date}}</span>
@@ -141,7 +141,7 @@
                                         </div>
                                         <div class="product-comments-reply-content">
                                             <p class="product-comments-reply-content-paragraph">
-                                                {{reply.text.decode | linebreaksbr}}
+                                                {{reply.text | linebreaksbr}}
                                             </p>
                                         </div>
                                     </li>

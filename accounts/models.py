@@ -42,7 +42,7 @@ class user(AbstractUser):
     followings = models.ManyToManyField('user', related_name='followers') 
     first_name = None
     last_name = None
-    name = models.BinaryField(default=b'')
+    name = models.CharField(max_length=30 ,default='')
     shamsi_joined_date = models.CharField(max_length=11, null=True)
     watch_list = models.ManyToManyField('home.currency')
     objects = UserManager()

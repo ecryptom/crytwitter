@@ -48,7 +48,7 @@
                                 <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات </a>
                                     <ul class="main-submenu-list">
                                     {% for product in products %}
-                                        <li class="main-submenu-item"><a href="{% url 'product' product.id %}" class="main-submenu-link">{{product.name.decode}}
+                                        <li class="main-submenu-item"><a href="{% url 'product' product.id %}" class="main-submenu-link">{{product.name}}
                                             </a></li>
                                     {% endfor %}
                                     </ul>
