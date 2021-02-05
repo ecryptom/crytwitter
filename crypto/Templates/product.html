@@ -102,6 +102,7 @@
                     </div>
                     <ul class="product-comments-list">
                     {% for comment in product.product_comment_set.all %}
+                    {% if not comment.reply_to %}
                         <li class="product-comments-item">
                             <div class="product-comments-header">
                                 <div class="product-comments-header-right">
@@ -150,6 +151,7 @@
                      
                             </div>
                         </li>
+                    {% endif %}
                     {% endfor %}
                     </ul>
                 </div>
