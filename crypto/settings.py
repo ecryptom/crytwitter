@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
+    'ckeditor',
+    'ckeditor_uploader',
     'home.apps.HomeConfig',
     'twits.apps.TwitsConfig',
     'products.apps.ProductsConfig'
@@ -161,6 +163,8 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'crypto/STATICS')
     MEDIA_ROOT = os.path.join(BASE_DIR, 'crypto/MEDIA')
 
+
+
 #email informations
 EMAIL_USE_TLS = True
 EMAIL_PORT = os.getenv('EMAIL_PORT')
@@ -168,3 +172,18 @@ EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+
+SITE_ID = 1
+    ##  CKEDITOR CONFIGURATION ##
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'articles/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
