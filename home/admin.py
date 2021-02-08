@@ -11,4 +11,5 @@ class ArticleAdmin_(admin.ModelAdmin):
 
 @admin.register(article_chunk)
 class ArticleAdmin_(admin.ModelAdmin):
+    list_display = ['__str__', 'title', 'article']
     ordering = ['article', 'number']

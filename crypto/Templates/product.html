@@ -45,22 +45,24 @@
                                 <div class="product-features-picture-gallery">
                                     <div class="swiper-container product-features-picture-gallery-swiper-container">
                                         <div class="swiper-wrapper product-features-picture-gallery-swiper-wrapper">
-                                            <div class="swiper-slide product-features-picture-gallery-swiper-slide">
-                                                <img src="{{product.image1.url}}"
-                                                    class="product-features-picture-gallery-image" alt="" />
-                                            </div>
-                                            <div class="swiper-slide product-features-picture-gallery-swiper-slide">
-                                                <img src="{{product.image2.url}}"
-                                                    class="product-features-picture-gallery-image" alt="" />
-                                            </div>
-                                            <div class="swiper-slide product-features-picture-gallery-swiper-slide">
-                                                <img src="{{product.image3.url}}"
-                                                    class="product-features-picture-gallery-image" alt="" />
-                                            </div>
-                                            <div class="swiper-slide product-features-picture-gallery-swiper-slide">
-                                                <img src="{{product.image1.url}}"
-                                                    class="product-features-picture-gallery-image" alt="" />
-                                            </div>
+                                            {% if product.image1 %}
+                                                <div class="swiper-slide product-features-picture-gallery-swiper-slide">
+                                                    <img src="{{product.image1.url}}"
+                                                        class="product-features-picture-gallery-image" alt="" />
+                                                </div>
+                                            {% endif %}
+                                            {% if product.image2 %}
+                                                <div class="swiper-slide product-features-picture-gallery-swiper-slide">
+                                                    <img src="{{product.image2.url}}"
+                                                        class="product-features-picture-gallery-image" alt="" />
+                                                </div>
+                                            {% endif %}
+                                            {% if product.image3 %}
+                                                <div class="swiper-slide product-features-picture-gallery-swiper-slide">
+                                                    <img src="{{product.image3.url}}"
+                                                        class="product-features-picture-gallery-image" alt="" />
+                                                </div>
+                                            {% endif %}
                                         </div>
                                         <div
                                             class="swiper-pagination product-features-picture-gallery-swiper-pagination">

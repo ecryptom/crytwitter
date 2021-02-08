@@ -47,3 +47,6 @@ class user(AbstractUser):
     watch_list = models.ManyToManyField('home.currency')
     objects = UserManager()
 
+    class Meta:
+        verbose_name_plural = 'کاربران'
+

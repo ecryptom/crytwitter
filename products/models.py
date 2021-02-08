@@ -3,24 +3,28 @@ from utils.date_convertor import gregorian_to_shamsi
 from django.utils import timezone
 
 class product(models.Model):
-    name = models.CharField(max_length=25)
-    price = models.IntegerField()
-    off = models.IntegerField(default=0)
-    details = models.TextField(default='')
-    tags = models.CharField(max_length=50 ,default='crypto;BTC;miner')  #split tags with ";"
-    image1 = models.FileField(upload_to='products', null=True)
-    image2 = models.FileField(upload_to='products', null=True)
-    image3 = models.FileField(upload_to='products', null=True)
+    name = models.CharField(max_length=25, verbose_name='نام محصول')
+    price = models.IntegerField(verbose_name='قیمت')
+    off = models.IntegerField(default=0, verbose_name='تخفیف به درصد')
+    details = models.TextField(default='', verbose_name='توضیحات')
+    tags = models.CharField(max_length=50 ,default='crypto;BTC;miner', verbose_name='تگ‌ها(با ; جدا شوند)')  #split tags with ";"
+    image1 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر اول')
+    image2 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
+    image3 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر سوم')
     def net_price(self):
         return self.price * (100 - self.off) * 0.01
     def split_tags(self):
         return self.tags.split(';')
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name_plural = 'محصولات'
 
 
 class order(models.Model):
-    product = models.ForeignKey('products.product', on_delete=models.CASCADE)
-    cart = models.ForeignKey('products.cart', on_delete=models.CASCADE)
-    number = models.IntegerField(default=1)
+    product = models.ForeignKey('products.product', on_delete=models.CASCADE, verbose_name='محصول')
+    cart = models.ForeignKey('products.cart', on_delete=models.CASCADE, verbose_name='سبد خرید')
+    number = models.IntegerField(default=1, verbose_name='تعداد')
 
 
 class cart(models.Model):
