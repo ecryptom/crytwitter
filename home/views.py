@@ -14,7 +14,7 @@ def cryptomarket(req):
 
 def article_page(req, ID):
     Article = article.objects.get(id=ID)
-    return render(req, 'article.html', {'article':Article, 'article_chunks':Article.article_chunk_set.all()})
+    return render(req, 'article.html', {'article':Article, 'article_chunks':Article.article_chunk_set.order_by('number')})
 
 
 @login_required(login_url='login')

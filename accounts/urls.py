@@ -13,7 +13,8 @@ urlpatterns = [
     path('change_pass', change_pass, name='change_pass'),
     path('edit_profile', edit_profile, name='edit_profile'),
     path('invite_friends', invite_friends, name='invite_friends'),
-    path('verify_email', verify_email, name='verify_email'),
+    path('verify_email_code', verify_email_code, name='verify_email_code'),
+    path('resend_email_code', resend_email_code, name='resend_email_code'),
     path('watch_list_page', watch_list_page, name='watch_list_page'),
     path('add_watch_list', add_watch_list, name='add_watch_list'),
 

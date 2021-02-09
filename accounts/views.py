@@ -147,23 +147,13 @@ def edit_profile(req):
         if not User.email:
             return render(req, 'panel-edit-profile.html', {'message': 'لطفا ایمیل خود را وارد کرده و آن را تایید نمایید', 'mode':'warning'})
         return render(req, 'panel-edit-profile.html')
-    #change name
-    User.name = req.POST['name']
-    #change image
-    if req.FILES.get('image'):
-        User.image = req.FILES.get('image')
-    User.save()
-    #change email
-    email = req.POST['email']
-    if email != req.user.email:
-        if '@' not in email or '.' not in email:
-            return render(req, 'panel-edit-profile.html', {'message': 'ایمیل نامعتبر است', 'mode':'danger'})
-        #send verification email
-        User.email = email
-        User.verified_email = False
+
+    #redirect to verification page
+    if req.POST['submit'] == 'verify_email':
+        User.verify_code = random.randint(10000, 99999)
+        User.verify_code_time = timezone.now()
         User.save()
-        url = f'{settings.BASE_URL}/account/verify_email?username={req.user.username}&session={req.user.get_session_auth_hash()}'
-        message = render_to_string('emails/email_verification.html', {'url':url})
+        message = render_to_string('emails/email_verification.html', {'code':User.verify_code})
         send_mail(
             subject='verify',
             message='',
@@ -171,20 +161,60 @@ def edit_profile(req):
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[User.email]
         )
-        return render(req, 'panel-edit-profile.html', {'message': 'لطفا ایمیل خود را تایید کنید', 'mode':'info'})
-    return render(req, 'panel-edit-profile.html')
+        return render(req, 'verify_email.html', {'email': User.email, 'seconds':119})
 
-
-def verify_email(req):
-    try:
-        User = user.objects.get(username=req.GET.get('username'))
-        if User.get_session_auth_hash() == req.GET.get('session'):
-            User.verified_email = True
+    #save post data
+    else:
+        #change name
+        User.name = req.POST['name']
+        #change image
+        if req.FILES.get('image'):
+            User.image = req.FILES.get('image')
+        User.save()
+        #change email
+        email = req.POST['email']
+        if email != req.user.email:
+            if '@' not in email or '.' not in email:
+                return render(req, 'panel-edit-profile.html', {'message': 'ایمیل نامعتبر است', 'mode':'danger'})
+            User.email = email
+            User.verified_email = False
             User.save()
-        return redirect('home')
+            return render(req, 'panel-edit-profile.html', {'message': 'لطفا ایمیل خود را تایید کنید', 'mode':'info'})
+        return render(req, 'panel-edit-profile.html')
+
+
+def verify_email_code(req):
+    User = user.objects.get(email=req.POST.get('email'))
+    #check verification code
+    if (timezone.now()-User.verify_code_time).total_seconds()>120:
+        return render(req, 'verify_email.html', {'email': User.email, 'error': 'زمان وارد کردن کد تایید بیش از حد مجاز', 'seconds':0})
+    if req.POST.get('verification_code') != str(User.verify_code):
+        return render(req, 'verify_email.html', {'email': User.email, 'error': 'کد تایید اشتباه است', 'seconds':int(119-(timezone.now()-User.verify_code_time).total_seconds())})
+    User.verified_email = True
+    User.save()
+    auth.login(req, User) 
+    return render(req, 'panel-edit-profile.html', {'message': 'ایمیل با موفقیت تایید شد', 'mode':'info'})
+
+
+def resend_email_code(req):
+    User = user.objects.get(email=req.GET.get('email'))
+    User.verify_code = random.randint(10000, 99999)
+    User.verify_code_time = timezone.now()
+    User.save()
+    try:
+        message = render_to_string('emails/email_verification.html', {'code':User.verify_code})
+        send_mail(
+            subject='verify',
+            message='',
+            html_message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[User.email]
+        )
+        return render(req, 'verify_email.html', {'email': User.email, 'seconds':119})
     except:
-        return redirect('home')
-        
+        return JsonResponse({'status':'failed'})
+
+
 
 @login_required(login_url='login')
 def invite_friends(req):

@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% load static %} {% block header %}
+<title>ارز توییت</title>
+<link rel="stylesheet" href="{% static 'css/confirm.min.css' %}" /> {% endblock header %} {% block page %}
+<!-- START CONFIRM -->
+<section class="confirm">
+    <div class="container confirm-container">
+        <div class="confirm-alert">
+            کاربر گرامی!ثبت نام شما با موفقیت انجام شد.پیامکی حاوی کد فعالسازی حساب کاربری به تلفن همراه شما ارسال شد.جهت فعالسازی حساب کاربری خود،کد فعالسازی ارسال شده را وارد کنید.
+        </div>
+        <div class="confirm-timer">
+            زمان باقی مانده:
+            <span id="second"></span> : <span id="minute"></span>
+        </div>
+        <form action="{% url 'verify_email_code' %}" method="POST">
+            {% csrf_token %}
+            <input name="email" value="{{email}}" hidden>
+            <input type="text" name="verification_code" class="confirm-input" />
+            <button type="submit" class="confirm-submit confirm-submit-visible">تأیید کد فعالسازی</button>
+            <a class="confirm-link" id="confirmLink" href="/account/resend_email_code?email={{email}}">ارسال مجدد کد فعالسازی</a>
+        </form>
+        {% if error %}
+        <div class="alert alert-danger w-75 mx-auto">
+            <p>{{error}}</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+<!-- END CONFIRM -->
+{% endblock page %} {% block scripts %}
+
+<script>
+    function timer() {
+        let minute = Math.floor({{seconds}}/60);
+        let second = {{seconds}}%60;
+        let secoundElement = document.getElementById("second");
+        let minuteElement = document.getElementById("minute");
+        document.querySelector(".confirm-timer").classList.remove("confirm-timer-disabled");
+        document.querySelector(".confirm-submit").classList.add("confirm-submit-visible");
+        document.querySelector(".confirm-link").classList.remove("confirm-link-visible");
+        let timer = setInterval(() => {
+            second--;
+            if (minute == 0 && second == 0) {
+                document.querySelector(".confirm-timer").classList.add("confirm-timer-disabled");
+                document.querySelector(".confirm-submit").classList.remove("confirm-submit-visible");
+                document.querySelector(".confirm-link").classList.add("confirm-link-visible");
+                clearInterval(timer);
+            }
+            if (second == 0 && minute != 0) {
+                minute--;
+                second = 59;
+            }
+            let secondValue = second < 10 ? "0" + second : second.toString();
+            let minuteValue = minute < 10 ? "0" + minute : minute.toString();
+            secoundElement.innerHTML = secondValue;
+            minuteElement.innerHTML = minuteValue;
+        }, 1000);
+    }
+    timer();
+    document.getElementById("confirmLink").addEventListener("click", timer);
+</script>
+
+{% endblock scripts %}
