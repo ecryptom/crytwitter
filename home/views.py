@@ -39,6 +39,9 @@ def reply_article_comment_view(req, ID):
     return redirect('article', ID=Comment.article.id)
 
 
+def error_404(req, exception):
+    return render(req, 'error_404.html')
+
 
 
 ########  APIs    ########33

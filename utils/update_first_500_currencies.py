@@ -1,8 +1,7 @@
 import requests, json
 from home.models import currency
-import time
 
-start = time.time()
+
 all_currencies = currency.objects.all()
 
 symbols = [c.symbol for c in all_currencies[:500]]
@@ -18,4 +17,3 @@ for cur_info in currencies_info:
         cur.save()
     except:
         pass
-print(time.time() - start)

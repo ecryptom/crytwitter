@@ -1,12 +1,11 @@
-import requests, json, time
+import requests, json
 from home.models import currency
 
 
 all_currencies = currency.objects.all()
 
 def update(currencies):
-    global time, json, requests, currency
-    start = time.time()
+    global json, requests, currency
     symbols = [c.symbol for c in currencies]
     symbols = ','.join(symbols)
     response = requests.get(f'https://api.nomics.com/v1/currencies/ticker?key=e46fab48a3538b1ec642482aaa54fb68&ids={symbols}&interval=1d,7d')
@@ -20,7 +19,7 @@ def update(currencies):
             cur.save()
         except:
             pass
-    print(time.time() - start)
+
 
 update(all_currencies[500:1000])
 update(all_currencies[1000:1500])
