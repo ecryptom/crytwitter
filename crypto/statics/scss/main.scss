@@ -61,20 +61,26 @@ body {
 
 //HEADER STYLES
 .header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+background-image: url(../img/backgroundproPage.jpg);
+     background-position: center;
+    background-size: cover;
+    .header-top{
     transition: all ease .7s;
     width: 100%;
     z-index: 999;
     position: relative;
     border-bottom: 1px solid $color-white;
-    background-color: $color-header-background;
     padding-top: 11px;
     position: fixed;
     top: 0;
-
-    &.header-sticky {
-        padding-top: 3px; 
+      &.header-sticky {
+        padding-top: 3px;
+        background-color: $color-header-background;
     }
-
+    }
     .header-large {
         .header-row {
             display: flex;
@@ -603,6 +609,8 @@ body {
                 }
             }
         }
+    }
+    .header-banner{
     }
 }
 

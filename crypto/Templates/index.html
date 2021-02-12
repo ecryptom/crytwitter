@@ -1,37 +1,408 @@
-{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="fa-IR" dir="rtl" class="not-show-scroll-bar">
 
-{% block header %}
+<head>
     <title>ارز توييتر</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/index.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <style>
-    html{
-        scroll-behavior: smooth;
-    }
+        .header {
+            height: 100vh;
+        }
+
+        .header-banner {
+            position: relative;
+            margin-top: 220px;
+        }
+
+        .banner .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .banner img {
+            object-fit: cover;
+        }
+
+        .scroll-down {
+            display: table;
+            width: 50px;
+            text-align: center;
+            margin: 0 auto;
+            right: 0;
+            left: 0;
+            bottom: 40px;
+        }
+
+        .scroll-down:hover {
+            bottom: 35px
+        }
+
+        .down_arrow_icon {
+            padding: 8px 10px;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    margin: auto;
+    transition: all .3s cubic-bezier(.54,.35,.27,1.55);
+    position: relative;
+}
+
+.down_arrow_icon span {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 30%;
+    height: 12px;
+    width: 3px;
+    border-radius: 4px;
+    background-color: #fff;
+    margin: auto;
+    -webkit-animation-name: down_arrow;
+    animation-name: down_arrow;
+    animation-timing-function: cubic-bezier(1,-.14,0,.52);
+    animation-play-state: running;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+@keyframes down_arrow {
+    0%, 100% {
+    height: 8px;
+}
+45%, 55% {
+    height: 16px;
+}
+}
+
+.scroll-down > i {
+    width: 100%;
+    display: block;
+    line-height: 25px;
+    color: #fff;
+}
+        .scroll-down .one {
+            font-size: 14px;
+            animation: 1.4s linear 0s infinite down-sign-one;
+            margin-top: 20px;
+        }
+
+        .scroll-down .two {
+            font-size: 22px;
+            margin-top: -15px;
+            animation: 1.4s linear 0s infinite down-sign-two;
+            -moz-animation: 1.4s linear 0s infinite down-sign-two;
+            -webkit-animation: 1.4s linear 0s infinite down-sign-two
+        }
+
+        .scroll-down .three {
+            font-size: 26px;
+            margin-top: -15px;
+            animation: 1.4s linear 0s infinite down-sign-three;
+            -moz-animation: 1.4s linear 0s infinite down-sign-three;
+            -webkit-animation: 1.4s linear 0s infinite down-sign-three
+        }
+
+  
+  
+        @keyframes down-sign-one {
+            0% {
+                opacity: 1;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            20% {
+                opacity: 0.2;
+            }
+
+            30% {
+                opacity: 0;
+            }
+
+            40% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            60% {
+                opacity: 0;
+            }
+
+            70% {
+                opacity: 0.2;
+            }
+
+            80% {
+                opacity: 0.5;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes down-sign-two {
+            0% {
+                opacity: 1;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            30% {
+                opacity: 0.6;
+            }
+
+            40% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            60% {
+                opacity: 0;
+            }
+
+            70% {
+                opacity: 0;
+            }
+
+            80% {
+                opacity: 0.2;
+            }
+
+            90% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes down-sign-three {
+            0% {
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            40% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            60% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+
+            60% {
+                opacity: 0.2;
+            }
+
+            90% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 0
+            }
+        }
     </style>
-{% endblock header %}
 
+</head>
 
+<body>
+    <!-- START PRELOADER -->
+    <div class="preloader">
+        <ul class="preloader-list">
+            <li class="preloader-item"></li>
+            <li class="preloader-item"></li>
+            <li class="preloader-item"></li>
+            <li class="preloader-item"></li>
+            <li class="preloader-item"></li>
+        </ul>
+    </div>
+    <!-- END PRELOADER -->
 
-
-
-
-{% block page %}
-
-    <!-- START BANNER -->
-    <section class="banner">
-        <div class="container banner-container">
-            <div class="banner-content"></div>
-            <div class="banner-search">
-                <div class="banner-search-large">
-                    <div class="row banner-search-row"></div>
+    <!-- START HEADER -->
+    <header class="header">
+        <div id="header" class="header-top">
+            <div class="header-large ">
+                <div class="container header-container">
+                    <div class="row header-row">
+                        <div class="col-lg-2 col-xl-1 logo-col">
+                            <div class="logo"><a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}"
+                                        class="logo-image" /></a></div>
+                        </div>
+                        <div class="col-lg-7 col-xl-8 main-menu-col">
+                            <nav class="main-menu">
+                                <ul class="main-menu-list">
+                                    <li class="main-menu-item main-menu-item-active"><a href="{% url 'home' %}"
+                                            class="main-menu-link">خانه
+                                        </a></li>
+                                    <li class="main-menu-item"><a href="#" class="main-menu-link">توئیت </a></li>
+                                    <li class="main-menu-item"><a href="#" class="main-menu-link">رمز ارزها </a></li>
+                                    <li class="main-menu-item"><a href="{% url 'cryptomarket' %}" class="main-menu-link">نقشه بازار </a></li>
+                                    <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
+                                    <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات
+                                        </a>
+                                        <ul class="main-submenu-list">
+                                            {% for product in products %}
+                                                <li class="main-submenu-item"><a href="{% url 'product' product.id %}" class="main-submenu-link">{{product.name}}
+                                                    </a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li class="main-menu-item"><a href="#" class="main-menu-link">مقالات </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        {% if not user.is_authenticated %}
+                        <div class="col-lg-3 col-xl-3 login-register-col">
+                            <div class="login-register">
+                                <i class="fa fa-user login-register-icon"></i>
+                                <a href="{% url 'login' %}" class="login-register-link"><span class="login-register-title">ورود</span></a>
+                                <span class="login-register-seprator">|</span>
+                                <a href="{% url 'register' %}" class="login-register-link"><span class="login-register-title">ثبت نام</span></a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-lg-3 col-xl-3 login-register-col">
+                            <div class="login-register">
+                                <i class="fa fa-user login-register-icon"></i>
+                                <a href="{% url 'logout' %}" class="login-register-link"><span class="login-register-title">خروج</span></a>
+                                <span class="login-register-seprator">|</span>
+                                <a href="{% url 'dashboard' %}" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
+                            </div>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="header-medium">
+                <div class="container header-container">
+                    <div class="row header-row">
+                        <div class="col-4 col-sm-6 col-md-6">
+                            <nav class="responsive-menu" id="responsiveMenu">
+                                <div class="responsive-menu-header"><img src="{% static 'img/logo.png' %}"
+                                        class="responsive-menu-header-image" /><button
+                                        class="responsive-menu-header-button" id="closeNav"><i
+                                            class="fa fa-times responsive-menu-header-icon"></i></button></div>
+                                <div class="responsive-menu-content">
+                                    <ul class="responsive-menu-content-list">
+                                        <li class="responsive-menu-content-item"><a href="{% url 'home' %}"
+                                                class="responsive-menu-content-link">خانه</a></li>
+                                        <li class="responsive-menu-content-item"><a href="#"
+                                                class="responsive-menu-content-link">توییت</a></li>
+                                        <li class="responsive-menu-content-item"><a
+                                                class="responsive-menu-content-link">رمزارزها</a></li>
+                                        <li class="responsive-menu-content-item"><a href="{% url 'cryptomarket' %}"
+                                                class="responsive-menu-content-link">نقشه بازار</a></li>
+                                        <li class="responsive-menu-content-item"><a href="{% url 'watch_list_page' %}"
+                                                class="responsive-menu-content-link">دیده بان</a></li>
+                                        <li class="responsive-menu-content-item responsive-submenu-content"><a
+                                                class="responsive-menu-content-link">محصولات</a>
+                                            <ul class="responsive-submenu-content-list">
+                                                {% for product in products %}
+                                                    <li class="responsive-submenu-content-item"><a href="{% url 'product' product.id %}" class="responsive-submenu-content-link">{{product.name}}
+                                                        </a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        <li class="responsive-menu-content-item"><a href="#"
+                                                class="responsive-menu-content-link">مقالات</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="responsive-menu-overlay" id="overlay"></div><button
+                                class="responsive-menu-button" id="openNav"><i
+                                    class="fa fa-bars responsive-menu-icon"></i></button>
+                        </div>
+                        <div class="col-8 col-sm-6 col-md-6">
+                            <div class="login-register"><i class="fa fa-user login-register-icon"></i><a
+                                    href="login-register.html" class="login-register-link"><span
+                                        class="login-register-title">ورود</span></a><span
+                                    class="login-register-seprator">|</span><a href="login-register.html"
+                                    class="login-register-link"><span class="login-register-title">ثبت نام</span></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- END BANNER -->
+        </div>
+        <div class="header-banner">
+            <div class="container banner-container">
+                <div class="header-banner-title">
+                </div>
+                <div class="banner-search">
+                    <div class="banner-search-large">
+                        <div class="row banner-search-row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                <img src="{% static 'img/photo_2021-01-13_22-57-37-removebg-preview.png' %}" class="img-fluid" />
+                            </div>
+                            <div class="col-6"></div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                <img src="{% static 'img/photo_2021-01-11_23-13-09-removebg-preview.png' %}" class="img-fluid" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner-go-down">
+            <a href="#topCryptocurrency" class="scroll-down scroll">
+                <span class="down_arrow_icon"><span></span></span>
+                <i class="fa fa-angle-down one"></i>
+                <i class="fa fa-angle-down two"></i>
+                <i class="fa fa-angle-down three"></i>
+            </a>
+        </div>
+    </header>
+    <!-- END HEADER -->
 
     <!-- START TOP CRYPTOCURRENCY -->
     <section class="top-cryptocurrency" id="topCryptocurrency">
@@ -41,7 +412,7 @@
             </div>
             <div class="top-cryptocurrency-boxes-wrapper">
                 <div class="row top-cryptocurrency-boxes-row">
-                {% for cur in top_curs %}
+                    {% for cur in top_curs %}
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="top-cryptocurrency-boxes">
                             <div class="top-cryptocurrency-boxes-brand"><span
@@ -589,71 +960,229 @@
     </section>
     <!-- END COMMENTS -->
 
+    <!-- START FOOTER -->
+    <footer class="footer" id="footer">
+        <div class="footer-top">
+            <div class="container footer-container">
+                <div class="row footer-top-row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-right-col">
+                        <div class="footer-right"><img src="{% static 'img/logo.png' %}" class="footer-right-image" alt="ارز توییت" />
+                            <p class="footer-right-paragraph">رمز ارز شبکه هوشمند سرمایه گذاری است که تلاش دارد با ارائه
+                                خدمات مناسب،سرمایه گذاری را برای سرمایه گذاران آسان کند.سامانه معاملات آنلاین رمز ارز با
+                                همکاری کارگزاری تدبیرگران فردا راه اندازی شده است. </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-center-col">
+                        <div class="footer-center">
+                            <h4 class="footer-center-heading-four">دسترسي سريع</h4>
+                            <ul class="footer-center-list">
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">صفحه اصلي </a>
+                                </li>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">توییت </a></li>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">رمز ارزها </a>
+                                </li>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">نقشه بازار </a>
+                                </li>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">دیده بان </a></li>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">محصولات </a></li>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">مقالات </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-left-col">
+                        <div class="footer-left">
+                            <div class="footer-left-social-networks"><a href="#"
+                                    class="footer-left-social-networks-link"><i
+                                        class="fa fa-telegram footer-left-social-networks-icon"></i></a><a href="#"
+                                    class="footer-left-social-networks-link"><i
+                                        class="fa fa-instagram footer-left-social-networks-icon"></i></a><a href="#"
+                                    class="footer-left-social-networks-link"><i
+                                        class="fa fa-twitter footer-left-social-networks-icon"></i></a></div>
+                            <div class="footer-left-contact">
+                                <h4 class="footer-left-contact-heading-four">ارتباط با ما</h4>
+                                <ul class="footer-left-contact-list">
+                                    <li class="footer-left-contact-item"><i
+                                            class="fa fa-map-marker footer-left-contact-icon"></i><span
+                                            class="footer-left-contact-span">تهران،امير آباد،خيابان ثاني</span></li>
+                                    <li class="footer-left-contact-item"><i
+                                            class="fa fa-phone footer-left-contact-icon"></i><span
+                                            class="footer-left-contact-span">09125412130</span></li>
+                                    <li class="footer-left-contact-item"><i
+                                            class="fa fa-envelope footer-left-contact-icon"></i><span
+                                            class="footer-left-contact-span">info@ramzarz.com</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-bottom-paragraph"><span class="footer-bottom-copyright">&copy;</span>تمامی حقوق برای سایت
+                ارز توييتر محفوظ است و بازنشر محتوا با ذکر منبع بلامانع است. </p>
+        </div>
+    </footer>
+    <!-- END FOOTER -->
 
-{% endblock page %}
-
-
-{% block scripts %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/poper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/num-scroller.js' %}"></script>
+    <script src="{% static 'js/main.min.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
     <script>
         $('.collapse').collapse();
+    </script>
+
+    <script>
+    //    $('.collapse').collapse();
+//
+//
+    //var dollor_rate = {{dollor_rate}}
+    //function numberWithCommas(x) {
+    //    var parts = x.toString().split(".");
+    //    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //    return parts.join(".");
+    //}
+//
+    ////first time
+//
+    //    $.ajax({
+    //        url: '/get_first_10_currency_info',
+    //        type: 'GET',
+    //        dataType: "json",
+    //        success: function(currencies, s, x) {
+    //          console.log(currencies);
+    //            currencies.forEach(cur => {
+    //                document.getElementById('1d_change_' + cur.symbol).innerHTML = "%" + cur['1d_change'].toFixed(2);
+    //                document.getElementById('7d_change_' + cur.symbol).innerHTML = "%" + cur['7d_change'].toFixed(2);
+    //                document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان';
+    //                if(cur['price'] < 10)
+    //                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4)) + ' دلار';
+    //                else
+    //                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2)) + ' دلار ';
+//
+    //                // fix the color of price_change 
+    //                document.getElementById('1d_change_' + cur.symbol).style.color = (cur['1d_change'] > 0) ? '#00ff00' : 'red';
+    //                document.getElementById('7d_change_' + cur.symbol).style.color = (cur['7d_change'] > 0) ? '#00ff00' : 'red';
+    //            });
+    //        }
+    //    });
+//
+    //setInterval(() => {
+    //    $.ajax({
+    //        url: '/get_first_10_currency_info',
+    //        type: 'GET',
+    //        dataType: "json",
+    //        success: function(currencies, s, x) {
+    //          console.log(currencies);
+    //            currencies.forEach(cur => {
+    //                document.getElementById('1d_change_' + cur.symbol).innerHTML = "%" + cur['1d_change'].toFixed(2);
+    //                document.getElementById('7d_change_' + cur.symbol).innerHTML = "%" + cur['7d_change'].toFixed(2);
+    //                document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان';
+    //                if(cur['price'] < 10)
+    //                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4)) + ' دلار ';
+    //                else
+    //                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2)) + ' دلار ';
+//
+    //                // fix the color of price_change 
+    //                document.getElementById('1d_change_' + cur.symbol).style.color = (cur['1d_change'] > 0) ? '#00ff00' : 'red';
+    //                document.getElementById('7d_change_' + cur.symbol).style.color = (cur['7d_change'] > 0) ? '#00ff00' : 'red';
+    //            });
+    //        }
+    //    });
+    //}, 5000);
+//
+    </script>
 
 
-    var dollor_rate = {{dollor_rate}}
+
+    <script>
+    $('.collapse').collapse();
+    var dollor_rate = {{dollor_rate}};
+    var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change, new_7d_change;
+    var price_diff_per_frame={}, daily_change_diff_per_frame={}, weekly_change_diff_per_frame={};
+
     function numberWithCommas(x) {
         var parts = x.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return parts.join(".");
     }
 
-    //first time
+    function update_window(symbol, price, daily_change, weekly_change){
+        document.getElementById('1d_change_' + symbol).innerHTML = "%" + daily_change.toFixed(2);
+        document.getElementById('7d_change_' + symbol).innerHTML = "%" + weekly_change.toFixed(2);
+        document.getElementById('toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان';
+        if(price < 10)
+            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(4)) + ' دلار ';
+        else
+            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(2)) + ' دلار ';
+        // fix the color of price_change 
+        document.getElementById('1d_change_' + symbol).style.color = (daily_change > 0) ? '#00ff00' : 'red';
+        document.getElementById('7d_change_' + symbol).style.color = (weekly_change > 0) ? '#00ff00' : 'red';
+    }
 
-        $.ajax({
+    function update_window_by_20_frame(){
+        new_data =  JSON.parse($.ajax({
             url: '/get_first_10_currency_info',
             type: 'GET',
             dataType: "json",
-            success: function(currencies, s, x) {
-              console.log(currencies);
-                currencies.forEach(cur => {
-                    document.getElementById('1d_change_' + cur.symbol).innerHTML = "%" + cur['1d_change'].toFixed(2);
-                    document.getElementById('7d_change_' + cur.symbol).innerHTML = "%" + cur['7d_change'].toFixed(2);
-                    document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    if(cur['price'] < 10)
-                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4));
-                    else
-                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
+            async:false
+        }).responseText);
 
-                    // fix the color of price_change 
-                    document.getElementById('1d_change_' + cur.symbol).style.color = (cur['1d_change'] > 0) ? '#00ff00' : 'red';
-                    document.getElementById('7d_change_' + cur.symbol).style.color = (cur['7d_change'] > 0) ? '#00ff00' : 'red';
-                });
+        cur_index = 0;
+        for(cur_index=0; cur_index<new_data.length; cur_index++){
+            price_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index].price - old_data[cur_index].price) / 20;
+            daily_change_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index]['1d_change'] - old_data[cur_index]['1d_change']) / 20;
+            weekly_change_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index]['7d_change'] - old_data[cur_index]['7d_change']) / 20;
+        }
+
+        frame = 1;
+        let counter = setInterval(() => {
+            if(frame==18){
+                old_data = new_data;
+                clearInterval(counter);
             }
-        });
+            cur_index=0;
+            old_data.forEach(cur => {
+                //calcute new data
+                new_price = cur['price'] + frame * price_diff_per_frame[cur.symbol];
+                new_1d_change = cur['1d_change'] + frame * daily_change_diff_per_frame[cur.symbol];
+                new_7d_change = cur['7d_change'] + frame * weekly_change_diff_per_frame[cur.symbol];
+                update_window(cur.symbol, new_price, new_1d_change, new_7d_change);
+                cur_index++;
+            });      
+            frame++;
+        }, 3000);
+    }
+
+
+    //first time
+    old_data = JSON.parse($.ajax({
+        url: '/get_first_10_currency_info',
+        type: 'GET',
+        dataType: "json",
+        async:false
+    }).responseText);
+
+    //change correct data to have a dynamic page
+    for(var i=0; i< old_data.length; i++){
+        var sign = Math.random() > 0.5 ? -1 : 1;
+        old_data[i]['price'] += (old_data[i]['price'] * sign * 0.005);
+        old_data[i]['1d_change'] += (old_data[i]['1d_change'] * sign * 0.005);
+        old_data[i]['7d_change'] += (old_data[i]['7d_change'] * sign * 0.005);
+        update_window(old_data[i].symbol, old_data[i]['price'], old_data[i]['1d_change'], old_data[i]['7d_change']);
+    }
+    update_window_by_20_frame();
 
     setInterval(() => {
-        $.ajax({
-            url: '/get_first_10_currency_info',
-            type: 'GET',
-            dataType: "json",
-            success: function(currencies, s, x) {
-              console.log(currencies);
-                currencies.forEach(cur => {
-                    document.getElementById('1d_change_' + cur.symbol).innerHTML = "%" + cur['1d_change'].toFixed(2);
-                    document.getElementById('7d_change_' + cur.symbol).innerHTML = "%" + cur['7d_change'].toFixed(2);
-                    document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    if(cur['price'] < 10)
-                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4));
-                    else
-                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
-
-                    // fix the color of price_change 
-                    document.getElementById('1d_change_' + cur.symbol).style.color = (cur['1d_change'] > 0) ? '#00ff00' : 'red';
-                    document.getElementById('7d_change_' + cur.symbol).style.color = (cur['7d_change'] > 0) ? '#00ff00' : 'red';
-                });
-            }
-        });
-    }, 5000);
-
-    </script>
+        update_window_by_20_frame();
+    }, 60000);
     
-{% endblock scripts %}
+</script>
+    
+
+
+</html>

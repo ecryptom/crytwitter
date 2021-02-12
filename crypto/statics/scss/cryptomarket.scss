@@ -2,11 +2,9 @@
 @import "units";
 @import "mixin";
 
-.page-wrapper{
-    margin: 60px auto;
-}
 
 .cryptomarket{
+    margin-top: $margin-section;
     .cryptomarket-heading-two{
         @include MainTitle($color-primary-one,$color-primary-two);
         font-size: 25px;

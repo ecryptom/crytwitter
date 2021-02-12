@@ -149,6 +149,8 @@
             a = document.createElement("DIV");
             a.setAttribute("id", this.id + "autocomplete-list");
             a.setAttribute("class", "autocomplete-items");
+            a.style.height = "600%";
+            a.style.overflow = "scroll";
             this.parentNode.appendChild(a);
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
@@ -233,6 +235,8 @@
 
 <script>
     var dollor_rate = {{dollor_rate}};
+    var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change;
+    var price_diff_per_frame={}, daily_change_diff_per_frame={};
 
     function numberWithCommas(x) {
         var parts = x.toString().split(".");
@@ -240,48 +244,70 @@
         return parts.join(".");
     }
 
+    function update_window(symbol, price, one_day_change){
+        document.getElementById('1d_change_' + symbol).innerHTML = one_day_change.toFixed(2);
+        document.getElementById('toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if(price < 10)
+            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(4));
+        else
+            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(2));
+        // fix the color of price_change 
+        document.getElementById('1d_change_' + symbol).style.backgroundColor = (one_day_change > 0) ? '#33cc33' : 'red';
+    }
 
-    //first time
-    $.ajax({
-        url: 'get_watch_list_market_info',
-        type: 'GET',
-        dataType: "json",
-        success: function(currencies, s, x) {
-          console.log(currencies);
-            currencies.forEach(cur => {
-                document.getElementById('1d_change_' + cur.symbol).innerHTML = cur['1d_change'].toFixed(2);
-                document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                if(cur['price'] < 10)
-                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4));
-                else
-                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
-                // fix the color of price_change 
-                document.getElementById('1d_change_' + cur.symbol).style.backgroundColor = (cur['1d_change'] > 0) ? '#33cc33' : 'red';
-            });
-        }
-    });
-
-    setInterval(() => {
-        $.ajax({
+    function update_window_by_20_frame(){
+        new_data =  JSON.parse($.ajax({
             url: 'get_watch_list_market_info',
             type: 'GET',
             dataType: "json",
-            success: function(currencies, s, x) {
-              console.log(currencies);
-                currencies.forEach(cur => {
-                    document.getElementById('1d_change_' + cur.symbol).innerHTML = cur['1d_change'].toFixed(2);
-                    document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    if(cur['price'] < 10)
-                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4));
-                    else
-                        document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2));
+            async:false
+        }).responseText);
 
-                    // fix the color of price_change 
-                    document.getElementById('1d_change_' + cur.symbol).style.backgroundColor = (cur['1d_change'] > 0) ? '#33cc33' : 'red';
-                });
+        cur_index = 0;
+        for(cur_index=0; cur_index<new_data.length; cur_index++){
+            price_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index].price - old_data[cur_index].price) / 20;
+            daily_change_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index]['1d_change'] - old_data[cur_index]['1d_change']) / 20;
+        }
+
+        frame = 1;
+        let counter = setInterval(() => {
+            if(frame==18){
+                old_data = new_data;
+                clearInterval(counter);
             }
-        });
-    }, 5000);
+            cur_index=0;
+            old_data.forEach(cur => {
+                //calcute new data
+                new_price = cur['price'] + frame * price_diff_per_frame[cur.symbol];
+                new_1d_change = cur['1d_change'] + frame * daily_change_diff_per_frame[cur.symbol];
+                update_window(cur.symbol, new_price, new_1d_change);
+                cur_index++;
+            });      
+            frame++;
+        }, 3000);
+    }
+
+
+    //first time
+    old_data = JSON.parse($.ajax({
+        url: 'get_watch_list_market_info',
+        type: 'GET',
+        dataType: "json",
+        async:false
+    }).responseText);
+
+
+    for(var i=0; i< old_data.length; i++){
+        var sign = Math.random() > 0.5 ? -1 : 1;
+        old_data[i]['price'] += (old_data[i]['price'] * sign * 0.01);
+        old_data[i]['1d_change'] += (old_data[i]['1d_change'] * sign * 0.01);
+        update_window(old_data[i].symbol, old_data[i]['price'], old_data[i]['1d_change']);
+    }
+    update_window_by_20_frame();
+
+    setInterval(() => {
+        update_window_by_20_frame();
+    }, 60000);
     
 </script>
 

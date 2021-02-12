@@ -3,6 +3,7 @@
 <html lang="fa-IR" dir="rtl" class="not-show-scroll-bar">
 
 <head>
+    <title>ارز توييتر</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.min.css' %}" />
@@ -10,7 +11,10 @@
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"> {% block header %} {% endblock header %}
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    {% block header %}{% endblock header %}
+    
+
 </head>
 
 <body>
@@ -24,40 +28,42 @@
             <li class="preloader-item"></li>
         </ul>
     </div>
-    <!--END PRELOADER -->
+    <!-- END PRELOADER -->
 
     <!-- START HEADER -->
-    <header class="header" id="header">
-        <div class="header-large ">
-            <div class="container header-container">
-                <div class="row header-row">
-                    <div class="col-lg-2 col-xl-1 logo-col">
-                        <div class="logo">
-                            <a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}" class="logo-image" /></a>
+    <header class="header">
+        <div id="header" class="header-top">
+            <div class="header-large ">
+                <div class="container header-container">
+                    <div class="row header-row">
+                        <div class="col-lg-2 col-xl-1 logo-col">
+                            <div class="logo"><a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}"
+                                        class="logo-image" /></a></div>
                         </div>
-                    </div>
-                    <div class="col-lg-7 col-xl-8 main-menu-col">
-                        <nav class="main-menu">
-                            <ul class="main-menu-list">
-                                <li class="main-menu-item main-menu-item-active"><a href="{% url 'home' %}" class="main-menu-link">خانه
-                                    </a></li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">توئیت </a></li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">رمز ارزها </a></li>
-                                <li class="main-menu-item"><a href="{% url 'cryptomarket' %}" class="main-menu-link">نقشه بازار </a></li>
-                                <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
-                                <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات </a>
-                                    <ul class="main-submenu-list">
-                                    {% for product in products %}
-                                        <li class="main-submenu-item"><a href="{% url 'product' product.id %}" class="main-submenu-link">{{product.name}}
-                                            </a></li>
-                                    {% endfor %}
-                                    </ul>
-                                </li>
-                                <li class="main-menu-item"><a href="#" class="main-menu-link">مقالات </a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    {% if not user.is_authenticated %}
+                        <div class="col-lg-7 col-xl-8 main-menu-col">
+                            <nav class="main-menu">
+                                <ul class="main-menu-list">
+                                    <li class="main-menu-item main-menu-item-active"><a href="{% url 'home' %}"
+                                            class="main-menu-link">خانه
+                                        </a></li>
+                                    <li class="main-menu-item"><a href="#" class="main-menu-link">توئیت </a></li>
+                                    <li class="main-menu-item"><a href="#" class="main-menu-link">رمز ارزها </a></li>
+                                    <li class="main-menu-item"><a href="{% url 'cryptomarket' %}" class="main-menu-link">نقشه بازار </a></li>
+                                    <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
+                                    <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات
+                                        </a>
+                                        <ul class="main-submenu-list">
+                                            {% for product in products %}
+                                                <li class="main-submenu-item"><a href="{% url 'product' product.id %}" class="main-submenu-link">{{product.name}}
+                                                    </a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li class="main-menu-item"><a href="#" class="main-menu-link">مقالات </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        {% if not user.is_authenticated %}
                         <div class="col-lg-3 col-xl-3 login-register-col">
                             <div class="login-register">
                                 <i class="fa fa-user login-register-icon"></i>
@@ -76,61 +82,66 @@
                             </div>
                         </div>
                     {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
-        <div class="header-medium">
-            <div class="container header-container">
-                <div class="row header-row">
-                    <div class="col-4 col-sm-6 col-md-6">
-                        <nav class="responsive-menu" id="responsiveMenu">
-                            <div class="responsive-menu-header"><img src="{% static 'img/logo.png' %}" class="responsive-menu-header-image" /><button class="responsive-menu-header-button" id="closeNav"><i class="fa fa-times responsive-menu-header-icon"></i></button></div>
-                            <div class="responsive-menu-content">
-                                <ul class="responsive-menu-content-list">
-                                    <li class="responsive-menu-content-item"><a href="{% url 'home' %}" class="responsive-menu-content-link">خانه</a></li>
-                                    <li class="responsive-menu-content-item"><a href="#" class="responsive-menu-content-link">توییت</a></li>
-                                    <li class="responsive-menu-content-item"><a class="responsive-menu-content-link">رمزارزها</a></li>
-                                    <li class="responsive-menu-content-item"><a href="{% url 'cryptomarket' %}" class="responsive-menu-content-link">نقشه بازار</a></li>
-                                    <li class="responsive-menu-content-item"><a href="{% url 'watch_list_page' %}" class="responsive-menu-content-link">دیده بان</a></li>
-                                    <li class="responsive-menu-content-item responsive-submenu-content"><a class="responsive-menu-content-link">محصولات</a>
-                                        <ul class="responsive-submenu-content-list">
-                                            <li class="responsive-submenu-content-item"><a class="responsive-submenu-content-link">وی پی ان</a></li>
-                                            <li class="responsive-submenu-content-item"><a class="responsive-submenu-content-link">محصولات آموزشی</a></li>
-                                            <li class="responsive-submenu-content-item"><a class="responsive-submenu-content-link">سیگنال</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="responsive-menu-content-item"><a href="#" class="responsive-menu-content-link">مقالات</a></li>
-                                </ul>
+            <div class="header-medium">
+                <div class="container header-container">
+                    <div class="row header-row">
+                        <div class="col-4 col-sm-6 col-md-6">
+                            <nav class="responsive-menu" id="responsiveMenu">
+                                <div class="responsive-menu-header"><img src="{% static 'img/logo.png' %}"
+                                        class="responsive-menu-header-image" /><button
+                                        class="responsive-menu-header-button" id="closeNav"><i
+                                            class="fa fa-times responsive-menu-header-icon"></i></button></div>
+                                <div class="responsive-menu-content">
+                                    <ul class="responsive-menu-content-list">
+                                        <li class="responsive-menu-content-item"><a href="{% url 'home' %}"
+                                                class="responsive-menu-content-link">خانه</a></li>
+                                        <li class="responsive-menu-content-item"><a href="#"
+                                                class="responsive-menu-content-link">توییت</a></li>
+                                        <li class="responsive-menu-content-item"><a
+                                                class="responsive-menu-content-link">رمزارزها</a></li>
+                                        <li class="responsive-menu-content-item"><a href="{% url 'cryptomarket' %}"
+                                                class="responsive-menu-content-link">نقشه بازار</a></li>
+                                        <li class="responsive-menu-content-item"><a href="{% url 'watch_list_page' %}"
+                                                class="responsive-menu-content-link">دیده بان</a></li>
+                                        <li class="responsive-menu-content-item responsive-submenu-content"><a
+                                                class="responsive-menu-content-link">محصولات</a>
+                                            <ul class="responsive-submenu-content-list">
+                                                {% for product in products %}
+                                                    <li class="responsive-submenu-content-item"><a href="{% url 'product' product.id %}" class="responsive-submenu-content-link">{{product.name}}
+                                                        </a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        <li class="responsive-menu-content-item"><a href="#"
+                                                class="responsive-menu-content-link">مقالات</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="responsive-menu-overlay" id="overlay"></div><button
+                                class="responsive-menu-button" id="openNav"><i
+                                    class="fa fa-bars responsive-menu-icon"></i></button>
+                        </div>
+                        <div class="col-8 col-sm-6 col-md-6">
+                            <div class="login-register"><i class="fa fa-user login-register-icon"></i><a
+                                    href="login-register.html" class="login-register-link"><span
+                                        class="login-register-title">ورود</span></a><span
+                                    class="login-register-seprator">|</span><a href="login-register.html"
+                                    class="login-register-link"><span class="login-register-title">ثبت نام</span></a>
                             </div>
-                        </nav>
-                        <div class="responsive-menu-overlay" id="overlay"></div><button class="responsive-menu-button" id="openNav"><i class="fa fa-bars responsive-menu-icon"></i></button>
-                    </div>
-                    <div class="col-8 col-sm-6 col-md-6">
-                    {% if not user.is_authenticated %}
-                        <div class="login-register">
-                            <i class="fa fa-user login-register-icon"></i>
-                            <a href="{% url 'login' %}" class="login-register-link"><span class="login-register-title">ورود</span></a>
-                            <span class="login-register-seprator">|</span>
-                            <a href="{% url 'register' %}" class="login-register-link"><span class="login-register-title">ثبت نام</span></a>
                         </div>
-                    {% else %}
-                        <div class="login-register">
-                            <i class="fa fa-user login-register-icon"></i>
-                            <a href="{% url 'logout' %}" class="login-register-link"><span class="login-register-title">خروج</span></a>
-                            <span class="login-register-seprator">|</span>
-                            <a href="{% url 'dashboard' %}" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
-                        </div>
-                    {% endif %}
                     </div>
                 </div>
             </div>
         </div>
+        </div>
+        
     </header>
     <!-- END HEADER -->
 
-
-    {% block page %} {% endblock page %}
+{% block page %}{% endblock page %}
 
     <!-- START FOOTER -->
     <footer class="footer" id="footer">
@@ -139,21 +150,23 @@
                 <div class="row footer-top-row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-right-col">
                         <div class="footer-right"><img src="{% static 'img/logo.png' %}" class="footer-right-image" alt="ارز توییت" />
-                            <p class="footer-right-paragraph">رمز ارز شبکه هوشمند سرمایه گذاری است که تلاش دارد با ارائه خدمات مناسب،سرمایه گذاری را برای سرمایه گذاران آسان کند.سامانه معاملات آنلاین رمز ارز با همکاری کارگزاری تدبیرگران فردا راه اندازی شده است. </p>
+                            <p class="footer-right-paragraph">رمز ارز شبکه هوشمند سرمایه گذاری است که تلاش دارد با ارائه
+                                خدمات مناسب،سرمایه گذاری را برای سرمایه گذاران آسان کند.سامانه معاملات آنلاین رمز ارز با
+                                همکاری کارگزاری تدبیرگران فردا راه اندازی شده است. </p>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-center-col">
                         <div class="footer-center">
                             <h4 class="footer-center-heading-four">دسترسي سريع</h4>
                             <ul class="footer-center-list">
-                                <li class="footer-center-item"><a href="{% url 'home' %}" class="footer-center-link">صفحه اصلي </a>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">صفحه اصلي </a>
                                 </li>
                                 <li class="footer-center-item"><a href="#" class="footer-center-link">توییت </a></li>
                                 <li class="footer-center-item"><a href="#" class="footer-center-link">رمز ارزها </a>
                                 </li>
-                                <li class="footer-center-item"><a href="{% url 'cryptomarket' %}" class="footer-center-link">نقشه بازار </a>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">نقشه بازار </a>
                                 </li>
-                                <li class="footer-center-item"><a href="{% url 'watch_list_page' %}" class="footer-center-link">دیده بان </a></li>
+                                <li class="footer-center-item"><a href="#" class="footer-center-link">دیده بان </a></li>
                                 <li class="footer-center-item"><a href="#" class="footer-center-link">محصولات </a></li>
                                 <li class="footer-center-item"><a href="#" class="footer-center-link">مقالات </a></li>
                             </ul>
@@ -161,16 +174,25 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-left-col">
                         <div class="footer-left">
-                            <div class="footer-left-social-networks"><a href="#" class="footer-left-social-networks-link"><i
-                                        class="fa fa-telegram footer-left-social-networks-icon"></i></a><a href="#" class="footer-left-social-networks-link"><i
-                                        class="fa fa-instagram footer-left-social-networks-icon"></i></a><a href="#" class="footer-left-social-networks-link"><i
+                            <div class="footer-left-social-networks"><a href="#"
+                                    class="footer-left-social-networks-link"><i
+                                        class="fa fa-telegram footer-left-social-networks-icon"></i></a><a href="#"
+                                    class="footer-left-social-networks-link"><i
+                                        class="fa fa-instagram footer-left-social-networks-icon"></i></a><a href="#"
+                                    class="footer-left-social-networks-link"><i
                                         class="fa fa-twitter footer-left-social-networks-icon"></i></a></div>
                             <div class="footer-left-contact">
                                 <h4 class="footer-left-contact-heading-four">ارتباط با ما</h4>
                                 <ul class="footer-left-contact-list">
-                                    <li class="footer-left-contact-item"><i class="fa fa-map-marker footer-left-contact-icon"></i><span class="footer-left-contact-span">تهران،امير آباد،خيابان ثاني</span></li>
-                                    <li class="footer-left-contact-item"><i class="fa fa-phone footer-left-contact-icon"></i><span class="footer-left-contact-span">09125412130</span></li>
-                                    <li class="footer-left-contact-item"><i class="fa fa-envelope footer-left-contact-icon"></i><span class="footer-left-contact-span">info@ramzarz.com</span></li>
+                                    <li class="footer-left-contact-item"><i
+                                            class="fa fa-map-marker footer-left-contact-icon"></i><span
+                                            class="footer-left-contact-span">تهران،امير آباد،خيابان ثاني</span></li>
+                                    <li class="footer-left-contact-item"><i
+                                            class="fa fa-phone footer-left-contact-icon"></i><span
+                                            class="footer-left-contact-span">09125412130</span></li>
+                                    <li class="footer-left-contact-item"><i
+                                            class="fa fa-envelope footer-left-contact-icon"></i><span
+                                            class="footer-left-contact-span">info@ramzarz.com</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -179,7 +201,8 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p class="footer-bottom-paragraph"><span class="footer-bottom-copyright">&copy;</span>تمامی حقوق برای سایت ارز توييتر محفوظ است و بازنشر محتوا با ذکر منبع بلامانع است. </p>
+            <p class="footer-bottom-paragraph"><span class="footer-bottom-copyright">&copy;</span>تمامی حقوق برای سایت
+                ارز توييتر محفوظ است و بازنشر محتوا با ذکر منبع بلامانع است. </p>
         </div>
     </footer>
     <!-- END FOOTER -->
@@ -191,9 +214,9 @@
     <script src="{% static 'js/wow.min.js' %}"></script>
     <script src="{% static 'js/num-scroller.js' %}"></script>
     <script src="{% static 'js/main.min.js' %}"></script>
-    {% block scripts %} {% endblock scripts %}
     <script>
         $('.collapse').collapse();
     </script>
+    {% block scripts %}{% endblock scripts %}
 
 </html>

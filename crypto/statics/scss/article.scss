@@ -2,11 +2,8 @@
 @import "units";
 @import "mixin";
 
-.page-wrapper {
-    margin: 60px 0;
-}
-
 .article {
+    margin-top: $margin-section;
     .article-left {
         .article-left-heading-one {
             font-size: 30px;

@@ -46,7 +46,6 @@ def error_404(req, exception):
 
 ########  APIs    ########33
 @csrf_exempt
-@login_required(login_url='login')
 def get_all_currencies(req):
     return JsonResponse([{
         'name': cur.name,
@@ -57,7 +56,6 @@ def get_all_currencies(req):
 
 
 @csrf_exempt
-@login_required(login_url='login')
 def get_first_10_currency_info(req):
     return JsonResponse([{
         'symbol': cur.symbol,
