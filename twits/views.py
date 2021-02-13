@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import twit
 
-def twits(req):
-    twits = twit.objects.filter(id__gte=twit.objects.last().id-15)
-    return render(req, 'twits.html',{'twits':twits})
+def tweets(req):
+    #twits = twit.objects.filter(id__gte=twit.objects.last().id-15)
+    return render(req, 'tweet.html')
 
 def tweet(req):
     File = req.FILES.get['file']

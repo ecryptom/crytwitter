@@ -7,8 +7,55 @@ body {
 }
 
 //BANNER STYLES
-.banner{
-  padding-top: $margin-section;
+.header{
+  min-height: 100vh;
+.header-banner{
+  position: relative;
+  margin-top: 220px;
+  .header-banner-title{
+    text-align: center;
+    padding-bottom: 20px;
+    .header-banner-title-heading-one{
+      color: $color-primary-one;
+      font-weight: bold;
+      font-size: 35px;
+    }
+    .header-banner-title-heading-two{
+      color: $color-white-transparent;
+      font-size: 20px;
+      padding-top: 20px;
+
+    }
+  }
+  .header-banner-search{
+    .header-banner-search-bear{
+      .header-banner-search-bear-image{
+        width: 100%;
+      }
+    }
+    .header-banner-search-box{
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      .header-banner-search-box-input{
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 20px;
+      }
+      .header-banner-search-box-icon{
+        position: absolute;
+        color: $color-primary-one;
+        left: 10px;
+      }
+    }
+    .header-banner-search-buul{
+      .header-banner-search-buul-image{
+        width: 100%;
+      }
+    }
+  }
+}
 }
 
 //TOP CRYPTOCURRENCY

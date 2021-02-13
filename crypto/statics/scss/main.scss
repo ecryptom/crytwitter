@@ -76,9 +76,9 @@ background-image: url(../img/backgroundproPage.jpg);
     padding-top: 11px;
     position: fixed;
     top: 0;
+    background-color: $color-header-background;
       &.header-sticky {
         padding-top: 3px;
-        background-color: $color-header-background;
     }
     }
     .header-large {
@@ -609,8 +609,6 @@ background-image: url(../img/backgroundproPage.jpg);
                 }
             }
         }
-    }
-    .header-banner{
     }
 }
 

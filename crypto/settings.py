@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
-    'ckeditor',
-    'ckeditor_uploader',
     'home.apps.HomeConfig',
     'twits.apps.TwitsConfig',
     'products.apps.ProductsConfig'
@@ -78,6 +76,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 "products.product_processor.get_products",
+                "home.articles_processor.get_articles",
             ],
         },
     },

@@ -1,26 +1,16 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa-IR" dir="rtl" class="not-show-scroll-bar">
 
-<head>
+
+{% block header %}
     <title>ارز توييتر</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/index.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    <style>
-        .header {
-            height: 100vh;
-        }
 
+ <style>
         .header-banner {
-            position: relative;
-            margin-top: 220px;
+ 
         }
 
         .banner .container {
@@ -251,142 +241,105 @@
             }
         }
     </style>
+<style>
+    .bold{
+        color: #222;
+    }
+    .nobold{
+        color: #aaa;
+    }
 
-</head>
+    .autocomplete {
+  position: relative;
+  display:flex;
+  justify-self: center;
+  text-align: center;
+  margin: 30px auto;
+  width: 50%;
+}
 
-<body>
-    <!-- START PRELOADER -->
-    <div class="preloader">
-        <ul class="preloader-list">
-            <li class="preloader-item"></li>
-            <li class="preloader-item"></li>
-            <li class="preloader-item"></li>
-            <li class="preloader-item"></li>
-            <li class="preloader-item"></li>
-        </ul>
-    </div>
-    <!-- END PRELOADER -->
+.autocomplete-items {
+  position: absolute;
+  z-index: 99;
+  border: none;
+  top: 59%;
+  width: 100%;
+  margin-top: 2px;
+  max-height: 217px;
+ overflow-y: auto;
+}
+.autocomplete-items::-webkit-scrollbar {
+    width: 8px;
+    background-color: #fff;
+    border-radius: 20px;
+}
 
-    <!-- START HEADER -->
-    <header class="header">
-        <div id="header" class="header-top">
-            <div class="header-large ">
-                <div class="container header-container">
-                    <div class="row header-row">
-                        <div class="col-lg-2 col-xl-1 logo-col">
-                            <div class="logo"><a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}"
-                                        class="logo-image" /></a></div>
-                        </div>
-                        <div class="col-lg-7 col-xl-8 main-menu-col">
-                            <nav class="main-menu">
-                                <ul class="main-menu-list">
-                                    <li class="main-menu-item main-menu-item-active"><a href="{% url 'home' %}"
-                                            class="main-menu-link">خانه
-                                        </a></li>
-                                    <li class="main-menu-item"><a href="#" class="main-menu-link">توئیت </a></li>
-                                    <li class="main-menu-item"><a href="#" class="main-menu-link">رمز ارزها </a></li>
-                                    <li class="main-menu-item"><a href="{% url 'cryptomarket' %}" class="main-menu-link">نقشه بازار </a></li>
-                                    <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
-                                    <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات
-                                        </a>
-                                        <ul class="main-submenu-list">
-                                            {% for product in products %}
-                                                <li class="main-submenu-item"><a href="{% url 'product' product.id %}" class="main-submenu-link">{{product.name}}
-                                                    </a></li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                    <li class="main-menu-item"><a href="#" class="main-menu-link">مقالات </a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        {% if not user.is_authenticated %}
-                        <div class="col-lg-3 col-xl-3 login-register-col">
-                            <div class="login-register">
-                                <i class="fa fa-user login-register-icon"></i>
-                                <a href="{% url 'login' %}" class="login-register-link"><span class="login-register-title">ورود</span></a>
-                                <span class="login-register-seprator">|</span>
-                                <a href="{% url 'register' %}" class="login-register-link"><span class="login-register-title">ثبت نام</span></a>
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="col-lg-3 col-xl-3 login-register-col">
-                            <div class="login-register">
-                                <i class="fa fa-user login-register-icon"></i>
-                                <a href="{% url 'logout' %}" class="login-register-link"><span class="login-register-title">خروج</span></a>
-                                <span class="login-register-seprator">|</span>
-                                <a href="{% url 'dashboard' %}" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
-                            </div>
-                        </div>
-                    {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="header-medium">
-                <div class="container header-container">
-                    <div class="row header-row">
-                        <div class="col-4 col-sm-6 col-md-6">
-                            <nav class="responsive-menu" id="responsiveMenu">
-                                <div class="responsive-menu-header"><img src="{% static 'img/logo.png' %}"
-                                        class="responsive-menu-header-image" /><button
-                                        class="responsive-menu-header-button" id="closeNav"><i
-                                            class="fa fa-times responsive-menu-header-icon"></i></button></div>
-                                <div class="responsive-menu-content">
-                                    <ul class="responsive-menu-content-list">
-                                        <li class="responsive-menu-content-item"><a href="{% url 'home' %}"
-                                                class="responsive-menu-content-link">خانه</a></li>
-                                        <li class="responsive-menu-content-item"><a href="#"
-                                                class="responsive-menu-content-link">توییت</a></li>
-                                        <li class="responsive-menu-content-item"><a
-                                                class="responsive-menu-content-link">رمزارزها</a></li>
-                                        <li class="responsive-menu-content-item"><a href="{% url 'cryptomarket' %}"
-                                                class="responsive-menu-content-link">نقشه بازار</a></li>
-                                        <li class="responsive-menu-content-item"><a href="{% url 'watch_list_page' %}"
-                                                class="responsive-menu-content-link">دیده بان</a></li>
-                                        <li class="responsive-menu-content-item responsive-submenu-content"><a
-                                                class="responsive-menu-content-link">محصولات</a>
-                                            <ul class="responsive-submenu-content-list">
-                                                {% for product in products %}
-                                                    <li class="responsive-submenu-content-item"><a href="{% url 'product' product.id %}" class="responsive-submenu-content-link">{{product.name}}
-                                                        </a></li>
-                                                {% endfor %}
-                                            </ul>
-                                        </li>
-                                        <li class="responsive-menu-content-item"><a href="#"
-                                                class="responsive-menu-content-link">مقالات</a></li>
-                                    </ul>
-                                </div>
-                            </nav>
-                            <div class="responsive-menu-overlay" id="overlay"></div><button
-                                class="responsive-menu-button" id="openNav"><i
-                                    class="fa fa-bars responsive-menu-icon"></i></button>
-                        </div>
-                        <div class="col-8 col-sm-6 col-md-6">
-                            <div class="login-register"><i class="fa fa-user login-register-icon"></i><a
-                                    href="login-register.html" class="login-register-link"><span
-                                        class="login-register-title">ورود</span></a><span
-                                    class="login-register-seprator">|</span><a href="login-register.html"
-                                    class="login-register-link"><span class="login-register-title">ثبت نام</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
+.autocomplete-items::-webkit-scrollbar-track {
+    border-radius: 2px;
+}
+
+.autocomplete-items::-webkit-scrollbar-thumb {
+    background: #c8c8c8;
+    border-radius: 2px;
+    transition: all ease .5s;
+}
+
+.autocomplete-items::-webkit-scrollbar-thumb:hover {
+    background: #c2c2c2;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+text-align: center;
+}
+.autocomplete-items div img{
+  margin-left: 8px;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: #FCC81D !important;
+  color: #ffffff;
+}
+
+</style>
+
+{% endblock header %}
+
+
+
+ 
+        {% block banner %}
         <div class="header-banner">
             <div class="container banner-container">
                 <div class="header-banner-title">
+                    <h1 class="header-banner-title-heading-one">ارز توییتر</h1>
+                    <h2 class="header-banner-title-heading-two">رمز ارز شبکه هوشمند سرمایه گذاری </h2>
                 </div>
-                <div class="banner-search">
-                    <div class="banner-search-large">
-                        <div class="row banner-search-row">
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                                <img src="{% static 'img/photo_2021-01-13_22-57-37-removebg-preview.png' %}" class="img-fluid" />
+                <div class="header-banner-search">
+                    <div class="header-banner-search-large">
+                        <div class="row header-banner-search-row">
+                            <div class="col-lg-3 col-xl-3">
+                                <div class="header-banner-search-bear">
+                                    <img src="{% static 'img/bear.png' %}" class="header-banner-search-bear-image" />
+                                </div>
                             </div>
-                            <div class="col-6"></div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                                <img src="{% static 'img/photo_2021-01-11_23-13-09-removebg-preview.png' %}" class="img-fluid" />
+                            <div class="col-lg-6 col-xl-6">
+                                <form action="{% url 'search' %}" method="POST" id="search_form" class="header-banner-search-box">
+                                    <input type="text" name="subject" id="autocompleteInput" class="header-banner-search-box-input" placeholder="رمز ارز مورد نظر خود را جستجو کنید ..." />
+                                    <input type="text" name="type" id="autocompletetypeInput" hidden>
+                                    <i id="submit_icon" class="fa fa-search header-banner-search-box-icon"></i>
+                                </form>
+                            </div>
+                            <div class="col-lg-3 col-xl-3">
+                                <div class="header-banner-search-buul">
+                                    <img src="{% static 'img/bull.png' %}" class="header-banner-search-buul-image" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -401,9 +354,10 @@
                 <i class="fa fa-angle-down three"></i>
             </a>
         </div>
-    </header>
-    <!-- END HEADER -->
+        {% endblock banner %}
 
+
+{% block page %}
     <!-- START TOP CRYPTOCURRENCY -->
     <section class="top-cryptocurrency" id="topCryptocurrency">
         <div class="container top-cryptocurrency-container">
@@ -412,7 +366,7 @@
             </div>
             <div class="top-cryptocurrency-boxes-wrapper">
                 <div class="row top-cryptocurrency-boxes-row">
-                    {% for cur in top_curs %}
+                {% for cur in top_curs %}
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="top-cryptocurrency-boxes">
                             <div class="top-cryptocurrency-boxes-brand"><span
@@ -960,147 +914,110 @@
     </section>
     <!-- END COMMENTS -->
 
-    <!-- START FOOTER -->
-    <footer class="footer" id="footer">
-        <div class="footer-top">
-            <div class="container footer-container">
-                <div class="row footer-top-row">
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-right-col">
-                        <div class="footer-right"><img src="{% static 'img/logo.png' %}" class="footer-right-image" alt="ارز توییت" />
-                            <p class="footer-right-paragraph">رمز ارز شبکه هوشمند سرمایه گذاری است که تلاش دارد با ارائه
-                                خدمات مناسب،سرمایه گذاری را برای سرمایه گذاران آسان کند.سامانه معاملات آنلاین رمز ارز با
-                                همکاری کارگزاری تدبیرگران فردا راه اندازی شده است. </p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 footer-center-col">
-                        <div class="footer-center">
-                            <h4 class="footer-center-heading-four">دسترسي سريع</h4>
-                            <ul class="footer-center-list">
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">صفحه اصلي </a>
-                                </li>
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">توییت </a></li>
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">رمز ارزها </a>
-                                </li>
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">نقشه بازار </a>
-                                </li>
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">دیده بان </a></li>
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">محصولات </a></li>
-                                <li class="footer-center-item"><a href="#" class="footer-center-link">مقالات </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-left-col">
-                        <div class="footer-left">
-                            <div class="footer-left-social-networks"><a href="#"
-                                    class="footer-left-social-networks-link"><i
-                                        class="fa fa-telegram footer-left-social-networks-icon"></i></a><a href="#"
-                                    class="footer-left-social-networks-link"><i
-                                        class="fa fa-instagram footer-left-social-networks-icon"></i></a><a href="#"
-                                    class="footer-left-social-networks-link"><i
-                                        class="fa fa-twitter footer-left-social-networks-icon"></i></a></div>
-                            <div class="footer-left-contact">
-                                <h4 class="footer-left-contact-heading-four">ارتباط با ما</h4>
-                                <ul class="footer-left-contact-list">
-                                    <li class="footer-left-contact-item"><i
-                                            class="fa fa-map-marker footer-left-contact-icon"></i><span
-                                            class="footer-left-contact-span">تهران،امير آباد،خيابان ثاني</span></li>
-                                    <li class="footer-left-contact-item"><i
-                                            class="fa fa-phone footer-left-contact-icon"></i><span
-                                            class="footer-left-contact-span">09125412130</span></li>
-                                    <li class="footer-left-contact-item"><i
-                                            class="fa fa-envelope footer-left-contact-icon"></i><span
-                                            class="footer-left-contact-span">info@ramzarz.com</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p class="footer-bottom-paragraph"><span class="footer-bottom-copyright">&copy;</span>تمامی حقوق برای سایت
-                ارز توييتر محفوظ است و بازنشر محتوا با ذکر منبع بلامانع است. </p>
-        </div>
-    </footer>
-    <!-- END FOOTER -->
+{% endblock page %}
 
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/poper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% block scripts %}
     <script src="{% static 'js/swiper.min.js' %}"></script>
     <script src="{% static 'js/wow.min.js' %}"></script>
     <script src="{% static 'js/num-scroller.js' %}"></script>
-    <script src="{% static 'js/main.min.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
+
     <script>
         $('.collapse').collapse();
     </script>
 
-    <script>
-    //    $('.collapse').collapse();
-//
-//
-    //var dollor_rate = {{dollor_rate}}
-    //function numberWithCommas(x) {
-    //    var parts = x.toString().split(".");
-    //    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    //    return parts.join(".");
-    //}
-//
-    ////first time
-//
-    //    $.ajax({
-    //        url: '/get_first_10_currency_info',
-    //        type: 'GET',
-    //        dataType: "json",
-    //        success: function(currencies, s, x) {
-    //          console.log(currencies);
-    //            currencies.forEach(cur => {
-    //                document.getElementById('1d_change_' + cur.symbol).innerHTML = "%" + cur['1d_change'].toFixed(2);
-    //                document.getElementById('7d_change_' + cur.symbol).innerHTML = "%" + cur['7d_change'].toFixed(2);
-    //                document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان';
-    //                if(cur['price'] < 10)
-    //                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4)) + ' دلار';
-    //                else
-    //                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2)) + ' دلار ';
-//
-    //                // fix the color of price_change 
-    //                document.getElementById('1d_change_' + cur.symbol).style.color = (cur['1d_change'] > 0) ? '#00ff00' : 'red';
-    //                document.getElementById('7d_change_' + cur.symbol).style.color = (cur['7d_change'] > 0) ? '#00ff00' : 'red';
-    //            });
-    //        }
-    //    });
-//
-    //setInterval(() => {
-    //    $.ajax({
-    //        url: '/get_first_10_currency_info',
-    //        type: 'GET',
-    //        dataType: "json",
-    //        success: function(currencies, s, x) {
-    //          console.log(currencies);
-    //            currencies.forEach(cur => {
-    //                document.getElementById('1d_change_' + cur.symbol).innerHTML = "%" + cur['1d_change'].toFixed(2);
-    //                document.getElementById('7d_change_' + cur.symbol).innerHTML = "%" + cur['7d_change'].toFixed(2);
-    //                document.getElementById('toman_' + cur.symbol).innerHTML = parseInt(cur['price'] * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان';
-    //                if(cur['price'] < 10)
-    //                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(4)) + ' دلار ';
-    //                else
-    //                    document.getElementById('dollor_' + cur.symbol).innerHTML = numberWithCommas(cur['price'].toFixed(2)) + ' دلار ';
-//
-    //                // fix the color of price_change 
-    //                document.getElementById('1d_change_' + cur.symbol).style.color = (cur['1d_change'] > 0) ? '#00ff00' : 'red';
-    //                document.getElementById('7d_change_' + cur.symbol).style.color = (cur['7d_change'] > 0) ? '#00ff00' : 'red';
-    //            });
-    //        }
-    //    });
-    //}, 5000);
-//
-    </script>
+
+<!--autocomplete-->
+<script>
+       function autocomplete(inp, type_inp, subjects, types, images) {
+  var currentFocus;
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      closeAllLists();
+      if (!val) { return false;}
+
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      this.parentNode.appendChild(a);
+      for (i = 0; i < subjects.length; i++) {
+        if (subjects[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement("DIV");
+          b.innerHTML = "<img src = '"+ images[i] +"' alt='btc'>";
+          b.innerHTML += "<span style='color;#052058'>" + subjects[i].substr(0, val.length) + "</span>";
+          b.innerHTML += "<span style = 'color:#DDD'>" + subjects[i].substr(val.length) + "</span>";
+          b.innerHTML += "<input type='hidden' value='" + subjects[i] + "'>";
+          b.innerHTML += "<input type='hidden' value='" + types[i] + "'>";
+              b.addEventListener("click", function(e) {
+              inp.value = this.getElementsByTagName("input")[0].value;
+              type_inp.value = this.getElementsByTagName("input")[1].value;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { 
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+
+
+//get all search objects from back
+    var subjects = [];
+    var images = [];
+    var types = [];
+    $.ajax({
+        url: '/get_search_objects',
+        type: 'GET',
+        dataType: "json",
+        success: function(searches, s, x) {
+            searches.forEach(element => {
+                subjects.push(element.subject);
+                images.push(element.image);
+                types.push(element.type);
+            });
+        }
+    });
+    document.getElementById('submit_icon').addEventListener("click", function (e){
+        document.getElementById('search_form').submit();
+    })
+
+autocomplete(document.getElementById("autocompleteInput"), document.getElementById("autocompletetypeInput"), subjects, types, images);
+</script>
 
 
 
-    <script>
-    $('.collapse').collapse();
+
+
+
+<!--update currencies-->
+<script>
     var dollor_rate = {{dollor_rate}};
     var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change, new_7d_change;
     var price_diff_per_frame={}, daily_change_diff_per_frame={}, weekly_change_diff_per_frame={};
@@ -1112,16 +1029,27 @@
     }
 
     function update_window(symbol, price, daily_change, weekly_change){
-        document.getElementById('1d_change_' + symbol).innerHTML = "%" + daily_change.toFixed(2);
-        document.getElementById('7d_change_' + symbol).innerHTML = "%" + weekly_change.toFixed(2);
         document.getElementById('toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان';
         if(price < 10)
             document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(4)) + ' دلار ';
         else
             document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(2)) + ' دلار ';
-        // fix the color of price_change 
-        document.getElementById('1d_change_' + symbol).style.color = (daily_change > 0) ? '#00ff00' : 'red';
-        document.getElementById('7d_change_' + symbol).style.color = (weekly_change > 0) ? '#00ff00' : 'red';
+        // fix daily change and it's color
+        if(daily_change < 0){
+            document.getElementById('1d_change_' + symbol).innerHTML = -1 * daily_change.toFixed(2) + "-" + "%";
+            document.getElementById('1d_change_' + symbol).style.color = 'red';
+        }else{
+            document.getElementById('1d_change_' + symbol).innerHTML = "%" + daily_change.toFixed(2);
+            document.getElementById('1d_change_' + symbol).style.color = '#00ff00';
+        }
+        // fix daily change and it's color
+        if(weekly_change < 0){
+            document.getElementById('7d_change_' + symbol).innerHTML = -1 * weekly_change.toFixed(2) + "-" + "%";
+            document.getElementById('7d_change_' + symbol).style.color = 'red';
+        }else{
+            document.getElementById('7d_change_' + symbol).innerHTML = "%" + weekly_change.toFixed(2);
+            document.getElementById('7d_change_' + symbol).style.color = '#00ff00';
+        }
     }
 
     function update_window_by_20_frame(){
@@ -1182,7 +1110,5 @@
     }, 60000);
     
 </script>
-    
 
-
-</html>
+{% endblock scripts %}

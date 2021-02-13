@@ -1,0 +1,465 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <title>ارز توييتر</title>
+    <link rel="stylesheet" href="{% static 'css/tweet.min.css' %}" />
+
+    <style>
+        .tweet-content-center{
+            height:600px;
+            overflow: scroll;
+        }
+        .tweet-content-center::-webkit-scrollbar {
+    width: 6px;
+    background-color: white;
+}
+
+.tweet-content-center::-webkit-scrollbar-track {
+    border-radius: 2px;
+}
+
+.tweet-content-center::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 2px;
+    transition: all ease .5s;
+}
+
+
+    </style>
+
+{% endblock header %}
+
+
+
+{% block page %}
+    <section class="tweet">
+        <div class="container-fluid">
+            <div class="tweet-header">
+                <div class="tweet-header-search">
+                </div>
+                <div class="tweet-header-details">
+
+                </div>
+            </div>
+            <div class="tweet-content">
+                <div class="row">
+                    <div class="'col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="tweet-content-right">
+                            <h2 class="tweet-content-right-heading-two">محصولات</h2>
+                            <div class="tweet-content-right-products">
+                                <ul class="tweet-content-right-products-list">
+                                    <li class="tweet-content-right-products-item">
+                                        <a class="tweet-content-right-products-link">اختصاصی معاملاتی</a>
+                                    </li>
+                                    <li class="tweet-content-right-products-item" data-toggle="collapse"
+                                        data-target="#question-1">
+                                        <a href="#" class="tweet-content-right-products-link">
+                                            سبد پیشنهادی
+                                            <i class="fa fa-plus tweet-content-right-products-icon"></i>
+                                        </a>
+                                        <ul class="tweet-content-right-products-sub-list collapse" id="question-1">
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">سبد بلند مدت</a>
+                                            </li>
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">سبد میان مدت</a>
+                                            </li>
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">سبد کوتاه مدت</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="tweet-content-right-products-item">
+                                        <a class="tweet-content-right-products-link">کیف پول فیزیکی</a>
+                                    </li>
+                                    <li class="tweet-content-right-products-item" data-toggle="collapse"
+                                        data-target="#question-2">
+                                        <a href="#" class="tweet-content-right-products-link">
+                                            محصولات آموزشی
+                                            <i class="fa fa-plus tweet-content-right-products-icon"></i>
+                                        </a>
+                                        <ul class="tweet-content-right-products-sub-list collapse" id="question-2">
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">تحلیل تکنیکال</a>
+                                            </li>
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">تحلیل بنیادی</a>
+                                            </li>
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">تحلیل کلاسیک</a>
+                                            </li>
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">روانشناسی بازار</a>
+                                            </li>
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">استراتژی معاملاتی</a>
+                                            </li>
+                                            <li class="tweet-content-right-products-sub-item">
+                                                <a class="tweet-content-right-products-link">کتاب های آموزشی</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="'col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <div class="tweet-content-center">
+                            <form action="">
+                                <textarea class="tweet-content-center-text-area"
+                                    placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
+                                <button class="tweet-content-center-submit" type="submit">
+                                    <i class="fa fa-twitter"></i>
+                                </button>
+                            </form>
+                            <div class="tweet-content-center-boxes-wrapper">
+                                <div id="tweet-1" class="tweet-content-center-boxes">
+                                    <div class="tweet-content-center-boxes-parent">
+                                        <a href="#tweet-3" class="tweet-content-center-boxes-parent-link tweet-scroll">
+                                         <div class="tweet-content-center-boxes-parent-header">
+                                             <img src="{% static 'img/default-user.jpg' %}" class="tweet-content-center-boxes-parent-header-image" />
+                                             <span class="tweet-content-center-boxes-parent-user-name">سردار دلها</span>
+                                         </div>
+                                         <div class="tweet-content-center-boxes-parent-body">
+                                             <p class="tweet-content-center-boxes-parent-body-paragraph">
+                                                 برای سهامداران آرزوی تداوم سود دارم، اما به خریداران توصیه احتیاط در خربد
+                                             </p>
+                                         </div>
+                                        </a>
+                                         </div>
+                                    <div class="tweet-content-center-boxes-reply">
+                                        <div class="tweet-content-center-boxes-reply-header">
+                                            <img class="tweet-content-center-boxes-reply-header-image" src="{% static 'img/default-user.jpg' %}"
+                                                alt="کاربر پیش فرض">
+                                            <span class="tweet-content-center-boxes-reply-user-name">Mohammad</span>
+                                            <span class="tweet-content-center-boxes-reply-header-time">1 روز پیش</span>
+                                            <a class="" data-toggle="collapse" data-target="#tweet-report-3">
+                                                <i class="fa fa-ellipsis-v tweet-content-center-boxes-reply-header-icon"></i>
+                                            </a>
+                                            <div class="tweet-content-center-boxes-reply-header-report collapse"
+                                                id="tweet-report-3">
+                                                <ul class="tweet-content-center-boxes-reply-header-report-list">
+                                                    <li class="tweet-content-center-boxes-reply-header-report-item">
+                                                        <a href="">
+                                                            <i class="fa fa-ban"></i>
+                                                            توهین و الفاظ رکیک
+                                                        </a>
+                                                    </li>
+                                                    <li class="tweet-content-center-boxes-reply-header-report-item">
+                                                        <a href="">
+                                                            <i class="fa fa-exclamation-circle"></i>
+                                                            توییت تکراری
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="tweet-content-center-boxes-reply-body">
+                                            <p class="tweet-content-center-boxes-reply-body-paragraph">
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+                                                طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                                لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
+                                                بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
+                                                آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت
+                                                بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در
+                                                زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود
+                                                در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل
+                                                حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی
+                                                اساسا مورد استفاده قرار گیرد.
+                                            </p>
+                                        </div>
+                                        <div class="tweet-content-center-boxes-reply-footer">
+                                            <div class="tweet-content-center-boxes-reply-footer-like">
+                                                <a href="#" class="tweet-content-center-boxes-reply-footer-like-link">
+                                                <i class="fa fa-heart tweet-content-center-boxes-reply-footer-like-icon tweet-content-center-boxes-reply-footer-like-icon-active"></i>
+                                                </a>
+                                                <span class="tweet-content-center-boxes-reply-footer-like-count">221</span>
+                                            </div>  
+                                            <div class="tweet-content-center-boxes-reply-footer-retweet">
+                                              <i class="fa fa-reply tweet-content-center-boxes-reply-footer-icon"></i>
+                                         </div>
+                                          </div>
+                                    </div>
+                                </div>
+                                <div id="tweet-2" class="tweet-content-center-boxes">
+                                    <div class="tweet-content-center-boxes-header">
+                                        <img class="tweet-content-center-boxes-header-image" src="{% static 'img/default-user.jpg' %}"
+                                            alt="کاربر پیش فرض">
+                                        <span class="tweet-content-center-boxes-user-name">Mohammad</span>
+                                        <span class="tweet-content-center-boxes-header-time">1 روز پیش</span>
+                                        <a class="" data-toggle="collapse" data-target="#tweet-report-2">
+                                            <i class="fa fa-ellipsis-v tweet-content-center-boxes-header-icon"></i>
+                                        </a>
+                                        <div class="tweet-content-center-boxes-header-report collapse"
+                                            id="tweet-report-2">
+                                            <ul class="tweet-content-center-boxes-header-report-list">
+                                                <li class="tweet-content-center-boxes-header-report-item">
+                                                    <a href="">
+                                                        <i class="fa fa-ban"></i>
+                                                        توهین و الفاظ رکیک
+                                                    </a>
+                                                </li>
+                                                <li class="tweet-content-center-boxes-header-report-item">
+                                                    <a href="">
+                                                        <i class="fa fa-exclamation-circle"></i>
+                                                        توییت تکراری
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tweet-content-center-boxes-body">
+                                        <p class="tweet-content-center-boxes-body-paragraph">
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+                                            طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                            لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
+                                            بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
+                                            آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت
+                                            بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در
+                                            زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود
+                                            در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل
+                                            حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی
+                                            اساسا مورد استفاده قرار گیرد.
+                                        </p>
+                                    </div>
+                                    <div class="tweet-content-center-boxes-footer">
+                                      <div class="tweet-content-center-boxes-footer-like">
+                                          <a href="#" class="tweet-content-center-boxes-footer-like-link">
+                                          <i class="fa fa-heart tweet-content-center-boxes-footer-like-icon tweet-content-center-boxes-footer-like-icon-active"></i>
+                                          </a>
+                                          <span class="tweet-content-center-boxes-footer-like-count">221</span>
+                                      </div>  
+                                      <div class="tweet-content-center-boxes-footer-retweet">
+                                        <i class="fa fa-reply tweet-content-center-boxes-footer-icon"></i>
+                                   </div>
+                                    </div>
+                                </div>
+                                <div id="tweet-3" class="tweet-content-center-boxes">
+                                    <div class="tweet-content-center-boxes-header">
+                                        <img class="tweet-content-center-boxes-header-image" src="{% static 'img/default-user.jpg' %}"
+                                            alt="کاربر پیش فرض">
+                                        <span class="tweet-content-center-boxes-user-name">سردار دلها</span>
+                                        <span class="tweet-content-center-boxes-header-time">1 روز پیش</span>
+                                        <a class="" data-toggle="collapse" data-target="#tweet-report-1">
+                                            <i class="fa fa-ellipsis-v tweet-content-center-boxes-header-icon"></i>
+                                        </a>
+                                        <div class="tweet-content-center-boxes-header-report collapse"
+                                            id="tweet-report-1">
+                                            <ul class="tweet-content-center-boxes-header-report-list">
+                                                <li class="tweet-content-center-boxes-header-report-item">
+                                                    <a href="">
+                                                        <i class="fa fa-ban"></i>
+                                                        توهین و الفاظ رکیک
+                                                    </a>
+                                                </li>
+                                                <li class="tweet-content-center-boxes-header-report-item">
+                                                    <a href="">
+                                                        <i class="fa fa-exclamation-circle"></i>
+                                                        توییت تکراری
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tweet-content-center-boxes-body">
+                                        <p class="tweet-content-center-boxes-body-paragraph">
+                                            برای سهامداران آرزوی تداوم سود دارم، اما به خریداران توصیه احتیاط در خرید
+                                        </p>
+                                    </div>
+                                    <div class="tweet-content-center-boxes-footer">
+
+                                    </div>
+                                </div>  
+                                <div class="tweet-content-center-boxes">
+                                    <div class="tweet-content-center-boxes-header">
+                                        <img class="tweet-content-center-boxes-header-image" src="{% static 'img/default-user.jpg' %}"
+                                            alt="کاربر پیش فرض">
+                                        <span class="tweet-content-center-boxes-user-name">Mohammad</span>
+                                        <span class="tweet-content-center-boxes-header-time">1 روز پیش</span>
+                                        <a class="" data-toggle="collapse" data-target="#tweet-report-3">
+                                            <i class="fa fa-ellipsis-v tweet-content-center-boxes-header-icon"></i>
+                                        </a>
+                                        <div class="tweet-content-center-boxes-header-report collapse"
+                                            id="tweet-report-3">
+                                            <ul class="tweet-content-center-boxes-header-report-list">
+                                                <li class="tweet-content-center-boxes-header-report-item">
+                                                    <a href="">
+                                                        <i class="fa fa-ban"></i>
+                                                        توهین و الفاظ رکیک
+                                                    </a>
+                                                </li>
+                                                <li class="tweet-content-center-boxes-header-report-item">
+                                                    <a href="">
+                                                        <i class="fa fa-exclamation-circle"></i>
+                                                        توییت تکراری
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tweet-content-center-boxes-body">
+                                        <p class="tweet-content-center-boxes-body-paragraph">
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+                                            طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                            لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
+                                            بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
+                                            آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت
+                                            بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در
+                                            زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود
+                                            در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل
+                                            حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی
+                                            اساسا مورد استفاده قرار گیرد.
+                                        </p>
+                                    </div>
+                                    <div class="tweet-content-center-boxes-footer">
+
+                                    </div>
+                                </div>
+                                <div class="tweet-content-center-boxes">
+                                    <div class="tweet-content-center-boxes-header">
+                                        <img class="tweet-content-center-boxes-header-image" src="{% static 'img/default-user.jpg' %}"
+                                            alt="کاربر پیش فرض">
+                                        <span class="tweet-content-center-boxes-user-name">Mohammad</span>
+                                        <span class="tweet-content-center-boxes-header-time">1 روز پیش</span>
+                                        <a class="" data-toggle="collapse" data-target="#tweet-report-4">
+                                            <i class="fa fa-ellipsis-v tweet-content-center-boxes-header-icon"></i>
+                                        </a>
+                                        <div class="tweet-content-center-boxes-header-report collapse"
+                                            id="tweet-report-4">
+                                            <ul class="tweet-content-center-boxes-header-report-list">
+                                                <li class="tweet-content-center-boxes-header-report-item">
+                                                    <a href="">
+                                                        <i class="fa fa-ban"></i>
+                                                        توهین و الفاظ رکیک
+                                                    </a>
+                                                </li>
+                                                <li class="tweet-content-center-boxes-header-report-item">
+                                                    <a href="">
+                                                        <i class="fa fa-exclamation-circle"></i>
+                                                        توییت تکراری
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tweet-content-center-boxes-body">
+                                        <p class="tweet-content-center-boxes-body-paragraph">
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+                                            طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                            لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
+                                            بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
+                                            آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت
+                                            بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در
+                                            زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود
+                                            در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل
+                                            حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی
+                                            اساسا مورد استفاده قرار گیرد.
+                                        </p>
+                                    </div>
+                                    <div class="tweet-content-center-boxes-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="'col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="tweet-content-left">
+                            <div class="tweet-content-left-tab">
+                                <ul class="nav nav-tabs tweet-content-left-tab-list" role="tablist">
+                                    <li class="nav-item tweet-content-left-tab-item">
+                                        <a class="nav-link active tweet-content-left-tab-link" id="home-tab"
+                                            data-toggle="tab" href="#clock" role="tab">
+                                            <i class="fas fa-clock-o"></i>
+                                            ساعت های جهانی
+                                        </a>
+                                    </li>
+                                    <li class="nav-item tweet-content-left-tab-item">
+                                        <a class="nav-link tweet-content-left-tab-link" id="profile-tab"
+                                            data-toggle="tab" href="#profile" role="tab">
+                                            <i class="far fa-chart-bar"></i>
+                                            نرخ های جهانی
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content tweet-content-left-tab-content">
+                                    <div class="tab-pane fade show active tweet-content-left-tab-content-clock"
+                                        id="clock" role="tabpanel">
+                                        <ul class="tweet-content-left-tab-content-clock-list">
+
+                                            <li class="tweet-content-left-tab-content-clock-item">
+                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                            </li>
+                                            <li class="tweet-content-left-tab-content-clock-item">
+                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                            </li>
+                                            <li class="tweet-content-left-tab-content-clock-item">
+                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                            </li>
+                                            <li class="tweet-content-left-tab-content-clock-item">
+                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel">2</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock page %}
+    
+
+    {% block scripts %}
+    
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/num-scroller.js' %}"></script>
+
+    
+    <script>
+   let sendReplyIcon = document.querySelectorAll(".fa.fa-reply.tweet-content-center-boxes-footer-icon");
+    let sendReplyBox = document.querySelectorAll(".tweet-content-center-boxes-send-reply");
+    sendReplyIcon.forEach(element => {
+        element.addEventListener("click", function (e) {
+            let firstParent = e.target.parentElement.parentElement;
+            let replyBox = firstParent.querySelector(".tweet-content-center-boxes-send-reply");
+            if (replyBox == null) {
+                let replyComments = firstParent.querySelector(".tweet-content-center-boxes-reply");
+                let replyElement = document.createElement("div");
+                replyElement.classList.add("tweet-content-center-boxes-send-reply");
+                replyElement.innerHTML = "  <form action='' method=''><textarea placeholder='متن دیدگاه' class='tweet-content-center-boxes-send-reply-text-area'></textarea><button type='submit' class='tweet-content-center-boxes-send-reply-submit'>ارسال پاسخ</button></form>";
+                firstParent.insertBefore(replyElement, replyComments);
+                replyElement.style.height = replyElement.scrollHeight + "px";
+                e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
+            } else if (getComputedStyle(replyBox).height == "0px") {
+                replyBox.style.height = replyBox.scrollHeight + "px";
+                e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
+            } else {
+                replyBox.style.height = "0px";
+                e.target.classList.remove("tweet-content-center-boxes-footer-icon-close");
+                setTimeout(function(){
+                    firstParent.removeChild(replyBox);
+                },1000);
+            }
+        })
+    });
+
+
+
+
+
+    
+    </script>
+
+    {% endblock scripts %}
+

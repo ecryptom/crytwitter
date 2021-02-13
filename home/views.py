@@ -38,6 +38,13 @@ def reply_article_comment_view(req, ID):
     Reply_comment.save()
     return redirect('article', ID=Comment.article.id)
 
+@csrf_exempt
+def search(req):
+    if req.POST['type'] == 'article':
+        Article = article.objects.get(title=req.POST['subject'])
+        return redirect('article', ID=Article.id)
+    return redirect('home')
+
 
 def error_404(req, exception):
     return render(req, 'error_404.html')
@@ -65,3 +72,12 @@ def get_first_10_currency_info(req):
     } for cur in currency.objects.all()[:10]], safe=False)
 
 
+@csrf_exempt
+def get_search_objects(req):
+    #articles
+    data = [{
+        'subject': a.title,
+        'image':'/static/img/article_icon.png',
+        'type' : 'article',
+    } for a in article.objects.all()]
+    return JsonResponse(data, safe=False)
