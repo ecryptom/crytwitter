@@ -2,7 +2,7 @@ from django.db import models
 
 class twit(models.Model):
     text = models.TextField(default='')
-    currency = models.CharField(max_length=15)
+    currency = models.ForeignKey('home.currency', on_delete=models.SET_NULL, null=True, blank=True)
     user = models.ForeignKey('accounts.user', on_delete=models.CASCADE, related_name='twits')
     time = models.DateTimeField(auto_now=True)
     retwit = models.BooleanField(default=False)

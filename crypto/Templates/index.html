@@ -330,7 +330,7 @@ text-align: center;
                                 </div>
                             </div>
                             <div class="col-lg-6 col-xl-6">
-                                <form action="{% url 'search' %}" method="POST" id="search_form" class="header-banner-search-box">
+                                <form action="{% url 'search' %}" method="POST" autocomplete="off" id="search_form" class="header-banner-search-box">
                                     <input type="text" name="subject" id="autocompleteInput" class="header-banner-search-box-input" placeholder="رمز ارز مورد نظر خود را جستجو کنید ..." />
                                     <input type="text" name="type" id="autocompletetypeInput" hidden>
                                     <i id="submit_icon" class="fa fa-search header-banner-search-box-icon"></i>

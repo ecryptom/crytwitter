@@ -1,28 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from .models import twit
+from home.models import currency
 
 def tweets(req):
-    #twits = twit.objects.filter(id__gte=twit.objects.last().id-15)
-    return render(req, 'tweet.html')
+    last_tweets = twit.objects.filter(id__gte=twit.objects.last().id-15)
+    return render(req, 'tweet.html', {'tweets':last_tweets})
 
+@login_required(login_url='login')
 def tweet(req):
-    File = req.FILES.get['file']
+    File = req.FILES.get('file')
     if File and File.size > 1000000:
-        return False                             #...
+        return redirect('tweets')
+    if not req.POST['text']:
+        return redirect('tweets')
+    cur = currency.objects.filter(name=req.POST.get('currency'))
+    if not cur:
+        cur = currency.objects.filter(persian_name=req.POST.get('currency'))
     t = twit(
         text = req.POST['text'],
-        currency= req.POST['currency'],
-        user = req.user,
-        retwit = req.POST['is_retwit'],
-        reply_to = twit.objects.get(id=req.POST['retwit_id'])
+        currency= cur[0] if cur else None,
+        user = req.user
     )
     if File:
-        if req.POST['image']:
+        if req.POSTget('image'):
             t.has_image = True
         t.File = File
     t.save()
+    return redirect('tweets')
 
+
+
+##############  APIs   ##########################
 
 def last_twits(req):
     last_id = int(req.GET['last_id'])
@@ -56,5 +67,15 @@ def last_twits(req):
     print(datas[-1]['text'])
     return JsonResponse(datas, safe=False)
 
-def ajax(req):
-    return render(req, 'ajax.html')
+
+@login_required(login_url='login')
+@csrf_exempt
+def like_tweet(req, ID):
+    Tweet = twit.objects.get(id=ID)
+    #remove like
+    if Tweet.likes.filter(username=req.user.username):
+        Tweet.likes.remove(req.user)
+        return JsonResponse({'status':'dislike'})
+    #like
+    Tweet.likes.add(req.user)
+    return JsonResponse({'status':'like'})

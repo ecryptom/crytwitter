@@ -33,7 +33,7 @@
                 <div class="container header-container">
                     <div class="row header-row">
                         <div class="col-lg-2 col-xl-1 logo-col">
-                            <div class="logo"><a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}"
+                            <div class="logo"><a href="{% url 'home' %}" class="logo-link"><img src="{% static 'img/logo.png' %}"
                                         class="logo-image" /></a></div>
                         </div>
                         <div class="col-lg-7 col-xl-8 main-menu-col">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
             <div class="header-medium">
                 <div class="container header-container">
                     <div class="row header-row">
@@ -143,8 +143,9 @@
                     </div>
                 </div>
             </div>
-            {% block banner %}{% endblock banner %}
+            </div>
         </div>
+            {% block banner %}{% endblock banner %}
         </div>
         
     </header>
