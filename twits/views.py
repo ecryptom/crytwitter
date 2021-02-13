@@ -6,7 +6,7 @@ from .models import twit
 from home.models import currency
 
 def tweets(req):
-    last_tweets = twit.objects.filter(id__gte=twit.objects.last().id-15)
+    last_tweets = twit.objects.filter(id__gte=twit.objects.last().id-15).order_by('-id')
     return render(req, 'tweet.html', {'tweets':last_tweets})
 
 @login_required(login_url='login')
