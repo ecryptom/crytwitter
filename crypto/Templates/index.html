@@ -646,12 +646,12 @@ text-align: center;
             <ul class="common-questions-list" id="commonQuestionsList">
                 {% for question in questions %}
                     <li class="common-questions-item">
-                        <div class="common-questions-header" data-toggle="collapse" data-target="#question-1">
+                        <div class="common-questions-header" data-toggle="collapse" data-target="#question-{{question.id}}">
                             <h3 class="common-questions-header-heading-three">{{question.question}}</h3>
                             <button class="common-questions-header-button"><i
                                     class="fa fa-plus common-questions-header-icon"></i></button>
                         </div>
-                        <div class="common-questions-content collapse show" id="question-1"
+                        <div class="common-questions-content collapse show" id="question-{{question.id}}"
                             data-parent="#commonQuestionsList">
                             <p class="common-questions-content-paragraph">
                                 {{question.answer}} </p>
