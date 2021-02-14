@@ -319,7 +319,7 @@ text-align: center;
             <div class="container banner-container">
                 <div class="header-banner-title">
                     <h1 class="header-banner-title-heading-one">ارز توییتر</h1>
-                    <h2 class="header-banner-title-heading-two">رمز ارز شبکه هوشمند سرمایه گذاری </h2>
+                    <h2 class="header-banner-title-heading-two">حرف رمز ارزها را بشنوید... </h2>
                 </div>
                 <div class="header-banner-search">
                     <div class="header-banner-search-large">
@@ -405,190 +405,25 @@ text-align: center;
             <div class="articles-boxes-wrapper">
                 <div class="swiper-container articles-swiper-container">
                     <div class="swiper-wrapper articles-swiper-wrapper">
+                    {% for article in articles %}
                         <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-1.jpg' %}"
+                            <div class="articles-boxes-header"><img src="{{article.image.url}}"
                                     class="articles-boxes-header-image" alt="" /></div>
                             <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">بیت کوین چیست؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">همه چیز از سال ۲۰۰۸ و انتشار مقاله‌ای که
-                                    نوعی پول الکترونیک به نام بیت کوین در آن معرفی شده بود آغاز شد. هویت ناشناسی به نام
-                                    ساتوشی ناکاموتو آغازگر انقلابی بود که سال‌ها بعد به تیتر اول رسانه‌ها تبدیل شد و
-                                    اقتصاددانان را به بحث‌های نظری گسترده درباره آن وادار کرد. </p>
+                                <h3 class="articles-boxes-content-heading-three"><a href="{% url 'article' article.id %}"
+                                        class="articles-boxes-content-link">{{article.title}} </a></h3>
+                                <p class="articles-boxes-content-paragraph">{{article.introduction}}{{article.main_text}}</p>
                             </div>
                             <div class="articles-boxes-footer">
                                 <div class="articles-boxes-footer-time"><i
                                         class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
+                                        class="articles-boxes-footer-time-span">{{article.date}}</span></div>
                                 <div class="articles-boxes-footer-view"><i
                                         class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
+                                        class="articles-boxes-footer-view-span">{{article.view_count}}</span></div>
                             </div>
                         </div>
-                        <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-2.jpg' %}"
-                                    class="articles-boxes-header-image" alt="" /></div>
-                            <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">چگونه بیت کوین بخرم؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">همان که احتمالا می‌دانید، بیت کوین شکل
-                                    فیزیکی ندارد و به‌شکل دیجیتالی منتقل می‌شود. بنابراین، برای خرید بیت کوین لازم نیست
-                                    حضوری اقدام کنید، بلکه این کار اغلب به‌صورت آنلاین و از طریق اینترنت انجام می‌شود.
-                                    همچنین، سؤالی که همیشه برای افراد تازه‌کار مطرح می‌شود این است که آیا باید حتماً چند
-                                    هزار دلار خرج کنیم و یک واحد بیت کوین بخریم؟ نه، شما حتماً لازم نیست یک واحد کامل
-                                    بیت کوین بخرید. این ارز دیجیتال تا هشت واحد اعشار قابل تقسیم است و به‌عنوان مثال
-                                    می‌توانید ۰.۰۰۱ از یک بیت کوین یا حتی به‌اندازه ۱۰۰ هزار تومان بیت کوین بخرید.. </p>
-                            </div>
-                            <div class="articles-boxes-footer">
-                                <div class="articles-boxes-footer-time"><i
-                                        class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
-                                <div class="articles-boxes-footer-view"><i
-                                        class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-3.jpg' %}"
-                                    class="articles-boxes-header-image" alt="" /></div>
-                            <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">چگونه بیت کوین بفروشم؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">برای افراد تازه‌کاری که قصد دارند در بیت
-                                    کوین سرمایه‌گذاری کنند و یا به‌عنوان هدیه و پاداش بیت کوین دریافت کرده‌اند، معمولاً
-                                    این سؤال مطرح می‌شود که اگر بیت کوین داشته باشم، چگونه می‌توانم آن‌ را بفروشم و به
-                                    پول رایج (ریال یا دلار) تبدیل کنم. در این مقاله، به این سؤال به‌زبان ساده پاسخ
-                                    می‌دهیم. </p>
-                            </div>
-                            <div class="articles-boxes-footer">
-                                <div class="articles-boxes-footer-time"><i
-                                        class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
-                                <div class="articles-boxes-footer-view"><i
-                                        class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-4.jpg' %}"
-                                    class="articles-boxes-header-image" alt="" /></div>
-                            <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">فناوری بلاک چین چگونه کار می کند؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">قبل از هر چیز فراموش نکنید نحوه کار دقیق
-                                    بلاک چین بسیار پیچیده است که در یک مقاله ساده نمی‌گنجد. به عنوان یک کاربر ساده برای
-                                    استفاده از فناوری بلاک چین نیاز به دانستن چگونگی کار آن نخواهید داشت همانطور که برای
-                                    استفاده از اینترنت نیاز به دانستن چگونگی کار اینترنت ندارید. </p>
-                            </div>
-                            <div class="articles-boxes-footer">
-                                <div class="articles-boxes-footer-time"><i
-                                        class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
-                                <div class="articles-boxes-footer-view"><i
-                                        class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-5.png' %}"
-                                    class="articles-boxes-header-image" alt="" /></div>
-                            <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">بلاک چین چیست؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">بلاک چین (Blockchain) چیست، چگونه کار می‌کند
-                                    و چه کاربردهایی دارد؟ این‌ها سوالات متداولی هستند که در مورد این فناوریِ انقلابی
-                                    پرسیده می‌شود و احتمالاً درک آن برای افراد تازه‌کار و حتی برای حرفه‌ای‌ها چندان ساده
-                                    نباشد. با ما همراه باشید تا به تمام این سوالات به زبان ساده پاسخ بدهیم. </p>
-                            </div>
-                            <div class="articles-boxes-footer">
-                                <div class="articles-boxes-footer-time"><i
-                                        class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
-                                <div class="articles-boxes-footer-view"><i
-                                        class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-6.jpg' %}"
-                                    class="articles-boxes-header-image" alt="" /></div>
-                            <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">کاربرد های یک بلاک چین چیست؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">بلاک چین برای اولین بار در بیت کوین استفاده
-                                    شد، اما حالا این فناوری می‌تواند کاربردهای زیادی در دنیای واقعی ما داشته باشد. به
-                                    طور کلی استفاده از بلاک چین می‌تواند تا حد زیادی حریم خصوصی، اعتبار و امنیت اطلاعات
-                                    را افزایش دهد و ما را بیش از پیش از اعتماد بی نیاز کند. </p>
-                            </div>
-                            <div class="articles-boxes-footer">
-                                <div class="articles-boxes-footer-time"><i
-                                        class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
-                                <div class="articles-boxes-footer-view"><i
-                                        class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-4.jpg' %}"
-                                    class="articles-boxes-header-image" alt="" /></div>
-                            <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">فناوری بلاک چین چگونه کار می کند؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">قبل از هر چیز فراموش نکنید نحوه کار دقیق
-                                    بلاک چین بسیار پیچیده است که در یک مقاله ساده نمی‌گنجد. به عنوان یک کاربر ساده برای
-                                    استفاده از فناوری بلاک چین نیاز به دانستن چگونگی کار آن نخواهید داشت همانطور که برای
-                                    استفاده از اینترنت نیاز به دانستن چگونگی کار اینترنت ندارید. </p>
-                            </div>
-                            <div class="articles-boxes-footer">
-                                <div class="articles-boxes-footer-time"><i
-                                        class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
-                                <div class="articles-boxes-footer-view"><i
-                                        class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-5.png' %}"
-                                    class="articles-boxes-header-image" alt="" /></div>
-                            <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">بلاک چین چیست؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">بلاک چین (Blockchain) چیست، چگونه کار می‌کند
-                                    و چه کاربردهایی دارد؟ این‌ها سوالات متداولی هستند که در مورد این فناوریِ انقلابی
-                                    پرسیده می‌شود و احتمالاً درک آن برای افراد تازه‌کار و حتی برای حرفه‌ای‌ها چندان ساده
-                                    نباشد. با ما همراه باشید تا به تمام این سوالات به زبان ساده پاسخ بدهیم. </p>
-                            </div>
-                            <div class="articles-boxes-footer">
-                                <div class="articles-boxes-footer-time"><i
-                                        class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
-                                <div class="articles-boxes-footer-view"><i
-                                        class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{% static 'pic/article-6.jpg' %}"
-                                    class="articles-boxes-header-image" alt="" /></div>
-                            <div class="articles-boxes-content">
-                                <h3 class="articles-boxes-content-heading-three"><a href="#"
-                                        class="articles-boxes-content-link">کاربرد های یک بلاک چین چیست؟ </a></h3>
-                                <p class="articles-boxes-content-paragraph">بلاک چین برای اولین بار در بیت کوین استفاده
-                                    شد، اما حالا این فناوری می‌تواند کاربردهای زیادی در دنیای واقعی ما داشته باشد. به
-                                    طور کلی استفاده از بلاک چین می‌تواند تا حد زیادی حریم خصوصی، اعتبار و امنیت اطلاعات
-                                    را افزایش دهد و ما را بیش از پیش از اعتماد بی نیاز کند. </p>
-                            </div>
-                            <div class="articles-boxes-footer">
-                                <div class="articles-boxes-footer-time"><i
-                                        class="fa fa-calendar articles-boxes-footer-time-icon"></i><span
-                                        class="articles-boxes-footer-time-span">1397/05/02</span></div>
-                                <div class="articles-boxes-footer-view"><i
-                                        class="fa fa-eye articles-boxes-footer-view-icon"></i><span
-                                        class="articles-boxes-footer-view-span">55</span></div>
-                            </div>
-                        </div>
+                    {% endfor %}
                     </div>
                 </div>
                 <div class="swiper-button-prev articles-swiper-button-prev"></div>
@@ -849,7 +684,7 @@ text-align: center;
 
 <!--autocomplete-->
 <script>
-       function autocomplete(inp, type_inp, subjects, types, images) {
+       function autocomplete(inp, arr, images) {
   var currentFocus;
   inp.addEventListener("input", function(e) {
       var a, b, i, val = this.value;
@@ -860,17 +695,15 @@ text-align: center;
       a.setAttribute("id", this.id + "autocomplete-list");
       a.setAttribute("class", "autocomplete-items");
       this.parentNode.appendChild(a);
-      for (i = 0; i < subjects.length; i++) {
-        if (subjects[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
           b = document.createElement("DIV");
           b.innerHTML = "<img src = '"+ images[i] +"' alt='btc'>";
-          b.innerHTML += "<span style='color;#052058'>" + subjects[i].substr(0, val.length) + "</span>";
-          b.innerHTML += "<span style = 'color:#DDD'>" + subjects[i].substr(val.length) + "</span>";
-          b.innerHTML += "<input type='hidden' value='" + subjects[i] + "'>";
-          b.innerHTML += "<input type='hidden' value='" + types[i] + "'>";
+          b.innerHTML += "<span style='color;#052058'>" + arr[i].substr(0, val.length) + "</span>";
+          b.innerHTML += "<span style = 'color:#DDD'>" + arr[i].substr(val.length) + "</span>";
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
               b.addEventListener("click", function(e) {
               inp.value = this.getElementsByTagName("input")[0].value;
-              type_inp.value = this.getElementsByTagName("input")[1].value;
               closeAllLists();
           });
           a.appendChild(b);
@@ -909,26 +742,27 @@ document.addEventListener("click", function (e) {
 
 
 //get all search objects from back
-    var subjects = [];
+    var arr = [];
     var images = [];
-    var types = [];
     $.ajax({
-        url: '/get_search_objects',
+        url: '/get_all_currencies',
         type: 'GET',
         dataType: "json",
         success: function(searches, s, x) {
             searches.forEach(element => {
-                subjects.push(element.subject);
-                images.push(element.image);
-                types.push(element.type);
+                arr.push(element.name);
+                arr.push(element.persian_name + '|' + element.name);
+                images.push(element.image_url);
+                images.push(element.image_url);
             });
         }
     });
+    console.log(arr);
     document.getElementById('submit_icon').addEventListener("click", function (e){
         document.getElementById('search_form').submit();
     })
 
-autocomplete(document.getElementById("autocompleteInput"), document.getElementById("autocompletetypeInput"), subjects, types, images);
+autocomplete(document.getElementById("autocompleteInput"), arr, images);
 </script>
 
 

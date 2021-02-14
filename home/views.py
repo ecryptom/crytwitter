@@ -24,6 +24,8 @@ def article_page(req, ID):
 @login_required(login_url='login')
 def article_comment_view(req, ID):
     Text = req.POST.get('text')
+    if not Text:
+        return redirect('article', ID=ID)
     Article = article.objects.get(id=ID)
     User = req.user
     Date = gregorian_to_shamsi(timezone.now())
@@ -38,6 +40,8 @@ def reply_article_comment_view(req, ID):
     Text = req.POST.get('text')
     Date = gregorian_to_shamsi(timezone.now())
     Comment = article_comment.objects.get(id=ID)
+    if not Text:
+        return redirect('article', ID=Comment.article.id)
     Reply_comment = article_comment(article=Comment.article, user=req.user, shamsi_date=Date, text=Text, reply_to=Comment)
     Reply_comment.save()
     return redirect('article', ID=Comment.article.id)

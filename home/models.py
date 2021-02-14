@@ -20,6 +20,8 @@ class article(models.Model):
     introduction = models.TextField(null=True, blank=True, verbose_name='مقدمه')
     main_text = models.TextField(null=True, blank=True, verbose_name='متن اصلی')
     tags = models.CharField(max_length=100, default='مقاله;بیت کوین;ارزتوییتر;crypto', null=True, verbose_name='تگ ها(با علامت ; جدا شوند)')
+    date = models.CharField(max_length=20, default='1397/05/02', verbose_name="تاریخ")
+    view_count = models.IntegerField(default=63, verbose_name='تعداد بازدید')
 
     def split_tags(self):
         return self.tags.split(';')
