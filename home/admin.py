@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import article, article_chunk
+from .models import article, article_chunk, faq
 
 #admin.site.register(article)
 #admin.site.register(article_chunk)
@@ -10,6 +10,11 @@ class ArticleAdmin_(admin.ModelAdmin):
 
 
 @admin.register(article_chunk)
-class ArticleAdmin_(admin.ModelAdmin):
+class ChunkArticleAdmin_(admin.ModelAdmin):
     list_display = ['__str__', 'title', 'article']
     ordering = ['article', 'number']
+
+
+@admin.register(faq)
+class FaqAdmin(admin.ModelAdmin):
+    verbose_name_plural = 'سوالات متداول'

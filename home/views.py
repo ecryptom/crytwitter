@@ -7,7 +7,11 @@ from django.views.decorators.csrf import csrf_exempt
 from utils.date_convertor import gregorian_to_shamsi
 
 def home(req):
-    return render(req, 'index.html', {'top_curs': currency.objects.all()[:10], 'dollor_rate':dollor.objects.get().rate})
+    return render(req, 'index.html', {
+        'top_curs': currency.objects.all()[:10], 
+        'dollor_rate':dollor.objects.get().rate,
+        'questions': faq.objects.all()
+        })
 
 def cryptomarket(req):
     return render(req, 'cryptomarket.html')

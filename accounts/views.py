@@ -11,7 +11,7 @@ import random, requests, os
 from .models import user
 from home.models import currency, dollor
 
-sms_text = lambda code : f'arztwitter verification code: {code}'
+sms_text = lambda code : f'کد تایید ورود شما به سایت ارز توییتر:\n {code}'
 sms_signature = os.getenv('sms_signature')
 
 

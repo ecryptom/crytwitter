@@ -59,3 +59,11 @@ class article_comment(models.Model):
 
 
 
+class faq(models.Model):
+    question = models.TextField(verbose_name='سوال')
+    answer = models.TextField(verbose_name='جواب')
+    def __str__(self):
+        return self.question
+    
+    class Meta:
+        verbose_name_plural = '<سوالات متداول>'
