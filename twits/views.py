@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 from .models import twit
 from home.models import currency
+from utils.date_convertor import gregorian_to_shamsi
 
 def tweets(req):
     last_tweets = twit.objects.filter(id__gte=twit.objects.last().id-15).order_by('-id')
     return render(req, 'tweet.html', {'tweets':last_tweets})
+
 
 @login_required(login_url='login')
 def tweet(req):
@@ -22,7 +25,33 @@ def tweet(req):
     t = twit(
         text = req.POST['text'],
         currency= cur[0] if cur else None,
-        user = req.user
+        user = req.user,
+        date = timezone.now(),
+        shamsi_date = gregorian_to_shamsi(timezone.now()),
+    )
+    if File:
+        if req.POSTget('image'):
+            t.has_image = True
+        t.File = File
+    t.save()
+    return redirect('tweets')
+
+
+@login_required(login_url='login')
+@csrf_exempt
+def retweet(req, ID):
+    File = req.FILES.get('file')
+    if File and File.size > 1000000:
+        return redirect('tweets')
+    if not req.POST['text']:
+        return redirect('tweets')
+    t = twit(
+        text = req.POST['text'],
+        user = req.user,
+        retwit=True,
+        reply_to = twit.objects.get(id=ID),
+        date = timezone.now(),
+        shamsi_date = gregorian_to_shamsi(timezone.now()),
     )
     if File:
         if req.POSTget('image'):

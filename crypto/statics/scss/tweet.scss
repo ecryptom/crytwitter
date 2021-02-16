@@ -100,7 +100,8 @@
             background-color: $color-white;
             margin-top: 20px;
             scroll-behavior: smooth;
-
+            overflow-x: hidden;
+            position: relative;
             .tweet-content-center-text-area {
                 width: 100%;
                 display: block;
@@ -111,13 +112,23 @@
                 border: 1px solid lighten($color-secondary-light, 10%);
                 line-height: 30px;
                 color: $color-primary-two;
+                margin-top: 20px;
 
                 &::placeholder {
                     color: $color-primary-two;
                 }
 
             }
+            #autocompleteInput{
+                width: 100%;
+                display: block;
+                margin: 0 auto;
+                border-radius: 10px;
+                border: 1px solid lighten($color-secondary-light, 10%);
+                line-height: 30px;
+                color: $color-primary-two;
 
+            }
             .tweet-content-center-submit {
                 position: relative;
                 bottom: 40px;
@@ -142,8 +153,10 @@
 
                     .tweet-content-center-boxes-header {
                         margin-bottom: 20px;
-
-                        .tweet-content-center-boxes-header-image {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        .tweet-content-center-boxes-header-image-1 {
                             width: 50px;
                             height: 50px;
                             border-radius: 50%;
@@ -170,7 +183,10 @@
                             float: left;
                             padding-top: 5px;
                         }
-
+                        .tweet-content-center-boxes-header-image-2{
+                            float: left;
+                            margin-left: 15px;
+                        }
                         .tweet-content-center-boxes-header-report {
                             position: absolute;
                             left: 30px;
@@ -251,7 +267,7 @@
                     .tweet-content-center-boxes-parent {
                         margin: 10px 20px;
                         border: 1px solid $color-secondary-light;
-                        padding: 5px 10px;
+                        padding: 5px 10px 30px;
                         border-radius: 10px;
 
                         .tweet-content-center-boxes-parent-header {
@@ -284,97 +300,6 @@
                             }
                         }
 
-                    }
-                    .tweet-content-center-boxes-reply {
-                        text-align: right;
-                        background-color: $color-white;
-                        border-radius: 10px;
-                        padding: 15px;
-                        position: relative;
-                        margin-bottom: 20px;
-
-                        .tweet-content-center-boxes-reply-header {
-                            margin-bottom: 20px;
-
-                            .tweet-content-center-boxes-reply-header-image {
-                                width: 50px;
-                                height: 50px;
-                                border-radius: 50%;
-                                object-fit: cover;
-                                margin-left: 15px;
-                            }
-
-                            .tweet-content-center-boxes-reply-user-name {
-                                color: $color-primary-two;
-                                display: inline-block;
-                                padding-left: 5px;
-                                font-size: 15px;
-                            }
-
-                            .tweet-content-center-boxes-reply-header-time {
-                                color: $color-primary-two;
-                                display: inline-block;
-                                font-size: 15px;
-                            }
-
-                            .tweet-content-center-boxes-reply-header-icon {
-                                color: $color-primary-two;
-                                font-size: 15px;
-                                float: left;
-                                padding-top: 5px;
-                            }
-
-                            .tweet-content-center-boxes-reply-header-report {
-                                position: absolute;
-                                left: 30px;
-                                top: 40px;
-                                padding: 10px 15px;
-                                box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .1), 0 1px 10px 0 rgba(0, 0, 0, .12);
-                                background-color: $color-white;
-                                border-radius: 10px;
-                                z-index: 9999;
-
-                                .tweet-content-center-boxes-reply-header-report-list {
-                                    .tweet-content-center-boxes-reply-header-report-item {
-                                        padding: 10px 5px;
-                                        color: $color-primary-two;
-                                    }
-                                }
-                            }
-                        }
-
-                        .tweet-content-center-boxes-reply-body {
-                            .tweet-content-center-boxes-reply-body-paragraph {
-                                line-height: 25px;
-                                color: $color-secondary-dark;
-                                text-align: justify;
-                                font-size: 14px;
-                            }
-                        }
-                        
-                    .tweet-content-center-boxes-reply-footer {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        flex-wrap: wrap;
-                        padding-top: 10px;
-                        .tweet-content-center-boxes-reply-footer-like{
-                            .tweet-content-center-boxes-reply-footer-like-link{
-                                .tweet-content-center-boxes-reply-footer-like-icon{
-                                    color: $color-secondary-dark;
-                                    font-size: 16px;
-                                    transition: all ease .3s;
-                                    &.tweet-content-center-boxes-reply-footer-like-icon-active{
-                                        color: $color-red;
-                                    }
-                                }
-                            }
-                            .tweet-content-center-boxes-reply-footer-like-count{
-                                color: $color-secondary-dark;
-                            }
-                        }
-                    }
-                    
                     }
                 }
             }
