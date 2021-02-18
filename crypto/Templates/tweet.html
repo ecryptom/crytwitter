@@ -222,7 +222,7 @@
                                     {% endif %}
                                     <div class="tweet-content-center-boxes-header">
                                         <div class="tweet-content-center-boxes-header-right">
-                                            <img class="tweet-content-center-boxes-header-image-1" src="{% static 'img/default-user.jpg' %}"
+                                            <img class="tweet-content-center-boxes-header-image-1" src="{{tweet.user.image.url}}"
                                             alt="کاربر پیش فرض">
                                         <span class="tweet-content-center-boxes-user-name">{{tweet.user.name}}</span>
                                         <span class="tweet-content-center-boxes-header-time">{{tweet.shamsi_date}}</span>

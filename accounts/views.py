@@ -11,6 +11,7 @@ import random, requests, os
 from .models import user
 from home.models import currency, dollor
 
+forgot_password_text = lambda password : f'رمز عبور جدید شما در ارزتوییتر : \n {password}'
 sms_text = lambda code : f'کد تایید ورود شما به سایت ارز توییتر:\n {code}'
 sms_signature = os.getenv('sms_signature')
 
@@ -113,11 +114,32 @@ def resend_phone_code(req):
     User.verify_code_time = timezone.now()
     User.save()
     try:
-        text = f'arztwitter verification code: {User.verify_code}'
-        requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={text}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
+        requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={sms_text(User.verify_code)}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
         return render(req, 'verify.html', {'phone': User.phone, 'seconds':119})
     except:
         return JsonResponse({'status':'failed'})
+
+
+def forgot_password(req):
+    if req.method == 'GET':
+        return render(req, 'forgot_password.html')
+    #check with phone
+    User = user.objects.filter(phone=req.POST['username'])
+    #else check with username
+    if not User:
+        User = user.objects.filter(username=req.POST['username'])
+    if not User:
+        return render(req, 'forgot_password.html', {'error':'کاربری با این شماره / نام کاربری وجود ندارد'})
+    #set and send new password
+    try:
+        password = random.randint(1000000, 9999999)
+        User[0].set_password(password)
+        User[0].save()
+        requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User[0].phone}&&text={forgot_password_text(password)}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
+        return render(req, 'login.html', {'message':'رمز عبور جدید برای شما ارسال گردید'})
+    except:
+        return render(req, 'forgot_password.html', {'error':'شماره تلفن وارد شده صحیح نمی باشد'})
+
 
 
 

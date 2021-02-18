@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout', logout, name='logout'),
     path('verify_code', verify_code, name='verify_code'),
     path('resend_phone_code', resend_phone_code, name='resend_phone_code'),
+    path('forgot_password', forgot_password, name='forgot_password'),
     path('edit_profile', edit_profile, name='edit_profile'),
     path('dashboard', dashboard, name='dashboard'),
     path('change_pass', change_pass, name='change_pass'),
