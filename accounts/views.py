@@ -131,14 +131,14 @@ def forgot_password(req):
     if not User:
         return render(req, 'forgot_password.html', {'error':'کاربری با این شماره / نام کاربری وجود ندارد'})
     #set and send new password
-    try:
-        password = random.randint(1000000, 9999999)
-        User[0].set_password(password)
-        User[0].save()
-        requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User[0].phone}&&text={forgot_password_text(password)}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
-        return render(req, 'login.html', {'message':'رمز عبور جدید برای شما ارسال گردید'})
-    except:
-        return render(req, 'forgot_password.html', {'error':'شماره تلفن وارد شده صحیح نمی باشد'})
+    #try:
+    password = random.randint(1000000, 9999999)
+    User[0].set_password(password)
+    User[0].save()
+    requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User[0].phone}&&text={forgot_password_text(password)}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
+    return render(req, 'login.html', {'message':'رمز عبور جدید برای شما ارسال گردید'})
+    #except:
+    #    return render(req, 'forgot_password.html', {'error':'شماره تلفن وارد شده صحیح نمی باشد'})
 
 
 
