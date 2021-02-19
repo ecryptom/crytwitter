@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
     'twits.apps.TwitsConfig',
-    'products.apps.ProductsConfig'
+    'products.apps.ProductsConfig',
+    'ckeditor',
+    'ckeditor_uploader',
 
 ]
 

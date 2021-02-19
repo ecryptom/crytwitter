@@ -27,8 +27,6 @@
                             <div class="article-left-image-wrapper">
                                 <img src="{{article.image.url}}" class="article-left-image" />
                             </div>
-
-                            {% if article.has_menu %}
                             <div class="article-left-cannibalization">
 
                                 <p class="article-left-cannibalization-paragraph">آنچه در این مقاله می خوانید</p>
@@ -37,10 +35,43 @@
                                 </ul>
 
                             </div>
+
+                            {% if article.introduction %}
+                                <h2 class="article-left-heading-two">
+                                {{article.introduction}}
+                                </h2>
+                            {% else %}
+                                <h3 class="article-left-heading-two"></h3>
                             {% endif %}
                             
                             <div class="article-left-description">
-                                {{article.content | safe}}
+                                {% if article.main_text %}
+                                    <p>
+                                        {{article.main_text}}
+                                    </p>
+                                {% endif %}
+
+                                {% for chunk in article_chunks %}
+
+                                    <h3 id="{{chunk.id}}">{{chunk.title}}</h3>
+
+                                    {% if chunk.text1 %}
+                                        <p>
+                                            {{chunk.text1}}
+                                        </p>
+                                    {% endif %}
+
+                                    {% if chunk.image %}
+                                        <img src="{{chunk.image.url}}" />
+                                    {% endif %}
+
+                                    {% if chunk.text2 %}
+                                        <p>
+                                            {{chunk.text2}}
+                                        </p>
+                                    {% endif %}
+
+                                {% endfor %}
                             </div>
                             <div class="article-left-tags">
                                 <h5 class="article-left-tags-heading-five">

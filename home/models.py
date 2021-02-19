@@ -1,4 +1,8 @@
 from django.db import models
+from ckeditor_uploader.fields import RichTextUploadingField
+
+class alaki(models.Model):
+    text = RichTextUploadingField()
 
 class currency(models.Model):
     name = models.CharField(max_length=50)
@@ -16,12 +20,12 @@ class dollor(models.Model):
 
 class article(models.Model):
     title = models.CharField(max_length=100, verbose_name='عنوان')
-    image = models.ImageField(upload_to='articles', verbose_name='تصویر اصلی', null=True, blank=True)
-    introduction = models.TextField(null=True, blank=True, verbose_name='مقدمه')
-    main_text = models.TextField(null=True, blank=True, verbose_name='متن اصلی')
+    image = models.ImageField(upload_to='articles', verbose_name='تصویر اصلی', default='ali')
+    content = RichTextUploadingField(default='')
+    has_menu = models.BooleanField(default=False, verbose_name='آنچه در این مقاله می خوانید')
     tags = models.CharField(max_length=100, default='مقاله;بیت کوین;ارزتوییتر;crypto', null=True, verbose_name='تگ ها(با علامت ; جدا شوند)')
-    date = models.CharField(max_length=20, default='1397/05/02', verbose_name="تاریخ")
-    view_count = models.IntegerField(default=63, verbose_name='تعداد بازدید')
+    date = models.DateField(auto_now=True, verbose_name="تاریخ")
+    views = models.ManyToManyField('accounts.user', null=True, blank=True, verbose_name='بازدیدها')
 
     def split_tags(self):
         return self.tags.split(';')
@@ -35,19 +39,6 @@ class article(models.Model):
 
 
 
-class article_chunk(models.Model):
-    title = models.CharField(max_length=100, verbose_name='عنوان')
-    text1 = models.TextField(verbose_name='متن قبل از تصویر', null=True, blank=True)
-    image = models.ImageField(upload_to='articles', verbose_name='تصویر', null=True, blank=True)
-    text2 = models.TextField(verbose_name='متن بعد از تصویر', null=True, blank=True)
-    number = models.PositiveSmallIntegerField(verbose_name='شماره')
-    article = models.ForeignKey('home.article', verbose_name='مقاله', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.article.title}_قسمت_{self.number}'
-
-    class Meta:
-        verbose_name_plural = 'بخش‌های مقالات'
 
     
 
