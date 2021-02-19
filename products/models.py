@@ -7,6 +7,7 @@ class product(models.Model):
     price = models.IntegerField(verbose_name='قیمت')
     off = models.IntegerField(default=0, verbose_name='تخفیف به درصد')
     details = models.TextField(default='', verbose_name='توضیحات')
+    details2 = models.TextField(default='', verbose_name='توضیحات پایین')
     tags = models.CharField(max_length=50 ,default='crypto;BTC;miner', verbose_name='تگ‌ها(با ; جدا شوند)')  #split tags with ";"
     image1 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر اول')
     image2 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
