@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
+from utils.date_convertor import gregorian_to_shamsi
 
 class alaki(models.Model):
     text = RichTextUploadingField()
@@ -25,10 +26,13 @@ class article(models.Model):
     has_menu = models.BooleanField(default=False, verbose_name='آنچه در این مقاله می خوانید')
     tags = models.CharField(max_length=100, default='مقاله;بیت کوین;ارزتوییتر;crypto', null=True, verbose_name='تگ ها(با علامت ; جدا شوند)')
     date = models.DateField(auto_now=True, verbose_name="تاریخ")
-    views = models.ManyToManyField('accounts.user', null=True, blank=True, verbose_name='بازدیدها')
+    views_count = models.IntegerField(default=0 ,verbose_name='تعداد بازدید')
 
     def split_tags(self):
         return self.tags.split(';')
+    
+    def shamsi_date(self):
+        return gregorian_to_shamsi(self.date)
 
     def __str__(self):
         return self.title

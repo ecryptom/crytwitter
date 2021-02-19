@@ -19,6 +19,8 @@ def cryptomarket(req):
 
 def article_page(req, ID):
     Article = article.objects.get(id=ID)
+    Article.views_count += 1
+    Article.save()
     return render(req, 'article.html', {'article':Article})
 
 
