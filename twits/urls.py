@@ -3,6 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('tweets', tweets, name='tweets'),
+    path('curr_tweets/<str:curr_name>', curr_tweets, name='curr_tweets'),
     path('tweet', tweet, name='tweet'),
     path('retweet/<int:ID>', retweet, name='retweet'),
 

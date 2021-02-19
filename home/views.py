@@ -10,7 +10,8 @@ def home(req):
     return render(req, 'index.html', {
         'top_curs': currency.objects.all()[:10], 
         'dollor_rate':dollor.objects.get().rate,
-        'questions': faq.objects.all()
+        'questions': faq.objects.all(),
+        'comments': index_comments.objects.all(),
         })
 
 def cryptomarket(req):
@@ -46,12 +47,17 @@ def reply_article_comment_view(req, ID):
     Reply_comment.save()
     return redirect('article', ID=Comment.article.id)
 
-@csrf_exempt
-def search(req):
-    if req.POST['type'] == 'article':
-        Article = article.objects.get(title=req.POST['subject'])
-        return redirect('article', ID=Article.id)
-    return redirect('home')
+
+def index_search(req):
+    cur_name = req.POST['currency'].split('|')
+    try:
+        cur = currency.objects.get(name=cur_name[0])
+    except:
+        try:
+            cur = currency.objects.get(name=cur_name[1])
+        except:
+            return redirect('home')
+    return redirect('curr_tweets', cur.name)
 
 
 def error_404(req, exception):

@@ -12,6 +12,16 @@ def tweets(req):
     return render(req, 'tweet.html', {'tweets':last_tweets})
 
 
+def curr_tweets(req, curr_name):
+    curr = currency.objects.get(name=curr_name)
+    #check if there is any tweets
+    if curr.twit_set.count() == 0:
+        last_tweets = []
+    else:
+        last_tweets = curr.twit_set.all().filter(id__gte=curr.twit_set.last().id-15).order_by('-id')
+    return render(req, 'curr_tweet.html', {'tweets':last_tweets, 'currency':curr.name})
+
+
 @login_required(login_url='login')
 def tweet(req):
     File = req.FILES.get('file')
@@ -34,6 +44,8 @@ def tweet(req):
             t.has_image = True
         t.File = File
     t.save()
+    if req.POST.get('curr_tweet'):
+        return redirect('curr_tweets', req.POST['currency'])
     return redirect('tweets')
 
 
@@ -58,8 +70,9 @@ def retweet(req, ID):
             t.has_image = True
         t.File = File
     t.save()
+    if req.POST.get('curr_tweet'):
+        return redirect('curr_tweets', req.POST['currency'])
     return redirect('tweets')
-
 
 
 ##############  APIs   ##########################

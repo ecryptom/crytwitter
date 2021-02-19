@@ -69,3 +69,15 @@ class faq(models.Model):
     
     class Meta:
         verbose_name_plural = '<سوالات متداول>'
+
+
+class index_comments(models.Model):
+    name = models.CharField(max_length=25 ,verbose_name='نام کاربر')
+    position = models.CharField(max_length=25 ,verbose_name='عنوان')
+    text = models.TextField(verbose_name='متن نظر')
+    image = models.ImageField(upload_to='profiles', null=True, blank=True, verbose_name='تصویر(اختیاری)')
+    def __str__(self):
+        return self.name + '_' + self.position
+    
+    class Meta:
+        verbose_name_plural = 'نظرات کاربران'

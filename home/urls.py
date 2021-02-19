@@ -7,7 +7,7 @@ urlpatterns = [
     path('article/<int:ID>', article_page, name='article'),
     path('article_comment/<int:ID>', article_comment_view, name='article_comment'),
     path('reply_article_comment/<int:ID>', reply_article_comment_view, name='reply_article_comment'),
-    path('search', search, name='search'),
+    path('index_search', index_search, name='index_search'),
 
 
     ######  APIs  #######

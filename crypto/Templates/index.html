@@ -330,9 +330,9 @@ text-align: center;
                                 </div>
                             </div>
                             <div class="col-lg-6 col-xl-6">
-                                <form action="{% url 'search' %}" method="POST" autocomplete="off" id="search_form" class="header-banner-search-box">
-                                    <input type="text" name="subject" id="autocompleteInput" class="header-banner-search-box-input" placeholder="رمز ارز مورد نظر خود را جستجو کنید ..." />
-                                    <input type="text" name="type" id="autocompletetypeInput" hidden>
+                                <form action="{% url 'index_search' %}" method="POST" autocomplete="off" id="search_form" class="header-banner-search-box">
+                                    {% csrf_token %}
+                                    <input type="text" name="currency" id="autocompleteInput" class="header-banner-search-box-input" placeholder="رمز ارز مورد نظر خود را جستجو کنید ..." />
                                     <i id="submit_icon" class="fa fa-search header-banner-search-box-icon"></i>
                                 </form>
                             </div>
@@ -507,158 +507,24 @@ text-align: center;
             <div class="comments-boxes-wrapper">
                 <div class="swiper-container comments-swiper-container">
                     <div class="swiper-wrapper comments-swiper-wrapper">
+                    {% for comment in comments %}
                         <div class="swiper-slide comments-swiper-slide comments-boxes">
+                            {% if comment.image %}
+                            <div class="comments-boxes-header"><img src="{{comment.image.url}}"
+                                    class="comments-boxes-header-image" />
+                            {% else %}
                             <div class="comments-boxes-header"><img src="{% static 'img/default-user.jpg' %}"
                                     class="comments-boxes-header-image" />
-                                <h4 class="comments-boxes-header-heading-four">محسن قديري</h4><i
+                            {% endif %}
+                                <h4 class="comments-boxes-header-heading-four">{{comment.name}}</h4><i
                                     class="fa fa-quote-right comments-boxes-header-icon"></i>
-                                <h5 class="comments-boxes-header-heading-five">استاد دانشگاه</h5>
+                                <h5 class="comments-boxes-header-heading-five">{{comment.position}}</h5>
                             </div>
                             <div class="comments-boxes-content">
-                                <p class="comments-boxes-content-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                                    مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                                    درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-                                    شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-                                    فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی
-                                    و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
+                                <p class="comments-boxes-content-paragraph">{{comment.text | linebreaksbr}}</p>
                             </div>
                         </div>
-                        <div class="swiper-slide comments-swiper-slide comments-boxes">
-                            <div class="comments-boxes-header"><img src="{% static 'img/default-user.jpg' %}"
-                                    class="comments-boxes-header-image" />
-                                <h4 class="comments-boxes-header-heading-four">محسن قديري</h4><i
-                                    class="fa fa-quote-right comments-boxes-header-icon"></i>
-                                <h5 class="comments-boxes-header-heading-five">استاد دانشگاه</h5>
-                            </div>
-                            <div class="comments-boxes-content">
-                                <p class="comments-boxes-content-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                                    مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                                    درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-                                    شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-                                    فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی
-                                    و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide comments-swiper-slide comments-boxes">
-                            <div class="comments-boxes-header"><img src="{% static 'img/default-user.jpg' %}"
-                                    class="comments-boxes-header-image" />
-                                <h4 class="comments-boxes-header-heading-four">محسن قديري</h4><i
-                                    class="fa fa-quote-right comments-boxes-header-icon"></i>
-                                <h5 class="comments-boxes-header-heading-five">استاد دانشگاه</h5>
-                            </div>
-                            <div class="comments-boxes-content">
-                                <p class="comments-boxes-content-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                                    مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                                    درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-                                    شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-                                    فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی
-                                    و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide comments-swiper-slide comments-boxes">
-                            <div class="comments-boxes-header"><img src="{% static 'img/default-user.jpg' %}"
-                                    class="comments-boxes-header-image" />
-                                <h4 class="comments-boxes-header-heading-four">محسن قديري</h4><i
-                                    class="fa fa-quote-right comments-boxes-header-icon"></i>
-                                <h5 class="comments-boxes-header-heading-five">استاد دانشگاه</h5>
-                            </div>
-                            <div class="comments-boxes-content">
-                                <p class="comments-boxes-content-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                                    مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                                    درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-                                    شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-                                    فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی
-                                    و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide comments-swiper-slide comments-boxes">
-                            <div class="comments-boxes-header"><img src="{% static 'img/default-user.jpg' %}"
-                                    class="comments-boxes-header-image" />
-                                <h4 class="comments-boxes-header-heading-four">محسن قديري</h4><i
-                                    class="fa fa-quote-right comments-boxes-header-icon"></i>
-                                <h5 class="comments-boxes-header-heading-five">استاد دانشگاه</h5>
-                            </div>
-                            <div class="comments-boxes-content">
-                                <p class="comments-boxes-content-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                                    مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                                    درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-                                    شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-                                    فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی
-                                    و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide comments-swiper-slide comments-boxes">
-                            <div class="comments-boxes-header"><img src="{% static 'img/default-user.jpg' %}"
-                                    class="comments-boxes-header-image" />
-                                <h4 class="comments-boxes-header-heading-four">محسن قديري</h4><i
-                                    class="fa fa-quote-right comments-boxes-header-icon"></i>
-                                <h5 class="comments-boxes-header-heading-five">استاد دانشگاه</h5>
-                            </div>
-                            <div class="comments-boxes-content">
-                                <p class="comments-boxes-content-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                                    مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                                    درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-                                    شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-                                    فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی
-                                    و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide comments-swiper-slide comments-boxes">
-                            <div class="comments-boxes-header"><img src="{% static 'img/default-user.jpg' %}"
-                                    class="comments-boxes-header-image" />
-                                <h4 class="comments-boxes-header-heading-four">محسن قديري</h4><i
-                                    class="fa fa-quote-right comments-boxes-header-icon"></i>
-                                <h5 class="comments-boxes-header-heading-five">استاد دانشگاه</h5>
-                            </div>
-                            <div class="comments-boxes-content">
-                                <p class="comments-boxes-content-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                                    مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                                    درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-                                    شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-                                    فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی
-                                    و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide comments-swiper-slide comments-boxes">
-                            <div class="comments-boxes-header"><img src="{% static 'img/default-user.jpg' %}"
-                                    class="comments-boxes-header-image" />
-                                <h4 class="comments-boxes-header-heading-four">محسن قديري</h4><i
-                                    class="fa fa-quote-right comments-boxes-header-icon"></i>
-                                <h5 class="comments-boxes-header-heading-five">استاد دانشگاه</h5>
-                            </div>
-                            <div class="comments-boxes-content">
-                                <p class="comments-boxes-content-paragraph">لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                                    مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                                    درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-                                    شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان
-                                    فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                                    راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی
-                                    و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
-                            </div>
-                        </div>
+                    {% endfor %}
                     </div>
                 </div>
                 <div class="swiper-button-prev comments-swiper-button-prev"></div>

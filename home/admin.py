@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import article, article_chunk, faq
+from .models import article, article_chunk, faq, index_comments
 
 #admin.site.register(article)
 #admin.site.register(article_chunk)
@@ -17,4 +17,8 @@ class ChunkArticleAdmin_(admin.ModelAdmin):
 
 @admin.register(faq)
 class FaqAdmin(admin.ModelAdmin):
-    verbose_name_plural = 'سوالات متداول'
+    pass
+
+@admin.register(index_comments)
+class FaqAdmin(admin.ModelAdmin):
+    pass
