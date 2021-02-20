@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tz %}
 {% load static %}
 
 {% block header %}
@@ -132,6 +133,7 @@
                             </a>
                         </li>
                     {% endfor %}
+                    </ul>
             </div>
 
             <div class="tweet-header">
@@ -209,14 +211,14 @@
 
                             <form action="{% url 'tweet' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <input id="autocompleteInput" type="text" class="watch-list-search-autocomplete-input"  placeholder="رمز ارز مورد نظر خود را جستجو کنید...">
+                                <input name="currency" id="autocompleteInput" type="text" class="watch-list-search-autocomplete-input"  placeholder="رمز ارز مورد نظر خود را جستجو کنید...">
                                 <div class="tweet-content-center-comment">
                                     <textarea name="text" class="tweet-content-center-comment-text-area" placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
                                     <button class="tweet-content-center-comment-submit" type="submit">
                                         <i class="fa fa-twitter"></i>
                                     </button>
                                         <label for="image" class="tweet-content-center-comment-label">
-                                        پیوست
+                                        پیوست 
                                         </label>
                                         <input name="file" type="file" class="tweet-content-center-comment-input-file" id="image" />
                                 </div>
@@ -336,20 +338,20 @@
                                         <ul class="tweet-content-left-tab-content-clock-list">
 
                                             <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                                <span class="tweet-content-left-tab-content-clock-title">نیویورک :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">{{newyork_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                                <span class="tweet-content-left-tab-content-clock-title">هنگ کنگ :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">{{hongkong_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                                <span class="tweet-content-left-tab-content-clock-title">توکیو :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">{{tokyo_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                                <span class="tweet-content-left-tab-content-clock-title">لندن :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">{{london_time}}</span>
                                             </li>
                                         </ul>
                                     </div>

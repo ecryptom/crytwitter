@@ -120,6 +120,58 @@
 
     <section class="tweet">
         <div class="container-fluid">
+
+            <div class="tweet-header">
+                <div class="tweet-header-top-cryptocurrency">
+                    <ul class="tweet-header-top-cryptocurrency-list">
+
+                        {% for curr in top_curs %}
+                            <li class="tweet-header-top-cryptocurrency-item">
+                                <a href="{% url 'curr_tweets' curr.name %}" class="tweet-header-top-cryptocurrency-link">
+                                    <img src="{{curr.image_url}}" class="tweet-header-top-cryptocurrency-image" alt="بیت کوین" />
+                                    <span class="tweet-header-top-cryptocurrency-name">{{curr.persian_name}}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                        
+                    </ul>
+                </div>
+                <div class="tweet-header-details">
+                    <div class="tweet-header-details-specifications">
+                        <img src="{{currency.image_url}}" class="tweet-header-details-specifications-image" />
+                        <span class="tweet-header-details-specifications-name">{{currency.persian_name}} ({{currency.symbol}})</span>
+                        <div class="tweet-header-details-specifications-price">
+                            <span class="tweet-header-details-specifications-price-title">قیمت : </span>
+                            <span class="tweet-header-details-specifications-price-value">{{currency.price}} دلار</span>
+                            <span class="tweet-header-details-specifications-price-value">{{currency.price}} ريال</span>
+                        </div>
+                    </div>
+                    <div class="tweet-header-details-statistics">
+                        <ul class="tweet-header-details-statistics-list">
+                            <li class="tweet-header-details-statistics-item">
+                                <span class="tweet-header-details-statistics-title">حجم معاملات : </span>
+                                <span class="tweet-header-details-statistics-value">54,202,000,000 $</span>
+                            </li>
+                            <li class="tweet-header-details-statistics-item">
+                                <span class="tweet-header-details-statistics-title">سود و زيان هفتگي :</span>
+                                <span class="tweet-header-details-statistics-value tweet-header-details-statistics-value-positive">11.23%</span>
+                            </li>
+                            <li class="tweet-header-details-statistics-item">
+                                <span class="tweet-header-details-statistics-title">سود و زيان ماهانه :</span>
+                                <span class="tweet-header-details-statistics-value tweet-header-details-statistics-value-negative">-1.1%</span>
+                            </li>
+                            <li class="tweet-header-details-statistics-item">
+                                <span class="tweet-header-details-statistics-title">ارزش بازار :</span>
+                                <span class="tweet-header-details-statistics-value">982 ميليارد دلار</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tweet-header-details-chart">
+                        <img src="https://static.coin360.com/images/graph/coin/table/bitcoin.png" class="tweet-header-details-chart-image" alt="بيت كوين" />
+                    </div>
+                </div>
+            </div>
+
             <div class="tweet-header">
                 <div class="tweet-header-search">
                 </div>
@@ -191,16 +243,23 @@
                     </div>
                     <div class="'col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                         <div class="tweet-content-center">
-                            <form action='{% url 'tweet' %}' method="POST">
+
+                            <form action="{% url 'tweet' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <input name="currency" id="autocompleteInput" type="text" hidden value={{currency}}>
-                                <input name="curr_tweet" id="autocompleteInput" type="text" hidden value={{currency}}>
-                                <textarea name="text" class="tweet-content-center-text-area"
-                                    placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
-                                <button class="tweet-content-center-submit" type="submit">
-                                    <i class="fa fa-twitter"></i>
-                                </button>
+                                <input name="currency" id="autocompleteInput" type="text" hidden value={{currency.name}}>
+                                <input name="curr_tweet" id="autocompleteInput" type="text" hidden value={{currency.name}}>
+                                <div class="tweet-content-center-comment">
+                                    <textarea name="text" class="tweet-content-center-comment-text-area" placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
+                                    <button class="tweet-content-center-comment-submit" type="submit">
+                                        <i class="fa fa-twitter"></i>
+                                    </button>
+                                        <label for="image" class="tweet-content-center-comment-label">
+                                        پیوست
+                                        </label>
+                                        <input name="file" type="file" class="tweet-content-center-comment-input-file" id="image" />
+                                </div>
                             </form>
+
                             <div class="tweet-content-center-boxes-wrapper">
 
                             {% for tweet in tweets %}
@@ -256,6 +315,18 @@
                                         <p class="tweet-content-center-boxes-body-paragraph">
                                             {{tweet.text | linebreaksbr}}
                                         </p>
+                                        {% if tweet.File %}
+                                            {% if tweet.has_image %}
+                                                <img src="{{tweet.File.url}}" class="tweet-content-center-boxes-body-image" />
+                                            {% else %}
+                                                <div class="tweet-content-center-boxes-body-file">
+                                                    <a href="{{tweet.File.url}}" class="tweet-content-center-boxes-body-file-link" download>
+                                                    <i class="fa fa-file-o tweet-content-center-boxes-body-file-icon"></i>
+                                                        دانلود فايل        {{tweet.File.name}}
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
                                     </div>
                                     <div class="tweet-content-center-boxes-footer">
                                         <div class="tweet-content-center-boxes-footer-like">
@@ -303,20 +374,20 @@
                                         <ul class="tweet-content-left-tab-content-clock-list">
 
                                             <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                                <span class="tweet-content-left-tab-content-clock-title">نیویورک :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">{{newyork_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                                <span class="tweet-content-left-tab-content-clock-title">هنگ کنگ :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">{{hongkong_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                                <span class="tweet-content-left-tab-content-clock-title">توکیو :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">{{tokyo_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">برزیل :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">12:50</span>
+                                                <span class="tweet-content-left-tab-content-clock-title">لندن :</span>
+                                                <span class="tweet-content-left-tab-content-clock-value">{{london_time}}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -351,7 +422,7 @@
                     let replyElement = document.createElement("div");
                     replyElement.classList.add("tweet-content-center-boxes-send-reply");
                     replyElement.innerHTML =
-                        "  <form action='/tweet/retweet/" + element.id + "' method='POST'><textarea name='text' placeholder='متن دیدگاه' class='tweet-content-center-boxes-send-reply-text-area'></textarea><button type='submit' class='tweet-content-center-boxes-send-reply-submit'>ارسال پاسخ</button></form>";
+                        "  <form action='/tweet/retweet/" + element.id + "' method='POST'><textarea name='text' placeholder='متن دیدگاه' class='tweet-content-center-boxes-send-reply-text-area'></textarea><input name='currency' type='text' hidden value={{currency.name}}><input name='curr_tweet' type='text' hidden value={{currency.name}}><button type='submit' class='tweet-content-center-boxes-send-reply-submit'>ارسال پاسخ</button></form>";
                     firstParent.insertBefore(replyElement, replyComments);
                     replyElement.style.height = replyElement.scrollHeight + "px";
                     e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
@@ -375,6 +446,32 @@
 function like_tweet(ID){
     $.ajax({
         url: 'like_tweet/' + ID,
+        type: 'GET',
+        dataType: "json",
+        success: function(resp, s, x) {
+            if(resp.status == 'like'){
+                document.getElementById('likes_'+ID).innerHTML = parseInt(document.getElementById('likes_'+ID).innerHTML) + 1;
+                document.getElementById('like_icon_'+ID).classList.remove('fa-heart-o');
+                document.getElementById('like_icon_'+ID).classList.add('fa-heart');
+                //document.getElementById('like_icon_'+ID).class = "fa fa-heart tweet-content-center-boxes-reply-footer-like-icon tweet-content-center-boxes-reply-footer-like-icon-active";
+            }else{
+                document.getElementById('likes_'+ID).innerHTML = parseInt(document.getElementById('likes_'+ID).innerHTML) - 1;
+                document.getElementById('like_icon_'+ID).classList.remove('fa-heart');
+                document.getElementById('like_icon_'+ID).classList.add('fa-heart-o');
+                //document.getElementById('like_icon_'+ID).clas = "fa fa-heart-o tweet-content-center-boxes-reply-footer-like-icon tweet-content-center-boxes-reply-footer-like-icon-active"
+            }   
+            }
+    });
+}
+
+</script>
+
+
+<script>
+
+function like_tweet(ID){
+    $.ajax({
+        url: '/tweet/like_tweet/' + ID,
         type: 'GET',
         dataType: "json",
         success: function(resp, s, x) {

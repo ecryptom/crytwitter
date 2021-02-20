@@ -3,14 +3,26 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
+import pytz
+from datetime import datetime
 from mimetypes import guess_type
 from .models import twit
 from home.models import currency
 from utils.date_convertor import gregorian_to_shamsi
 
 def tweets(req):
-    last_tweets = twit.objects.filter(id__gte=twit.objects.last().id-15).order_by('-id')
-    return render(req, 'tweet.html', {'tweets':last_tweets, 'top_curs':currency.objects.all()[:10]})
+    if twit.objects.count() == 0 :
+        last_tweets = []
+    else:
+        last_tweets = twit.objects.filter(id__gte=twit.objects.last().id-15).order_by('-id')
+    return render(req, 'tweet.html', {
+        'tweets':last_tweets, 
+        'top_curs':currency.objects.all()[:10],
+        'newyork_time':f"{datetime.now(pytz.timezone('America/New_York')).hour:02}:{datetime.now(pytz.timezone('America/New_York')).minute:02}",
+        'tokyo_time':f"{datetime.now(pytz.timezone('Asia/Tokyo')).hour:02}:{datetime.now(pytz.timezone('Asia/Tokyo')).minute:02}",
+        'hongkong_time':f"{datetime.now(pytz.timezone('Hongkong')).hour:02}:{datetime.now(pytz.timezone('Hongkong')).minute:02}",
+        'london_time':f"{datetime.now(pytz.timezone('Europe/London')).hour:02}:{datetime.now(pytz.timezone('Europe/London')).minute:02}",
+        })
 
 
 def curr_tweets(req, curr_name):
@@ -20,13 +32,20 @@ def curr_tweets(req, curr_name):
         last_tweets = []
     else:
         last_tweets = curr.twit_set.all().filter(id__gte=curr.twit_set.last().id-15).order_by('-id')
-    return render(req, 'curr_tweet.html', {'tweets':last_tweets, 'currency':curr.name})
+    return render(req, 'curr_tweet.html', {
+        'tweets':last_tweets, 
+        'currency':curr, 
+        'top_curs':currency.objects.all()[:10],
+        'newyork_time':f"{datetime.now(pytz.timezone('America/New_York')).hour:02}:{datetime.now(pytz.timezone('America/New_York')).minute:02}",
+        'tokyo_time':f"{datetime.now(pytz.timezone('Asia/Tokyo')).hour:02}:{datetime.now(pytz.timezone('Asia/Tokyo')).minute:02}",
+        'hongkong_time':f"{datetime.now(pytz.timezone('Hongkong')).hour:02}:{datetime.now(pytz.timezone('Hongkong')).minute:02}",
+        'london_time':f"{datetime.now(pytz.timezone('Europe/London')).hour:02}:{datetime.now(pytz.timezone('Europe/London')).minute:02}",
+        })
 
 
 @login_required(login_url='login')
 def tweet(req):
     File = req.FILES.get('file')
-    print('!!!!!!!!!!!!!!!', File.name, guess_type(File.name)[0].split('/')[0])
     if File and File.size > 1000000:
         return redirect('tweets')
     if not req.POST['text']:
@@ -38,7 +57,7 @@ def tweet(req):
         text = req.POST['text'],
         currency= cur[0] if cur else None,
         user = req.user,
-        has_image = guess_type(File.name)[0].split('/')[0] == 'image',
+        has_image = guess_type(File.name)[0].split('/')[0] == 'image' if File else False,
         File = File,
         date = timezone.now(),
         shamsi_date = gregorian_to_shamsi(timezone.now()),
@@ -57,11 +76,13 @@ def retweet(req, ID):
         return redirect('tweets')
     if not req.POST['text']:
         return redirect('tweets')
+    reply_to = twit.objects.get(id=ID)
     t = twit(
         text = req.POST['text'],
         user = req.user,
+        currency= reply_to.currency,
         retwit=True,
-        reply_to = twit.objects.get(id=ID),
+        reply_to = reply_to,
         date = timezone.now(),
         shamsi_date = gregorian_to_shamsi(timezone.now()),
     )

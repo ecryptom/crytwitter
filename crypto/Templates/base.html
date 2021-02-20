@@ -55,7 +55,7 @@
                                             {% endfor %}
                                         </ul>
                                     </li>
-                                    <li class="main-menu-item"><a href="#" class="main-menu-link">مقالات </a></li>
+                                    <li class="main-menu-item"><a href="/#articles" class="main-menu-link">مقالات </a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -72,8 +72,6 @@
                         <div class="col-lg-3 col-xl-3 login-register-col">
                             <div class="login-register">
                                 <i class="fa fa-user login-register-icon"></i>
-                                <a href="{% url 'logout' %}" class="login-register-link"><span class="login-register-title">خروج</span></a>
-                                <span class="login-register-seprator">|</span>
                                 <a href="{% url 'dashboard' %}" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
                             </div>
                         </div>
@@ -112,7 +110,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="responsive-menu-content-item"><a href="#"
+                                        <li class="responsive-menu-content-item"><a href="/#articles"
                                                 class="responsive-menu-content-link">مقالات</a></li>
                                     </ul>
                                 </div>
@@ -132,10 +130,8 @@
                             </div>
                         {% else %}
                             <div class="col-8 col-sm-6 col-md-6">
-                            <div class="login-register"><i class="fa fa-user login-register-icon"></i><a
-                                    href="{% url 'logout' %}" class="login-register-link"><span
-                                        class="login-register-title">خروج</span></a><span
-                                    class="login-register-seprator">|</span><a href="{% url 'dashboard' %}"
+                            <div class="login-register"><i class="fa fa-user login-register-icon"></i>
+                            <a href="{% url 'dashboard' %}"
                                     class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
                             </div>
                             </div>
@@ -167,13 +163,13 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl- footer-left-col">
                         <div class="footer-left">
-                            <div class="footer-left-social-networks"><a href="#"
+                            <div class="footer-left-social-networks"><a href="https://t.me/arztwittercom"
                                     class="footer-left-social-networks-link"><i
-                                        class="fa fa-telegram footer-left-social-networks-icon"></i></a><a href="https://t.me/arztwittercom" 
+                                        class="fa fa-telegram footer-left-social-networks-icon"></i></a><a href="https://www.instagram.com/arztwitter/" 
                                     class="footer-left-social-networks-link"><i
-                                        class="fa fa-instagram footer-left-social-networks-icon"></i></a><a href="https://www.instagram.com/arztwitter/" 
+                                        class="fa fa-instagram footer-left-social-networks-icon"></i></a><a href="https://twitter.com/Arztwiter" 
                                     class="footer-left-social-networks-link"><i
-                                        class="fa fa-twitter footer-left-social-networks-icon"></i></a><a href="#" 
+                                        class="fa fa-twitter footer-left-social-networks-icon"></i></a><a href="http://youtube.com/arztwitter" 
                                     class="footer-left-social-networks-link"><i
                                         class="fa fa-youtube footer-left-social-networks-icon"></i></a>
                             </div>
