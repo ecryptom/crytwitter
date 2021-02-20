@@ -120,6 +120,20 @@
 
     <section class="tweet">
         <div class="container-fluid">
+
+        <div class="tweet-header">
+                <div class="tweet-header-top-cryptocurrency">
+                    <ul class="tweet-header-top-cryptocurrency-list">
+                    {% for curr in top_curs %}
+                        <li class="tweet-header-top-cryptocurrency-item">
+                            <a href="{% url 'curr_tweets' curr.name %}" class="tweet-header-top-cryptocurrency-link">
+                                <img src="{{curr.image_url}}" class="tweet-header-top-cryptocurrency-image" alt="بیت کوین" />
+                                <span class="tweet-header-top-cryptocurrency-name">{{curr.persian_name}}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+            </div>
+
             <div class="tweet-header">
                 <div class="tweet-header-search">
                 </div>

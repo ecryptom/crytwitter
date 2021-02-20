@@ -10,7 +10,7 @@ from utils.date_convertor import gregorian_to_shamsi
 
 def tweets(req):
     last_tweets = twit.objects.filter(id__gte=twit.objects.last().id-15).order_by('-id')
-    return render(req, 'tweet.html', {'tweets':last_tweets})
+    return render(req, 'tweet.html', {'tweets':last_tweets, 'top_curs':currency.objects.all()[:10]})
 
 
 def curr_tweets(req, curr_name):
