@@ -51,7 +51,7 @@ def reply_article_comment_view(req, ID):
 
 
 def index_search(req):
-    cur_name = req.POST['currency'].split('|')
+    cur_name = req.GET['currency'].split('|')
     try:
         cur = currency.objects.get(name=cur_name[0])
     except:

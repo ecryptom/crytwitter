@@ -5,37 +5,38 @@
 .page-wrapper {
     margin-top: $margin-section;
 }
-.login {
-    .login-container {
+.register {
+    .register-container {
         position: relative;
     }
-    .login-left-col {
+    .register-left-col {
         padding-right: 0;
         padding-left: 0;
+        background-color: $color-white;
     }
-    .login-right-col {
+    .register-right-col {
         padding-left: 0;
         padding-right: 0;
         background-color: $color-white;
     }
 
-    .login-right {
+    .register-right {
         border-radius: 0 5px 5px 0;
         padding-top: 20px;
-        .login-right-heading-two {
+        .register-right-heading-two {
             @include MainTitle($color-primary-one,$color-primary-two);
             font-size: 25px;
         }
 
-        .login-right-input-group {
+        .register-right-input-group {
             margin: 30px auto;
 
-            .login-right-input-wrapper {
+            .register-right-input-wrapper {
                 width: 80%;
                 margin: auto;
                 position: relative;
 
-                .login-right-input {
+                .register-right-input {
                     width: 100%;
                     padding: 30px 10px 10px;
                     border-bottom: 1px solid $color-secondary;
@@ -43,14 +44,14 @@
 
                     &:focus {
                         border-bottom: 1px solid $color-primary-one;
-                        &+.login-right-icon{
+                        &+.register-right-icon{
                             transform: rotate(360deg);
                             color: $color-primary-one;
                         }
                     }
       
                 }
-                .login-right-icon{
+                .register-right-icon{
                     position: absolute;
                     top: 60%;
                     left: 0;
@@ -58,7 +59,7 @@
                 }
             }
 
-            .login-right-submit {
+            .register-right-submit {
                 @include Button5($color-primary-one, 20px);
                 padding: 12px 25px;
                 text-align: center;
@@ -67,13 +68,13 @@
             }
         }
 
-        .login-right-anchors {
+        .register-right-anchors {
             text-align: right;
             width: 80%;
             margin: auto;
             margin-bottom: 100px;
 
-            .login-right-link {
+            .register-right-link {
                 margin: 30px auto;
                 color: $color-secondary;
                 transition: all ease .5s;
@@ -93,13 +94,18 @@
             }
         }
     }
+    .register-left{
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
 }
 
 @media only screen and (max-width:992px){
-    .login-right-col{
+    .register-right-col{
         order: 2;
     }
-    .login-left-col{
+    .register-left-col{
         order: 1;
     }
 }

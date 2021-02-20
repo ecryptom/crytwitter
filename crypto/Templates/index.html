@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 
- <style>
+    <style>
         .header-banner {
  
         }
@@ -246,7 +246,7 @@
         color: #222;
     }
     .nobold{
-        color: #aaa;
+        color: #666;
     }
 
     .autocomplete {
@@ -262,16 +262,21 @@
   position: absolute;
   z-index: 99;
   border: none;
-  top: 59%;
+  top: 56%;
   width: 100%;
   margin-top: 2px;
-  max-height: 217px;
+  max-height: 180px;
  overflow-y: auto;
+ border-radius: 0 15px 15px 0;
+}
+.autocomplete-items img{
+    width: 24px;
+    height: 24px;
 }
 .autocomplete-items::-webkit-scrollbar {
     width: 8px;
     background-color: #fff;
-    border-radius: 20px;
+    border-radius: 15px 0 0 15px;
 }
 
 .autocomplete-items::-webkit-scrollbar-track {
@@ -316,29 +321,48 @@ text-align: center;
  
         {% block banner %}
         <div class="header-banner">
-            <div class="container banner-container">
+            <div class="container-fluid banner-container">
                 <div class="header-banner-title">
                     <h1 class="header-banner-title-heading-one">ارز توییتر</h1>
-                    <h2 class="header-banner-title-heading-two">حرف رمز ارزها را بشنوید... </h2>
+                    <h2 class="header-banner-title-heading-two">حرف رمز ارزها را بشنوید...</h2>
                 </div>
                 <div class="header-banner-search">
                     <div class="header-banner-search-large">
                         <div class="row header-banner-search-row">
-                            <div class="col-lg-3 col-xl-3">
+                            <div class="col-lg-3 col-xl-3 header-banner-search-bear-col">
                                 <div class="header-banner-search-bear">
-                                    <img src="{% static 'img/bear.png' %}" class="header-banner-search-bear-image" />
+                                    <img src="{% static 'img/1.png' %}" class="header-banner-search-bear-image" />
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-xl-6">
-                                <form action="{% url 'index_search' %}" method="POST" autocomplete="off" id="search_form" class="header-banner-search-box">
-                                    {% csrf_token %}
-                                    <input type="text" name="currency" id="autocompleteInput" class="header-banner-search-box-input" placeholder="رمز ارز مورد نظر خود را جستجو کنید ..." />
-                                    <i id="submit_icon" class="fa fa-search header-banner-search-box-icon"></i>
-                                </form>
+                            <div id="search_form" class="col-lg-6 col-xl-6">
+                                <div class="header-banner-search-box">
+                                    <input type="text" id="autocompleteInput" class="header-banner-search-box-input" placeholder="رمز ارز مورد نظر خود را جستجو کنید ..." />
+                                    <i class="fa fa-search header-banner-search-box-icon"></i>
+                                </div>
                             </div>
-                            <div class="col-lg-3 col-xl-3">
+                            <div class="col-lg-3 col-xl-3 header-banner-search-bull-col">
                                 <div class="header-banner-search-buul">
-                                    <img src="{% static 'img/bull.png' %}" class="header-banner-search-buul-image" />
+                                    <img src="{% static 'img/2.png' %}" class="header-banner-search-buul-image" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-banner-search-small">
+                        <div class="row header-banner-search-row">
+                            <div class="col-6 col-sm-6 col-md-6 header-banner-search-bear-col">
+                                <div class="header-banner-search-bear">
+                                    <img src="{% static 'img/1.png' %}" class="header-banner-search-bear-image" />
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 header-banner-search-buul-col">
+                                <div class="header-banner-search-buul">
+                                    <img src="{% static 'img/2.png' %}" class="header-banner-search-buul-image" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12">
+                                <div class="header-banner-search-box">
+                                    <input type="text" id="autocompleteInput2" class="header-banner-search-box-input" placeholder="رمز ارز مورد نظر خود را جستجو کنید ..." />
+                                    <i class="fa fa-search header-banner-search-box-icon"></i>
                                 </div>
                             </div>
                         </div>
@@ -570,6 +594,7 @@ text-align: center;
           b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
               b.addEventListener("click", function(e) {
               inp.value = this.getElementsByTagName("input")[0].value;
+              window.location.href = "/index_search?currency=" + this.getElementsByTagName("input")[0].value;
               closeAllLists();
           });
           a.appendChild(b);
@@ -623,12 +648,9 @@ document.addEventListener("click", function (e) {
             });
         }
     });
-    console.log(arr);
-    document.getElementById('submit_icon').addEventListener("click", function (e){
-        document.getElementById('search_form').submit();
-    })
 
 autocomplete(document.getElementById("autocompleteInput"), arr, images);
+autocomplete(document.getElementById("autocompleteInput2"), arr, images);
 </script>
 
 

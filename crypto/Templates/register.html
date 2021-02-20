@@ -2,63 +2,67 @@
 <title>ارز توییت</title>
 <link rel="stylesheet" href="{% static 'css/login.min.css' %}" />
 <link rel="stylesheet" href="{% static 'css/pushy.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/register.min.css' %}" />
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-{% endblock header %} {% block page %}
+{% endblock header %}
 
-<div class="page-wrapper">
-    <section class="login">
-        <div class="container login-container">
-            <img src="{% static 'img/default-user.jpg' %}" class="login-image">
-            <div class="row login-row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 login-right-col">
-                    <div class="login-right">
-                        <h2 class="login-right-heading-two">ثبت نام در سایت</h2>
+
+{% block page %}
+   <div class="page-wrapper">
+      <section class="register">
+        <div class="container register-container">
+            <div class="row register-row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 register-right-col">
+                    <div class="register-right">
+                        <h2 class="register-right-heading-two">ثبت نام در سايت</h2>
                         {% if error %}
                         <div class="alert alert-danger w-75 mx-auto">
                             <p>{{error}}</p>
                         </div>
                         {% endif %}
-                        <form action="{% url 'register' %}" method="POST" class="login-left-form">
+                        <form action="{% url 'register' %}" method="POST" class="register-left-form">
                             {% csrf_token %}
-                            <div class="login-right-input-group">
-                                <div class="login-right-input-wrapper">
-                                    <input type="text" class="login-right-input" value="{{name}}" placeholder="نام و نام‌خانوادگی" name="name" required autocomplete="off">
-                                    <i class="fa fa-user login-right-icon"></i>
+                            <div class="register-right-input-group">
+                                <div class="register-right-input-wrapper">
+                                    <input type="text" class="register-right-input" value="{{name}}" placeholder="نام و نام‌خانوادگی" name="name" required autocomplete="off">
+                                    <i class="fa fa-user register-right-icon"></i>
                                 </div>
                             </div>
-                            <div class="login-right-input-group">
-                                <div class="login-right-input-wrapper">
-                                    <input type="text" class="login-right-input" value="{{username}}" placeholder="نام کاربری" name="username" required autocomplete="off">
-                                    <i class="fa fa-user login-right-icon"></i>
+                            <div class="register-right-input-group">
+                                <div class="register-right-input-wrapper">
+                                    <input type="text" class="register-right-input" value="{{username}}" placeholder="نام کاربری" name="username" required autocomplete="off">
+                                    <i class="fa fa-user register-right-icon"></i>
                                 </div>
                             </div>
-                            <div class="login-right-input-group">
-                                <div class="login-right-input-wrapper">
-                                    <input type="text" class="login-right-input" value="{{phone}}" placeholder="تلفن همراه" name="phone" required autocomplete="off">
-                                    <i class="fa fa-phone login-right-icon"></i>
+                            <div class="register-right-input-group">
+                                <div class="register-right-input-wrapper">
+                                    <input type="text" class="register-right-input" value="{{phone}}" placeholder="تلفن همراه" name="phone" required autocomplete="off">
+                                    <i class="fa fa-phone register-right-icon"></i>
                                 </div>
                             </div>
-                            <div class="login-right-input-group">
-                                <div class="login-right-input-wrapper">
-                                    <input type="text" class="login-right-input" value="{{password}}" placeholder="رمز عبور" name="password" required autocomplete="off">
-                                    <i class="fa fa-lock login-right-icon"></i>
+                            <div class="register-right-input-group">
+                                <div class="register-right-input-wrapper">
+                                    <input type="text" class="register-right-input" value="{{password}}" placeholder="رمز عبور" name="password" required autocomplete="off">
+                                    <i class="fa fa-lock register-right-icon"></i>
                                 </div>
                             </div>
-                            <div class="login-right-input-group">
-                                <div class="login-right-input-wrapper">
-                                    <input type="text" class="login-right-input" placeholder="تکرار رمز عبور" name="cnf_password" required autocomplete="off">
-                                    <i class="fa fa-lock login-right-icon"></i>
+                            <div class="register-right-input-group">
+                                <div class="register-right-input-wrapper">
+                                    <input type="text" class="register-right-input" placeholder="تکرار رمز عبور" name="cnf_password" required autocomplete="off">
+                                    <i class="fa fa-lock register-right-icon"></i>
                                 </div>
                             </div>
-                            <div class="login-right-input-group">
-                                <div class="login-right-input-wrapper">
-                                    <input type="text" class="login-right-input" value="{{invite_code}}" placeholder="کد دعوت" name="invite_code" autocomplete="off">
-                                    <i class="fa fa-share-alt login-right-icon"></i>
+                            <div class="register-right-input-group">
+                                <div class="register-right-input-wrapper">
+                                    <input type="text" class="register-right-input" value="{{invite_code}}" placeholder="کد دعوت" name="invite_code" autocomplete="off">
+                                    <i class="fa fa-share-alt register-right-icon"></i>
                                 </div>
                             </div>
-
-                            <div class="login-right-input-group">
-                                <button type="submit" class="login-right-submit">
+                            <div class="register-right-anchors">
+                                <a class="register-right-link" href="{% url 'login' %}">ورود به سایت</a>
+                            </div>
+                            <div class="register-right-input-group">
+                                <button type="submit"  class="register-right-submit" >
                                     ثبت نام
                                 </button>
                             </div>
@@ -66,13 +70,16 @@
 
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 login-left-col">
-                    <div class="login-left">
-                        <h2 class="login-left-heading-two">به ارز توییت خوش آمدی!</h2>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 register-left-col">
+                    <div class="register-left">
+                        <img src="{% static 'img/login-register.jpg' %}" class="register-left-image" />
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-</div>
-{% endblock page %} {% block scripts %} {% endblock scripts %}
+      </section>
+    </div>
+
+{% endblock page %}
+
+ {% block scripts %} {% endblock scripts %}

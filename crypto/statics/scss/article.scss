@@ -4,6 +4,117 @@
 
 .article {
     margin-top: $margin-section;
+    .article-right{
+        .article-right-newest{
+            background-color: $color-white;
+            padding-top: 10px;
+            border-radius: $border-radius;
+            .article-right-newest-heading-two{
+                text-align: right;
+                color: $color-primary-two;
+                font-size: 16px;
+                font-weight: bold;
+                padding-right: 18px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding-bottom: 15px;
+                border-bottom: 1px solid $color-primary-one;
+                &::before{
+                    content: "";
+                    width: 14px;
+                    height: 2px;
+                    background-color: $color-primary-one;
+                    position: relative;
+                    right: -5px;
+                }
+            }
+            .article-right-newest-boxes-wrapper{
+                .article-right-newest-boxes{
+                    display: flex;
+                    align-items: center;
+                    padding: 10px 12px;
+                    border-bottom: 1px solid $color-secondary-light;
+                    .article-right-newest-boxes-image{
+                        width: 60px;
+                        height: 60px;    
+                        border-radius: $border-radius;
+                    }
+                    .article-right-newest-boxes-heading-three{
+                        text-align: right;
+                        padding-right: 10px;
+                        line-height: 28px;
+                        height: 60px;
+                        overflow: hidden;
+                        .article-right-newest-boxes-link{
+                            font-size: 14px;
+                            color: $color-primary-two;
+                            font-weight: bold;
+                            transition: all ease .3s;
+                            &:hover{
+                                color: $color-primary-one;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .article-right-populars{
+            background-color: $color-white;
+            padding-top: 10px;
+            border-radius: $border-radius;
+            margin-top: 20px;
+            .article-right-populars-heading-two{
+                text-align: right;
+                color: $color-primary-two;
+                font-size: 16px;
+                font-weight: bold;
+                padding-right: 18px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding-bottom: 15px;
+                border-bottom: 1px solid $color-primary-one;
+                &::before{
+                    content: "";
+                    width: 14px;
+                    height: 2px;
+                    background-color: $color-primary-one;
+                    position: relative;
+                    right: -5px;
+                }
+            }
+            .article-right-populars-boxes-wrapper{
+                .article-right-populars-boxes{
+                    display: flex;
+                    align-items: center;
+                    padding: 10px 12px;
+                    border-bottom: 1px solid $color-secondary-light;
+                    .article-right-populars-boxes-image{
+                        width: 60px;
+                        height: 60px;    
+                        border-radius: $border-radius;
+                    }
+                    .article-right-populars-boxes-heading-three{
+                        text-align: right;
+                        padding-right: 10px;
+                        line-height: 28px;
+                        height: 60px;
+                        overflow: hidden;
+                        .article-right-populars-boxes-link{
+                            font-size: 14px;
+                            color: $color-primary-two;
+                            font-weight: bold;
+                            transition: all ease .3s;
+                            &:hover{
+                                color: $color-primary-one;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .article-left {
         .article-left-heading-one {
             font-size: 30px;
@@ -358,5 +469,12 @@
                 }
             }
         }
+    }
+}
+
+
+@media only screen and (max-width:992px){
+    .article-right-col{
+        display: none !important;
     }
 }

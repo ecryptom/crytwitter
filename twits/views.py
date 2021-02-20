@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
+from mimetypes import guess_type
 from .models import twit
 from home.models import currency
 from utils.date_convertor import gregorian_to_shamsi
@@ -25,6 +26,7 @@ def curr_tweets(req, curr_name):
 @login_required(login_url='login')
 def tweet(req):
     File = req.FILES.get('file')
+    print('!!!!!!!!!!!!!!!', File.name, guess_type(File.name)[0].split('/')[0])
     if File and File.size > 1000000:
         return redirect('tweets')
     if not req.POST['text']:
@@ -36,13 +38,11 @@ def tweet(req):
         text = req.POST['text'],
         currency= cur[0] if cur else None,
         user = req.user,
+        has_image = guess_type(File.name)[0].split('/')[0] == 'image',
+        File = File,
         date = timezone.now(),
         shamsi_date = gregorian_to_shamsi(timezone.now()),
     )
-    if File:
-        if req.POSTget('image'):
-            t.has_image = True
-        t.File = File
     t.save()
     if req.POST.get('curr_tweet'):
         return redirect('curr_tweets', req.POST['currency'])

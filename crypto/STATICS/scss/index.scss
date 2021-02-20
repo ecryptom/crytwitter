@@ -9,9 +9,10 @@ body {
 //BANNER STYLES
 .header{
   min-height: 100vh;
+  background-image: url("../img/backgroundproPage.jpg");
 .header-banner{
   position: relative;
-  margin-top: 220px;
+  margin-top: 160px;
   .header-banner-title{
     text-align: center;
     padding-bottom: 20px;
@@ -526,9 +527,34 @@ font-weight: bold !important;
 
 //MEDIA QUERIES
 @media only screen and (max-width:992px) {
-
+  .header-banner-search-large{
+    display: none !important;
+  }
+  .header-banner-search-small{
+    display: block !important;
+  }
+  .header-banner-search-buul-image , 
+  .header-banner-search-bear-image{
+    height: 240px !important;
+  }
+  .header-banner{
+    margin-top: 90px !important;
+  }
+  .header-banner-search{
+    margin-top: 15px;
+  }
+  .header-banner-search-box{
+    margin-top: 15px;
+  }
 }
-
+@media only screen and (min-width:992px) {
+  .header-banner-search-large{
+    display: block !important;
+  }
+  .header-banner-search-small{
+    display: none !important;
+  }
+}
 @media only screen and (max-width:768px) {
 
   //ALL
@@ -599,7 +625,6 @@ font-weight: bold !important;
   .comments-swiper-button-next {
     display: none !important;
   }
-
   //COMMON QUESTIONS
   .common-questions-item {
     padding: $padding-10 !important;
@@ -623,9 +648,6 @@ font-weight: bold !important;
   }
 }
 
-@media only screen and (max-width:400px) {
-
-}
 
 //ANIMATIONS
 @keyframes downBefore {
@@ -656,5 +678,15 @@ font-weight: bold !important;
 
   100% {
     transform: scale(1.2) rotate(0deg);
+  }
+}
+
+@media only screen and (max-width:768px) and (min-width:576px){
+  .header-banner-search-buul-image , 
+  .header-banner-search-bear-image{
+    height: 240px !important;
+  }
+  .header-banner-search-box{
+    margin-top: 10px;
   }
 }

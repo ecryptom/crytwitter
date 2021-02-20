@@ -3,8 +3,114 @@
 @import "mixin";
 
 .tweet {
-    margin-top: 60px;
+    margin-top: $margin-section;
+    .tweet-header{
+        .tweet-header-top-cryptocurrency{
+            .tweet-header-top-cryptocurrency-list{
+                display: flex;
+                justify-content: center;
+                background-color: $color-white;
+                .tweet-header-top-cryptocurrency-item{
+                    width: 10%;
+                    border-right: 1px solid $color-secondary-light;
+                    &:first-child{
+                        border-right: none;
+                    }
+                    .tweet-header-top-cryptocurrency-link{
+                        width: 100%;
+                        padding: 18px 0;
+                        display: flex;
+                        justify-content: center;
+                        position: relative;
+                        background-color: transparent;
+                        transition: all ease .3s;
+                        font-size: 12px;
+                        color: $color-primary-two;
+                        &:hover{
+                            background-color: lighten($color-secondary-light, 14%);
+                        }
+                        .tweet-header-top-cryptocurrency-image{
+                            position: absolute;
+                            top: -12px;
+                            width: 22px;
+                            height:22px;
+                            margin: auto;
+                        }
+                    }
+                }
+            }
+        }
+        .tweet-header-details{
+            display: flex;
+            justify-content: space-around;
+            padding: 5px 15px;
+            background-color: $color-white;
+            margin-top: 20px;
+            .tweet-header-details-specifications{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .tweet-header-details-specifications-image{
+                    width: 40px;
+                    height: 40px;
+                }
+                .tweet-header-details-specifications-name{
+                    color: $color-primary-two;
+                    font-size: 16px;
+                    padding-right: 8px;
+                }
+                .tweet-header-details-specifications-price{
+               
+                    .tweet-header-details-specifications-price-title{
+                        color: $color-primary-two;
+                        padding-right: 15px;
+                        font-size: 14px;
+                    }
+                    .tweet-header-details-specifications-price-value{
+                        color: $color-secondary;
+                        font-size: 14px;
+                        &:last-child{
+                            width: 100%;
+                            display: block;
+                            padding-top: 5px;
+                        }
+                    }
+                }
 
+            }
+            .tweet-header-details-statistics{
+                .tweet-header-details-statistics-list{
+                    .tweet-header-details-statistics-item{
+                        padding: 10px 0;
+                        text-align: right;
+                        .tweet-header-details-statistics-title{
+                        color: $color-secondary;
+                        font-size: 14px;
+                        }
+                        .tweet-header-details-statistics-value{
+                            padding-right: 2px;
+                            font-size: 12px;
+                            direction: ltr;
+                            color: $color-primary-two;
+                            &.tweet-header-details-statistics-value-positive{
+                                color: $color-green;
+                            }
+                            &.tweet-header-details-statistics-value-negative{
+                                color: $color-red;
+                            }
+                        }
+                    }
+                }
+            }
+            .tweet-header-details-chart{
+                display: flex;
+                align-items: center;
+                .tweet-header-details-chart-image{
+                    width: 100%;
+                }
+            }
+        }
+    }
     .tweet-content {
         .tweet-content-right {
             background-color: $color-white;
@@ -102,23 +208,6 @@
             scroll-behavior: smooth;
             overflow-x: hidden;
             position: relative;
-            .tweet-content-center-text-area {
-                width: 100%;
-                display: block;
-                padding: 15px 20px 25px 45px;
-                margin: 0 auto;
-                min-height: 220px;
-                border-radius: 10px;
-                border: 1px solid lighten($color-secondary-light, 10%);
-                line-height: 30px;
-                color: $color-primary-two;
-                margin-top: 20px;
-
-                &::placeholder {
-                    color: $color-primary-two;
-                }
-
-            }
             #autocompleteInput{
                 width: 100%;
                 display: block;
@@ -128,16 +217,76 @@
                 line-height: 30px;
                 color: $color-primary-two;
 
+            
             }
-            .tweet-content-center-submit {
+            .tweet-content-center-comment{
                 position: relative;
-                bottom: 40px;
-                left: 20px;
-                background-color: $color-primary-one;
-                color: $color-primary-two;
-                padding: 8px;
-                border-radius: 50%;
+                border: 1px solid lighten($color-secondary-light, 10%);
+                width: 100%;
+                display: block;
+                margin: 0 auto;
+                min-height: 250px;
+                border-radius: 10px;
+                line-height: 30px;
+                margin-top: 20px;
+                .tweet-content-center-comment-text-area {
+                    color: $color-primary-two;
+                    width: 100%;
+                    min-height: 250px;
+                    margin-bottom: 40px;
+                    border-bottom: 1px solid $color-secondary-light;
+                    padding: 10px 5px;
+                    &::-webkit-scrollbar {
+                        width: 6px;
+                        background-color: white;
+                    }
+            
+                    &::-webkit-scrollbar-track {
+                        border-radius: 2px;
+                    }
+            
+                    &::-webkit-scrollbar-thumb {
+                        background: #ddd;
+                        border-radius: 2px;
+                        transition: all ease .5s;
+                    }
+                    &::placeholder {
+                        color: $color-primary-two;
+                    }
+                }
+                .tweet-content-center-comment-label{
+                    background-color: $color-primary-one;
+                    color: $color-primary-two;
+                    width: 100px;
+                    height: 30px;
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    font-size: 14px;
+                }
+                .tweet-content-center-comment-input-file {
+                    display: none !important;
+                }
+                .tweet-content-center-comment-submit {
+                    position: absolute;
+                    bottom: 10px;
+                    left: 20px;
+                    background-color: $color-primary-one;
+                    color: $color-primary-two;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                }
             }
+      
 
             .tweet-content-center-boxes-wrapper {
                 margin-top: 30px;
@@ -212,6 +361,21 @@
                             color: $color-secondary-dark;
                             text-align: justify;
                             font-size: 14px;
+                        }
+                        .tweet-content-center-boxes-body-file{
+                            .tweet-content-center-boxes-body-file-link{
+                                display: flex;
+                                background-color: lighten($color: $color-primary-one, $amount: 35%);
+                                margin-top: 10px;
+                                padding: 10px 8px;
+                                color: $color-primary-two;
+                                font-size: 14px;
+                                border-radius: $border-radius;
+                                .tweet-content-center-boxes-body-file-icon{
+                                    padding-left: 15px;
+                                    font-size: 16px;
+                                }
+                            }
                         }
                     }
 
@@ -361,5 +525,61 @@
                 }
             }
         }
+    }
+}
+
+@media only screen and (max-width:992px){
+    .tweet-header-top-cryptocurrency-item{
+        width: 12.5% !important;
+    }
+    .tweet-header-top-cryptocurrency-item:nth-child(10) ,.tweet-header-top-cryptocurrency-item:nth-child(9){
+        display: none;
+    }
+        
+  
+}
+@media only screen and (min-width:768px) and (max-width:992px){
+    .tweet-header-details{
+        flex-wrap: wrap;
+    }
+.tweet-header-details-statistics{
+    width: 100% !important;
+    order: 3;
+}
+.tweet-header-details-statistics-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tweet-header-details-statistics , .tweet-header-details-specifications , .tweet-header-details-chart{
+    margin-top: 28px !important;
+}
+.tweet-header-details-statistics-item{
+    padding-right: 5px !important;
+}
+}
+@media only screen and (max-width:768px){
+    .tweet-header-details,.tweet-header-details-specifications{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .tweet-header-top-cryptocurrency-item{
+        width: 16.666666666% !important;
+    }
+    .tweet-header-top-cryptocurrency-item:nth-child(10) ,.tweet-header-top-cryptocurrency-item:nth-child(9),
+    .tweet-header-top-cryptocurrency-item:nth-child(8) ,.tweet-header-top-cryptocurrency-item:nth-child(7){
+        display: none;
+    }
+}
+
+@media only screen and (max-width:576px){
+    .tweet-header-top-cryptocurrency-item{
+        width: 20% !important;
+    }
+    .tweet-header-top-cryptocurrency-item:nth-child(10) ,.tweet-header-top-cryptocurrency-item:nth-child(9),
+    .tweet-header-top-cryptocurrency-item:nth-child(8) ,.tweet-header-top-cryptocurrency-item:nth-child(7),
+    .tweet-header-top-cryptocurrency-item:nth-child(7) ,.tweet-header-top-cryptocurrency-item:nth-child(6){
+        display: none;
     }
 }

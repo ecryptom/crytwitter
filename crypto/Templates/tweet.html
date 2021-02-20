@@ -5,7 +5,7 @@
     <title>ارز توييتر</title>
     <link rel="stylesheet" href="{% static 'css/tweet.min.css' %}" />
 
-    <style>
+   <style>
         .tweet-content-center {
             height: 600px;
             overflow: scroll;
@@ -191,15 +191,23 @@
                     </div>
                     <div class="'col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                         <div class="tweet-content-center">
-                            <form action='{% url 'tweet' %}' method="POST">
+                            
+
+                            <form action="{% url 'tweet' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <input name="currency" id="autocompleteInput" type="text" class="watch-list-search-autocomplete-input"  placeholder="رمز ارز مورد نظر خود را جستجو کنید..." autocomplete="off">
-                                <textarea name="text" class="tweet-content-center-text-area"
-                                    placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
-                                <button class="tweet-content-center-submit" type="submit">
-                                    <i class="fa fa-twitter"></i>
-                                </button>
+                                <input id="autocompleteInput" type="text" class="watch-list-search-autocomplete-input"  placeholder="رمز ارز مورد نظر خود را جستجو کنید...">
+                                <div class="tweet-content-center-comment">
+                                    <textarea name="text" class="tweet-content-center-comment-text-area" placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
+                                    <button class="tweet-content-center-comment-submit" type="submit">
+                                        <i class="fa fa-twitter"></i>
+                                    </button>
+                                        <label for="image" class="tweet-content-center-comment-label">
+                                        پیوست
+                                        </label>
+                                        <input name="file" type="file" class="tweet-content-center-comment-input-file" id="image" />
+                                </div>
                             </form>
+
                             <div class="tweet-content-center-boxes-wrapper">
 
                             {% for tweet in tweets %}
@@ -255,6 +263,18 @@
                                         <p class="tweet-content-center-boxes-body-paragraph">
                                             {{tweet.text | linebreaksbr}}
                                         </p>
+                                        {% if tweet.File %}
+                                            {% if tweet.has_image %}
+                                                <img src="{{tweet.File.url}}" class="tweet-content-center-boxes-body-image" />
+                                            {% else %}
+                                                <div class="tweet-content-center-boxes-body-file">
+                                                    <a href="{{tweet.File.url}}" class="tweet-content-center-boxes-body-file-link" download>
+                                                    <i class="fa fa-file-o tweet-content-center-boxes-body-file-icon"></i>
+                                                        دانلود فايل        {{tweet.File.name}}
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
                                     </div>
                                     <div class="tweet-content-center-boxes-footer">
                                         <div class="tweet-content-center-boxes-footer-like">
