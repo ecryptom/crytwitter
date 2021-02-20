@@ -33,13 +33,16 @@
                             {% csrf_token %}
                             <div class="login-right-input-group">
                                 <div class="login-right-input-wrapper">
-                                    <input type="text" class="login-right-input"placeholder="نام کاربری/شماره تلفن" name="username" required autocomplete="off">
+                                    <input type="text" class="login-right-input" placeholder="نام کاربری/شماره تلفن" name="username" required autocomplete="off">
                                     <i class="fa fa-user login-right-icon"></i>
                                 </div>
                             </div>
                             <div class="login-right-input-group">
                                 <div class="login-right-input-wrapper">
                                     <input type="password" class="login-right-input" placeholder="رمز عبور" name="password" required autocomplete="off">
+                                        <button type="button" id="seePassword" class="login-right-button">
+                                            <i class="fa fa-eye-slash login-right-icon-2"></i>
+                                        </button>
                                     <i class="fa fa-lock login-right-icon"></i>
                                 </div>
                             </div>
@@ -54,6 +57,11 @@
                             </div>
                         </form>
 
+
+
+
+
+
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 login-left-col">
@@ -66,3 +74,25 @@
       </section>
     </div>
 {% endblock page %}
+
+
+{% block scripts %}
+<script>
+        let seePasswordButton = document.getElementById("seePassword");
+
+        seePasswordButton.onclick = function() {
+            let parent = seePasswordButton.parentNode;
+            let input = parent.getElementsByClassName("login-right-input")[0];
+            let icon = parent.getElementsByClassName("login-right-icon-2")[0];
+            if (icon.classList.contains("fa-eye")) {
+                input.type = "password";
+                icon.classList.add("fa-eye-slash");
+                icon.classList.remove("fa-eye");
+            } else {
+                input.type = "text";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");    
+            }
+        }
+    </script>
+{% endblock scripts %}

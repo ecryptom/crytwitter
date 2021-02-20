@@ -47,6 +47,7 @@
                             transform: rotate(360deg);
                             color: $color-primary-one;
                         }
+                        
                     }
       
                 }
@@ -55,6 +56,11 @@
                     top: 60%;
                     left: 0;
                     transition: all ease 1s;
+                }
+                .login-right-button{
+                    position: absolute;
+                    top: 60%;
+                    left: 20px;
                 }
             }
 

@@ -43,12 +43,18 @@
                             <div class="register-right-input-group">
                                 <div class="register-right-input-wrapper">
                                     <input type="password" class="register-right-input" value="{{password}}" placeholder="رمز عبور" name="password" required autocomplete="off">
+                                    <button type="button" id="seePassword" class="register-right-button">
+                                        <i class="fa fa-eye-slash register-right-icon-2"></i>
+                                    </button>
                                     <i class="fa fa-lock register-right-icon"></i>
                                 </div>
                             </div>
                             <div class="register-right-input-group">
                                 <div class="register-right-input-wrapper">
                                     <input type="password" class="register-right-input" placeholder="تکرار رمز عبور" name="cnf_password" required autocomplete="off">
+                                    <button type="button" id="seePassword2" class="register-right-button">
+                                        <i class="fa fa-eye-slash register-right-icon-2"></i>
+                                    </button>
                                     <i class="fa fa-lock register-right-icon"></i>
                                 </div>
                             </div>
@@ -82,4 +88,43 @@
 
 {% endblock page %}
 
- {% block scripts %} {% endblock scripts %}
+
+ {% block scripts %}
+ 
+ <script>
+        let seePasswordButton = document.getElementById("seePassword");
+        let seePasswordButton2 = document.getElementById("seePassword2");
+
+        seePasswordButton.onclick = function() {
+            let parent = seePasswordButton.parentNode;
+            let input = parent.getElementsByClassName("register-right-input")[0];
+            let icon = parent.getElementsByClassName("register-right-icon-2")[0];
+            if (icon.classList.contains("fa-eye")) {
+                input.type = "password";
+                icon.classList.add("fa-eye-slash");
+                icon.classList.remove("fa-eye");
+            } else {
+                input.type = "text";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");    
+            }
+        }
+
+        
+        seePasswordButton2.onclick = function() {
+            let parent = seePasswordButton2.parentNode;
+            let input = parent.getElementsByClassName("register-right-input")[0];
+            let icon = parent.getElementsByClassName("register-right-icon-2")[0];
+            if (icon.classList.contains("fa-eye")) {
+                input.type = "password";
+                icon.classList.add("fa-eye-slash");
+                icon.classList.remove("fa-eye");
+            } else {
+                input.type = "text";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");    
+            }
+        }
+    </script>
+ 
+  {% endblock scripts %}
