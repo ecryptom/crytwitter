@@ -11,7 +11,7 @@ import random, requests, os
 from .models import user
 from home.models import currency, dollor
 
-forgot_password_text = lambda password : f'رمز عبور جدید شما در ارزتوییتر : \n {password}'
+forgot_password_text = lambda code : f'کد بازیابی رمز عبور شما در سایت ارزتوییتر : \n {code}'
 sms_text = lambda code : f'کد تایید ورود شما به سایت ارز توییتر:\n {code}'
 sms_signature = os.getenv('sms_signature')
 
@@ -114,31 +114,49 @@ def resend_phone_code(req):
     User.verify_code_time = timezone.now()
     User.save()
     try:
-        requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={sms_text(User.verify_code)}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
+        requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={sms_text(User.verify_code)}&signature={sms_signature}')
         return render(req, 'verify.html', {'phone': User.phone, 'seconds':119})
     except:
         return JsonResponse({'status':'failed'})
 
 
+
 def forgot_password(req):
     if req.method == 'GET':
-        return render(req, 'forgot_password.html')
-    #check with phone
-    User = user.objects.filter(phone=req.POST['username'])
-    #else check with username
-    if not User:
-        User = user.objects.filter(username=req.POST['username'])
-    if not User:
-        return render(req, 'forgot_password.html', {'error':'کاربری با این شماره / نام کاربری وجود ندارد'})
-    #set and send new password
-    try:
-        password = str(random.randint(1000000, 9999999))
-        User[0].set_password(password)
-        User[0].save()
-        requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User[0].phone}&&text={forgot_password_text(password)}&signature=0DBAC16D-54EA-4A7F-B200-4D5246409AAB')
-        return render(req, 'login.html', {'message':'رمز عبور جدید برای شما ارسال گردید'})
-    except:
-        return render(req, 'forgot_password.html', {'error':'شماره تلفن وارد شده صحیح نمی باشد'})
+        return render(req, 'forgot_password.html', {'step':'get_phone'})
+
+    # step: get_phone
+    if req.POST['step'] == 'get_phone':
+        User = user.objects.filter(phone=req.POST['phone'])
+        if not User:
+            return render(req, 'forgot_password.html', {'error':'کاربری با این شماره وجود ندارد'})
+        #set and send verification code
+        try:
+            User[0].verify_code = random.randint(10000, 99999)
+            User[0].verify_code_time = timezone.now()
+            User[0].save()
+            requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User[0].phone}&&text={forgot_password_text(User[0].verify_code)}&signature={sms_signature}')
+            return render(req, 'forgot_password.html', {'step':'get_verification_code', 'phone':User[0].phone, 'message':'کد ارسال شده را وارد کنید'})
+        except:
+            return render(req, 'forgot_password.html', {'step':'get_phone', 'error':'شماره تلفن وارد شده صحیح نمی باشد'})
+    
+    # step: get_verification_code
+    if req.POST['step'] == 'get_verification_code':
+        code = req.POST['verification_code']
+        User = user.objects.get(phone=req.POST['phone'])
+        if str(User.verify_code) == code:
+            return render(req, 'forgot_password.html', {'step':'change_password', 'phone':User.phone, 'verification_code':code})
+        else:
+            return render(req, 'forgot_password.html', {'step':'get_verification_code', 'phone':User.phone, 'error':'کد وارد شده صحیح نمی باشد'})
+
+    # step: change password
+    if req.POST['step'] == 'change_password':
+        code = req.POST['verification_code']
+        User = user.objects.get(phone=req.POST['phone'])
+        if str(User.verify_code) == code:
+            User.set_password(req.POST['new_password'])
+            User.save()
+            return render(req, 'login.html', {'message':'رمز عبور با موفقیت تغییر کرد'})
 
 
 
