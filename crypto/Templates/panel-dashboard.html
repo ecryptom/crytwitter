@@ -83,7 +83,11 @@
                                             </li>
                                             <li class="panel-left-dashboard-content-item">
                                                 ايميل : 
+                                                {% if user.email %}
                                                 {{user.email}}
+                                                {% else %}
+                                                -
+                                                {% endif %}
                                             </li>
                                             <li class="panel-left-dashboard-content-item">
                                                 نام و نام خانوادگي:

@@ -69,10 +69,7 @@
                                 </div>
                                 <div class="panel-left-invite-friends-content">
                                     <div class="panel-left-invite-friends-content-alert">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی می باشد.
+                                        با به اشتراک گذاشتن لینک دعوت زیر دوستان خود را به سایت ارز توییتر دعوت کنید تا از تخفیف های ویژه سایت بهرمند شوید.
                                     </div>
                                     <input id="uniqCode" type="hidden"
                                         value="{{user.invite_code}}" />
@@ -100,6 +97,7 @@
         btn.addEventListener("click", function () {
             navigator.clipboard.writeText(window.location.host + '/account/register/' + input.value);
             text.classList.remove("panel-left-invite-friends-content-paragraph-hidden");
+            alert('link:\n' +window.location.host + '/account/register/' + input.value)
         })
     </script>
 {% endblock scripts %}
