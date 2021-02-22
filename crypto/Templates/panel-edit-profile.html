@@ -78,7 +78,11 @@
                                             {% csrf_token %}
                                             <div class="panel-left-edit-profile-content-input-group">
                                                 <label class="panel-left-edit-profile-content-label">پست الکترونیک</label>
-                                                <input type="text" name="email" value="{{user.email}}" class="panel-left-edit-profile-content-input" />
+                                                {% if user.email %}
+                                                    <input type="text" name="email" value="{{user.email}}" class="panel-left-edit-profile-content-input" />
+                                                {% else %}
+                                                    <input type="text" name="email" placeholder="ایمیل خود را وارد کنید" class="panel-left-edit-profile-content-input" />
+                                                {% endif %}
                                             </div>
                                             {% if not user.verified_email %}
                                                 <div class="panel-left-edit-profile-content-input-group">

@@ -5,6 +5,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('cryptomarket', cryptomarket, name='cryptomarket'),
     path('article/<int:ID>', article_page, name='article'),
+    path('articles', articles, name='articles'),
     path('article_comment/<int:ID>', article_comment_view, name='article_comment'),
     path('reply_article_comment/<int:ID>', reply_article_comment_view, name='reply_article_comment'),
     path('index_search', index_search, name='index_search'),

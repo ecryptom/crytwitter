@@ -23,6 +23,9 @@ def article_page(req, ID):
     Article.save()
     return render(req, 'article.html', {'article':Article})
 
+def articles(req):
+    return render(req, 'list-articles.html', {'articles':article.objects.all()})
+
 
 @login_required(login_url='login')
 def article_comment_view(req, ID):
