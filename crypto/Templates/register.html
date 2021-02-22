@@ -17,7 +17,7 @@
                         <h2 class="register-right-heading-two">ثبت نام در سايت</h2>
                         {% if error %}
                         <div class="alert alert-danger w-75 mx-auto">
-                            <p>{{error}}</p>
+                            <p style="text-align: center">{{error}}</p>
                         </div>
                         {% endif %}
                         <form action="{% url 'register' %}" method="POST" class="register-left-form">
