@@ -24,7 +24,7 @@ def login(req):
     next_page = req.POST.get('next') if req.POST.get('next') else 'home'
     #check username
     User = auth.authenticate(username=username, password=password)
-    if User:
+    if User and User.verified_phone:
         auth.login(req, User)
         return redirect(next_page)
     #check phone
