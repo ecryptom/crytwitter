@@ -223,6 +223,43 @@
                             display: none;
                         }
                     }
+               
+                    .panel-left-invite-friends-content-table{
+                        width: 100%;
+                        font-size: 14px;
+                        text-align: center;
+                        margin-top: 30px;
+                        .panel-left-invite-friends-content-table-row{
+                            .panel-left-invite-friends-content-table-data{
+                                img{
+                                    width: 50px;
+                                    height: 50px;
+                                }
+                                .panel-left-invite-friends-content-table-link{
+                                    font-size: 14px;
+                                    margin:0 5px;
+                                    position: relative;
+                                    top: 2px;
+                                    transition: all ease .3s;
+                                    cursor: pointer;
+                                    &:first-child{
+                                    color: $color-red;
+                                    }
+                                    &:last-child{
+                                        color: $color-green;
+                                        }
+                                    .panel-left-invite-friends-content-table-icon{
+                                        vertical-align: middle;
+                                    }
+                                }
+                                .panel-left-invite-friends-content-table-count{
+                                    vertical-align: middle;
+                                    font-size: 16px;
+                                    color: $color-secondary-dark;
+                                }
+                            }
+                        }
+                    }
                 }
         }
         .panel-left-edit-profile {

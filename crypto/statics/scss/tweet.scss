@@ -3,7 +3,7 @@
 @import "mixin";
 
 .tweet {
-    margin-top: $margin-section;
+    margin-top: 60px;
     .tweet-header{
         .tweet-header-top-cryptocurrency{
             .tweet-header-top-cryptocurrency-list{
@@ -22,6 +22,8 @@
                         display: flex;
                         justify-content: center;
                         position: relative;
+                        flex-direction: column;
+                        align-items: center;
                         background-color: transparent;
                         transition: all ease .3s;
                         font-size: 12px;
@@ -35,6 +37,20 @@
                             width: 22px;
                             height:22px;
                             margin: auto;
+                        }
+                        .tweet-header-top-cryptocurrency-name{
+                            color: $color-secondary-dark;
+                        }
+                        .tweet-header-top-cryptocurrency-information{
+                            margin-top: 8px;
+                            color: $color-secondary;
+                            font-size: 12px;
+                            &.tweet-header-top-cryptocurrency-information-postivie{
+                                color: $color-green;
+                            }
+                            &.tweet-header-top-cryptocurrency-information-negative{
+                                color: $color-red;
+                            }
                         }
                     }
                 }
@@ -255,9 +271,8 @@
                     }
                 }
                 .tweet-content-center-comment-label{
-                    background-color: $color-primary-one;
                     color: $color-primary-two;
-                    width: 100px;
+                    width: 60px;
                     height: 30px;
                     display: inline-flex;
                     justify-content: center;
@@ -527,6 +542,11 @@
         }
     }
 }
+.emojie-box{
+    z-index: 8;
+    right: 60px;
+    left: auto !important;
+}
 
 @media only screen and (max-width:992px){
     .tweet-header-top-cryptocurrency-item{
@@ -581,5 +601,8 @@
     .tweet-header-top-cryptocurrency-item:nth-child(8) ,.tweet-header-top-cryptocurrency-item:nth-child(7),
     .tweet-header-top-cryptocurrency-item:nth-child(7) ,.tweet-header-top-cryptocurrency-item:nth-child(6){
         display: none;
+    }
+    .tweet-content-right,.tweet-content-left{
+        display: none !important;
     }
 }

@@ -1,0 +1,111 @@
+@import "colors";
+@import "units";
+@import "mixin";
+
+.page-wrapper {
+    margin-top: $margin-section;
+}
+.login {
+    .login-container {
+        position: relative;
+    }
+    .login-left-col {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    .login-right-col {
+        padding-left: 0;
+        padding-right: 0;
+        background-color: $color-white;
+    }
+
+    .login-right {
+        border-radius: 0 5px 5px 0;
+        padding-top: 20px;
+        .login-right-heading-two {
+            @include MainTitle($color-primary-one,$color-primary-two);
+            font-size: 25px;
+        }
+
+        .login-right-input-group {
+            margin: 30px auto;
+
+            .login-right-input-wrapper {
+                width: 80%;
+                margin: auto;
+                position: relative;
+
+                .login-right-input {
+                    width: 100%;
+                    padding: 30px 10px 10px;
+                    border-bottom: 1px solid $color-secondary;
+                    transition: all ease .5s;
+
+                    &:focus {
+                        border-bottom: 1px solid $color-primary-one;
+                        &+.login-right-icon{
+                            transform: rotate(360deg);
+                            color: $color-primary-one;
+                        }
+                        
+                    }
+      
+                }
+                .login-right-icon{
+                    position: absolute;
+                    top: 60%;
+                    left: 0;
+                    transition: all ease 1s;
+                }
+                .login-right-button{
+                    position: absolute;
+                    top: 60%;
+                    left: 20px;
+                }
+            }
+
+            .login-right-submit {
+                @include Button5($color-primary-one, 20px);
+                padding: 12px 25px;
+                text-align: center;
+                width: 70%;
+                margin: auto;
+            }
+        }
+
+        .login-right-anchors {
+            text-align: right;
+            width: 80%;
+            margin: auto;
+            margin-bottom: 100px;
+
+            .login-right-link {
+                margin: 30px auto;
+                color: $color-secondary;
+                transition: all ease .5s;
+
+                &:first-child {
+                    float: right;
+                }
+
+                &:last-child {
+                    float: left;
+                }
+
+                &:hover {
+                    color: $color-primary-one;
+
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width:992px){
+    .login-right-col{
+        order: 2;
+    }
+    .login-left-col{
+        order: 1;
+    }
+}

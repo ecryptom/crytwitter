@@ -1,0 +1,116 @@
+@import "colors";
+@import "units";
+@import "mixin";
+
+.page-wrapper {
+    margin-top: $margin-section;
+}
+.register {
+    .register-container {
+        position: relative;
+    }
+    .register-left-col {
+        padding-right: 0;
+        padding-left: 0;
+        background-color: $color-white;
+    }
+    .register-right-col {
+        padding-left: 0;
+        padding-right: 0;
+        background-color: $color-white;
+    }
+
+    .register-right {
+        border-radius: 0 5px 5px 0;
+        padding-top: 20px;
+        .register-right-heading-two {
+            @include MainTitle($color-primary-one,$color-primary-two);
+            font-size: 25px;
+        }
+
+        .register-right-input-group {
+            margin: 30px auto;
+
+            .register-right-input-wrapper {
+                width: 80%;
+                margin: auto;
+                position: relative;
+
+                .register-right-input {
+                    width: 100%;
+                    padding: 30px 10px 10px;
+                    border-bottom: 1px solid $color-secondary;
+                    transition: all ease .5s;
+
+                    &:focus {
+                        border-bottom: 1px solid $color-primary-one;
+                        &+.register-right-icon{
+                            transform: rotate(360deg);
+                            color: $color-primary-one;
+                        }
+                    }
+      
+                }
+                .register-right-icon{
+                    position: absolute;
+                    top: 60%;
+                    left: 0;
+                    transition: all ease 1s;
+                }
+                .register-right-button{
+                    position: absolute;
+                    top: 60%;
+                    left: 20px;
+                }
+            }
+
+            .register-right-submit {
+                @include Button5($color-primary-one, 20px);
+                padding: 12px 25px;
+                text-align: center;
+                width: 70%;
+                margin: auto;
+            }
+        }
+
+        .register-right-anchors {
+            text-align: right;
+            width: 80%;
+            margin: auto;
+            margin-bottom: 100px;
+
+            .register-right-link {
+                margin: 30px auto;
+                color: $color-secondary;
+                transition: all ease .5s;
+
+                &:first-child {
+                    float: right;
+                }
+
+                &:last-child {
+                    float: left;
+                }
+
+                &:hover {
+                    color: $color-primary-one;
+
+                }
+            }
+        }
+    }
+    .register-left{
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width:992px){
+    .register-right-col{
+        order: 2;
+    }
+    .register-left-col{
+        order: 1;
+    }
+}

@@ -1,0 +1,103 @@
+@import "colors";
+@import "units";
+@import "mixin";
+.watch-list-line{
+    margin-top: 40px;
+    text-align: right;
+    .watch-list-line-heading-two{
+      @include MainTitle($color-primary-one, $color-primary-two);
+    }
+    .watch-list-line-paragraph{
+        text-align: justify;
+        line-height: $line-height;
+    }
+}
+.watch-list-search{
+        .watch-list-search-autocomplete{
+            width: 80%;
+            position: relative;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+            .watch-list-search-autocomplete-input{
+                width: 100%;
+                padding: 8px 20px;
+                border-radius: 5px;
+            }
+            .watch-list-autocomplete-search-button{
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                padding: 0 5px;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+                background-color: $color-primary-one;
+            }
+    }
+}
+.watch-list-table{
+    background-color: $color-white;
+    width: 100%;
+ 
+  
+    .watch-list-table-header{
+      background-color: $color-primary-one;
+      .watch-list-table-row{
+        .watch-list-table-heading{
+          border-bottom: 1px solid $color-secondary-light;
+        padding: 10px;
+        color: $color-white;
+        text-align: center;
+        }
+      }
+
+    }
+    .watch-list-table-body{
+      .watch-list-table-row{
+        .watch-list-table-description{
+          padding: 10px 0;
+          border-bottom: 1px solid $color-secondary-light;
+          text-align: center;
+          .watch-list-table-image{
+            width: 22px;
+            height: 22px;
+            float: right;
+            margin-right: 5px;
+          }
+          .watch-list-table-name{
+            font-size: 15px;
+            color: $color-secondary-dark;
+            float: left;
+            margin-left: 5px;
+          }
+          .watch-list-table-price{
+            display: block;
+            color: $color-secondary-dark;
+            font-size: 15px;
+            margin-bottom: 10px;
+          }
+          .watch-list-table-unit{
+            display: block;
+            color: $color-secondary;
+            font-size: 11px;
+          }
+          .watch-list-table-percent{
+            padding: 6px 15px;
+            border-radius: 30px;
+            color: $color-white;
+            font-size: 13px;
+            margin: 5px 0;
+            display: inline-block;
+            &.watch-list-table-percent-ascending{
+            background-color: lighten($color-green,10%);
+            }
+            &.watch-list-table-percent-descending{
+              background-color:lighten($color-red,10%);
+              }
+            }
+        }
+    }
+    }
+}

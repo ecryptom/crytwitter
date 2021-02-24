@@ -74,10 +74,13 @@ background-image: url(../img/backgroundproPage.jpg);
     position: relative;
     border-bottom: 1px solid $color-white;
     padding-top: 3px;
-    position: fixed;
-    top: 0;
     background-color: $color-header-background;
+    &.header-sticky{
+        position: fixed;
+        top: 0;
     }
+    }
+
     .header-large {
         .header-row {
             display: flex;

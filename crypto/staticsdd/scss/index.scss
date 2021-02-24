@@ -1,0 +1,692 @@
+@import "colors";
+@import "units";
+@import "mixin";
+
+body {
+  background-color: $color-body-index-background;
+}
+
+//BANNER STYLES
+.header{
+  min-height: 100vh;
+  background-image: url("../img/backgroundproPage.jpg");
+.header-banner{
+  position: relative;
+  margin-top: 160px;
+  .header-banner-title{
+    text-align: center;
+    padding-bottom: 20px;
+    .header-banner-title-heading-one{
+      color: $color-primary-one;
+      font-weight: bold;
+      font-size: 35px;
+    }
+    .header-banner-title-heading-two{
+      color: $color-white-transparent;
+      font-size: 20px;
+      padding-top: 20px;
+
+    }
+  }
+  .header-banner-search{
+    .header-banner-search-bear{
+      .header-banner-search-bear-image{
+        width: 100%;
+      }
+    }
+    .header-banner-search-box{
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      .header-banner-search-box-input{
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 5px;
+      }
+      .header-banner-search-box-icon{
+        position: absolute;
+        color: $color-primary-one;
+        left: 10px;
+      }
+    }
+    .header-banner-search-buul{
+      .header-banner-search-buul-image{
+        width: 100%;
+      }
+    }
+  }
+}
+}
+
+//TOP CRYPTOCURRENCY
+.top-cryptocurrency {
+  margin-top: $margin-section;
+
+  .top-cryptocurrency-line {
+    .top-cryptocurrency-line-heading-two {
+      @include MainTitle($color-primary-one, $color-white);
+    }
+  }
+
+
+  .top-cryptocurrency-boxes-wrapper {
+    .top-cryptocurrency-boxes-row {
+      justify-content: center;
+    }
+
+    .top-cryptocurrency-boxes {
+      @include IndexBox($color-primary-two);
+      box-shadow: 1px 1px 12px rgba($color-black, .3), -1px 1px 12px rgba($color-black, .3), 1px -1px 12px rgba($color-black, .3), -1px -1px 12px rgba($color-black, .3);
+      .top-cryptocurrency-boxes-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $color-white;
+        font-weight: bold !important;
+
+        .top-cryptocurrency-boxes-brand-name {
+          margin: 15px;
+font-weight: bold !important;
+
+        }
+      }
+
+      .top-cryptocurrency-boxes-price {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 20px;
+        color: $color-white;
+        z-index: 55;
+        font-weight: bold !important;
+
+        .top-cryptocurrency-boxes-price-value {
+          font-size: 14px;
+font-weight: bold !important;
+
+        }
+      }
+
+      .top-cryptocurrency-boxes-daily {
+        margin-top: 30px;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 55;
+        font-weight: bold !important;
+
+        .top-cryptocurrency-boxes-daily-value {
+          color: $color-green;
+          font-size: 16px;
+          padding-right: 15px;
+          letter-spacing: 4px;
+        }
+
+        .top-cryptocurrency-boxes-daily-title {
+          color: $color-white;
+        }
+      }
+
+      .top-cryptocurrency-boxes-weekly {
+        margin-top: 30px;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 55;
+
+        .top-cryptocurrency-boxes-weekly-value {
+          color: $color-red;
+          font-size: 16px;
+          padding-right: 15px;
+          letter-spacing: 4px;
+        }
+
+        .top-cryptocurrency-boxes-weekly-title {
+          color: $color-white;
+        }
+      }
+    }
+  }
+
+  .top-cryptocurrency-all {
+    margin-top: 40px;
+    text-align: center;
+
+    .top-cryptocurrency-all-link {
+      @include Button5($color-primary-two, 20px);
+      &:hover{
+        .top-cryptocurrency-all-icon{
+          right: 10px;
+        }
+      }
+      padding: 15px 25px;
+      text-align: center;
+      width: 75%;
+      margin: 0 auto;
+      font-size: 16px;
+      .top-cryptocurrency-all-icon{
+        display: inline-block;
+        transition: all ease .5s;
+        position: relative;
+        right: 0;
+        padding-right: 10px;
+      }
+    }
+  }
+}
+
+//ARTICLES STYLES
+.articles {
+  margin-top: $margin-section;
+
+  .articles-line {
+    .articles-line-heading-two {
+      @include MainTitle($color-primary-one, $color-white);
+    }
+  }
+
+  .articles-boxes-wrapper {
+    position: relative;
+
+    .articles-swiper-container {
+      width: 100%;
+      height: 100%;
+      padding: 15px 0;
+
+      .articles-boxes {
+        text-align: center;
+        background-color: $color-primary-two;
+      box-shadow: 1px 1px 12px rgba($color-black, .3), -1px 1px 12px rgba($color-black, .3), 1px -1px 12px rgba($color-black, .3), -1px -1px 12px rgba($color-black, .3);
+        transition: all ease .4s;
+        user-select: none;
+        border-radius: 0 0 $border-radius $border-radius;
+
+        .articles-boxes-header {
+          width: 100%;
+          height: 200px;
+          overflow: hidden;
+
+          .articles-boxes-header-image {
+            width: 100%;
+            height: 100%;
+            transition: all ease .5s;
+
+            &:hover {
+              transform: scale3d(1.15, 1.15, 1);
+              filter: grayscale(100%);
+            }
+          }
+        }
+
+        .articles-boxes-content {
+          margin: $margin-20 $margin-10;
+          border-bottom: 1px solid $color-secondary-light;
+          padding-bottom: 10px;
+
+          .articles-boxes-content-heading-three {
+            font-size: 16px;
+            height: 30px;
+            overflow: hidden;
+            line-height: 30px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-bottom: 10px;
+            color: $color-white;
+            transition: all ease .5s;
+            font-weight: bold;
+            &:hover{
+              color: $color-primary-one;
+            }
+          }
+
+          .articles-boxes-content-paragraph {
+            font-size: 14px;
+            max-height: 80px;
+            line-height: 40px;
+            width: 100%;
+            overflow: hidden;
+            text-align: justify;
+            color: $color-white-transparent;
+          }
+        }
+
+        .articles-boxes-footer {
+          margin-top: 5px;
+          margin-bottom: 5px;
+          padding: 5px 10px;
+          display: flex;
+          justify-content: space-between;
+          color: $color-white;
+          font-weight: bold;
+
+          .articles-boxes-footer-time {
+            padding: 7px 10px;
+            display: inline-block;
+            font-size: 13px;
+
+            .articles-boxes-footer-time-icon {
+              margin-left: 5px;
+              vertical-align: middle;
+            }
+
+            .articles-boxes-footer-time-span {
+              vertical-align: middle;
+            }
+          }
+
+          .articles-boxes-footer-view {
+            padding: 7px 10px;
+            font-size: 13px;
+            display: inline-block;
+
+            .articles-boxes-footer-view-icon {
+              margin-left: 5px;
+              vertical-align: middle;
+            }
+
+            .articles-boxes-footer-view-span {
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+    }
+
+    .articles-swiper-pagination {
+      @include SliderPagination();
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      @include SliderNavigation();
+    }
+
+    .articles-swiper-button-prev {
+      left: auto;
+      right: -25px;
+    }
+
+    .articles-swiper-button-next {
+      right: auto;
+      left: -25px;
+    }
+  }
+
+}
+
+//STATISTICS STYLES
+.statistics {
+  margin-top: $margin-section;
+  position: relative;
+  overflow: hidden;
+  padding: 70px 0;
+
+  &::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    animation: MoveStatisticsBackGround 2s ease-in-out infinite alternate;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-image: url("../img/statistics-bg.jpg");
+    z-index: -2;
+  }
+
+  .statistics-line {
+    .statistics-line-heading-two {
+      font-size: $font-size-32;
+      color: $color-white;
+      font-weight: bold;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+  }
+
+  .statistics-boxes-wrapper {
+    margin-top: $margin-40;
+
+    .statistics-boxes {
+      @include IndexBox($color-primary-two);
+      .statistics-boxes-image {
+        width: 100%;
+        height: 100px;
+      }
+
+      .statistics-boxes-heading-three {
+        font-size: 18px;
+        color: $color-white;
+        margin-top: 20px;
+      }
+
+      .statistics-boxes-value {
+        color: $color-white-transparent;
+        font-weight: bold;
+        font-size: 22px;
+        margin-top: 20px;
+        letter-spacing: 4px;
+        display: block;
+      }
+    }
+  }
+}
+
+//COMMON QUESTIONS STYLES
+.common-questions {
+  margin-top: $margin-section;
+
+  .common-questions-line {
+    .common-questions-line-heading-two {
+      @include MainTitle($color-primary-one, $color-white);
+    }
+  }
+
+  .common-questions-list {
+    .common-questions-item {
+      padding: $padding-10 $padding-20;
+      background: linear-gradient(-120deg, darken($color-primary-two, 2%), lighten($color-primary-two, 8%));
+      border-radius: $border-radius;
+      margin-top: $margin-20;
+      box-shadow: $index-shadow;
+      .common-questions-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+
+        .common-questions-header-heading-three {
+          font-size: $font-size-16;
+          color: $color-white;
+          text-align: right;
+          line-height: $line-height;
+          padding-left: 2px;
+        }
+
+        .common-questions-header-button {
+          font-size: $font-size-18;
+          border-radius: $border-radius;
+          cursor: pointer;
+          color: $color-white;
+          background-color: transparent;
+        }
+      }
+
+      .common-questions-content {
+        .common-questions-content-paragraph {
+          line-height: $line-height;
+          color: $color-white-transparent;
+          padding-top: $padding-20;
+          font-size: $font-size-14;
+          text-align: justify;
+        }
+      }
+    }
+  }
+}
+
+//COMMENTS STYLES
+.comments {
+  margin-top: $margin-section;
+
+  .comments-line {
+    .comments-line-heading-two {
+      @include MainTitle($color-primary-one, $color-white);
+    }
+  }
+
+  .comments-boxes-wrapper {
+    position: relative;
+
+    .comments-boxes {
+      background-color: $color-primary-two;
+      border-radius: $border-radius;
+      height: 320px;
+      padding: $padding-5 $padding-30;
+      user-select: none;
+
+      .comments-boxes-header {
+        padding: $padding-20 $padding-10;
+        text-align: right;
+        position: relative;
+        padding: $padding-20;
+
+        .comments-boxes-header-image {
+          border: 3px solid $color-white;
+          border-radius: 50%;
+          position: absolute;
+          top: 20%;
+          right: 15px;
+          height: 60px;
+          width: 60px;
+        }
+
+        .comments-boxes-header-heading-four {
+          display: inline-block;
+          font-size: $font-size-24;
+          color: $color-white;
+          padding-right: 70px;
+          padding-left: 20px;
+        }
+
+        .comments-boxes-header-icon {
+          font-size: $font-size-20;
+          color: $color-white;
+          float: left;
+        }
+
+        .comments-boxes-header-heading-five {
+          padding-right: 70px;
+          font-size: $font-size-16;
+          color: $color-white;
+          margin-top: $margin-20;
+        }
+      }
+
+      .comments-boxes-content {
+        padding: $padding-10 $padding-20;
+
+        .comments-boxes-content-paragraph {
+          font-size: $font-size-16;
+          line-height: $line-height;
+          text-align: justify;
+          height: 170px;
+          overflow: hidden;
+          color: $color-white-transparent;
+        }
+      }
+    }
+
+    .comments-swiper-pagination {
+      @include SliderPagination();
+    }
+  }
+
+  .comments-swiper-button-next,
+  .comments-swiper-button-prev {
+    @include SliderNavigation();
+  }
+
+  .comments-swiper-button-prev {
+    left: auto;
+    right: -25px;
+  }
+
+  .comments-swiper-button-next {
+    right: auto;
+    left: -25px;
+  }
+}
+
+//MEDIA QUERIES
+@media only screen and (max-width:992px) {
+  .header-banner-search-large{
+    display: none !important;
+  }
+  .header-banner-search-small{
+    display: block !important;
+  }
+  .header-banner-search-buul-image , 
+  .header-banner-search-bear-image{
+    height: 240px !important;
+  }
+  .header-banner{
+    margin-top: 90px !important;
+  }
+  .header-banner-search{
+    margin-top: 15px;
+  }
+  .header-banner-search-box{
+    margin-top: 15px;
+  }
+}
+@media only screen and (min-width:992px) {
+  .header-banner-search-large{
+    display: block !important;
+  }
+  .header-banner-search-small{
+    display: none !important;
+  }
+}
+@media only screen and (max-width:768px) {
+
+  //ALL
+  .top-cryptocurrency-line-heading-two,
+  .comments-line-heading-two,
+  .common-questions-line-heading-two,
+  .articles-line-heading-two {
+    font-size: $font-size-20 !important;
+  }
+
+  .statistics-line-heading-two {
+    font-size: 22px !important;
+  }
+
+  //COMMON QUESTIONS
+  .common-questions-item {
+    padding: $padding-10 !important
+  }
+
+  .common-questions-header-heading-three {
+    font-size: $font-size-14 !important;
+  }
+
+  .common-questions-content-paragraph {
+    font-size: $font-size-12 !important;
+  }
+
+  //COMMENTS
+  .comments-boxes-header-heading-four {
+    font-size: $font-size-20 !important;
+  }
+
+  .comments-boxes-header-icon {
+    font-size: $font-size-16 !important;
+  }
+
+  .comments-boxes-header-heading-five {
+    font-size: $font-size-14 !important;
+  }
+
+  .comments-boxes-content-paragraph {
+    font-size: $font-size-14 !important;
+  }
+
+
+  .statistics::after {
+    animation: none !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+
+  //ALL
+  .comments-line-heading-two,
+  .common-questions-line-heading-two {
+    font-size: $font-size-16 !important;
+  }
+
+  .articles-line-heading-five,
+  .comments-line-heading-five {
+    margin-left: 15px !important;
+  }
+
+
+  .articles-swiper-button-prev,
+  .comments-swiper-button-prev,
+  .articles-swiper-button-next,
+  .comments-swiper-button-next {
+    display: none !important;
+  }
+  //COMMON QUESTIONS
+  .common-questions-item {
+    padding: $padding-10 !important;
+  }
+
+  //COMMENTS
+  .comments-boxes-content-paragraph {
+    height: 200px !important;
+  }
+
+  .comments-boxes {
+    height: 350px !important;
+  }
+
+  .comments-boxes-content {
+    padding: 20px 0 !important;
+  }
+
+  .comments-boxes-header-heading-four {
+    font-size: $font-size-18 !important;
+  }
+}
+
+
+//ANIMATIONS
+@keyframes downBefore {
+  0% {
+    bottom: 90%;
+
+  }
+
+  100% {
+    bottom: 10%;
+  }
+}
+
+@keyframes downLink {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: -15px;
+  }
+}
+
+@keyframes MoveStatisticsBackGround {
+  0% {
+    transform: scale(1.6) rotate(20deg);
+  }
+
+  100% {
+    transform: scale(1.2) rotate(0deg);
+  }
+}
+
+@media only screen and (max-width:768px) and (min-width:576px){
+  .header-banner-search-buul-image , 
+  .header-banner-search-bear-image{
+    height: 240px !important;
+  }
+  .header-banner-search-box{
+    margin-top: 10px;
+  }
+}

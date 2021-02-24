@@ -3,20 +3,40 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-import pytz
+import pytz, mysql.connector, os
 from datetime import datetime
 from mimetypes import guess_type
 from .models import twit
 from home.models import currency
 from utils.date_convertor import gregorian_to_shamsi
+from home.views import which_currency
+
+#connect to database (because mysql.connector.django can not save emojis)
+mydb = mysql.connector.connect(
+  host=os.getenv('DATABASE_HOST'),
+  port=os.getenv('DATABASE_PORT'),
+  user=os.getenv('DATABASE_USER_NAME'),
+  password=os.getenv('DATABASE_USER_PASSWORD'),
+  database=os.getenv('DATABASE_NAME'),
+)
+
 
 def tweets(req):
     if twit.objects.count() == 0 :
         last_tweets = []
     else:
         last_tweets = twit.objects.filter(id__gte=twit.objects.last().id-15).order_by('-id')
+        # get text of tweets
+        mycursor = mydb.cursor()
+        mycursor.execute(f"select text from twits_twit where id>={last_tweets.last().id} order by -id")
+        texts = mycursor.fetchall()
+        print(mycursor)
+        i=0
+        for t in last_tweets:
+            t.text =  texts[i][0]
+            i+=1
     return render(req, 'tweet.html', {
-        'tweets':last_tweets, 
+        'tweets':last_tweets,
         'top_curs':currency.objects.all()[:10],
         'newyork_time':f"{datetime.now(pytz.timezone('America/New_York')).hour:02}:{datetime.now(pytz.timezone('America/New_York')).minute:02}",
         'tokyo_time':f"{datetime.now(pytz.timezone('Asia/Tokyo')).hour:02}:{datetime.now(pytz.timezone('Asia/Tokyo')).minute:02}",
@@ -32,6 +52,14 @@ def curr_tweets(req, curr_name):
         last_tweets = []
     else:
         last_tweets = curr.twit_set.all().filter(id__gte=curr.twit_set.last().id-15).order_by('-id')
+        # get text of tweets
+        mycursor = mydb.cursor()
+        mycursor.execute(f"select text from twits_twit where id>={last_tweets.last().id} order by -id")
+        texts = mycursor.fetchall()
+        i=0
+        for t in last_tweets:
+            t.text =  texts[i][0]
+            i+=1
     return render(req, 'curr_tweet.html', {
         'tweets':last_tweets, 
         'currency':curr, 
@@ -50,12 +78,12 @@ def tweet(req):
         return redirect('tweets')
     if not req.POST['text']:
         return redirect('tweets')
-    cur = currency.objects.filter(name=req.POST.get('currency'))
+    cur = which_currency(req.POST.get('currency'))
     if not cur:
         cur = currency.objects.filter(persian_name=req.POST.get('currency'))
     t = twit(
-        text = req.POST['text'],
-        currency= cur[0] if cur else None,
+        text = '',
+        currency= cur,
         user = req.user,
         has_image = guess_type(File.name)[0].split('/')[0] == 'image' if File else False,
         File = File,
@@ -63,6 +91,10 @@ def tweet(req):
         shamsi_date = gregorian_to_shamsi(timezone.now()),
     )
     t.save()
+    #save twit text seprately
+    mycursor = mydb.cursor()
+    mycursor.execute(f"update twits_twit set text='{req.POST['text']}' where id={t.id}")
+    mydb.commit()
     if req.POST.get('curr_tweet'):
         return redirect('curr_tweets', req.POST['currency'])
     return redirect('tweets')
@@ -78,7 +110,7 @@ def retweet(req, ID):
         return redirect('tweets')
     reply_to = twit.objects.get(id=ID)
     t = twit(
-        text = req.POST['text'],
+        text = '',
         user = req.user,
         currency= reply_to.currency,
         retwit=True,
@@ -91,6 +123,10 @@ def retweet(req, ID):
             t.has_image = True
         t.File = File
     t.save()
+    #save twit text seprately
+    mycursor = mydb.cursor()
+    mycursor.execute(f"update twits_twit set text='{req.POST['text']}' where id={t.id}")
+    mydb.commit()
     if req.POST.get('curr_tweet'):
         return redirect('curr_tweets', req.POST['currency'])
     return redirect('tweets')

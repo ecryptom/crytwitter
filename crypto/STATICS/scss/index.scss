@@ -10,9 +10,12 @@ body {
 .header{
   min-height: 100vh;
   background-image: url("../img/backgroundproPage.jpg");
-.header-banner{
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+  .header-banner{
   position: relative;
-  margin-top: 160px;
+
   .header-banner-title{
     text-align: center;
     padding-bottom: 20px;
@@ -527,6 +530,7 @@ font-weight: bold !important;
 
 //MEDIA QUERIES
 @media only screen and (max-width:992px) {
+
   .header-banner-search-large{
     display: none !important;
   }
@@ -535,11 +539,9 @@ font-weight: bold !important;
   }
   .header-banner-search-buul-image , 
   .header-banner-search-bear-image{
-    height: 240px !important;
+    height: 180px !important;
   }
-  .header-banner{
-    margin-top: 90px !important;
-  }
+ 
   .header-banner-search{
     margin-top: 15px;
   }
@@ -556,7 +558,6 @@ font-weight: bold !important;
   }
 }
 @media only screen and (max-width:768px) {
-
   //ALL
   .top-cryptocurrency-line-heading-two,
   .comments-line-heading-two,
@@ -606,7 +607,6 @@ font-weight: bold !important;
 }
 
 @media only screen and (max-width: 576px) {
-
   //ALL
   .comments-line-heading-two,
   .common-questions-line-heading-two {

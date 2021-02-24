@@ -215,12 +215,12 @@
                                 <div class="tweet-content-center-comment">
                                     <textarea name="text" class="tweet-content-center-comment-text-area" placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
                                     <button class="tweet-content-center-comment-submit" type="submit">
-                                        <i class="fa fa-twitter"></i>
+                                        <i class="fab fa-twitter"></i>
                                     </button>
-                                        <label for="image" class="tweet-content-center-comment-label">
-                                        پیوست 
-                                        </label>
-                                        <input name="file" type="file" class="tweet-content-center-comment-input-file" id="image" />
+                                    <label for="image" class="tweet-content-center-comment-label">
+                                         <i class="fa fa-paperclip"></i>
+                                    </label>
+                                    <input type="file" name="file" class="tweet-content-center-comment-input-file" id="image"/>
                                 </div>
                             </form>
 
@@ -372,8 +372,10 @@
     <script src="{% static 'js/swiper.min.js' %}"></script>
     <script src="{% static 'js/wow.min.js' %}"></script>
     <script src="{% static 'js/num-scroller.js' %}"></script>
+    <script src="{% static 'js/emoji.js' %}"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
+    <!-- -------------------reply--------------------- -->
     <script>
         let sendReplyIcon = document.querySelectorAll(".fa.fa-reply.tweet-content-center-boxes-footer-icon");
         let sendReplyBox = document.querySelectorAll(".tweet-content-center-boxes-send-reply");
@@ -390,6 +392,14 @@
                     firstParent.insertBefore(replyElement, replyComments);
                     replyElement.style.height = replyElement.scrollHeight + "px";
                     e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
+                    $(".tweet-content-center-boxes-send-reply-text-area").emoji({
+                        listCSS: {
+                            position: 'absolute',
+                            bottom: '10px',
+                            left: '80px',
+                            border: '1px solid gray',
+                        }
+                    });
                 } else if (getComputedStyle(replyBox).height == "0px") {
                     replyBox.style.height = replyBox.scrollHeight + "px";
                     e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
@@ -405,6 +415,8 @@
     </script>
 
 
+
+<!-- -------------------autocomplete--------------------- -->
         <script>
             function autocomplete(inp, arr, images) {
            var currentFocus;
@@ -474,6 +486,8 @@
             currencies.forEach(element => {
                 countries.push(element.name);
                 countries.push(element.persian_name + '|' + element.name);
+                countries.push(element.symbol);
+                images.push(element.image_url);
                 images.push(element.image_url);
                 images.push(element.image_url);
             });
@@ -485,8 +499,23 @@
  </script>
 
 
-<script>
+<!-- -------------------emoji--------------------- -->
+ <script>
+        $(function () {
+            $('textarea').emoji({
+                listCSS: {
+                    position: 'absolute',
+                    bottom: 0,
+                    left: '80px',
+                    border: '1px solid gray',
+                }
+            });
+        })
+</script>
 
+
+<!-- -------------------like--------------------- -->
+<script>
 function like_tweet(ID){
     $.ajax({
         url: 'like_tweet/' + ID,

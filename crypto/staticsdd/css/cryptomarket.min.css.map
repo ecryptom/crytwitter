@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AAAA,IAAI,AAAA,CACA,QAAQ,CAAE,MAAM,CACnB,AACD,AACI,aADS,CACT,mBAAmB,AAAA,CACf,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,KAAK,CACb,QAAQ,CAAE,MAAM,CACnB,AAEL,AAAA,OAAO,AAAA,CACH,OAAO,CAAE,eAAe,CAC3B,AACD,AAAA,eAAe,AAAA,CACX,OAAO,CAAE,eAAe,CAC3B",
+    "sources": [
+        "../scss/cryptomarket.scss",
+        "../scss/_colors.scss",
+        "../scss/_units.scss",
+        "../scss/_mixin.scss"
+    ],
+    "names": [],
+    "file": "cryptomarket.min.css"
+}

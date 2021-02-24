@@ -6,6 +6,22 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from utils.date_convertor import gregorian_to_shamsi
 
+#get a string and return cur if exist
+def which_currency(str):
+    cur_name = str.split('|')
+    try:
+        cur = currency.objects.get(name=cur_name[0])
+    except:
+        try:
+            cur = currency.objects.get(symbol=cur_name[0])
+        except:
+            try:
+                cur = currency.objects.get(name=cur_name[1])
+            except:
+                return None
+    return cur
+
+
 def home(req):
     return render(req, 'index.html', {
         'top_curs': currency.objects.all()[:10], 
@@ -54,14 +70,9 @@ def reply_article_comment_view(req, ID):
 
 
 def index_search(req):
-    cur_name = req.GET['currency'].split('|')
-    try:
-        cur = currency.objects.get(name=cur_name[0])
-    except:
-        try:
-            cur = currency.objects.get(name=cur_name[1])
-        except:
-            return redirect('home')
+    cur = which_currency(req.GET['currency'])
+    if not cur:
+        return redirect('home')
     return redirect('curr_tweets', cur.name)
 
 
