@@ -78,6 +78,44 @@
                                     <p id="inviteFriendsText" class="panel-left-invite-friends-content-paragraph panel-left-invite-friends-content-paragraph-hidden">
                                         لینک دعوت شما با موفقیت کپی شد.
                                     </p>
+                                    <p id="inviteFriendsLink" class="panel-left-invite-friends-content-paragraph panel-left-invite-friends-content-paragraph-hidden">
+                                    </p>
+
+                                    {% if users %}
+                                        <table class="panel-left-invite-friends-content-table table">
+                                        <thead class="panel-left-invite-friends-content-table-head thead-dark">
+                                            <tr class="panel-left-invite-friends-content-table-row">
+                                                <th class="panel-left-invite-friends-content-table-heading">
+                                                    نام و نام خانوادگي
+                                                </th>
+                                                <th class="panel-left-invite-friends-content-table-heading">
+                                                    عكس
+                                                </th>
+                                                <th class="panel-left-invite-friends-content-table-heading">
+                                                    تاريخ ثبت نام
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="panel-left-invite-friends-content-table-body">
+
+                                        {% for User in users %}
+                                            <tr class="panel-left-invite-friends-content-table-row">
+                                                <td class="panel-left-invite-friends-content-table-data">
+                                                    {{User.name}}
+                                                </td>
+                                                <td class="panel-left-invite-friends-content-table-data">
+                                                    <img src="{{User.image.url}}" class="panel-left-invite-friends-content-table-image" />
+                                                </td>
+                                                <td class="panel-left-invite-friends-content-table-data">
+                                                   {{User.shamsi_joined_date}}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                    {% endif %}
+                                    
                                 </div>
                             </div>
                         </div>
@@ -94,10 +132,12 @@
         let input = document.getElementById("uniqCode");
         let btn = document.getElementById("inviteFriendsButton");
         let text = document.getElementById("inviteFriendsText");
+        let link = document.getElementById("inviteFriendsLink");
+        link.innerHTML = window.location.host + '/account/register/' + input.value;
         btn.addEventListener("click", function () {
             navigator.clipboard.writeText(window.location.host + '/account/register/' + input.value);
             text.classList.remove("panel-left-invite-friends-content-paragraph-hidden");
-            alert('link:\n' +window.location.host + '/account/register/' + input.value)
+            link.classList.remove("panel-left-invite-friends-content-paragraph-hidden");
         })
     </script>
 {% endblock scripts %}

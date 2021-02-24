@@ -16,6 +16,8 @@ def update(currencies):
             cur.price = cur_info['price']
             cur.daily_price_change_pct = float(cur_info['1d']['price_change_pct'])*100
             cur.weekly_price_change_pct = float(cur_info['7d']['price_change_pct'])*100
+            cur.market_cap = cur_info['market_cap']
+            cur.turnover = cur_info['1d']['volume']
             cur.save()
         except:
             pass

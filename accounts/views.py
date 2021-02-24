@@ -258,7 +258,7 @@ def resend_email_code(req):
 
 @login_required(login_url='login')
 def invite_friends(req):
-    return render(req, 'panel-invite-friends.html')
+    return render(req, 'panel-invite-friends.html', {'users':req.user.invited_set.filter(verified_phone=True)})
 
 
 @login_required(login_url='login')

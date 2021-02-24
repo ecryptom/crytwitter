@@ -122,47 +122,34 @@
         <div class="container-fluid">
 
             <div class="tweet-header">
-                <div class="tweet-header-top-cryptocurrency">
-                    <ul class="tweet-header-top-cryptocurrency-list">
-
-                        {% for curr in top_curs %}
-                            <li class="tweet-header-top-cryptocurrency-item">
-                                <a href="{% url 'curr_tweets' curr.name %}" class="tweet-header-top-cryptocurrency-link">
-                                    <img src="{{curr.image_url}}" class="tweet-header-top-cryptocurrency-image" alt="بیت کوین" />
-                                    <span class="tweet-header-top-cryptocurrency-name">{{curr.persian_name}}</span>
-                                </a>
-                            </li>
-                        {% endfor %}
-                        
-                    </ul>
-                </div>
+                
                 <div class="tweet-header-details">
                     <div class="tweet-header-details-specifications">
                         <img src="{{currency.image_url}}" class="tweet-header-details-specifications-image" />
                         <span class="tweet-header-details-specifications-name">{{currency.persian_name}} ({{currency.symbol}})</span>
                         <div class="tweet-header-details-specifications-price">
                             <span class="tweet-header-details-specifications-price-title">قیمت : </span>
-                            <span class="tweet-header-details-specifications-price-value">{{currency.price}} دلار</span>
-                            <span class="tweet-header-details-specifications-price-value">{{currency.price}} ريال</span>
+                            <span id="price" class="tweet-header-details-specifications-price-value">{{currency.price}} دلار</span>
+                            <span id="toman_price" class="tweet-header-details-specifications-price-value">{{currency.price}} ريال</span>
                         </div>
                     </div>
                     <div class="tweet-header-details-statistics">
                         <ul class="tweet-header-details-statistics-list">
                             <li class="tweet-header-details-statistics-item">
                                 <span class="tweet-header-details-statistics-title">حجم معاملات : </span>
-                                <span class="tweet-header-details-statistics-value">54,202,000,000 $</span>
+                                <span id="turnover" class="tweet-header-details-statistics-value">{{currency.turnover}}</span>
                             </li>
                             <li class="tweet-header-details-statistics-item">
-                                <span class="tweet-header-details-statistics-title">سود و زيان هفتگي :</span>
-                                <span class="tweet-header-details-statistics-value tweet-header-details-statistics-value-positive">11.23%</span>
+                                <span class="tweet-header-details-statistics-title">تغییرات هفتگی:</span>
+                                <span id="weekly_change" class="tweet-header-details-statistics-value tweet-header-details-statistics-value-positive">{{currency.weekly_price_change_pct}}</span>
                             </li>
                             <li class="tweet-header-details-statistics-item">
-                                <span class="tweet-header-details-statistics-title">سود و زيان ماهانه :</span>
-                                <span class="tweet-header-details-statistics-value tweet-header-details-statistics-value-negative">-1.1%</span>
+                                <span class="tweet-header-details-statistics-title">تغییرات روزانه :</span>
+                                <span id="daily_change" class="tweet-header-details-statistics-value tweet-header-details-statistics-value-negative">{{currency.daily_price_change_pct}}</span>
                             </li>
                             <li class="tweet-header-details-statistics-item">
                                 <span class="tweet-header-details-statistics-title">ارزش بازار :</span>
-                                <span class="tweet-header-details-statistics-value">982 ميليارد دلار</span>
+                                <span id="market_cap" class="tweet-header-details-statistics-value">{{currency.market_cap}}</span>
                             </li>
                         </ul>
                     </div>
@@ -305,6 +292,12 @@
                                                         <a href="">
                                                             <i class="fa fa-exclamation-circle"></i>
                                                             توییت تکراری
+                                                        </a>
+                                                    </li>
+                                                    <li class="tweet-content-center-boxes-header-report-item">
+                                                        <a href="">
+                                                            <i class="fa fa-exclamation-circle"></i>
+                                                            تبلیغ
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -452,8 +445,8 @@
     </script>
 
 
+<!---------------------like------------------>
 <script>
-
 function like_tweet(ID){
     $.ajax({
         url: 'like_tweet/' + ID,
@@ -474,7 +467,6 @@ function like_tweet(ID){
             }
     });
 }
-
 </script>
 
 
@@ -516,6 +508,51 @@ function like_tweet(ID){
             }
     });
 }
+</script>
+
+
+
+
+<!----------------------update information of currency---------------------->
+<script>
+    function commasandfix(number, tofixed) {
+        var parts = number.toFixed(tofixed).toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+    
+    var dollor_rate = {{dollor_rate.rate}};
+    market_cap = document.getElementById('market_cap');
+    weekly_change = document.getElementById('weekly_change');
+    daily_change = document.getElementById('daily_change');
+    turnover = document.getElementById('turnover');
+    price = document.getElementById('price');
+    toman_price = document.getElementById('toman_price');
+
+    //prices
+    price.textContent = commasandfix({{currency.price}}, 2) + ' دلار ';
+    toman_price.textContent = commasandfix({{currency.price}} * dollor_rate, 0) + ' تومان ';
+    //market_cap
+    market_cap.textContent = commasandfix({{currency.market_cap}}, 0) + ' دلار ';
+    //turnover
+    turnover.textContent = commasandfix({{currency.turnover}}, 0) + ' دلار ';
+    //weekly_change
+    if({{currency.weekly_price_change_pct}} < 0){
+        weekly_change.textContent = -1 * parseFloat(weekly_change.textContent).toFixed(2) + "-" + "%";
+        weekly_change.style.color = 'red';
+    }else{
+        weekly_change.textContent = "%" + parseFloat(weekly_change.textContent).toFixed(2);
+        weekly_change.style.color = '#00ff00';
+    }
+    //daily_change
+    if({{currency.daily_price_change_pct}} < 0){
+        daily_change.textContent = -1 * parseFloat(daily_change.textContent).toFixed(2) + "-" + "%";
+        daily_change.style.color = 'red';
+    }else{
+        daily_change.textContent = "%" + parseFloat(daily_change.textContent).toFixed(2);
+        daily_change.style.color = '#00ff00';
+    }
+
 
 </script>
 

@@ -14,6 +14,8 @@ class currency(models.Model):
     price = models.FloatField(default=56.0)
     daily_price_change_pct = models.FloatField(default=-0.01)
     weekly_price_change_pct = models.FloatField(default=1.5)
+    turnover = models.FloatField(default=1)
+    market_cap = models.FloatField(default=1)
     
 
 class dollor(models.Model):

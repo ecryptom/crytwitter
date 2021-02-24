@@ -572,7 +572,7 @@ text-align: center;
     </script>
 
 
-<!--autocomplete-->
+<!--------------------------autocomplete------------------------------>
 <script>
        function autocomplete(inp, arr, images) {
   var currentFocus;
@@ -660,7 +660,7 @@ autocomplete(document.getElementById("autocompleteInput2"), arr, images);
 
 
 
-<!--update currencies-->
+<!-----------------------update currencies------------------------------>
 <script>
     var dollor_rate = {{dollor_rate}};
     var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change, new_7d_change;
@@ -686,7 +686,7 @@ autocomplete(document.getElementById("autocompleteInput2"), arr, images);
             document.getElementById('1d_change_' + symbol).innerHTML = "%" + daily_change.toFixed(2);
             document.getElementById('1d_change_' + symbol).style.color = '#00ff00';
         }
-        // fix daily change and it's color
+        // fix weekly change and it's color
         if(weekly_change < 0){
             document.getElementById('7d_change_' + symbol).innerHTML = -1 * weekly_change.toFixed(2) + "-" + "%";
             document.getElementById('7d_change_' + symbol).style.color = 'red';

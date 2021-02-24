@@ -7,6 +7,7 @@ import pytz, mysql.connector, os
 from datetime import datetime
 from mimetypes import guess_type
 from .models import twit
+from home.models import dollor
 from home.models import currency
 from utils.date_convertor import gregorian_to_shamsi
 from home.views import which_currency
@@ -64,6 +65,7 @@ def curr_tweets(req, curr_name):
         'tweets':last_tweets, 
         'currency':curr, 
         'top_curs':currency.objects.all()[:10],
+        'dollor_rate':dollor.objects.get(),
         'newyork_time':f"{datetime.now(pytz.timezone('America/New_York')).hour:02}:{datetime.now(pytz.timezone('America/New_York')).minute:02}",
         'tokyo_time':f"{datetime.now(pytz.timezone('Asia/Tokyo')).hour:02}:{datetime.now(pytz.timezone('Asia/Tokyo')).minute:02}",
         'hongkong_time':f"{datetime.now(pytz.timezone('Hongkong')).hour:02}:{datetime.now(pytz.timezone('Hongkong')).minute:02}",

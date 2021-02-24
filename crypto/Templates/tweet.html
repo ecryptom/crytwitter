@@ -125,16 +125,20 @@
         <div class="tweet-header">
                 <div class="tweet-header-top-cryptocurrency">
                     <ul class="tweet-header-top-cryptocurrency-list">
-                    {% for curr in top_curs %}
-                        <li class="tweet-header-top-cryptocurrency-item">
-                            <a href="{% url 'curr_tweets' curr.name %}" class="tweet-header-top-cryptocurrency-link">
-                                <img src="{{curr.image_url}}" class="tweet-header-top-cryptocurrency-image" alt="بیت کوین" />
-                                <span class="tweet-header-top-cryptocurrency-name">{{curr.persian_name}}</span>
-                            </a>
-                        </li>
-                    {% endfor %}
+
+                        {% for curr in top_curs %}
+                            <li class="tweet-header-top-cryptocurrency-item">
+                                <a href="{% url 'curr_tweets' curr.name %}" class="tweet-header-top-cryptocurrency-link">
+                                    <img src="{{curr.image_url}}" class="tweet-header-top-cryptocurrency-image" alt="بیت کوین" />
+                                    <span class="tweet-header-top-cryptocurrency-name">{{curr.persian_name}}</span>
+                                    <span class="price tweet-header-top-cryptocurrency-information">{{curr.price}}</span>
+                                    <span class="change tweet-header-top-cryptocurrency-information tweet-header-top-cryptocurrency-information-postivie">{{curr.daily_price_change_pct}}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                        
                     </ul>
-            </div>
+                </div>
 
             <div class="tweet-header">
                 <div class="tweet-header-search">
@@ -269,6 +273,12 @@
                                                         <a href="">
                                                             <i class="fa fa-exclamation-circle"></i>
                                                             توییت تکراری
+                                                        </a>
+                                                    </li>
+                                                    <li class="tweet-content-center-boxes-header-report-item">
+                                                        <a href="">
+                                                            <i class="fa fa-exclamation-circle"></i>
+                                                            تبلیغ
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -536,7 +546,35 @@ function like_tweet(ID){
             }
     });
 }
+</script>
 
+
+<!----------------------top currencies price and change---------------------->
+<script>
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+    //price
+    prices = document.getElementsByClassName("price");
+    changes = document.getElementsByClassName("change");
+    for(elemet of prices){
+        if(parseFloat(elemet.textContent) < 10)
+            elemet.textContent = numberWithCommas(parseFloat(elemet.textContent).toFixed(4));
+        else
+            elemet.textContent = numberWithCommas(parseFloat(elemet.textContent).toFixed(2));
+    }
+    //changes
+    for(elemet of changes){
+        if(parseFloat(elemet.textContent) < 0){
+            elemet.textContent = -1 * parseFloat(elemet.textContent).toFixed(2) + "-" + "%";
+            elemet.style.color = 'red';
+        }else{
+            elemet.textContent = "%" + parseFloat(elemet.textContent).toFixed(2);
+            elemet.style.color = '#00ff00';
+        }
+    }
 </script>
 
 {% endblock scripts %}
