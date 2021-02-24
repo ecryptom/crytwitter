@@ -79,8 +79,6 @@ def tweet(req):
     if not req.POST['text']:
         return redirect('tweets')
     cur = which_currency(req.POST.get('currency'))
-    if not cur:
-        cur = currency.objects.filter(persian_name=req.POST.get('currency'))
     t = twit(
         text = '',
         currency= cur,
