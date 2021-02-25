@@ -5,6 +5,8 @@
 {% block header %}
     <title>ارز توييتر</title>
     <link rel="stylesheet" href="{% static 'css/tweet.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/emojionearea.min.css' %}" />
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
    <style>
         .tweet-content-center {
@@ -112,6 +114,14 @@
     .autocomplete-list{
         border: 1px solid #ccc;
     }
+    </style>
+    <style>
+        .emojionearea-button,
+        .emojionearea-picker {
+            top: auto !important;
+            bottom: -30px !important;
+            right: 30px !important;
+        }
     </style>
 
 {% endblock header %}
@@ -263,20 +273,20 @@
                                             <div class="tweet-content-center-boxes-header-report collapse"
                                                 id="tweet-report-{{tweet.id}}">
                                                 <ul class="tweet-content-center-boxes-header-report-list">
-                                                    <li class="tweet-content-center-boxes-header-report-item">
-                                                        <a href="">
+                                                    <li id="report-1" class="tweet-content-center-boxes-header-report-item">
+                                                        <a href="" onclick="report('توهین', {{tweet.id}})">
                                                             <i class="fa fa-ban"></i>
                                                             توهین و الفاظ رکیک
                                                         </a>
                                                     </li>
-                                                    <li class="tweet-content-center-boxes-header-report-item">
-                                                        <a href="">
+                                                    <li id="report-2" class="tweet-content-center-boxes-header-report-item">
+                                                        <a href="" onclick="report('تکرار', {{tweet.id}})">
                                                             <i class="fa fa-exclamation-circle"></i>
                                                             توییت تکراری
                                                         </a>
                                                     </li>
-                                                    <li class="tweet-content-center-boxes-header-report-item">
-                                                        <a href="">
+                                                    <li id="report-3" class="tweet-content-center-boxes-header-report-item">
+                                                        <a href="" onclick="report('تبلیغ', {{tweet.id}})">
                                                             <i class="fa fa-exclamation-circle"></i>
                                                             تبلیغ
                                                         </a>
@@ -383,8 +393,13 @@
     <script src="{% static 'js/swiper.min.js' %}"></script>
     <script src="{% static 'js/wow.min.js' %}"></script>
     <script src="{% static 'js/num-scroller.js' %}"></script>
-    <script src="{% static 'js/emoji.js' %}"></script>
+    <script src="{% static 'js/emojionearea.min.js' %}"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script>
+    $(".tweet-content-center-comment-text-area").emojioneArea({
+        searchPlaceholder: "جستجو کنید...",
+    });
+    </script>
 
     <!-- -------------------reply--------------------- -->
     <script>
@@ -403,14 +418,7 @@
                     firstParent.insertBefore(replyElement, replyComments);
                     replyElement.style.height = replyElement.scrollHeight + "px";
                     e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
-                    $(".tweet-content-center-boxes-send-reply-text-area").emoji({
-                        listCSS: {
-                            position: 'absolute',
-                            bottom: '10px',
-                            left: '80px',
-                            border: '1px solid gray',
-                        }
-                    });
+                    
                 } else if (getComputedStyle(replyBox).height == "0px") {
                     replyBox.style.height = replyBox.scrollHeight + "px";
                     e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
@@ -510,20 +518,6 @@
  </script>
 
 
-<!-- -------------------emoji--------------------- -->
- <script>
-        $(function () {
-            $('textarea').emoji({
-                listCSS: {
-                    position: 'absolute',
-                    bottom: 0,
-                    left: '80px',
-                    border: '1px solid gray',
-                }
-            });
-        })
-</script>
-
 
 <!-- -------------------like--------------------- -->
 <script>
@@ -575,6 +569,32 @@ function like_tweet(ID){
             elemet.textContent = "%" + parseFloat(elemet.textContent).toFixed(2);
             elemet.style.color = '#00ff00';
         }
+    }
+</script>
+
+
+
+<!----------------------report---------------------->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(".tweet-content-center-boxes-header-report-item a").click(function (e) {
+        e.preventDefault();
+    });
+
+    function report(report_type, tweet_id){
+        $.ajax({
+        url: '{% url "report_req" %}?tweet_id=' + tweet_id + '&type=' + report_type,
+        type: 'GET',
+        dataType: "json",
+        success: function(resp, s, x) {
+            swal({
+                title: resp.message,
+                icon: resp.status,
+                button: "تأیید",
+                timer:3000
+            });
+        }
+        });
     }
 </script>
 

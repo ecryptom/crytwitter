@@ -185,16 +185,16 @@ def like_tweet(req, ID):
 def report_req(req):
     #check authentication
     if not req.user:
-        return JsonResponse({'status':'failed'})
+        return JsonResponse({'status':'error', 'message':'لطفا ابتدا وارد حساب کاربری خود شوید'})
     #check if report has been saved before
-    Twit = twit.objects.get(req.GET('twit_id'))
-    if report.objects.filter(user=req.user).filter(twit=Twit).filter(Type=req.GET('type')):
-        return JsonResponse({'status':'failed'})
+    Twit = twit.objects.get(id=req.GET['tweet_id'])
+    if report.objects.filter(user=req.user).filter(twit=Twit).filter(Type=req.GET['type']):
+        return JsonResponse({'status':'error', 'message':'گزارش تکراری'})
     #save report
     Report = report(
-        twit = twit.objects.get(req.GET('twit_id')),
+        twit = twit.objects.get(id=req.GET['tweet_id']),
         user = req.user,
-        Type = req.GET('type'),
+        Type = req.GET['type'],
     )
     Report.save()
-    return JsonResponse({'status':'failed'})
+    return JsonResponse({'status':'success', 'message':'کاربر گرامی گزارش شما با موفقیت ثبت شد از کمک شما در راستای بهبود فضای ارز توییتر سپاسگذاریم.'})
