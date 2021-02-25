@@ -55,7 +55,7 @@ def curr_tweets(req, curr_name):
         last_tweets = curr.twit_set.all().filter(id__gte=curr.twit_set.last().id-15).order_by('-id')
         # get text of tweets
         mycursor = mydb.cursor()
-        mycursor.execute(f"select text from twits_twit where id>={last_tweets.last().id} order by -id")
+        mycursor.execute(f"select text from twits_twit where (id>={last_tweets.last().id}) and (currency_id={curr.id}) order by -id")
         texts = mycursor.fetchall()
         i=0
         for t in last_tweets:
