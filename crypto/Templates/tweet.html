@@ -521,26 +521,29 @@
 
 <!-- -------------------like--------------------- -->
 <script>
-function like_tweet(ID){
-    $.ajax({
-        url: 'like_tweet/' + ID,
-        type: 'GET',
-        dataType: "json",
-        success: function(resp, s, x) {
-            if(resp.status == 'like'){
-                document.getElementById('likes_'+ID).innerHTML = parseInt(document.getElementById('likes_'+ID).innerHTML) + 1;
-                document.getElementById('like_icon_'+ID).classList.remove('fa-heart-o');
-                document.getElementById('like_icon_'+ID).classList.add('fa-heart');
-                //document.getElementById('like_icon_'+ID).class = "fa fa-heart tweet-content-center-boxes-reply-footer-like-icon tweet-content-center-boxes-reply-footer-like-icon-active";
-            }else{
-                document.getElementById('likes_'+ID).innerHTML = parseInt(document.getElementById('likes_'+ID).innerHTML) - 1;
-                document.getElementById('like_icon_'+ID).classList.remove('fa-heart');
-                document.getElementById('like_icon_'+ID).classList.add('fa-heart-o');
-                //document.getElementById('like_icon_'+ID).clas = "fa fa-heart-o tweet-content-center-boxes-reply-footer-like-icon tweet-content-center-boxes-reply-footer-like-icon-active"
-            }   
-            }
-    });
-}
+    $(".tweet-content-center-boxes-footer-like-link").click(function (e) {
+            e.preventDefault();
+        });
+    function like_tweet(ID){
+        $.ajax({
+            url: 'like_tweet/' + ID,
+            type: 'GET',
+            dataType: "json",
+            success: function(resp, s, x) {
+                if(resp.status == 'like'){
+                    document.getElementById('likes_'+ID).innerHTML = parseInt(document.getElementById('likes_'+ID).innerHTML) + 1;
+                    document.getElementById('like_icon_'+ID).classList.remove('fa-heart-o');
+                    document.getElementById('like_icon_'+ID).classList.add('fa-heart');
+                    //document.getElementById('like_icon_'+ID).class = "fa fa-heart tweet-content-center-boxes-reply-footer-like-icon tweet-content-center-boxes-reply-footer-like-icon-active";
+                }else{
+                    document.getElementById('likes_'+ID).innerHTML = parseInt(document.getElementById('likes_'+ID).innerHTML) - 1;
+                    document.getElementById('like_icon_'+ID).classList.remove('fa-heart');
+                    document.getElementById('like_icon_'+ID).classList.add('fa-heart-o');
+                    //document.getElementById('like_icon_'+ID).clas = "fa fa-heart-o tweet-content-center-boxes-reply-footer-like-icon tweet-content-center-boxes-reply-footer-like-icon-active"
+                }   
+                }
+        });
+    }
 </script>
 
 
@@ -580,6 +583,7 @@ function like_tweet(ID){
     $(".tweet-content-center-boxes-header-report-item a").click(function (e) {
         e.preventDefault();
     });
+    
 
     function report(report_type, tweet_id){
         $.ajax({
