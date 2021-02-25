@@ -35,7 +35,7 @@ class report(models.Model):
     twit = models.ForeignKey('twits.twit', on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now())
     Type = models.CharField(choices=(('تبلیغ', 'تبلیغ'), ('تکرار', 'تکرار'), ('توهین', 'توهین')), max_length=5)
-    status = models.CharField(choices=(('رد', 'رد'), ('پذیرفته', 'پذیرفته'), ('ندیده', 'ندیده')), default='ندیده', max_length=5)
+    status = models.CharField(choices=(('رد', 'رد'), ('پذیرفته', 'پذیرفته'), ('ندیده', 'ندیده')), default='ندیده', max_length=8)
     
 
     def twit_info(self):
