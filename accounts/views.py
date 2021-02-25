@@ -281,6 +281,12 @@ def add_watch_list(req):
             pass    
     return redirect('watch_list_page')
 
+@login_required(login_url='login')
+def remove_watch_list(req, ID):
+    cur = currency.objects.get(id=ID)
+    req.user.watch_list.remove(cur)
+    return redirect('watch_list_page')
+
 
 
 ##########  APIs   ############

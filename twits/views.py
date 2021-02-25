@@ -6,7 +6,7 @@ from django.utils import timezone
 import pytz, mysql.connector, os
 from datetime import datetime
 from mimetypes import guess_type
-from .models import twit
+from .models import twit, report
 from home.models import dollor
 from home.models import currency
 from utils.date_convertor import gregorian_to_shamsi
@@ -178,3 +178,23 @@ def like_tweet(req, ID):
     #like
     Tweet.likes.add(req.user)
     return JsonResponse({'status':'like'})
+
+
+
+@csrf_exempt
+def report_req(req):
+    #check authentication
+    if not req.user:
+        return JsonResponse({'status':'failed'})
+    #check if report has been saved before
+    Twit = twit.objects.get(req.GET('twit_id'))
+    if report.objects.filter(user=req.user).filter(twit=Twit).filter(Type=req.GET('type')):
+        return JsonResponse({'status':'failed'})
+    #save report
+    Report = report(
+        twit = twit.objects.get(req.GET('twit_id')),
+        user = req.user,
+        Type = req.GET('type'),
+    )
+    Report.save()
+    return JsonResponse({'status':'failed'})

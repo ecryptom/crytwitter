@@ -10,4 +10,5 @@ urlpatterns = [
     #########  APIs   #######3
     path('last_twits', last_twits, name='last_twits'),
     path('like_tweet/<int:ID>', like_tweet, name='like_tweet'),
+    path('report_req', report_req, name='report_req'),
 ]

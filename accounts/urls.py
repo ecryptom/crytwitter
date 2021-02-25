@@ -18,6 +18,7 @@ urlpatterns = [
     path('resend_email_code', resend_email_code, name='resend_email_code'),
     path('watch_list_page', watch_list_page, name='watch_list_page'),
     path('add_watch_list', add_watch_list, name='add_watch_list'),
+    path('remove_watch_list/<int:ID>', remove_watch_list, name='remove_watch_list'),
 
     ### APIs ###
     path('validate_email', validate_email),

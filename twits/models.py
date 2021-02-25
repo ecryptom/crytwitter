@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class twit(models.Model):
     text = models.TextField(default='')
@@ -27,6 +28,22 @@ class comment(models.Model):
 
     class Meta:
         verbose_name_plural = 'کامنت توییت‌ها'
+
+
+class report(models.Model):
+    user = models.ForeignKey('accounts.user', on_delete=models.CASCADE)
+    twit = models.ForeignKey('twits.twit', on_delete=models.CASCADE)
+    date = models.DateTimeField(default=timezone.now())
+    Type = models.CharField(choices=(('تبلیغ', 'تبلیغ'), ('تکرار', 'تکرار'), ('توهین', 'توهین')), max_length=5)
+    status = models.CharField(choices=(('رد', 'رد'), ('پذیرفته', 'پذیرفته'), ('ندیده', 'ندیده')), default='ندیده', max_length=5)
+    
+
+    def twit_info(self):
+        return f'''
+        twit_id = {self.twit.id}
+        username = {self.twit.user.username}
+        twit_text = {self.twit.text}
+        '''
 
 
 

@@ -100,6 +100,7 @@
         <table class="watch-list-table">
             <thead class="watch-list-table-header">
                 <tr class="watch-list-table-row">
+                    <th class="watch-list-table-heading"> </th>
                     <th class="watch-list-table-heading">نماد</th>
                     <th class="watch-list-table-heading">قیمت دلاری</th>
                     <th class="watch-list-table-heading">قیمت ریالی</th>
@@ -110,6 +111,11 @@
 
                 {% for cur in watch_list %}
                 <tr class="watch-list-table-row" id="raw">
+                    <td class="watch-list-table-description">
+                        <a href="{% url 'remove_watch_list' cur.id %}">
+                            <i class="fa fa-trash-o fa-lg"></i>
+                        </a>
+                    </td>
                     <td class="watch-list-table-description">
                         <img src="{{cur.image_url}}" alt="{{cur.symbol}}" class="watch-list-table-image">
                         <span class="watch-list-table-name">{{cur.symbol}}</span>
@@ -135,6 +141,8 @@
 
 {% endblock page %} {% block scripts %}
 
+
+<!---------------------------autocomplete and add to watchlist------------------------>
 <script>
     function autocomplete(inp, arr, images) {
         var currentFocus;
@@ -232,6 +240,9 @@
 
 
 
+
+
+<!---------------------------update currencies info------------------------>
 <script>
     var dollor_rate = {{dollor_rate}};
     var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change;

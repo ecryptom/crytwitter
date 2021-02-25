@@ -7,6 +7,8 @@ from .models import article, faq, index_comments
 @admin.register(article)
 class ArticleAdmin_(admin.ModelAdmin):
     verbose_name_plural = 'مقالات'
+    search_fields = ('has_menu',)
+    readonly_fields = ('split_tags', )
 
 
 @admin.register(faq)
