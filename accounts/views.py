@@ -271,8 +271,8 @@ def watch_list_page(req):
 @login_required(login_url='login')
 def add_watch_list(req):
     cur = which_currency(req.POST['currency'])
-    if cur:
-        req.user.watch_list.add(cur)
+    if cur and not req.user.watch_list.filter(id=cur.id):
+        req.user.watch_list.add(cur) 
     return redirect('watch_list_page')
 
 @login_required(login_url='login')
