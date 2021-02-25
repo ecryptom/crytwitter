@@ -184,7 +184,7 @@ def like_tweet(req, ID):
 @csrf_exempt
 def report_req(req):
     #check authentication
-    if not req.user:
+    if not req.user.is_authenticated:
         return JsonResponse({'status':'error', 'message':'لطفا ابتدا وارد حساب کاربری خود شوید'})
     #check if report has been saved before
     Twit = twit.objects.get(id=req.GET['tweet_id'])

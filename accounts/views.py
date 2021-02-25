@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 import random, requests, os
 from .models import user
 from home.models import currency, dollor
+from home.views import which_currency
 
 forgot_password_text = lambda code : f'کد بازیابی رمز عبور شما در سایت ارزتوییتر : \n {code}'
 sms_text = lambda code : f'کد تایید ورود شما به سایت ارز توییتر:\n {code}'
@@ -269,16 +270,9 @@ def watch_list_page(req):
 
 @login_required(login_url='login')
 def add_watch_list(req):
-    cur_name = req.POST['currency'].split('|')
-    try:
-        cur = currency.objects.get(name=cur_name[0])
+    cur = which_currency(req.POST['currency'])
+    if cur:
         req.user.watch_list.add(cur)
-    except:
-        try:
-            cur = currency.objects.get(name=cur_name[1])
-            req.user.watch_list.add(cur)
-        except:
-            pass    
     return redirect('watch_list_page')
 
 @login_required(login_url='login')
