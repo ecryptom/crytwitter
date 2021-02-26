@@ -6,6 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from utils.date_convertor import gregorian_to_shamsi
 
+
+#count of currencies in on page of list_currencies
+page_size = 40
+#id of first currency
+first_currency_id = currency.objects.first().id
+
+
 #get a string and return cur if exist
 def which_currency(str):
     cur_name = str.split('|')
@@ -75,6 +82,17 @@ def index_search(req):
         return redirect('home')
     return redirect('curr_tweets', cur.name)
 
+def list_currencies(req, page):
+    up_bound = first_currency_id + page_size * page
+    currencies = currency.objects.filter(id__lt=up_bound).filter(id__gte=up_bound-page_size)
+    symbols = ','.join([cur.symbol for cur in currencies])
+    return render(req, 'list-cryptocurrency.html', {
+        'currencies':currencies, 
+        'symbols':symbols,
+        'dollor_rate':dollor.objects.get().rate,
+        'page':page,
+        })
+
 
 def error_404(req, exception):
     return render(req, 'error_404.html')
@@ -101,13 +119,13 @@ def get_first_10_currency_info(req):
         '7d_change': cur.weekly_price_change_pct
     } for cur in currency.objects.all()[:10]], safe=False)
 
-
 @csrf_exempt
-def get_search_objects(req):
-    #articles
-    data = [{
-        'subject': a.title,
-        'image':'/static/img/article_icon.png',
-        'type' : 'article',
-    } for a in article.objects.all()]
-    return JsonResponse(data, safe=False)
+def get_currencies_info(req, page):
+    up_bound = first_currency_id + page_size * page
+    currencies = currency.objects.filter(id__lt=up_bound).filter(id__gte=up_bound-page_size)
+    return JsonResponse([{
+        'symbol': cur.symbol,
+        'price': cur.price,
+        '1d_change': cur.daily_price_change_pct,
+        '7d_change': cur.weekly_price_change_pct
+    } for cur in currencies], safe=False)

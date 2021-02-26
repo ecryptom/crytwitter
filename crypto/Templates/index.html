@@ -9,10 +9,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 
     <style>
-        .header-banner {
- 
-        }
-
         .banner .container {
             display: flex;
             flex-direction: column;
@@ -267,7 +263,7 @@
   margin-top: 2px;
   max-height: 180px;
  overflow-y: auto;
- border-radius: 0 15px 15px 0;
+ border-radius: 0 5px 15px 15px;
 }
 .autocomplete-items img{
     width: 24px;
@@ -275,8 +271,8 @@
 }
 .autocomplete-items::-webkit-scrollbar {
     width: 8px;
-    background-color: #fff;
-    border-radius: 15px 0 0 15px;
+    background-color: #eaeaea;
+    border-radius: 10px;
 }
 
 .autocomplete-items::-webkit-scrollbar-track {
@@ -436,7 +432,6 @@ text-align: center;
                             <div class="articles-boxes-content">
                                 <h3 class="articles-boxes-content-heading-three"><a href="{% url 'article' article.id %}"
                                         class="articles-boxes-content-link">{{article.title}} </a></h3>
-                                <p class="articles-boxes-content-paragraph">{{article.introduction}}</p>
                             </div>
                             <div class="articles-boxes-footer">
                                 <div class="articles-boxes-footer-time"><i

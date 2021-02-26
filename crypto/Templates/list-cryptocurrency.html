@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/watch-list.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/list-articles.min.css' %}"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+{% endblock header %}
+
+
+{% block page %}
+<section class="watch-list">
+    <div class="container">
+        <div class="watch-list-line">
+            <h2 class="watch-list-line-heading-two">لیست رمزارزها</h2>
+        </div>
+
+        <table class="watch-list-table">
+            <thead class="watch-list-table-header">
+                <tr class="watch-list-table-row">
+                    <th class="watch-list-table-heading">نماد</th>
+                    <th class="watch-list-table-heading">قیمت دلاری</th>
+                    <th class="watch-list-table-heading">قیمت ریالی</th>
+                    <th class="watch-list-table-heading">روزانه</th>
+                </tr>
+            </thead>
+            <tbody class="watch-list-table-body" id="topCryptocurrencyBody">
+
+                {% for cur in currencies %}
+                <tr class="watch-list-table-row" id="raw">
+                    <td class="watch-list-table-description">
+                        <img src="{{cur.image_url}}" alt="{{cur.symbol}}" class="watch-list-table-image">
+                        <span class="watch-list-table-name">{{cur.symbol}}</span>
+                    </td>
+                    <td class="watch-list-table-description">
+                        <span id="dollor_{{cur.symbol}}" class="watch-list-table-price">0</span>
+                        <span class="watch-list-table-unit">دلار</span>
+                    </td>
+                    <td class="watch-list-table-description">
+                        <span id="toman_{{cur.symbol}}" class="watch-list-table-price">0</span>
+                        <span class="watch-list-table-unit">تومان</span>
+                    </td>
+                    <td class="watch-list-table-description">
+                        <span id="1d_change_{{cur.symbol}}" class="watch-list-table-percent watch-list-table-percent-descending">0%</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</section>
+
+
+{% endblock page %}
+
+
+
+
+
+{% block scripts %}
+<!---------------------------update currencies info------------------------>
+<script>
+    var dollor_rate = {{dollor_rate}};
+    var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change;
+    var price_diff_per_frame={}, daily_change_diff_per_frame={};
+
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
+    function update_window(symbol, price, one_day_change){
+        document.getElementById('1d_change_' + symbol).innerHTML = one_day_change.toFixed(2);
+        document.getElementById('toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if(price < 10)
+            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(4));
+        else
+            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(2));
+        // fix the color of price_change 
+        document.getElementById('1d_change_' + symbol).style.backgroundColor = (one_day_change > 0) ? '#33cc33' : 'red';
+    }
+
+    function update_window_by_20_frame(){
+        new_data =  JSON.parse($.ajax({
+            url: "{% url 'get_currencies_info' page %}",
+            type: 'GET',
+            dataType: "json",
+            async:false
+        }).responseText);
+
+        cur_index = 0;
+        for(cur_index=0; cur_index<new_data.length; cur_index++){
+            price_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index].price - old_data[cur_index].price) / 20;
+            daily_change_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index]['1d_change'] - old_data[cur_index]['1d_change']) / 20;
+        }
+
+        frame = 1;
+        let counter = setInterval(() => {
+            if(frame==18){
+                old_data = new_data;
+                clearInterval(counter);
+            }
+            cur_index=0;
+            old_data.forEach(cur => {
+                //calcute new data
+                new_price = cur['price'] + frame * price_diff_per_frame[cur.symbol];
+                new_1d_change = cur['1d_change'] + frame * daily_change_diff_per_frame[cur.symbol];
+                update_window(cur.symbol, new_price, new_1d_change);
+                cur_index++;
+            });      
+            frame++;
+        }, 3000);
+    }
+
+
+    //first time
+    old_data = JSON.parse($.ajax({
+        url: "{% url 'get_currencies_info' page %}",
+        type: 'GET',
+        dataType: "json",
+        async:false
+    }).responseText);
+
+
+    for(var i=0; i< old_data.length; i++){
+        var sign = Math.random() > 0.5 ? -1 : 1;
+        old_data[i]['price'] += (old_data[i]['price'] * sign * 0.005);
+        old_data[i]['1d_change'] += (old_data[i]['1d_change'] * sign * 0.005);
+        update_window(old_data[i].symbol, old_data[i]['price'], old_data[i]['1d_change']);
+    }
+    update_window_by_20_frame();
+
+    setInterval(() => {
+        update_window_by_20_frame();
+    }, 60000);
+    
+</script>
+
+{% endblock scripts %}

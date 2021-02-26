@@ -168,7 +168,6 @@ else:
 
 #email informations
 EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
