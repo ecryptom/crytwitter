@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 from crypto import settings
 from django.template.loader import render_to_string
-import random, requests, os
+import random, requests, os, json
 from .models import user
 from home.models import currency, dollor
 from home.views import which_currency
@@ -16,10 +16,28 @@ forgot_password_text = lambda code : f'کد بازیابی رمز عبور شم�
 sms_text = lambda code : f'کد تایید ورود شما به سایت ارز توییتر:\n {code}'
 sms_signature = os.getenv('sms_signature')
 
+#verify recactcha response
+def verify_recaptcha(token):
+    result = requests.get('https://www.google.com/recaptcha/api/siteverify',{
+        'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+        'response': token,
+    })
+    return json.loads(result.content.decode())['success']
+
+
 
 def login(req):
     if req.method == 'GET':
-        return render(req, 'login.html', {'next': req.GET.get('next') if req.GET.get('next') else ''})
+        return render(req, 'login.html', {
+            'next': req.GET.get('next') if req.GET.get('next') else '',
+            'recaptcha': settings.GOOGLE_RECAPTCHA_SITE_KEY,
+        })
+    #check recaptcha 
+    if not verify_recaptcha(req.POST['g-recaptcha-response']):
+        return render(req, 'login.html', {
+            'error':'لطفا کد امنیتی را تکمیل و مجدد اقدام کنید',
+            'recaptcha': settings.GOOGLE_RECAPTCHA_SITE_KEY,
+        })
     username = req.POST.get('username')
     password = req.POST.get('password')
     next_page = req.POST.get('next') if req.POST.get('next') else 'home'
@@ -34,7 +52,10 @@ def login(req):
         auth.login(req, User[0])
         return redirect(next_page)
     #else return error
-    return render(req, 'login.html', {'error':'کاربری با این اطلاعات وجود ندارد'})
+    return render(req, 'login.html', {
+        'error':'کاربری با این اطلاعات وجود ندارد',
+        'recaptcha': settings.GOOGLE_RECAPTCHA_SITE_KEY,
+        })
     
 def logout(req):
     auth.logout(req)
@@ -42,9 +63,25 @@ def logout(req):
 
 def register(req, invite_code=''):
     if req.method == 'GET':
-        return render(req, 'register.html', {'submit':'info', 'invite_code':invite_code, 'tab':'register'})
+        return render(req, 'register.html', {
+            'submit':'info', 
+            'invite_code':invite_code, 
+            'tab':'register',
+            'recaptcha':settings.GOOGLE_RECAPTCHA_SITE_KEY,
+            })
     else:
-        data = {'username':req.POST.get('username'), 'phone':req.POST.get('phone'), 'password':req.POST.get('password'), 'cnf_password':req.POST.get('cnf_password'), 'name':req.POST.get('name'), 'invite_code':req.POST.get('invite_code')}
+        data = {'username':req.POST.get('username'), 
+        'phone':req.POST.get('phone'), 
+        'password':req.POST.get('password'), 
+        'cnf_password':req.POST.get('cnf_password'), 
+        'name':req.POST.get('name'), 
+        'invite_code':req.POST.get('invite_code'),
+        'recaptcha':settings.GOOGLE_RECAPTCHA_SITE_KEY,
+        }
+        #check recaptcha 
+        if not verify_recaptcha(req.POST['g-recaptcha-response']):
+            data.update({'submit':'info', 'error':'لطفا کد امنیتی را تکمیل و مجدد اقدام کنید'})
+            return render(req, 'register.html', data)
         #check username
         User = user.objects.filter(username=data.get('username'))
         if User:
@@ -124,13 +161,27 @@ def resend_phone_code(req):
 
 def forgot_password(req):
     if req.method == 'GET':
-        return render(req, 'forgot_password.html', {'step':'get_phone'})
+        return render(req, 'forgot_password.html', {
+            'step':'get_phone', 
+            'recaptcha':settings.GOOGLE_RECAPTCHA_SITE_KEY,
+        })
 
     # step: get_phone
     if req.POST['step'] == 'get_phone':
+        #check recaptcha 
+        if not verify_recaptcha(req.POST['g-recaptcha-response']):
+            return render(req, 'forgot_password.html', {
+                    'step':'get_phone', 
+                    'error':'لطفا کد امنیتی را تکمیل و مجدد اقدام کنید',
+                    'recaptcha':settings.GOOGLE_RECAPTCHA_SITE_KEY,
+                })
         User = user.objects.filter(phone=req.POST['phone'])
         if not User:
-            return render(req, 'forgot_password.html', {'error':'کاربری با این شماره وجود ندارد'})
+            return render(req, 'forgot_password.html', {
+                'step':'get_phone', 
+                'error':'کاربری با این شماره وجود ندارد',
+                'recaptcha':settings.GOOGLE_RECAPTCHA_SITE_KEY,
+                })
         #set and send verification code
         try:
             User[0].verify_code = random.randint(10000, 99999)
@@ -139,7 +190,11 @@ def forgot_password(req):
             requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User[0].phone}&&text={forgot_password_text(User[0].verify_code)}&signature={sms_signature}')
             return render(req, 'forgot_password.html', {'step':'get_verification_code', 'phone':User[0].phone, 'message':'کد ارسال شده را وارد کنید'})
         except:
-            return render(req, 'forgot_password.html', {'step':'get_phone', 'error':'شماره تلفن وارد شده صحیح نمی باشد'})
+            return render(req, 'forgot_password.html', {
+                'step':'get_phone', 
+                'error':'شماره تلفن وارد شده صحیح نمی باشد',
+                'recaptcha':settings.GOOGLE_RECAPTCHA_SITE_KEY,
+                })
     
     # step: get_verification_code
     if req.POST['step'] == 'get_verification_code':

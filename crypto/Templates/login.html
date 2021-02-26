@@ -5,6 +5,7 @@
     <title>ارز توییت</title>
     <link rel="stylesheet" href="{% static 'css/login.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/pushy.min.css' %}" />
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock header %}
 
 
@@ -46,6 +47,13 @@
                                     <i class="fa fa-lock login-right-icon"></i>
                                 </div>
                             </div>
+
+                            <div class="login-right-input-group">
+                                <div class="login-right-input-wrapper">
+                                    <div class="g-recaptcha" data-sitekey="{{recaptcha}}"></div>
+                                </div>
+                            </div>
+
                             <div class="login-right-anchors">
                                 <a class="login-right-link" href="{% url 'register' %}">ثبت نام در سایت</a>
                                 <a class="login-right-link" href="{% url 'forgot_password' %}">فراموشی رمز عبور</a>

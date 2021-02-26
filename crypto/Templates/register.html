@@ -1,9 +1,10 @@
 {% extends 'base.html' %} {% load static %} {% block header %}
-<title>ارز توییت</title>
-<link rel="stylesheet" href="{% static 'css/login.min.css' %}" />
-<link rel="stylesheet" href="{% static 'css/pushy.min.css' %}" />
-<link rel="stylesheet" href="{% static 'css/register.min.css' %}" />
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <title>ارز توییت</title>
+    <link rel="stylesheet" href="{% static 'css/login.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/pushy.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/register.min.css' %}" />
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock header %}
 
 
@@ -64,6 +65,13 @@
                                     <i class="fa fa-share-alt register-right-icon"></i>
                                 </div>
                             </div>
+
+                            <div class="register-right-input-group">
+                                <div class="register-right-input-wrapper">
+                                    <div class="g-recaptcha" data-sitekey="{{recaptcha}}"></div>
+                                </div>
+                            </div>
+
                             <div class="register-right-anchors">
                                 <a class="register-right-link" href="{% url 'login' %}">ورود به سایت</a>
                             </div>
