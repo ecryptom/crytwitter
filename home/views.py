@@ -5,6 +5,8 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from utils.date_convertor import gregorian_to_shamsi
+from twits.models import twit
+from accounts.models import user
 
 
 #count of currencies in on page of list_currencies
@@ -35,6 +37,8 @@ def home(req):
         'dollor_rate':dollor.objects.get().rate,
         'questions': faq.objects.all(),
         'comments': index_comments.objects.all(),
+        'twits_count': twit.objects.count(),
+        'users_count': user.objects.filter(verified_phone=True).count()
         })
 
 def cryptomarket(req):
