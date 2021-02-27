@@ -164,6 +164,7 @@ def forgot_password(req):
         return render(req, 'forgot_password.html', {
             'step':'get_phone', 
             'recaptcha':settings.GOOGLE_RECAPTCHA_SITE_KEY,
+            'phone': req.GET.get('phone'),
         })
 
     # step: get_phone
