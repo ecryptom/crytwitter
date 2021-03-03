@@ -5,6 +5,15 @@ from .models import *
 from utils.date_convertor import gregorian_to_shamsi
 from django.utils import timezone
 from django.http import JsonResponse
+from zeep import Client
+import os
+
+
+#payment variables
+MERCHANT = os.getenv('MERCHANT')
+client = Client('https://www.zarinpal.com/pg/services/WebGate/wsdl')
+CallbackURL = os.getenv('BASE_URL') + '/product/payment_verify'
+
 
 def product_page(req, ID):
     if req.method == 'GET':
@@ -13,15 +22,16 @@ def product_page(req, ID):
 
 @login_required(login_url='login')
 def cart_page(req):
-    Cart = cart.objects.filter(user=req.user)
-    if Cart and Cart[0].order_set.all():
-        return render(req, 'panel-shopping-cart.html', {'cart':Cart[0]})
-    return render(req, 'panel-shopping-cart.html')
+    Cart = cart.objects.filter(user=req.user).filter(paid=False)
+    return render(req, 'panel-shopping-cart.html', {
+        'cart': Cart[0] if (Cart and Cart[0].order_set.all()) else None, 
+        'paid_carts': cart.objects.filter(user=req.user).filter(paid=True)
+        })
 
 
 @login_required(login_url='login')
 def add_product_to_cart(req, ID):
-    Cart = cart.objects.filter(user=req.user)
+    Cart = cart.objects.filter(user=req.user).filter(paid=False)
     if not Cart:
         Cart = cart(user=req.user)
         Cart.save()
@@ -58,12 +68,44 @@ def reply_comment(req, ID):
 
 
 
+@login_required(login_url='login')
+def payment_request(req, ID):
+    Cart = cart.objects.get(id=ID)
+    #check request user and cart status
+    if req.user != Cart.user or Cart.paid:
+        return redirect('cart')
+    result = client.service.PaymentRequest(MERCHANT, Cart.cost(), f'user_id:{req.user.id}, username:{req.user.username}', req.user.email, req.user.phone, CallbackURL)
+    if result.Status == 100:
+        Cart.Authority = str(result.Authority)
+        Cart.save()
+        return redirect('https://www.zarinpal.com/pg/StartPay/' + str(result.Authority))
+    else:
+        return HttpResponse('Error code: ' + str(result.Status))
+        
+ 
+@login_required(login_url='login')
+def payment_verify(req):
+    Cart = cart.objects.get(Authority=req.GET.get('Authority'))
+    if not Cart:
+        return redirect('cart')
+    if not req.user.phone == Cart.user.phone:
+        return redirect('cart')
+    result = client.service.PaymentVerification(MERCHANT, req.GET.get('Authority'), Cart.cost())
+    if result.Status == 100:
+        Cart.paid = True
+        Cart.status = 'pending'
+        Cart.RefID = str(result.RefID)
+        Cart.save()
+        return redirect('cart')
+    else:
+        return redirect('cart')
+
 
 #############   APIs  ############
 @csrf_exempt
 @login_required
 def add_product(req, ID):
-    Cart = cart.objects.filter(user=req.user)
+    Cart = cart.objects.filter(user=req.user).filter(paid=False)
     if not Cart:
         Cart = cart(user=req.user)
         Cart.save()
@@ -75,7 +117,7 @@ def add_product(req, ID):
 @csrf_exempt
 @login_required
 def remove_product(req, ID):
-    Cart = cart.objects.filter(user=req.user)
+    Cart = cart.objects.filter(user=req.user).filter(paid=False)
     if not Cart:
         return JsonResponse({'status':'failed'})
     remaining_number = Cart[0].remove_product(ID)

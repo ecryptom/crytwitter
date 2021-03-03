@@ -33,6 +33,10 @@ class cart(models.Model):
     paid = models.BooleanField(default=False)
     RefID = models.CharField(max_length=30, null=True, blank=True)
     Authority = models.CharField(max_length=45, null=True, blank=True)
+    status = models.CharField(max_length=10, choices=(('payment', 'payment'), ('pending', 'pending'), ('done', 'done')), default='payment')
+
+    class Meta:
+        verbose_name_plural = 'سفارشات'
 
     #return the cost of cart
     def cost(self):
@@ -79,6 +83,17 @@ class cart(models.Model):
                 o.delete()
                 return 0
         return 0
+
+    def cart_info(self):
+        info = ''
+        for o in self.order_set.all():
+            info += f'''
+                محصول:  {o.product.name}
+                تعداد:  {o.number}
+                -----------------------\n
+            '''
+        info += f'\n قیمت کل:  {self.cost()}'
+        return info
         
             
 class product_comment(models.Model):

@@ -54,6 +54,8 @@
                 </div>
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 panel-left-col">
                     <div class="panel-left">
+
+                    <!--current cart-->
                         <div class="panel-left-shopping-cart">
                             <div class="panel-left-shopping-cart-header">
                                 <h3 class="panel-left-shopping-cart-header-heading-three">
@@ -119,14 +121,85 @@
                                         </tr>
                                     </tfoot>
                                 </table>
+                                <a href="{% url 'payment_request' cart.id %}" class="panel-left-shopping-cart-content-link">تأیید و پرداخت</a>
                                 {% else %}
                                 <div class="alert alert-danger w-75 mx-auto">
-                                    <p>سبد خرید شما خالی است</p>
+                                    <p style="text-align: center">سبد خرید شما خالی است</p>
                                 </div>
                                 {% endif %}
 
                             </div>
                         </div>
+                    <!--end current cart-->
+
+                    <!--paid carts-->
+                    <hr>
+                    {% if paid_carts %}
+                        <div class="panel-left-shopping-cart">
+                            <div class="panel-left-shopping-cart-header">
+                                <h3 class="panel-left-shopping-cart-header-heading-three">
+                                    خرید های قبلی
+                                </h3>
+                            </div>
+                            {% for paid_cart in paid_carts %}
+                            <div class="panel-left-shopping-cart-content">
+                                    <table class="panel-left-shopping-cart-content-table table table-bordered table-hover table-striped table-light" id="shoppingTable">
+                                        <thead class="panel-left-shopping-cart-content-table-header thead-dark">
+                                            <tr class="panel-left-shopping-cart-content-table-row">
+                                                <th class="panel-left-shopping-cart-content-table-heading">
+                                                    شماره
+                                                </th>
+                                                <th class="panel-left-shopping-cart-content-table-heading">
+                                                    محصول
+                                                </th>
+                                                <th class="panel-left-shopping-cart-content-table-heading">
+                                                    قيمت
+                                                </th>
+                                                <th class="panel-left-shopping-cart-content-table-heading">
+                                                    تعداد
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="panel-left-shopping-cart-content-table-content">
+                                        {% for order in paid_cart.order_set.all %}
+                                            <tr id="order{{order.product.id}}" class="panel-left-shopping-cart-content-table-row">
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    {{ forloop.counter }}
+                                                </td>
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
+                                                </td>
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    {{order.product.net_price}}
+                                                </td>
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    <span id="number{{order.product.id}}" class="panel-left-shopping-cart-content-table-count">{{order.number}}</span>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot class="panel-left-shopping-cart-content-table-footer">
+                                            <tr class="panel-left-shopping-cart-content-table-row table-info">
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    جمع كل:
+                                                </td>
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                </td>
+                                                <td id="cost" class="panel-left-shopping-cart-content-table-data">
+                                                    {{paid_cart.cost}}
+                                                </td>
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    -
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <!--end paid carts-->
                     </div>
                 </div>
             </div>
