@@ -130,8 +130,8 @@
     <section class="tweet">
         <div class="container-fluid">
 
-            <div class="tweet-header">
-                
+
+            <div class="tweet-header">   
                 <div class="tweet-header-details">
                     <div class="tweet-header-details-specifications">
                         <img src="{{currency.image_url}}" class="tweet-header-details-specifications-image" />
@@ -168,13 +168,6 @@
                 </div>
             </div>
 
-            <div class="tweet-header">
-                <div class="tweet-header-search">
-                </div>
-                <div class="tweet-header-details">
-
-                </div>
-            </div>
             <div class="tweet-content">
                 <div class="row">
                     <div class="'col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -239,6 +232,9 @@
                     </div>
                     <div class="'col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                         <div class="tweet-content-center">
+
+                            <input name="currency" id="autocompleteInput" type="text" class="watch-list-search-autocomplete-input"  placeholder="سایر رمزارزها...">
+            
 
                             <form action="{% url 'tweet' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
@@ -418,6 +414,92 @@
         searchPlaceholder: "جستجو کنید...",
     });
     </script>
+
+<!-- -------------------autocomplete--------------------- -->
+        <script>
+            function autocomplete(inp, arr, images) {
+           var currentFocus;
+           inp.addEventListener("input", function(e) {
+               var a, b, i, val = this.value;
+               closeAllLists();
+               if (!val) { return false;}
+         
+               a = document.createElement("DIV");
+               a.setAttribute("id", this.id + "autocomplete-list");
+               a.setAttribute("class", "autocomplete-items");
+               this.parentNode.appendChild(a);
+               for (i = 0; i < arr.length; i++) {
+                 if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                   b = document.createElement("DIV");
+                   b.innerHTML = "<img src = '" + images[i] + "' alt='btc' style='width:5%'>";
+                   b.innerHTML += "<span style='color;#052058'>" + arr[i].substr(0, val.length) + "</span>";
+                   b.innerHTML += "<span style = 'color:#DDD'>" + arr[i].substr(val.length) + "</span>";
+                   b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                       b.addEventListener("click", function(e) {
+                       inp.value = this.getElementsByTagName("input")[0].value;
+                       window.location.href = "/index_search?currency=" + this.getElementsByTagName("input")[0].value;
+                       closeAllLists();
+                   });
+                   a.appendChild(b);
+                 }
+               }
+           });
+           inp.addEventListener("keydown", function(e) {
+               var x = document.getElementById(this.id + "autocomplete-list");
+               if (x) x = x.getElementsByTagName("div");
+               if (e.keyCode == 40) {
+                 currentFocus++;
+                 addActive(x);
+               } else if (e.keyCode == 38) { 
+                 currentFocus--;
+                 addActive(x);
+               } else if (e.keyCode == 13) {
+                 e.preventDefault();
+                 if (currentFocus > -1) {
+                   if (x) x[currentFocus].click();
+                 }
+               }
+           });
+         
+           function closeAllLists(elmnt) {
+             var x = document.getElementsByClassName("autocomplete-items");
+             for (var i = 0; i < x.length; i++) {
+               if (elmnt != x[i] && elmnt != inp) {
+               x[i].parentNode.removeChild(x[i]);
+             }
+           }
+         }
+         document.addEventListener("click", function (e) {
+             closeAllLists(e.target);
+         });
+         }
+         
+
+    //get all currencies from back
+    var countries = [];
+    var images = []
+    $.ajax({
+        url: '/get_all_currencies',
+        type: 'GET',
+        dataType: "json",
+        success: function(currencies, s, x) {
+            currencies.forEach(element => {
+                countries.push(element.name);
+                countries.push(element.persian_name + '|' + element.name);
+                countries.push(element.symbol);
+                images.push(element.image_url);
+                images.push(element.image_url);
+                images.push(element.image_url);
+            });
+        }
+    });
+
+    autocomplete(document.getElementById("autocompleteInput"), countries, images);
+
+ </script>
+
+
+
 
 
 <!-- -------------------reply--------------------- -->

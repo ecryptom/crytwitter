@@ -5,6 +5,7 @@
 {% block header %}
     <link rel="stylesheet" href="{% static 'css/watch-list.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/list-articles.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/list-products.min.css' %}"/>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 {% endblock header %}
 
@@ -29,9 +30,12 @@
 
                 {% for cur in currencies %}
                 <tr class="watch-list-table-row" id="raw">
+                    
                     <td class="watch-list-table-description">
+                    <a href="{% url 'curr_tweets' cur.name %}">
                         <img src="{{cur.image_url}}" alt="{{cur.symbol}}" class="watch-list-table-image">
                         <span class="watch-list-table-name">{{cur.symbol}}</span>
+                    </a>
                     </td>
                     <td class="watch-list-table-description">
                         <span id="dollor_{{cur.symbol}}" class="watch-list-table-price">0</span>
@@ -48,6 +52,23 @@
                 {% endfor %}
             </tbody>
         </table>
+
+
+        <!-----pagination------>
+        <section class="list-products">
+        <div class="container">
+            <div class="list-products-pagination">
+                <ul id="pagination" class="list-products-pagination-list">
+                    <li id="pg" class="list-products-pagination-item">
+                        <a class="list-products-pagination-link" href="#"><</a> 
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </section>
+
+        
+
     </div>
 
 
@@ -61,6 +82,41 @@
 
 
 {% block scripts %}
+
+
+<script>
+    var page = {{page}};
+    var pagination = document.getElementById('pagination');
+    var pg = document.getElementById('pg');
+    pg.children[0].href = '/list_currencies/' + (parseInt(page)-1);
+
+    pg = document.getElementById('pg').cloneNode(true);
+    pg.children[0].href = '/list_currencies/' + page;
+    pg.children[0].innerHTML = page
+    pg.classList.add('list-products-pagination-item-active');
+    pagination.appendChild(pg);
+
+    pg = document.getElementById('pg').cloneNode(true);
+    pg.children[0].href = '/list_currencies/' + (parseInt(page)+1);
+    pg.children[0].innerHTML = page+1
+    pagination.appendChild(pg);
+
+    pg = document.getElementById('pg').cloneNode(true);
+    pg.children[0].href = '/list_currencies/' + (parseInt(page)+2);
+    pg.children[0].innerHTML = page+2
+    pagination.appendChild(pg);
+
+    pg = document.getElementById('pg').cloneNode(true);
+    pg.children[0].href = '/list_currencies/' + (parseInt(page)+1);
+    pg.children[0].innerHTML = '>'
+    pagination.appendChild(pg);
+
+    if(page==1){
+        pg = document.getElementById('pg');
+        pg.remove();
+    }
+</script>
+
 <!---------------------------update currencies info------------------------>
 <script>
     var dollor_rate = {{dollor_rate}};

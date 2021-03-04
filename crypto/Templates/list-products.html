@@ -31,7 +31,7 @@
                                 <span class="list-products-boxes-price-unit">تومان</span>
                             </div>
                             <div class="list-products-boxes-add-to-cart">
-                                <a href="{% url 'add_product_to_cart' product.id %}" class="list-products-boxes-add-to-cart-link">
+                                <a href="{% url 'add_product_to_cart' product.id %}#carts" class="list-products-boxes-add-to-cart-link">
                                 افزودن به سبد خرید
                                 </a>
                             </div>
@@ -40,36 +40,6 @@
                 {% endfor %}
 
                 </div>
-            </div>
-            <div class="list-products-pagination">
-                <ul class="list-products-pagination-list">
-                    <li class="list-products-pagination-item">
-                        <a class="list-products-pagination-link" href="#">
-                            <</a> </li> <li class="list-products-pagination-item">
-                                <a class="list-products-pagination-link" href="#">1</a>
-                    </li>
-                    <li class="list-products-pagination-item">
-                        <a class="list-products-pagination-link" href="#">2</a>
-                    </li>
-                    <li class="list-products-pagination-item list-products-pagination-item-active">
-                        <a class="list-products-pagination-link" href="#">3</a>
-                    </li>
-                    <li class="list-products-pagination-item">
-                        <a class="list-products-pagination-link" href="#">4</a>
-                    </li>
-                    <li class="list-products-pagination-item">
-                        <a class="list-products-pagination-link">...</a>
-                    </li>
-                    <li class="list-products-pagination-item">
-                        <a class="list-products-pagination-link" href="#">52</a>
-                    </li>
-                    <li class="list-products-pagination-item">
-                        <a class="list-products-pagination-link" href="#">53</a>
-                    </li>
-                    <li class="list-products-pagination-item">
-                        <a class="list-products-pagination-link" href="#">></a>
-                    </li>
-                </ul>
             </div>
         </div>
     </section>
