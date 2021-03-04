@@ -6,7 +6,7 @@
     <title>ارز توييتر</title>
     <link rel="stylesheet" href="{% static 'css/tweet.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/emojionearea.min.css' %}" />
-    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
    <style>
         .tweet-content-center {
@@ -231,11 +231,12 @@
                                     <button class="tweet-content-center-comment-submit" type="submit">
                                         <i class="fab fa-twitter"></i>
                                     </button>
-                                    <label for="image" class="tweet-content-center-comment-label">
+                                    <label for="file_input" class="tweet-content-center-comment-label">
                                          <i class="fa fa-paperclip"></i>
                                     </label>
-                                    <input type="file" name="file" class="tweet-content-center-comment-input-file" id="image"/>
+                                    <input type="file" name="file" class="tweet-content-center-comment-input-file" id="file_input"/>
                                 </div>
+                                <div class="tweet-content-center-comment-show-file tweet-content-center-comment-show-file-hidden"></div>
                             </form>
 
                             <div class="tweet-content-center-boxes-wrapper">
@@ -269,7 +270,9 @@
                                             <a class="" data-toggle="collapse" data-target="#tweet-report-{{tweet.id}}">
                                                 <i class="fa fa-ellipsis-v tweet-content-center-boxes-header-icon"></i>
                                             </a>
-                                            <img src="{{tweet.currency.image_url}}" class="tweet-content-center-boxes-header-image-2" style="width:30%"/>
+                                            {% if tweet.currency %}
+                                                <img src="{{tweet.currency.image_url}}" class="tweet-content-center-boxes-header-image-2" style="width:30%"/>
+                                            {% endif %}
                                             <div class="tweet-content-center-boxes-header-report collapse"
                                                 id="tweet-report-{{tweet.id}}">
                                                 <ul class="tweet-content-center-boxes-header-report-list">
@@ -595,11 +598,19 @@
                 title: resp.message,
                 icon: resp.status,
                 button: "تأیید",
-                timer:3000
+                timer:300000
             });
         }
         });
     }
+</script>
+
+
+<script>
+    $('#file_input').change(function () {
+        $('.tweet-content-center-comment-show-file').removeClass("tweet-content-center-comment-show-file-hidden");
+        $('.tweet-content-center-comment-show-file').html(this.files && this.files.length ? this.files[0].name : '');
+    })
 </script>
 
 {% endblock scripts %}

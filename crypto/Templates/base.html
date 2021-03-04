@@ -45,7 +45,7 @@
                                     <li class="main-menu-item"><a href="{% url 'list_currencies' 1 %}" class="main-menu-link">رمز ارزها </a></li>
                                     <li class="main-menu-item"><a href="{% url 'cryptomarket' %}" class="main-menu-link">نقشه بازار </a></li>
                                     <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
-                                    <li class="main-menu-item main-submenu"><a href="#" class="main-menu-link">محصولات
+                                    <li class="main-menu-item main-submenu"><a href="{% url 'products_page' %}" class="main-menu-link">محصولات
                                         </a>
                                         <ul class="main-submenu-list">
                                             {% for product in products %}
@@ -72,6 +72,8 @@
                             <div class="login-register">
                                 <i class="fa fa-user login-register-icon"></i>
                                 <a href="{% url 'dashboard' %}" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
+                                <span style="color:white">|</span>
+                                <a href="{% url 'cart' %}" class="login-register-link"><span class="login-register-title">سبد خرید</span></a>
                             </div>
                         </div>
                     {% endif %}
@@ -100,7 +102,7 @@
                                                 class="responsive-menu-content-link">نقشه بازار</a></li>
                                         <li class="responsive-menu-content-item"><a href="{% url 'watch_list_page' %}"
                                                 class="responsive-menu-content-link">دیده بان</a></li>
-                                        <li class="responsive-menu-content-item responsive-submenu-content"><a
+                                        <li class="responsive-menu-content-item responsive-submenu-content"><a href="{% url 'products_page' %}"
                                                 class="responsive-menu-content-link">محصولات</a>
                                             <ul class="responsive-submenu-content-list">
                                                 {% for product in products %}
@@ -130,8 +132,9 @@
                         {% else %}
                             <div class="col-8 col-sm-6 col-md-6">
                             <div class="login-register"><i class="fa fa-user login-register-icon"></i>
-                            <a href="{% url 'dashboard' %}"
-                                    class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
+                            <a href="{% url 'dashboard' %}" class="login-register-link"><span class="login-register-title">پنل کاربری</span></a>
+                            <span style="color:white">|</span>
+                            <a href="{% url 'cart' %}" class="login-register-link"><span class="login-register-title">سبد خرید</span></a>
                             </div>
                             </div>
                         {% endif %}

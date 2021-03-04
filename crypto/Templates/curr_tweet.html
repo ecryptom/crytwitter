@@ -249,11 +249,12 @@
                                     <button class="tweet-content-center-comment-submit" type="submit">
                                         <i class="fab fa-twitter"></i>
                                     </button>
-                                    <label for="image" class="tweet-content-center-comment-label">
+                                    <label for="file_input" class="tweet-content-center-comment-label">
                                          <i class="fa fa-paperclip"></i>
                                     </label>
-                                    <input type="file" name="file" class="tweet-content-center-comment-input-file" id="image"/>
+                                    <input type="file" name="file" class="tweet-content-center-comment-input-file" id="file_input"/>
                                 </div>
+                                <div class="tweet-content-center-comment-show-file tweet-content-center-comment-show-file-hidden"></div>
                             </form>
 
                             <div class="tweet-content-center-boxes-wrapper">
@@ -587,6 +588,13 @@ function like_tweet(ID){
         }
         });
     }
+</script>
+
+<script>
+    $('#file_input').change(function () {
+        $('.tweet-content-center-comment-show-file').removeClass("tweet-content-center-comment-show-file-hidden");
+        $('.tweet-content-center-comment-show-file').html(this.files && this.files.length ? this.files[0].name : '');
+    })
 </script>
 
 {% endblock scripts %}

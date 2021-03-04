@@ -112,9 +112,9 @@
             <tbody class="watch-list-table-body" id="topCryptocurrencyBody">
 
                 {% for cur in watch_list %}
-                <tr class="watch-list-table-row" id="raw">
+                <tr class="watch-list-table-row" id="curr_{{cur.id}}">
                     <td class="watch-list-table-description">
-                        <a href="{% url 'remove_watch_list' cur.id %}">
+                        <a onclick="confirm_remove({{cur.id}})">
                             <i class="fa fa-trash-o fa-lg"></i>
                         </a>
                     </td>
@@ -143,6 +143,7 @@
 
 {% endblock page %} {% block scripts %}
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!---------------------------autocomplete and add to watchlist------------------------>
 <script>
@@ -313,8 +314,8 @@
 
     for(var i=0; i< old_data.length; i++){
         var sign = Math.random() > 0.5 ? -1 : 1;
-        old_data[i]['price'] += (old_data[i]['price'] * sign * 0.01);
-        old_data[i]['1d_change'] += (old_data[i]['1d_change'] * sign * 0.01);
+        old_data[i]['price'] += (old_data[i]['price'] * sign * 0.005);
+        old_data[i]['1d_change'] += (old_data[i]['1d_change'] * sign * 0.005);
         update_window(old_data[i].symbol, old_data[i]['price'], old_data[i]['1d_change']);
     }
     update_window_by_20_frame();
@@ -323,6 +324,31 @@
         update_window_by_20_frame();
     }, 60000);
     
+</script>
+
+
+<script>
+    function confirm_remove(curr_id) {
+        swal({
+                title: "آيا از حذف اين رمز ارز مطمئن هستيد؟",
+                icon: "warning",
+                buttons: ["خير", "بله"],
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    
+                    $.ajax({
+                        url: '/account/remove_watch_list/' + curr_id,
+                        type: 'GET',
+                        success: function(x) {
+                            document.getElementById('curr_'+curr_id).remove()
+                        }
+                    });
+
+                }
+            });
+    }
 </script>
 
 {% endblock scripts %}

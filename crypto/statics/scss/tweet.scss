@@ -1,9 +1,15 @@
 @import "colors";
 @import "units";
 @import "mixin";
-
+.swal-title{
+    font-size: 16px;
+    font-weight: bold;
+}
+.swal-footer{
+    text-align: center;
+}
 .tweet {
-    margin-top: 60px;
+    margin-top: 20px;
     .tweet-header{
         .tweet-header-top-cryptocurrency{
             .tweet-header-top-cryptocurrency-list{
@@ -224,6 +230,7 @@
             scroll-behavior: smooth;
             overflow-x: hidden;
             position: relative;
+        
             #autocompleteInput{
                 width: 100%;
                 display: block;
@@ -609,4 +616,17 @@
     .tweet-content-right,.tweet-content-left{
         display: none !important;
     }
+}
+
+.tweet-content-center-comment-show-file{
+    &.tweet-content-center-comment-show-file-hidden{
+        display: none;
+    }
+    background-color: lighten($color: $color-primary-one, $amount: 35%);
+    margin-top: 10px;
+    padding:8px;
+    color: $color-primary-two;
+    font-size: 12px;
+    border-radius: $border-radius;
+    text-align: right;
 }

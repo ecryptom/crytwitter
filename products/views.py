@@ -19,6 +19,9 @@ def product_page(req, ID):
     if req.method == 'GET':
         return render(req, 'product.html', {'product': product.objects.get(id=ID)})
 
+def products_page(req):
+    products = product.objects.all()
+    return render(req, 'list-products.html', {'products':products})
 
 @login_required(login_url='login')
 def cart_page(req):
