@@ -271,7 +271,9 @@
                                                 <i class="fa fa-ellipsis-v tweet-content-center-boxes-header-icon"></i>
                                             </a>
                                             {% if tweet.currency %}
+                                                <a href="{% url 'curr_tweets' tweet.currency.name %}">
                                                 <img src="{{tweet.currency.image_url}}" class="tweet-content-center-boxes-header-image-2" style="width:30%"/>
+                                                </a>
                                             {% endif %}
                                             <div class="tweet-content-center-boxes-header-report collapse"
                                                 id="tweet-report-{{tweet.id}}">

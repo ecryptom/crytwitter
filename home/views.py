@@ -33,7 +33,7 @@ def which_currency(str):
 
 def home(req):
     return render(req, 'index.html', {
-        'top_curs': currency.objects.all()[:12], 
+        'top_curs': currency.objects.order_by('-market_cap')[:12], 
         'dollor_rate':dollor.objects.get().rate,
         'questions': faq.objects.all(),
         'comments': index_comments.objects.all(),
@@ -123,7 +123,7 @@ def get_first_10_currency_info(req):
         'price': cur.price,
         '1d_change': cur.daily_price_change_pct,
         '7d_change': cur.weekly_price_change_pct
-    } for cur in currency.objects.all()[:12]], safe=False)
+    } for cur in currency.objects.order_by('-market_cap')[:12]], safe=False)
 
 @csrf_exempt
 def get_currencies_info(req, page):

@@ -38,7 +38,7 @@ def tweets(req):
             i+=1
     return render(req, 'tweet.html', {
         'tweets':last_tweets,
-        'top_curs':currency.objects.all()[:10],
+        'top_curs':currency.objects.order_by('-market_cap')[:10],
         'newyork_time':f"{datetime.now(pytz.timezone('America/New_York')).hour:02}:{datetime.now(pytz.timezone('America/New_York')).minute:02}",
         'tokyo_time':f"{datetime.now(pytz.timezone('Asia/Tokyo')).hour:02}:{datetime.now(pytz.timezone('Asia/Tokyo')).minute:02}",
         'hongkong_time':f"{datetime.now(pytz.timezone('Hongkong')).hour:02}:{datetime.now(pytz.timezone('Hongkong')).minute:02}",
