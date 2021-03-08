@@ -9,10 +9,14 @@ class product(models.Model):
     details = models.TextField(default='', verbose_name='توضیحات')
     details2 = models.TextField(default='', verbose_name='توضیحات پایین')
     group = models.ForeignKey('products.product_group', on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=10, choices=(('موچود', 'موچود'), ('ناموچود', 'ناموچود')), default='موچود')
     tags = models.CharField(max_length=50 ,default='crypto;BTC;miner', verbose_name='تگ‌ها(با ; جدا شوند)')  #split tags with ";"
-    image1 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر اول')
+    image1 = models.FileField(upload_to='products', verbose_name='تصویر اول', default='foo')
     image2 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
     image3 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر سوم')
+    image4 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر اول')
+    image5 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
+    image6 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر سوم')
     def net_price(self):
         return self.price * (100 - self.off) * 0.01
     def split_tags(self):

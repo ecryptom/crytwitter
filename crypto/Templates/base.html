@@ -45,7 +45,7 @@
                                     <li class="main-menu-item"><a href="{% url 'list_currencies' 1 %}" class="main-menu-link">رمز ارزها </a></li>
                                     <li class="main-menu-item"><a href="{% url 'cryptomarket' %}" class="main-menu-link">نقشه بازار </a></li>
                                     <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
-                                    <li class="main-menu-item main-submenu"><a href="{% url 'products_page' %}" class="main-menu-link">محصولات
+                                    <li class="main-menu-item main-submenu"><a class="main-menu-link">محصولات
                                         </a>
                                         <ul class="main-submenu-list">
                                             {% for group in product_groups %}
@@ -102,11 +102,11 @@
                                                 class="responsive-menu-content-link">نقشه بازار</a></li>
                                         <li class="responsive-menu-content-item"><a href="{% url 'watch_list_page' %}"
                                                 class="responsive-menu-content-link">دیده بان</a></li>
-                                        <li class="responsive-menu-content-item responsive-submenu-content"><a href="{% url 'products_page' %}"
+                                        <li class="responsive-menu-content-item responsive-submenu-content"><a
                                                 class="responsive-menu-content-link">محصولات</a>
                                             <ul class="responsive-submenu-content-list">
-                                                {% for product in products %}
-                                                    <li class="responsive-submenu-content-item"><a href="{% url 'product' product.id %}" class="responsive-submenu-content-link">{{product.name}}
+                                                {% for group in product_groups %}
+                                                    <li class="responsive-submenu-content-item"><a href="{% url 'products_page' %}#{{group.name}}" class="responsive-submenu-content-link">{{group.name}}
                                                         </a></li>
                                                 {% endfor %}
                                             </ul>
