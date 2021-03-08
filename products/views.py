@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
@@ -74,6 +74,8 @@ def reply_comment(req, ID):
 @login_required(login_url='login')
 def payment_request(req, ID):
     Cart = cart.objects.get(id=ID)
+    if Cart.cost() == 0:
+        return redirect('cart')
     #check request user and cart status
     if req.user != Cart.user or Cart.paid:
         return redirect('cart')
