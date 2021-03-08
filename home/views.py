@@ -100,7 +100,7 @@ def list_currencies(req, page):
 
 def error_404(req, exception):
     return render(req, 'error_404.html')
-def error_500(req, exception):
+def error_500(req, *args, **argv)):
     return render(req, 'error_500.html')
 
 
