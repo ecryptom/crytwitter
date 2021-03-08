@@ -34,6 +34,7 @@ def which_currency(str):
 def home(req):
     return render(req, 'index.html', {
         'top_curs': currency.objects.order_by('-market_cap')[:12], 
+        'articles': article.objects.order_by('-id'),
         'dollor_rate':dollor.objects.get().rate,
         'questions': faq.objects.all(),
         'comments': index_comments.objects.all(),
@@ -51,7 +52,7 @@ def article_page(req, ID):
     return render(req, 'article.html', {'article':Article})
 
 def articles(req):
-    return render(req, 'list-articles.html', {'articles':article.objects.all()})
+    return render(req, 'list-articles.html', {'articles':article.objects.order_by('-id')})
 
 
 @login_required(login_url='login')
