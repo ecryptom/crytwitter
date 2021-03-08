@@ -11,7 +11,7 @@ class product(models.Model):
     group = models.ForeignKey('products.product_group', on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=10, choices=(('موچود', 'موچود'), ('ناموچود', 'ناموچود')), default='موچود')
     tags = models.CharField(max_length=50 ,default='crypto;BTC;miner', verbose_name='تگ‌ها(با ; جدا شوند)')  #split tags with ";"
-    image1 = models.FileField(upload_to='products', verbose_name='تصویر اول', default='foo')
+    image1 = models.FileField(upload_to='products', verbose_name='تصویر اول')
     image2 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
     image3 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر سوم')
     image4 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر اول')

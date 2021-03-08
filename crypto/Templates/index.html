@@ -389,10 +389,12 @@ text-align: center;
                 {% for cur in top_curs %}
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="top-cryptocurrency-boxes">
+                        <a href="{% url 'curr_tweets' cur.name %}">
                             <div class="top-cryptocurrency-boxes-brand"><span
                                     class="top-cryptocurrency-boxes-brand-name">{{cur.symbol}}</span><img src="{{cur.image_url}}"
                                     alt="{{cur.symbol}}" class="top-cryptocurrency-boxes-brand-image" style="width:10%"><span
                                     class="top-cryptocurrency-boxes-brand-name">{{cur.persian_name}}</span></div>
+                        </a>
                             <div class="top-cryptocurrency-boxes-price"><span
                                     class="top-cryptocurrency-boxes-price-value" id="dollor_{{cur.symbol}}">3000 دلار</span><span
                                     class="top-cryptocurrency-boxes-price-value" id="toman_{{cur.symbol}}">250000 تومان</span></div>
@@ -427,8 +429,9 @@ text-align: center;
                     <div class="swiper-wrapper articles-swiper-wrapper">
                     {% for article in articles %}
                         <div class="swiper-slide articles-swiper-slide articles-boxes">
-                            <div class="articles-boxes-header"><img src="{{article.image.url}}"
-                                    class="articles-boxes-header-image" alt="" /></div>
+                            <a href="{% url 'article' article.id %}">
+                                <div class="articles-boxes-header"><img src="{{article.image.url}}" class="articles-boxes-header-image" alt="" /></div>
+                            </a>
                             <div class="articles-boxes-content">
                                 <h3 class="articles-boxes-content-heading-three"><a href="{% url 'article' article.id %}"
                                         class="articles-boxes-content-link">{{article.title}} </a></h3>
