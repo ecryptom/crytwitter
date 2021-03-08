@@ -12,12 +12,13 @@
 
 {% block page %}
     <section class="list-products">
+        {% for group in product_groups %}
         <div class="container">
-            <h2 class="list-products-heading-two">محصولات ما</h2>
+            <h2 class="list-products-heading-two">{{group.name}}</h2>
             <div class="list-products-boxes-wrapper">
                 <div class="row list-products-boxes-wrapper-row">
 
-                {% for product in products %}
+                {% for product in group.product_set.all %}
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="list-products-boxes">
                             <img src="{{product.image1.url}}" class="list-products-boxes-image" />
@@ -42,6 +43,7 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
     </section>
 {% endblock page %}
     

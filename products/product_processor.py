@@ -1,5 +1,5 @@
-from .models import product
+from .models import product_group
 
-def get_products(request):
-    products = product.objects.all()
-    return {'products': products}
+def get_product_groups(request):
+    groups = product_group.objects.all()
+    return {'product_groups': groups}

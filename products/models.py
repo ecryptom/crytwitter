@@ -8,6 +8,7 @@ class product(models.Model):
     off = models.IntegerField(default=0, verbose_name='تخفیف به درصد')
     details = models.TextField(default='', verbose_name='توضیحات')
     details2 = models.TextField(default='', verbose_name='توضیحات پایین')
+    group = models.ForeignKey('products.product_group', on_delete=models.CASCADE, null=True)
     tags = models.CharField(max_length=50 ,default='crypto;BTC;miner', verbose_name='تگ‌ها(با ; جدا شوند)')  #split tags with ";"
     image1 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر اول')
     image2 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
@@ -21,6 +22,13 @@ class product(models.Model):
     class Meta:
         verbose_name_plural = 'محصولات'
 
+
+class product_group(models.Model):
+    name = models.CharField(max_length=20)
+    def __str__(self):
+        return self.name   
+    class Meta:
+        verbose_name_plural = 'دسته بندی محصولات'
 
 class order(models.Model):
     product = models.ForeignKey('products.product', on_delete=models.CASCADE, verbose_name='محصول')

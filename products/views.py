@@ -20,8 +20,8 @@ def product_page(req, ID):
         return render(req, 'product.html', {'product': product.objects.get(id=ID)})
 
 def products_page(req):
-    products = product.objects.all()
-    return render(req, 'list-products.html', {'products':products})
+    groups = product_group.objects.all()
+    return render(req, 'list-products.html', {'product_groups':groups})
 
 @login_required(login_url='login')
 def cart_page(req):

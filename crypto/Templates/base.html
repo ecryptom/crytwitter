@@ -48,8 +48,8 @@
                                     <li class="main-menu-item main-submenu"><a href="{% url 'products_page' %}" class="main-menu-link">محصولات
                                         </a>
                                         <ul class="main-submenu-list">
-                                            {% for product in products %}
-                                                <li class="main-submenu-item"><a href="{% url 'product' product.id %}" class="main-submenu-link">{{product.name}}
+                                            {% for group in product_groups %}
+                                                <li class="main-submenu-item"><a href="{% url 'products_page' %}#{{group.name}}" class="main-submenu-link">{{group.name}}
                                                     </a></li>
                                             {% endfor %}
                                         </ul>

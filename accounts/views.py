@@ -213,7 +213,10 @@ def forgot_password(req):
         if str(User.verify_code) == code:
             User.set_password(req.POST['new_password'])
             User.save()
-            return render(req, 'login.html', {'message':'رمز عبور با موفقیت تغییر کرد'})
+            return render(req, 'login.html', {
+                'message':'رمز عبور با موفقیت تغییر کرد',
+                'recaptcha': settings.GOOGLE_RECAPTCHA_SITE_KEY,
+                })
 
 
 
