@@ -696,7 +696,7 @@ autocomplete(document.getElementById("autocompleteInput2"), arr, images);
 
     function update_window_by_20_frame(){
         new_data =  JSON.parse($.ajax({
-            url: '/get_first_10_currency_info',
+            url: '/get_top_currencies_info/12',
             type: 'GET',
             dataType: "json",
             async:false
@@ -731,7 +731,7 @@ autocomplete(document.getElementById("autocompleteInput2"), arr, images);
 
     //first time
     old_data = JSON.parse($.ajax({
-        url: '/get_first_10_currency_info',
+        url: '/get_top_currencies_info/12',
         type: 'GET',
         dataType: "json",
         async:false

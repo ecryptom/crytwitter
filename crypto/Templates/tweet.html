@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
-{% load tz %}
 {% load static %}
 
 {% block header %}
     <title>ارز توييتر</title>
     <link rel="stylesheet" href="{% static 'css/tweet.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/emojionearea.min.css' %}" />
-    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
-   <style>
+    <style>
         .tweet-content-center {
             height: 600px;
             overflow: scroll;
@@ -30,268 +29,293 @@
         }
     </style>
     <style>
-        .bold{
+        .bold {
             color: #222;
         }
-        .nobold{
+
+        .nobold {
             color: #aaa;
         }
-        input{
+
+        input {
             outline: none;
             background-color: white !important;
             display: block !important;
             margin: auto !important;
             width: 100% !important;
         }
+
         .autocomplete {
-      /*the container must be positioned relative:*/
-      position: relative;
-      display:flex;
-      justify-self: center;
-      text-align: center;
-      margin: 30px auto;
-      width: 50%;
-    }
-    input {
-      border: 1px solid transparent;
-      padding: 10px;
-      font-size: 16px;
-    }
-    input[type=text] {
-      background-color: #f1f1f1;
-    }
-    input[type=submit] {
-      background-color: DodgerBlue;
-      color: #fff;
-    }
-    .autocomplete-items {
-      position: absolute;
-      z-index: 99;
-      border: none;
-      top: 10%;
-      width: 100%;
-      margin-top: 2px;
-      max-height: 217px;
-     overflow-y: auto;
-    }
-    .autocomplete-items::-webkit-scrollbar {
-        width: 8px;
-        background-color: #fff;
-    }
-    
-    .autocomplete-items::-webkit-scrollbar-track {
-        border-radius: 2px;
-    }
-    
-    .autocomplete-items::-webkit-scrollbar-thumb {
-        background: #c8c8c8;
-        border-radius: 2px;
-        transition: all ease .5s;
-    }
-    
-    .autocomplete-items::-webkit-scrollbar-thumb:hover {
-        background: #c2c2c2;
-    }
-    .autocomplete-items div {
-      padding: 10px;
-      cursor: pointer;
-      background-color: #fff;
-      border-bottom: 1px solid #d4d4d4;
-    text-align: center;
-    }
-    .autocomplete-items div img{
-      margin-left: 8px;
-    }
-    .autocomplete-items div:hover {
-      /*when hovering an item:*/
-      background-color: #e9e9e9;
-    }
-    .autocomplete-active {
-      /*when navigating through the items using the arrow keys:*/
-      background-color: #FCC81D !important;
-      color: #ffffff;
-    }
-    .autocomplete-list{
-        border: 1px solid #ccc;
-    }
+            /*the container must be positioned relative:*/
+            position: relative;
+            display: flex;
+            justify-self: center;
+            text-align: center;
+            margin: 30px auto;
+            width: 50%;
+        }
+
+        input {
+            border: 1px solid transparent;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        input[type=text] {
+            background-color: #f1f1f1;
+        }
+
+        input[type=submit] {
+            background-color: DodgerBlue;
+            color: #fff;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            z-index: 99;
+            border: none;
+            top: 10%;
+            width: 100%;
+            margin-top: 2px;
+            max-height: 217px;
+            overflow-y: auto;
+        }
+
+        .autocomplete-items::-webkit-scrollbar {
+            width: 8px;
+            background-color: #fff;
+        }
+
+        .autocomplete-items::-webkit-scrollbar-track {
+            border-radius: 2px;
+        }
+
+        .autocomplete-items::-webkit-scrollbar-thumb {
+            background: #c8c8c8;
+            border-radius: 2px;
+            transition: all ease .5s;
+        }
+
+        .autocomplete-items::-webkit-scrollbar-thumb:hover {
+            background: #c2c2c2;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+            text-align: center;
+        }
+
+        .autocomplete-items div img {
+            margin-left: 8px;
+        }
+
+        .autocomplete-items div:hover {
+            /*when hovering an item:*/
+            background-color: #e9e9e9;
+        }
+
+        .autocomplete-active {
+            /*when navigating through the items using the arrow keys:*/
+            background-color: #FCC81D !important;
+            color: #ffffff;
+        }
+
+        .autocomplete-list {
+            border: 1px solid #ccc;
+        }
     </style>
     <style>
         .emojionearea-button,
         .emojionearea-picker {
             top: auto !important;
-            bottom: -30px !important;
+            bottom: -40px !important;
             right: 30px !important;
         }
     </style>
 
 {% endblock header %}
 
-
 {% block page %}
-
     <section class="tweet">
         <div class="container-fluid">
-
-        <div class="tweet-header">
-                <div class="tweet-header-top-cryptocurrency">
-                    <ul class="tweet-header-top-cryptocurrency-list">
-
-                        {% for curr in top_curs %}
-                            <li class="tweet-header-top-cryptocurrency-item">
-                                <a href="{% url 'curr_tweets' curr.name %}" class="tweet-header-top-cryptocurrency-link">
-                                    <img src="{{curr.image_url}}" class="tweet-header-top-cryptocurrency-image" alt="بیت کوین" />
-                                    <span class="tweet-header-top-cryptocurrency-name">{{curr.persian_name}}</span>
-                                    <span class="price tweet-header-top-cryptocurrency-information">{{curr.price}}</span>
-                                    <span class="change tweet-header-top-cryptocurrency-information tweet-header-top-cryptocurrency-information-postivie">{{curr.daily_price_change_pct}}</span>
-                                </a>
-                            </li>
-                        {% endfor %}
-                        
-                    </ul>
-                </div>
-
             <div class="tweet-header">
-                <div class="tweet-header-search">
-                </div>
-                <div class="tweet-header-details">
-
-                </div>
+                {% if top_curs %}
+                    <div class="tweet-header-top-cryptocurrency">
+                        <ul class="tweet-header-top-cryptocurrency-list">
+                            {% for curr in top_curs %}
+                                <li class="tweet-header-top-cryptocurrency-item">
+                                    <a href="{% url 'curr_tweets' curr.name %}" class="tweet-header-top-cryptocurrency-link">
+                                        <img src="{{curr.image_url}}" class="tweet-header-top-cryptocurrency-image" alt="بیت کوین" />
+                                        <span class="tweet-header-top-cryptocurrency-name">{{curr.persian_name}}</span>
+                                        <span id="dollor_{{curr.symbol}}" class="price tweet-header-top-cryptocurrency-information">{{curr.price}}</span>
+                                        <span id="1d_change_{{curr.symbol}}" style="direction:ltr" class="change tweet-header-top-cryptocurrency-information tweet-header-top-cryptocurrency-information-postivie">{{curr.daily_price_change_pct}}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% elif currency%}
+                    <div class="tweet-header-details">
+                        <div class="tweet-header-details-specifications">
+                            <img src="{{currency.image_url}}" class="tweet-header-details-specifications-image" />
+                            <span class="tweet-header-details-specifications-name">{{currency.presian_name}} ({{currency.name}})</span>
+                            <div class="tweet-header-details-specifications-price">
+                                <span class="tweet-header-details-specifications-price-title">قیمت : </span>
+                                <span id="dollor_{{currency.symbol}}" class="tweet-header-details-specifications-price-value">{{currency.price}} دلار</span>
+                                <span id="toman_{{currency.symbol}}" class="tweet-header-details-specifications-price-value">۱,۳۶۵,۲۲۹,۰۱۳ ريال</span>
+                            </div>
+                        </div>
+                        <div class="tweet-header-details-statistics">
+                            <ul class="tweet-header-details-statistics-list">
+                                <li class="tweet-header-details-statistics-item">
+                                    <span class="tweet-header-details-statistics-title">حجم معاملات : </span>
+                                    <span id="turnover_{{currency.symbol}}" dir="ltr" class="tweet-header-details-statistics-value">$ {{currency.turnover}}</span>
+                                </li>
+                                <li class="tweet-header-details-statistics-item">
+                                    <span class="tweet-header-details-statistics-title">نغییرات روزانه :</span>
+                                    <span id="1d_change_{{currency.symbol}}" dir="ltr" class="tweet-header-details-statistics-value tweet-header-details-statistics-value-positive">100%</span>
+                                </li>
+                                <li class="tweet-header-details-statistics-item">
+                                    <span class="tweet-header-details-statistics-title">تغییرات هفتگی :</span>
+                                    <span id="7d_change_{{currency.symbol}}" dir="ltr" class="tweet-header-details-statistics-value tweet-header-details-statistics-value-negative">-100%</span>
+                                </li>
+                                <li class="tweet-header-details-statistics-item">
+                                    <span class="tweet-header-details-statistics-title">ارزش بازار :</span>
+                                    <span id="market_cap_{{currency.symbol}}" dir="ltr" class="tweet-header-details-statistics-value">{{currency.market_cap}} $</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tweet-header-details-chart">
+                            <img src="https://static.coin360.com/images/graph/coin/table/bitcoin.png"
+                                class="tweet-header-details-chart-image" alt="بيت كوين" />
+                        </div>
+                    </div>
+                {% endif %}
             </div>
             <div class="tweet-content">
-                <div  class="row">
+                <div class="row">
                     <div class="'col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                         <div class="tweet-content-right">
                             <h2 class="tweet-content-right-heading-two">محصولات</h2>
                             <div class="tweet-content-right-products">
                                 <ul class="tweet-content-right-products-list">
-                                    <li class="tweet-content-right-products-item">
-                                        <a class="tweet-content-right-products-link">اختصاصی معاملاتی</a>
-                                    </li>
-                                    <li class="tweet-content-right-products-item" data-toggle="collapse"
-                                        data-target="#question-1">
-                                        <a href="#" class="tweet-content-right-products-link">
-                                            سبد پیشنهادی
-                                            <i class="fa fa-plus tweet-content-right-products-icon"></i>
-                                        </a>
-                                        <ul class="tweet-content-right-products-sub-list collapse" id="question-1">
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">سبد بلند مدت</a>
-                                            </li>
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">سبد میان مدت</a>
-                                            </li>
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">سبد کوتاه مدت</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="tweet-content-right-products-item">
-                                        <a class="tweet-content-right-products-link">کیف پول فیزیکی</a>
-                                    </li>
-                                    <li class="tweet-content-right-products-item" data-toggle="collapse"
-                                        data-target="#question-2">
-                                        <a href="#" class="tweet-content-right-products-link">
-                                            محصولات آموزشی
-                                            <i class="fa fa-plus tweet-content-right-products-icon"></i>
-                                        </a>
-                                        <ul class="tweet-content-right-products-sub-list collapse" id="question-2">
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">تحلیل تکنیکال</a>
-                                            </li>
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">تحلیل بنیادی</a>
-                                            </li>
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">تحلیل کلاسیک</a>
-                                            </li>
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">روانشناسی بازار</a>
-                                            </li>
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">استراتژی معاملاتی</a>
-                                            </li>
-                                            <li class="tweet-content-right-products-sub-item">
-                                                <a class="tweet-content-right-products-link">کتاب های آموزشی</a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    {% for group in product_groups %}
+                                        <li class="tweet-content-right-products-item" data-toggle="collapse"
+                                            data-target="#group_{{group.id}}">
+                                            <a href="#" class="tweet-content-right-products-link">
+                                                {{group.name}}
+                                                <i class="fa fa-plus tweet-content-right-products-icon"></i>
+                                            </a>
+                                            <ul class="tweet-content-right-products-sub-list collapse" id="group_{{group.id}}">
+                                                {% for product in group.product_set.all %}
+                                                    <li class="tweet-content-right-products-sub-item">
+                                                        <a href="{% url 'product' product.id %}" class="tweet-content-right-products-link">{{product.name}}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div id="tweet_box" class="'col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="'col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                         <div class="tweet-content-center">
-                            
-
                             <form action="{% url 'tweet' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <input name="currency" id="autocompleteInput" type="text" class="watch-list-search-autocomplete-input"  placeholder="رمز ارز مورد نظر خود را جستجو کنید...">
-                                <div class="tweet-content-center-comment">
+                                {% if currency %}
+                                    <input name="currency" id="autocompleteInput" type="text" hidden value={{currency.name}}>
+                                    <input name="curr_tweet" id="autocompleteInput" type="text" hidden value={{currency.name}}>
+                                {% else %}
+                                <input id="autocompleteInput" name="currency" type="text" class="watch-list-search-autocomplete-input"
+                                    placeholder="رمز ارز مورد نظر خود را جستجو کنید...">
+                                {% endif %}
+                                <div class="tweet-content-center-comment" id="comments">
                                     <textarea name="text" class="tweet-content-center-comment-text-area" placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
+                                    <span class=""></span>
                                     <button class="tweet-content-center-comment-submit" type="submit">
-                                        <i class="fab fa-twitter"></i>
+                                        ارسال
                                     </button>
-                                    <label for="file_input" class="tweet-content-center-comment-label">
-                                         <i class="fa fa-paperclip"></i>
+                                    <label for="file_input" data-toggle="tooltip" data-placement="top"
+                                        title="آپلود فايل" class="tweet-content-center-comment-label">
+                                        <i class="fa fa-paperclip"></i>
                                     </label>
-                                    <input type="file" name="file" class="tweet-content-center-comment-input-file" id="file_input"/>
+                                    <input name="file" type="file" class="tweet-content-center-comment-input-file"
+                                        id="file_input" />
+                                    <span class="char-count">
+                                        <span class="char-count-value">0</span>
+                                        /
+                                        <span class="char-count-value-all">20000</span>
+                                    </span>
                                 </div>
-                                <div class="tweet-content-center-comment-show-file tweet-content-center-comment-show-file-hidden"></div>
+                                <div
+                                    class="tweet-content-center-comment-show-file tweet-content-center-comment-show-file-hidden">
+                                    <span class="tweet-content-center-comment-show-file-name"></span>
+                                    <i class="fa fa-remove tweet-content-center-comment-show-file-icon"></i>
+                                </div>
                             </form>
-
                             <div class="tweet-content-center-boxes-wrapper">
-
+                            
                             {% for tweet in tweets %}
-                                <div id="tweet-{{tweet.id}}" class="tweet-content-center-boxes">
-                                    {% if tweet.retwit %}
-                                        <div class="tweet-content-center-boxes-parent">
-                                            <a href="#tweet-{{tweet.reply_to.id}}" class="tweet-content-center-boxes-parent-link tweet-scroll">
-                                                <div class="tweet-content-center-boxes-parent-header">
-                                                    <img src="{{tweet.reply_to.user.image.url}}"
-                                                        class="tweet-content-center-boxes-parent-header-image" />
-                                                    <span class="tweet-content-center-boxes-parent-user-name">{{tweet.reply_to.user.name}}</span>
-                                                </div>
-                                                <div class="tweet-content-center-boxes-parent-body">
-                                                    <p class="tweet-content-center-boxes-parent-body-paragraph">
+                                <div id="tweet-1" class="tweet-content-center-boxes">
+
+                                {% if tweet.retwit %}
+                                    <div class="tweet-content-center-boxes-parent">
+                                        <a href="#tweet-{{tweet.reply_to.id}}" class="tweet-content-center-boxes-parent-link tweet-scroll">
+                                            <div class="tweet-content-center-boxes-parent-header">
+                                                <img src="{{tweet.reply_to.user.image.url}}"
+                                                    class="tweet-content-center-boxes-parent-header-image" />
+                                                <span class="tweet-content-center-boxes-parent-user-name">{{tweet.reply_to.user.name}}</span>
+                                            </div>
+                                            <div class="tweet-content-center-boxes-parent-body">
+                                                <p class="tweet-content-center-boxes-parent-body-paragraph">
                                                     {{tweet.reply_to.text}}
-                                                    </p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    {% endif %}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endif %}
+
                                     <div class="tweet-content-center-boxes-header">
                                         <div class="tweet-content-center-boxes-header-right">
-                                            <img class="tweet-content-center-boxes-header-image-1" src="{{tweet.user.image.url}}"
-                                            alt="کاربر پیش فرض">
-                                        <span class="tweet-content-center-boxes-user-name">{{tweet.user.name}}</span>
-                                        <span class="tweet-content-center-boxes-header-time">{{tweet.shamsi_date}}</span>
+                                            <img class="tweet-content-center-boxes-header-image-1"
+                                                src="{{tweet.user.image.url}}" alt="{{tweet.user.username}}">
+                                            <span class="tweet-content-center-boxes-user-name">{{tweet.user.name}}</span>
+                                            <span class="tweet-content-center-boxes-header-time">{{tweet.shamsi_date}}</span>
                                         </div>
-                                        <div class="tweet-content-center-boxes-header-left">
-                                            <a class="" data-toggle="collapse" data-target="#tweet-report-{{tweet.id}}">
-                                                <i class="fa fa-ellipsis-v tweet-content-center-boxes-header-icon"></i>
-                                            </a>
+                                        <div class="tweet-content-center-boxes-header-left btn-group dropright">
                                             {% if tweet.currency %}
-                                                <a href="{% url 'curr_tweets' tweet.currency.name %}">
-                                                <img src="{{tweet.currency.image_url}}" class="tweet-content-center-boxes-header-image-2" style="width:30%"/>
-                                                </a>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <span class="tweet-content-center-boxes-header-left-name">{{tweet.currency.symbol}}</span>
+                                                    <a href="{% url 'curr_tweets' tweet.currency.name %}">
+                                                        <img src="{{tweet.currency.image_url}}" class="tweet-content-center-boxes-header-image-2" style="width:30%" />
+                                                    </a>
+                                                </div>
                                             {% endif %}
-                                            <div class="tweet-content-center-boxes-header-report collapse"
-                                                id="tweet-report-{{tweet.id}}">
+                                            <button class="tweet-content-center-boxes-header-left-button"
+                                                data-toggle="dropdown">
+                                                <i class="fa fa-ellipsis-v tweet-content-center-boxes-header-icon"></i>
+                                            </button>
+                                            <div class="tweet-content-center-boxes-header-report dropdown-menu"
+                                                id="tweet-report-1">
                                                 <ul class="tweet-content-center-boxes-header-report-list">
-                                                    <li id="report-1" class="tweet-content-center-boxes-header-report-item">
-                                                        <a href="" onclick="report('توهین', {{tweet.id}})">
+                                                    <li class="tweet-content-center-boxes-header-report-item">
+                                                        <a onclick="report('توهین', {{tweet.id}})">
                                                             <i class="fa fa-ban"></i>
                                                             توهین و الفاظ رکیک
                                                         </a>
                                                     </li>
-                                                    <li id="report-2" class="tweet-content-center-boxes-header-report-item">
-                                                        <a href="" onclick="report('تکرار', {{tweet.id}})">
+                                                    <li class="tweet-content-center-boxes-header-report-item">
+                                                        <a onclick="report('تکرار', {{tweet.id}})">
                                                             <i class="fa fa-exclamation-circle"></i>
                                                             توییت تکراری
                                                         </a>
                                                     </li>
-                                                    <li id="report-3" class="tweet-content-center-boxes-header-report-item">
-                                                        <a href="" onclick="report('تبلیغ', {{tweet.id}})">
+                                                    <li class="tweet-content-center-boxes-header-report-item">
+                                                        <a onclick="report('تبلیغ', {{tweet.id}})">
                                                             <i class="fa fa-exclamation-circle"></i>
                                                             تبلیغ
                                                         </a>
@@ -316,10 +340,11 @@
                                                 </div>
                                             {% endif %}
                                         {% endif %}
+                                        <a class="tweet-content-center-boxes-body-link"></a>
                                     </div>
                                     <div class="tweet-content-center-boxes-footer">
-                                        <div class="tweet-content-center-boxes-footer-like">
-                                            <a onclick="like_tweet({{tweet.id}})" href="#" class="tweet-content-center-boxes-footer-like-link">
+                                        <div class="tweet-content-center-boxes-footer-like" data-toggle="tooltip" data-placement="bottom" title="لايك">
+                                            <a onclick="like_tweet({{tweet.id}})" class="tweet-content-center-boxes-footer-like-link">
                                                 {% if user in tweet.likes.all %}
                                                     <i id="like_icon_{{tweet.id}}" class="fa fa-heart tweet-content-center-boxes-footer-like-icon tweet-content-center-boxes-footer-like-icon-active"></i>
                                                 {% else %}
@@ -328,7 +353,7 @@
                                             </a>
                                             <span id="likes_{{tweet.id}}" class="tweet-content-center-boxes-footer-like-count">{{tweet.likes.count}}</span>
                                         </div>
-                                        <div class="tweet-content-center-boxes-footer-retweet">
+                                        <div class="tweet-content-center-boxes-footer-retweet" data-toggle="tooltip" data-placement="bottom" title="پاسخ">
                                             <i id="{{tweet.id}}" class="fa fa-reply tweet-content-center-boxes-footer-icon"></i>
                                         </div>
                                     </div>
@@ -358,81 +383,381 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content tweet-content-left-tab-content">
-                                    <div class="tab-pane fade show active tweet-content-left-tab-content-clock"
-                                        id="clock" role="tabpanel">
-                                        <ul class="tweet-content-left-tab-content-clock-list">
-
+                                    <div class="tab-pane fade show active tweet-content-left-tab-content-clock" id="clock" role="tabpanel">
+                                       <ul class="tweet-content-left-tab-content-clock-list">
                                             <li class="tweet-content-left-tab-content-clock-item">
                                                 <span class="tweet-content-left-tab-content-clock-title">نیویورک :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">{{newyork_time}}</span>
+                                                <span id="newyork" class="tweet-content-left-tab-content-clock-value">{{newyork_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
                                                 <span class="tweet-content-left-tab-content-clock-title">هنگ کنگ :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">{{hongkong_time}}</span>
+                                                <span id="hongkong" class="tweet-content-left-tab-content-clock-value">{{hongkong_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
                                                 <span class="tweet-content-left-tab-content-clock-title">توکیو :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">{{tokyo_time}}</span>
+                                                <span id="tokyo" class="tweet-content-left-tab-content-clock-value">{{tokyo_time}}</span>
                                             </li>
                                             <li class="tweet-content-left-tab-content-clock-item">
                                                 <span class="tweet-content-left-tab-content-clock-title">لندن :</span>
-                                                <span class="tweet-content-left-tab-content-clock-value">{{london_time}}</span>
+                                                <span id="london" class="tweet-content-left-tab-content-clock-value">{{london_time}}</span>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel">2</div>
+                                    <div class="tab-pane fade active tweet-content-left-tab-content-clock" id="profile" role="tabpanel">
+                                        <ul class="tweet-content-left-tab-content-clock-list">
+                                            <li class="tweet-content-left-tab-content-clock-item">
+                                                <span class="tweet-content-left-tab-content-clock-title">دلار :</span>
+                                                <span id="" class="tweet-content-left-tab-content-clock-value"></span>
+                                            </li>
+                                            <li class="tweet-content-left-tab-content-clock-item">
+                                                <span class="tweet-content-left-tab-content-clock-title"> یورو :</span>
+                                                <span id="" class="tweet-content-left-tab-content-clock-value"></span>
+                                            </li>
+                                            <li class="tweet-content-left-tab-content-clock-item">
+                                                <span class="tweet-content-left-tab-content-clock-title">طلا :</span>
+                                                <span id="" class="tweet-content-left-tab-content-clock-value"></span>
+                                            </li>
+                                            <li class="tweet-content-left-tab-content-clock-item">
+                                                <span class="tweet-content-left-tab-content-clock-title">پوند :</span>
+                                                <span id="" class="tweet-content-left-tab-content-clock-value"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
+                            <a href="#">
+                                <img src="{% static 'img/about.jpeg' %}" />
+                            </a>
                         </div>
-                        <img src="{% static 'img/coworking.jpeg' %}">
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 {% endblock page %}
 
-{% block scripts %}
 
-    <script src="{% static 'js/swiper.min.js' %}"></script>
+
+{% block scripts %}
     <script src="{% static 'js/wow.min.js' %}"></script>
     <script src="{% static 'js/num-scroller.js' %}"></script>
+    <script src="{% static 'js/main.min.js' %}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{% static 'js/emojionearea.min.js' %}"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <script>
-    $(".tweet-content-center-comment-text-area").emojioneArea({
-        searchPlaceholder: "جستجو کنید...",
-    });
-    </script>
 
-    <!-- -------------------reply--------------------- -->
+
+
+
+<!-----------------------update clocks------------------------------>
+<script>
+    let add_time = function (hour, minute, hour_, minute_){
+        hour = (hour + hour_ + parseInt((minute + minute_)/60)) % 24;
+        minute = (minute + minute_) % 60;
+        return hour + ':' + minute.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+    }
+    var hour, minute, date;
+    setInterval(() => {
+            date = new Date();
+            hour = date.getUTCHours();
+            minute = date.getUTCMinutes()
+            document.getElementById('newyork').innerHTML = add_time(hour, minute, 20, 0);
+            document.getElementById('hongkong').innerHTML = add_time(hour, minute, 8, 0);
+            document.getElementById('tokyo').innerHTML = add_time(hour, minute, 9, 0);
+            document.getElementById('london').innerHTML = add_time(hour, minute, 0, 0);
+        }, 1000);
+</script>
+
+
+<!-----------------------update currency info------------------------------>
+{% if currency %}
+<script>
+    var dollor_rate = {{dollor_rate}};
+    var new_data, old_data, frame=0, new_price, new_1d_change, new_7d_change;
+    var price_diff_per_frame, daily_change_diff_per_frame, weekly_change_diff_per_frame, turnover_change_diff_per_frame;
+
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
+    // fix market_cap only once
+
+    document.getElementById('market_cap_{{currency.symbol}}').innerHTML = numberWithCommas(({{currency.market_cap}}).toFixed(0)) + ' $';
+
+    function update_window(symbol, price, daily_change, weekly_change, turnover){
+        // set toman price
+        document.getElementById('toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان';
+        // set turnover
+        document.getElementById('turnover_' + symbol).innerHTML = numberWithCommas(turnover.toFixed(0)) + '  $  '
+        // set price
+        if(price < 10)
+            document.getElementById('dollor_' + symbol).innerHTML = ' $ ' + numberWithCommas(price.toFixed(4));
+        else
+            document.getElementById('dollor_' + symbol).innerHTML = ' $ ' + numberWithCommas(price.toFixed(2));
+        // fix daily change and it's color
+        if(daily_change < 0){
+            document.getElementById('1d_change_' + symbol).innerHTML =  daily_change.toFixed(2) +  "%";
+            document.getElementById('1d_change_' + symbol).style.color = 'red';
+        }else{
+            document.getElementById('1d_change_' + symbol).innerHTML = daily_change.toFixed(2) + "%";
+            document.getElementById('1d_change_' + symbol).style.color = '#00ff00';
+        }
+        // fix weekly change and it's color
+        if(weekly_change < 0){
+            document.getElementById('7d_change_' + symbol).innerHTML = weekly_change.toFixed(2) + "%";
+            document.getElementById('7d_change_' + symbol).style.color = 'red';
+        }else{
+            document.getElementById('7d_change_' + symbol).innerHTML = weekly_change.toFixed(2) + "%";
+            document.getElementById('7d_change_' + symbol).style.color = '#00ff00';
+        }
+
+    }
+
+    function update_window_by_20_frame(){
+        new_data =  JSON.parse($.ajax({
+            url: '/get_currency_info/{{currency.symbol}}',
+            type: 'GET',
+            dataType: "json",
+            async:false
+        }).responseText);
+
+        price_diff_per_frame = (new_data.price - old_data.price) / 20;
+        daily_change_diff_per_frame = (new_data['1d_change'] - old_data['1d_change']) / 20;
+        weekly_change_diff_per_frame = (new_data['7d_change'] - old_data['7d_change']) / 20;
+        turnover_change_diff_per_frame = (new_data['turnover'] - old_data['turnover']) / 20;
+
+        frame = 1;
+        let counter = setInterval(() => {
+            if(frame==18){
+                old_data = new_data;
+                clearInterval(counter);
+            }
+            //calcute new data
+            new_price = old_data['price'] + frame * price_diff_per_frame;
+            new_1d_change = old_data['1d_change'] + frame * daily_change_diff_per_frame;
+            new_7d_change = old_data['7d_change'] + frame * weekly_change_diff_per_frame;
+            new_turnover = old_data['turnover'] + frame * turnover_change_diff_per_frame;
+            update_window(old_data.symbol, new_price, new_1d_change, new_7d_change, new_turnover);    
+            frame++;
+        }, 3000);
+    }
+
+
+    //first time
+    old_data = JSON.parse($.ajax({
+        url: '/get_currency_info/{{currency.symbol}}',
+        type: 'GET',
+        dataType: "json",
+        async:false
+    }).responseText);
+
+    //change correct data to have a dynamic page
+    var sign = Math.random() > 0.5 ? -1 : 1;
+    old_data['price'] += (old_data['price'] * sign * 0.005);
+    old_data['1d_change'] += (old_data['1d_change'] * sign * 0.005);
+    old_data['7d_change'] += (old_data['7d_change'] * sign * 0.005);
+    old_data['turnover'] += (old_data['turnover'] * sign * 0.005);
+    update_window(old_data.symbol, old_data['price'], old_data['1d_change'], old_data['7d_change'], old_data['turnover']);
+    update_window_by_20_frame();
+
+    setInterval(() => {
+        update_window_by_20_frame();
+    }, 60000);
+    
+</script>
+{% endif %}
+
+
+
+<!-----------------------update currencies------------------------------>
+{% if top_curs %}
+<script>
+    var dollor_rate = {{dollor_rate}};
+    var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change, new_7d_change;
+    var price_diff_per_frame={}, daily_change_diff_per_frame={}, weekly_change_diff_per_frame={};
+
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
+    function update_window(symbol, price, daily_change){
+        if(price < 10)
+            document.getElementById('dollor_' + symbol).innerHTML = '$' + numberWithCommas(price.toFixed(4));
+        else
+            document.getElementById('dollor_' + symbol).innerHTML = '$' + numberWithCommas(price.toFixed(2));
+        // fix daily change and it's color
+        if(daily_change < 0){
+            document.getElementById('1d_change_' + symbol).innerHTML = daily_change.toFixed(2) + "%";
+            document.getElementById('1d_change_' + symbol).style.color = 'red';
+        }else{
+            document.getElementById('1d_change_' + symbol).innerHTML = daily_change.toFixed(2) + "%";
+            document.getElementById('1d_change_' + symbol).style.color = '#00ff00';
+        }
+    }
+
+    function update_window_by_20_frame(){
+        new_data =  JSON.parse($.ajax({
+            url: '/get_top_currencies_info/10',
+            type: 'GET',
+            dataType: "json",
+            async:false
+        }).responseText);
+
+        cur_index = 0;
+        for(cur_index=0; cur_index<new_data.length; cur_index++){
+            price_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index].price - old_data[cur_index].price) / 20;
+            daily_change_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index]['1d_change'] - old_data[cur_index]['1d_change']) / 20;
+        }
+
+        frame = 1;
+        let counter = setInterval(() => {
+            if(frame==18){
+                old_data = new_data;
+                clearInterval(counter);
+            }
+            cur_index=0;
+            old_data.forEach(cur => {
+                //calcute new data
+                new_price = cur['price'] + frame * price_diff_per_frame[cur.symbol];
+                new_1d_change = cur['1d_change'] + frame * daily_change_diff_per_frame[cur.symbol];
+                update_window(cur.symbol, new_price, new_1d_change);
+                cur_index++;
+            });      
+            frame++;
+        }, 3000);
+    }
+
+
+    //first time
+    old_data = JSON.parse($.ajax({
+        url: '/get_top_currencies_info/10',
+        type: 'GET',
+        dataType: "json",
+        async:false
+    }).responseText);
+
+    //change correct data to have a dynamic page
+    for(var i=0; i< old_data.length; i++){
+        var sign = Math.random() > 0.5 ? -1 : 1;
+        old_data[i]['price'] += (old_data[i]['price'] * sign * 0.005);
+        old_data[i]['1d_change'] += (old_data[i]['1d_change'] * sign * 0.005);
+        update_window(old_data[i].symbol, old_data[i]['price'], old_data[i]['1d_change']);
+    }
+    update_window_by_20_frame();
+
+    setInterval(() => {
+        update_window_by_20_frame();
+    }, 60000);
+    
+</script>
+{% endif %}
+
+
+
+        <!-- -------------------reply------------------------>
     <script>
         let sendReplyIcon = document.querySelectorAll(".fa.fa-reply.tweet-content-center-boxes-footer-icon");
-        let sendReplyBox = document.querySelectorAll(".tweet-content-center-boxes-send-reply");
         sendReplyIcon.forEach(element => {
             element.addEventListener("click", function (e) {
+                id = element.id;
                 let firstParent = e.target.parentElement.parentElement;
                 let replyBox = firstParent.querySelector(".tweet-content-center-boxes-send-reply");
                 if (replyBox == null) {
                     let replyComments = firstParent.querySelector(".tweet-content-center-boxes-reply");
                     let replyElement = document.createElement("div");
                     replyElement.classList.add("tweet-content-center-boxes-send-reply");
-                    replyElement.innerHTML =
-                        "  <form action='/tweet/retweet/" + element.id + "' method='POST'><textarea name='text' placeholder='متن دیدگاه' class='tweet-content-center-boxes-send-reply-text-area'></textarea><button type='submit' class='tweet-content-center-boxes-send-reply-submit'>ارسال پاسخ</button></form>";
+                    replyElement.innerHTML = `<form action="/tweet/retweet/` + id + `" method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="tweet-content-center-comment" id="comments">
+                                                        <textarea name="text" class="tweet-content-center-comment-text-area textarea_` + id + `"
+                                        placeholder="نظرات،تحلیل ها،اخبار،شنیده ها و سوالات خود را با ما به اشتراک بگذارید."></textarea>
+                                        <span class=""></span>
+                                    <button class="tweet-content-center-comment-submit" type="submit">
+                                        ارسال
+                                    </button>
+                                    <label for="file_input_reply_` + id + `" class="tweet-content-center-comment-label">
+                                        <i class="fa fa-paperclip"></i>
+                                    </label>
+                                    <input type="file" name="file" class="tweet-content-center-comment-input-file"
+                                        id="file_input_reply_` + id + `" />
+                                        <span class="char-count">
+                                        <span class="char-count-value_` + id + `">0</span>
+                                        /
+                                        <span class="char-count-value-all">20000</span>
+                                    </span>
+                                </div>
+                                <div
+                                    class="tweet-content-center-comment-show-file tweet-content-center-comment-show-file-hidden">
+                                    <span class="tweet-content-center-comment-show-file-name"></span>
+                                    <i class="fa fa-remove tweet-content-center-comment-show-file-icon"></i>
+                                </div>
+                                </form>`;
                     firstParent.insertBefore(replyElement, replyComments);
+                    $(".textarea_" + id).emojioneArea({
+                        pickerPosition: "bottom",
+                        tonesStyle: "bullet",
+                        events: {
+                            paste: function (editor, event) {
+                                var len = this.getText().length;
+                                if (len > max_length) {
+                                    this.setText(this.getText().slice(0, max_length));
+                                }
+                            },
+                            change: function () {
+                                var len = this.getText().length;
+                                if (len > max_length) {
+                                    this.setText(this.getText().slice(0, max_length));
+                                }
+                                $(".char-count-value_" + id).html(len);
+                            },
+                            keyup: function (editor, event) {
+                                let len = this.getText().length;
+                                if (len >= max_length) {
+                                    event.preventDefault();
+                                }
+                                $(".char-count-value_" + id).html(len);
+                            },
+                            keypress: function (editor, event) {
+                                let len = this.getText().length;
+                                if (len >= max_length) {
+                                    event.preventDefault();
+                                }
+                                $(".char-count-value_" + id).html(len);
+                            },
+                        }
+                    });
                     replyElement.style.height = replyElement.scrollHeight + "px";
                     e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
-                    
+                    $('.tweet-content-center-comment-input-file').change(function (e) {
+                        let parent = e.target.parentNode.parentNode;
+                        let show = parent.getElementsByClassName(
+                            "tweet-content-center-comment-show-file")[0];
+                        show.classList.remove("tweet-content-center-comment-show-file-hidden");
+                        let name = show.getElementsByClassName(
+                            "tweet-content-center-comment-show-file-name")[0];
+                        name.innerHTML = this.files && this.files.length ? this.files[0].name :
+                            '';
+                    })
+
+                    $('.tweet-content-center-comment-show-file-icon').click(function (e) {
+                        let parent = e.target.parentNode.parentNode;
+                        let fileInput = parent.getElementsByClassName(
+                            "tweet-content-center-comment-input-file")[0];
+                        fileInput.value = "";
+                        let show = parent.getElementsByClassName(
+                            "tweet-content-center-comment-show-file")[0];
+                        show.classList.add("tweet-content-center-comment-show-file-hidden");
+                    })
                 } else if (getComputedStyle(replyBox).height == "0px") {
                     replyBox.style.height = replyBox.scrollHeight + "px";
                     e.target.classList.add("tweet-content-center-boxes-footer-icon-close");
                 } else {
                     replyBox.style.height = "0px";
                     e.target.classList.remove("tweet-content-center-boxes-footer-icon-close");
-                    setTimeout(function () {
-                        firstParent.removeChild(replyBox);
-                    }, 1000);
+                    firstParent.removeChild(replyBox);
                 }
             })
         });
@@ -440,8 +765,10 @@
 
 
 
-<!-- -------------------autocomplete--------------------- -->
-        <script>
+
+    <!-- -------------------autocomplete--------------------- -->
+{% if not currency %}
+   <script>
             function autocomplete(inp, arr, images) {
            var currentFocus;
            inp.addEventListener("input", function(e) {
@@ -496,7 +823,7 @@
          document.addEventListener("click", function (e) {
              closeAllLists(e.target);
          });
-         }
+            }
          
 
     //get all currencies from back
@@ -521,6 +848,34 @@
     autocomplete(document.getElementById("autocompleteInput"), countries, images);
 
  </script>
+{% endif %}
+
+
+
+ <!----------------------report---------------------->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(".tweet-content-center-boxes-header-report-item a").click(function (e) {
+        e.preventDefault();
+    });
+    
+
+    function report(report_type, tweet_id){
+        $.ajax({
+        url: '{% url "report_req" %}?tweet_id=' + tweet_id + '&type=' + report_type,
+        type: 'GET',
+        dataType: "json",
+        success: function(resp, s, x) {
+            swal({
+                title: resp.message,
+                icon: resp.status,
+                button: "تأیید",
+                timer:300000
+            });
+        }
+        });
+    }
+</script>
 
 
 
@@ -552,33 +907,72 @@
 </script>
 
 
-<!----------------------top currencies price and change---------------------->
-<script>
-    function numberWithCommas(x) {
-        var parts = x.toString().split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return parts.join(".");
-    }
-    //price
-    prices = document.getElementsByClassName("price");
-    changes = document.getElementsByClassName("change");
-    for(elemet of prices){
-        if(parseFloat(elemet.textContent) < 10)
-            elemet.textContent = numberWithCommas(parseFloat(elemet.textContent).toFixed(4));
-        else
-            elemet.textContent = numberWithCommas(parseFloat(elemet.textContent).toFixed(2));
-    }
-    //changes
-    for(elemet of changes){
-        if(parseFloat(elemet.textContent) < 0){
-            elemet.textContent = -1 * parseFloat(elemet.textContent).toFixed(2) + "-" + "%";
-            elemet.style.color = 'red';
-        }else{
-            elemet.textContent = "%" + parseFloat(elemet.textContent).toFixed(2);
-            elemet.style.color = '#00ff00';
+
+    <!-- -------------------remove upload file--------------------- -->
+    <script>
+        $('.tweet-content-center-comment-input-file').change(function (e) {
+            let parent = e.target.parentNode.parentNode;
+            let show = parent.getElementsByClassName("tweet-content-center-comment-show-file")[0];
+            show.classList.remove("tweet-content-center-comment-show-file-hidden");
+            let name = show.getElementsByClassName("tweet-content-center-comment-show-file-name")[0];
+            name.innerHTML = this.files && this.files.length ? this.files[0].name : '';
+        })
+
+        $('.tweet-content-center-comment-show-file-icon').click(function (e) {
+            let parent = e.target.parentNode.parentNode;
+            let fileInput = parent.getElementsByClassName("tweet-content-center-comment-input-file")[0];
+            fileInput.value = "";
+            let show = parent.getElementsByClassName("tweet-content-center-comment-show-file")[0];
+            show.classList.add("tweet-content-center-comment-show-file-hidden");
+        })
+    </script>
+
+
+    <!-- -------------------Character counter--------------------- -->
+    <script>
+        const max_length = 500
+        $(document).ready(function () {
+            $(".tweet-content-center-comment-text-area").emojioneArea({
+                pickerPosition: "bottom",
+                tonesStyle: "bullet",
+                events: {
+                    paste: function (editor, event) {
+                        var len = this.getText().length;
+                        if (len > max_length) {
+                            this.setText(this.getText().slice(0, max_length));
+                        }
+                    },
+                    change: function () {
+                        var len = this.getText().length;
+                        if (len > max_length) {
+                            this.setText(this.getText().slice(0, max_length));
+                        }
+                        $(".char-count-value").html(len);
+                    },
+                    keyup: function (editor, event) {
+                        let x = event.target.parentNode.parentNode.parentNode
+                            .getElementsByClassName("char-count-value")[0];
+                        countChar(this, x);
+                    },
+                    keypress: function (editor, event) {
+                        console.log('event:keyup');
+                        let x = event.target.parentNode.parentNode.parentNode
+                            .getElementsByClassName("char-count-value")[0];
+                        if (this.getText().length >= max_length) {
+                            event.preventDefault();
+                        }
+                        countChar(this, x);
+                    },
+                }
+            });
+        });
+
+        /*Character Counter */
+        function countChar(val, span) {
+            var len = val.getText().length;
+            span.innerHTML = len;
         }
-    }
-</script>
+    </script>
 
 
 
@@ -607,12 +1001,5 @@
     }
 </script>
 
-
-<script>
-    $('#file_input').change(function () {
-        $('.tweet-content-center-comment-show-file').removeClass("tweet-content-center-comment-show-file-hidden");
-        $('.tweet-content-center-comment-show-file').html(this.files && this.files.length ? this.files[0].name : '');
-    })
-</script>
-
 {% endblock scripts %}
+

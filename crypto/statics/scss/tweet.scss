@@ -46,6 +46,8 @@
                         }
                         .tweet-header-top-cryptocurrency-name{
                             color: $color-secondary-dark;
+                            text-align: right;
+                            font-size: 11px;
                         }
                         .tweet-header-top-cryptocurrency-information{
                             margin-top: 8px;
@@ -252,15 +254,18 @@
                 border-radius: 10px;
                 line-height: 30px;
                 margin-top: 20px;
+                .emojionearea-editor{
+                    direction: rtl !important;
+                }
                 .tweet-content-center-comment-text-area {
                     color: $color-primary-two;
                     width: 100%;
-                    min-height: 250px;
+                    min-height: 200px;
                     margin-bottom: 40px;
                     border-bottom: 1px solid $color-secondary-light;
                     padding: 10px 5px;
                     text-align: right;
-                    direction: rtl;
+                    direction: rtl !important;
                     &:focus{
                         border: none !important;
                     }
@@ -304,12 +309,21 @@
                     left: 20px;
                     background-color: $color-primary-one;
                     color: $color-primary-two;
-                    border-radius: 50%;
-                    width: 30px;
+                    width: 50px;
+                    border-radius: 5px;
                     height: 30px;
                     display: inline-flex;
                     justify-content: center;
                     align-items: center;
+                    font-size: 14px;
+                }
+                .char-count{
+                    position: absolute;
+                    bottom: 5px;
+                    right: 70px;
+                    font-size: 12px;
+                    color: $color-secondary-light;
+                    direction: ltr;
                 }
             }
       
@@ -331,6 +345,12 @@
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
+                        position: relative;
+                        .tweet-content-center-boxes-header-left-name{
+                            font-size: 13px;
+                            color: $color-primary-two;
+                            margin-left: 4px;
+                        }
                         .tweet-content-center-boxes-header-image-1 {
                             width: 50px;
                             height: 50px;
@@ -362,15 +382,17 @@
                             float: left;
                             margin-left: 15px;
                         }
+                        .tweet-content-center-boxes-header-left-button{
+                            background-color: transparent;
+                        }
                         .tweet-content-center-boxes-header-report {
-                            position: absolute;
-                            left: 30px;
-                            top: 40px;
-                            padding: 10px 15px;
+                            padding: 10px 6px;
                             box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .1), 0 1px 10px 0 rgba(0, 0, 0, .12);
                             background-color: $color-white;
                             border-radius: 10px;
-                            z-index: 9999;
+                            width:220px !important;
+                            text-align: right;
+                            top: 20px;
 
                             .tweet-content-center-boxes-header-report-list {
                                 .tweet-content-center-boxes-header-report-item {
@@ -428,30 +450,79 @@
                         }
                     }
                     .tweet-content-center-boxes-send-reply{
-                        transition: all ease 1s;
-                        overflow: hidden;
                         height: 0;
                         width: 100%;
                         margin-top: 10px;
-                        .tweet-content-center-boxes-send-reply-text-area{
-                            border: 1px solid $color-secondary-light;
-                            display: block;
-                            min-height: 200px;
+                        .tweet-content-center-comment{
+                            position: relative;
+                            border: 1px solid lighten($color-secondary-light, 10%);
                             width: 100%;
-                            padding: 20px;
-                            border-radius: 5px;
-                            transition: all ease .3s;
-                            &:focus{
-                                border: 1px solid $color-primary-one;
-                            }
-                        }
-                        .tweet-content-center-boxes-send-reply-submit{
-                            @include Button3($color-white,$color-primary-one,4px);
-                            color: $color-primary-one;
                             display: block;
-                            margin: 30px auto;
-                            padding:15px 40px;
-                            width: 50%;
+                            margin: 0 auto;
+                            min-height: 250px;
+                            border-radius: 10px;
+                            line-height: 30px;
+                            margin-top: 20px;
+                            .emojionearea-editor{
+                                direction: rtl !important;
+                            }
+                            .tweet-content-center-comment-text-area {
+                                color: $color-primary-two;
+                                width: 100%;
+                                min-height: 200px;
+                                margin-bottom: 40px;
+                                border-bottom: 1px solid $color-secondary-light;
+                                padding: 10px 5px;
+                                text-align: right;
+                                direction: rtl !important;
+
+                                &::-webkit-scrollbar {
+                                    width: 6px;
+                                    background-color: white;
+                                }
+                        
+                                &::-webkit-scrollbar-track {
+                                    border-radius: 2px;
+                                }
+                        
+                                &::-webkit-scrollbar-thumb {
+                                    background: #ddd;
+                                    border-radius: 2px;
+                                    transition: all ease .5s;
+                                }
+                                &::placeholder {
+                                    color: $color-primary-two;
+                                }
+                            }
+                            .tweet-content-center-comment-label{
+                                color: $color-primary-two;
+                                height: 30px;
+                                display: inline-flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 3px;
+                                cursor: pointer;
+                                position: absolute;
+                                bottom: 5px;
+                                right: 10px;
+                                font-size: 14px;
+                            }
+                            .tweet-content-center-comment-input-file {
+                                display: none !important;
+                            }
+                            .tweet-content-center-comment-submit {
+                                position: absolute;
+                                bottom: 5px;
+                                left: 20px;
+                                background-color: $color-primary-one;
+                                color: $color-primary-two;
+                                border-radius: 50%;
+                                width: 30px;
+                                height: 30px;
+                                display: inline-flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
                         }
                     }
                     .tweet-content-center-boxes-parent {
@@ -590,6 +661,12 @@
 }
 }
 @media only screen and (max-width:768px){
+    .tweet-content-center-boxes-header-left-name{
+        display: none !important;
+    }
+    .tweet-header-details-specifications-price ,.tweet-header-details-specifications-name , .tweet-header-details-specifications-price-value{
+        margin-top: 10px !important;
+    }
     .tweet-header-details,.tweet-header-details-specifications{
         flex-direction: column;
         justify-content: center;
@@ -605,6 +682,12 @@
 }
 
 @media only screen and (max-width:576px){
+    .tweet-header-top-cryptocurrency-name{
+        font-size: 11px !important;
+    }
+    .emojionearea-button{
+        display: none;
+    }
     .tweet-header-top-cryptocurrency-item{
         width: 20% !important;
     }
@@ -617,16 +700,23 @@
         display: none !important;
     }
 }
-
 .tweet-content-center-comment-show-file{
+    width: 100%;
     &.tweet-content-center-comment-show-file-hidden{
-        display: none;
+        visibility: hidden;
     }
     background-color: lighten($color: $color-primary-one, $amount: 35%);
     margin-top: 10px;
-    padding:8px;
+    padding:10px 8px;
     color: $color-primary-two;
     font-size: 12px;
     border-radius: $border-radius;
     text-align: right;
+    .tweet-content-center-comment-show-file-icon{
+        float: left;
+        font-size: 14px;
+        color: $color-red;
+        padding: 0 6px;
+    }
 }
+

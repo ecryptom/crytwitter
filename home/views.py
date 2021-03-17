@@ -118,13 +118,13 @@ def get_all_currencies(req):
 
 
 @csrf_exempt
-def get_first_10_currency_info(req):
+def get_top_currencies_info(req, count):
     return JsonResponse([{
         'symbol': cur.symbol,
         'price': cur.price,
         '1d_change': cur.daily_price_change_pct,
         '7d_change': cur.weekly_price_change_pct
-    } for cur in currency.objects.order_by('-market_cap')[:12]], safe=False)
+    } for cur in currency.objects.order_by('-market_cap')[:count]], safe=False)
 
 @csrf_exempt
 def get_currencies_info(req, page):
@@ -136,3 +136,15 @@ def get_currencies_info(req, page):
         '1d_change': cur.daily_price_change_pct,
         '7d_change': cur.weekly_price_change_pct
     } for cur in currencies], safe=False)
+
+@csrf_exempt
+def get_currency_info(req, symbol):
+    cur = currency.objects.get(symbol=symbol)
+    return JsonResponse({
+        'symbol': cur.symbol,
+        'price': cur.price,
+        '1d_change': cur.daily_price_change_pct,
+        '7d_change': cur.weekly_price_change_pct,
+        'turnover': cur.turnover,
+        'market_cap': cur.market_cap,
+    })

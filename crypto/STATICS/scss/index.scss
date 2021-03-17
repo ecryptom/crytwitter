@@ -8,7 +8,7 @@ body {
 
 //BANNER STYLES
 .header{
-  min-height: 100vh;
+  height: 100vh;
   background-image: url("../img/backgroundproPage.jpg");
   display:flex;
   flex-direction:column;
@@ -141,7 +141,7 @@ font-weight: bold !important;
         z-index: 55;
 
         .top-cryptocurrency-boxes-weekly-value {
-          color: $color-red;
+          color: #ff3838;
           font-size: 16px;
           padding-right: 15px;
           letter-spacing: 4px;
@@ -224,17 +224,15 @@ font-weight: bold !important;
         }
 
         .articles-boxes-content {
-          margin: $margin-20 $margin-10;
+          margin: $margin-20 $margin-10 10px;
           border-bottom: 1px solid $color-secondary-light;
           padding-bottom: 10px;
 
           .articles-boxes-content-heading-three {
             font-size: 16px;
-            height: 30px;
+            height: 60px;
             overflow: hidden;
             line-height: 30px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
             padding-bottom: 10px;
             color: $color-white;
             transition: all ease .5s;
@@ -258,7 +256,7 @@ font-weight: bold !important;
         .articles-boxes-footer {
           margin-top: 5px;
           margin-bottom: 5px;
-          padding: 5px 10px;
+          padding: 0 10px 5px;
           display: flex;
           justify-content: space-between;
           color: $color-white;
@@ -571,6 +569,7 @@ font-weight: bold !important;
 
   //COMMON QUESTIONS
   .common-questions-item {
+    
     padding: $padding-10 !important
   }
 
@@ -606,6 +605,25 @@ font-weight: bold !important;
 }
 
 @media only screen and (max-width: 576px) {
+  .header-banner{
+    margin-top: -40px !important;
+  }
+  .header-banner-search{
+    margin-top: 5px !important;
+  }
+  .header-banner-title-heading-one{
+    font-size: 28px !important;
+  }
+  .header-banner-title-heading-two{
+    font-size: 18px !important;
+  }
+  .header-banner-search-box-input{
+    padding: 7px 10px !important;
+    font-size: 14px !important;
+  }
+  .header-banner-search-bear-image, .header-banner-search-buul-image{
+    height: 190px !important;
+  }
   //ALL
   .comments-line-heading-two,
   .common-questions-line-heading-two {
@@ -683,9 +701,15 @@ font-weight: bold !important;
 @media only screen and (max-width:768px) and (min-width:576px){
   .header-banner-search-buul-image , 
   .header-banner-search-bear-image{
-    height: 240px !important;
+    height: 150px !important;
   }
   .header-banner-search-box{
-    margin-top: 10px;
+    margin-top: 5px;
+  }
+  .header-banner{
+    margin-top: -20px !important;
+  }
+  .scroll-down{
+    bottom: 10px !important;
   }
 }

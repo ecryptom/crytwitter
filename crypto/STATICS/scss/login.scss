@@ -3,7 +3,7 @@
 @import "mixin";
 
 .page-wrapper {
-    margin-top: $margin-section;
+    margin-top: 30px;
 }
 .login {
     .login-container {
@@ -107,5 +107,11 @@
     }
     .login-left-col{
         order: 1;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .login-left-col{
+        display: none !important;
     }
 }

@@ -11,6 +11,8 @@ from home.models import dollor
 from home.models import currency
 from utils.date_convertor import gregorian_to_shamsi
 from home.views import which_currency
+from products.models import product_group
+from accounts.models import user
 
 #connect to database (because mysql.connector.django can not save emojis)
 mydb = mysql.connector.connect(
@@ -21,8 +23,11 @@ mydb = mysql.connector.connect(
   database=os.getenv('DATABASE_NAME'),
 )
 
+#global user
+arztwitter = user.objects.get(username='arztwitter')
 
 def tweets(req):
+    #check if there is any tweets
     if twit.objects.count() == 0 :
         last_tweets = []
     else:
@@ -31,7 +36,6 @@ def tweets(req):
         mycursor = mydb.cursor()
         mycursor.execute(f"select text from twits_twit where id>={last_tweets.last().id} order by -id")
         texts = mycursor.fetchall()
-        print(mycursor)
         i=0
         for t in last_tweets:
             t.text =  texts[i][0]
@@ -39,10 +43,8 @@ def tweets(req):
     return render(req, 'tweet.html', {
         'tweets':last_tweets,
         'top_curs':currency.objects.order_by('-market_cap')[:10],
-        'newyork_time':f"{datetime.now(pytz.timezone('America/New_York')).hour:02}:{datetime.now(pytz.timezone('America/New_York')).minute:02}",
-        'tokyo_time':f"{datetime.now(pytz.timezone('Asia/Tokyo')).hour:02}:{datetime.now(pytz.timezone('Asia/Tokyo')).minute:02}",
-        'hongkong_time':f"{datetime.now(pytz.timezone('Hongkong')).hour:02}:{datetime.now(pytz.timezone('Hongkong')).minute:02}",
-        'london_time':f"{datetime.now(pytz.timezone('Europe/London')).hour:02}:{datetime.now(pytz.timezone('Europe/London')).minute:02}",
+        'dollor_rate':dollor.objects.get().rate,
+        'product_groups':product_group.objects.all(),
         })
 
 
@@ -61,25 +63,30 @@ def curr_tweets(req, curr_name):
         for t in last_tweets:
             t.text =  texts[i][0]
             i+=1
-    return render(req, 'curr_tweet.html', {
+    return render(req, 'tweet.html', {
         'tweets':last_tweets, 
         'currency':curr, 
-        'top_curs':currency.objects.all()[:10],
-        'dollor_rate':dollor.objects.get(),
-        'newyork_time':f"{datetime.now(pytz.timezone('America/New_York')).hour:02}:{datetime.now(pytz.timezone('America/New_York')).minute:02}",
-        'tokyo_time':f"{datetime.now(pytz.timezone('Asia/Tokyo')).hour:02}:{datetime.now(pytz.timezone('Asia/Tokyo')).minute:02}",
-        'hongkong_time':f"{datetime.now(pytz.timezone('Hongkong')).hour:02}:{datetime.now(pytz.timezone('Hongkong')).minute:02}",
-        'london_time':f"{datetime.now(pytz.timezone('Europe/London')).hour:02}:{datetime.now(pytz.timezone('Europe/London')).minute:02}",
+        'dollor_rate':dollor.objects.get().rate,
+        'product_groups':product_group.objects.all(),
         })
 
 
-@login_required(login_url='login')
+
 def tweet(req):
+    #check user authentication
+    if not req.user.is_authenticated:
+        req.user = arztwitter
+    #check file size
     File = req.FILES.get('file')
     if File and File.size > 1000000:
         return redirect('tweets')
-    if not req.POST['text']:
+    #check twit len
+    if len(req.POST['text']) > 550:
         return redirect('tweets')
+    #check if twit is empty
+    if not (req.POST['text'] or File):
+        return redirect('tweets')
+    #extract currency from user input
     cur = which_currency(req.POST.get('currency'))
     t = twit(
         text = '',
@@ -100,28 +107,33 @@ def tweet(req):
     return redirect('tweets')
 
 
-@login_required(login_url='login')
 @csrf_exempt
 def retweet(req, ID):
+    #check user authentication
+    if not req.user.is_authenticated:
+        req.user = arztwitter
+    #check file size
     File = req.FILES.get('file')
     if File and File.size > 1000000:
         return redirect('tweets')
-    if not req.POST['text']:
+    #check twit len
+    if len(req.POST['text']) > 550:
+        return redirect('tweets')
+    #check if twit is empty
+    if not (req.POST['text'] or File):
         return redirect('tweets')
     reply_to = twit.objects.get(id=ID)
     t = twit(
         text = '',
         user = req.user,
+        has_image = guess_type(File.name)[0].split('/')[0] == 'image' if File else False,
+        File = File,
         currency= reply_to.currency,
         retwit=True,
         reply_to = reply_to,
         date = timezone.now(),
         shamsi_date = gregorian_to_shamsi(timezone.now()),
     )
-    if File:
-        if req.POSTget('image'):
-            t.has_image = True
-        t.File = File
     t.save()
     #save twit text seprately
     mycursor = mydb.cursor()

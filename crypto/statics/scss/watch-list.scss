@@ -47,8 +47,11 @@
 .watch-list-table{
     background-color: $color-white;
     width: 100%;
- 
-  
+    direction: ltr;
+
+    th:nth-child(3),td:nth-child(3){
+      display: none;
+    }
     .watch-list-table-header{
       background-color: $color-primary-one;
       .watch-list-table-row{
@@ -62,33 +65,38 @@
 
     }
     .watch-list-table-body{
+      direction: rtl;
       .watch-list-table-row{
         .watch-list-table-description{
           padding: 10px 0;
           border-bottom: 1px solid $color-secondary-light;
           text-align: center;
+        
+          
           .watch-list-table-image{
             width: 22px;
             height: 22px;
-            float: right;
-            margin-right: 5px;
+            margin-right: 6px;
           }
           .watch-list-table-name{
             font-size: 15px;
             color: $color-secondary-dark;
-            float: left;
-            margin-left: 5px;
           }
           .watch-list-table-price{
-            display: block;
             color: $color-secondary-dark;
             font-size: 15px;
             margin-bottom: 10px;
+            &.watch-list-table-price-dollar{
+              direction: ltr;
+              font-family:  Arial,'IranYekanFaNumbers';
+              display: block;
+            }
           }
           .watch-list-table-unit{
+            font-size: 10px;
             display: block;
+            padding-top: 4px;
             color: $color-secondary;
-            font-size: 11px;
           }
           .watch-list-table-percent{
             padding: 6px 15px;
@@ -97,6 +105,8 @@
             font-size: 13px;
             margin: 5px 0;
             display: inline-block;
+            direction: ltr;
+            letter-spacing: 1px;
             &.watch-list-table-percent-ascending{
             background-color: lighten($color-green,10%);
             }
@@ -107,4 +117,18 @@
         }
     }
     }
+}
+
+@media only screen and (max-width:768px){
+  th:last-child , td:last-child,
+  th:nth-child(4) , td:nth-child(4),
+  th:nth-child(5) , td:nth-child(5){
+    display: none;
+  }
+  th:nth-child(3) , td:nth-child(3){
+    display: table-cell !important;
+  }
+  .watch-list-table-unit{
+    display: inline !important;
+  }
 }

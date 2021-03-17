@@ -1,7 +1,10 @@
 @import "colors";
 @import "units";
 @import "mixin";
-
+.sum{
+    color: $color-primary-two;
+    text-align: center;
+}
 .panel {
     margin-top: 40px;
     .panel-left-col,
@@ -427,6 +430,23 @@
             }
         }
         .panel-left-shopping-cart {
+            .discount-wrapper{
+                position: relative;
+                margin-top: 20px;
+                .discount-input{
+                    width: 100%;
+                    padding: 5px 10px;
+                    border: 1px solid $color-secondary-light;
+                }
+                .discount-submit{
+                    position: absolute;
+                    left: 0;
+                    height: 100%;
+                    padding: 0 10px;
+                    background-color: $color-primary-one;
+                    color: $color-primary-two
+                }
+            }
             .panel-left-shopping-cart-header {
                 padding: 30px 0;
                 text-align: right;
@@ -537,3 +557,32 @@
         border-radius: 0 !important;
     }
 }
+
+@media screen and (max-width: 576px) {
+    .table{
+        border: none !important;
+    }
+    .panel-left-shopping-cart-content-table-header{
+        display: none !important;
+      }
+    
+    .panel-left-shopping-cart-content-table-row{
+        background-color: $color-secondary-one !important;
+        margin-bottom: 10px !important;
+        display: block !important;
+      }
+    
+    tbody .panel-left-shopping-cart-content-table-data {
+        border-bottom: 1px solid $color-secondary-two !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        padding: 15px !important;
+      &:last-child{
+        border-bottom: none !important;
+      }
+      &::before {
+        content: attr(data-label);
+      }
+      }
+    }
+

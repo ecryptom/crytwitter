@@ -2,7 +2,7 @@
 @import "units";
 @import "mixin";
 .list-products{
-    margin-top: 60px;
+    margin-top: 30px;
     .list-products-heading-two{
         @include MainTitle($color-primary-one,$color-primary-two);
         font-size: 22px;
