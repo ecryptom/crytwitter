@@ -32,6 +32,7 @@
 
                         <form action="{% url 'login' %}" method="POST" class="login-left-form">
                             {% csrf_token %}
+                            <input name="next" value="{{next}}" hidden>
                             <div class="login-right-input-group">
                                 <div class="login-right-input-wrapper">
                                     <input type="text" class="login-right-input" placeholder="نام کاربری/شماره تلفن" name="username" required autocomplete="off">

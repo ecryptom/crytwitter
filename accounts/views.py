@@ -36,6 +36,7 @@ def login(req):
     if not verify_recaptcha(req.POST['g-recaptcha-response']):
         return render(req, 'login.html', {
             'error':'لطفا کد امنیتی را تکمیل و مجدد اقدام کنید',
+            'next': req.POST.get('next'),
             'recaptcha': settings.GOOGLE_RECAPTCHA_SITE_KEY,
         })
     username = req.POST.get('username')
@@ -48,12 +49,21 @@ def login(req):
         return redirect(next_page)
     #check phone
     User = user.objects.filter(phone=username)
-    if User and User[0].check_password(password) and User[0].verified_phone:
-        auth.login(req, User[0])
-        return redirect(next_page)
+    if User and User[0].verified_phone:
+        #check password
+        if User[0].check_password(password):
+            auth.login(req, User[0])
+            return redirect(next_page)
+        else:
+            return render(req, 'login.html', {
+                'error':'رمز عبور اشتباه است',
+                'next': req.POST.get('next'),
+                'recaptcha': settings.GOOGLE_RECAPTCHA_SITE_KEY,
+                })
     #else return error
     return render(req, 'login.html', {
         'error':'کاربری با این اطلاعات وجود ندارد',
+        'next': req.POST.get('next'),
         'recaptcha': settings.GOOGLE_RECAPTCHA_SITE_KEY,
         })
     
