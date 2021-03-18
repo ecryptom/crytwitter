@@ -1,260 +1,198 @@
-{% extends 'base.html' %} 
-{% load static %} 
-
+{% extends 'base.html' %}
+{% load static %}
 
 {% block header %}
-<title>ارز توييتر</title>
-<link rel="stylesheet" href="{% static 'css/watch-list.min.css' %}">
+    <title>دیده بان ارزتوییتر</title>
+    <link rel="stylesheet" href="{% static 'css/watch-list.min.css' %}">
+    
+    <style>
+        .bold {
+            color: #222;
+        }
 
-<style>
-    .bold {
-        color: #222;
-    }
-    
-    .nobold {
-        color: #aaa;
-    }
-    
-    input {
-        outline: none;
-        background-color: white !important;
-        display: block !important;
-        margin: auto !important;
-        width: 100% !important;
-    }
-    
-    .autocomplete {
-        /*the container must be positioned relative:*/
-        position: relative;
-        display: flex;
-        justify-self: center;
-        text-align: center;
-        margin: 30px auto;
-        width: 50%;
-    }
-    
-    input {
-        border: 1px solid transparent;
-        padding: 10px;
-        font-size: 16px;
-    }
-    
-    input[type=text] {
-        background-color: #f1f1f1;
-    }
-    
-    input[type=submit] {
-        background-color: DodgerBlue;
-        color: #fff;
-    }
-    
-    .autocomplete-items {
-        position: absolute;
-        z-index: 99;
-        border: none;
-        top: 100%;
-        width: 100%;
-        margin-top: 2px;
-    }
-    
-    .autocomplete-items div {
-        padding: 10px;
-        cursor: pointer;
-        background-color: #fff;
-        border-bottom: 1px solid #d4d4d4;
-        text-align: center;
-    }
-    
-    .autocomplete-items div img {
-        margin-left: 8px;
-    }
-    
-    .autocomplete-items div:hover {
-        /*when hovering an item:*/
-        background-color: #e9e9e9;
-    }
-    
-    .autocomplete-active {
-        /*when navigating through the items using the arrow keys:*/
-        background-color: #FCC81D !important;
-        color: #ffffff;
-    }
-</style>
+        .nobold {
+            color: #aaa;
+        }
 
-{% endblock header %} 
+        input {
+            outline: none;
+            background-color: white !important;
+            display: block !important;
+            margin: auto !important;
+            width: 100% !important;
+        }
+
+        .autocomplete {
+            /*the container must be positioned relative:*/
+            position: relative;
+            display: flex;
+            justify-self: center;
+            text-align: center;
+            margin: 30px auto;
+            width: 50%;
+        }
+
+        input {
+            border: 1px solid transparent;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        input[type=text] {
+            background-color: #f1f1f1;
+        }
+
+        input[type=submit] {
+            background-color: DodgerBlue;
+            color: #fff;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            z-index: 99;
+            border: none;
+            top: 100%;
+            width: 100%;
+            margin-top: 2px;
+            max-height: 217px;
+            overflow-y: auto;
+        }
+
+        .autocomplete-items::-webkit-scrollbar {
+            width: 8px;
+            background-color: #fff;
+        }
+
+        .autocomplete-items::-webkit-scrollbar-track {
+            border-radius: 2px;
+        }
+
+        .autocomplete-items::-webkit-scrollbar-thumb {
+            background: #c8c8c8;
+            border-radius: 2px;
+            transition: all ease .5s;
+        }
+
+        .autocomplete-items::-webkit-scrollbar-thumb:hover {
+            background: #c2c2c2;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+            text-align: center;
+        }
+
+        .autocomplete-items div img {
+            margin-left: 8px;
+        }
+
+        .autocomplete-items div:hover {
+            /*when hovering an item:*/
+            background-color: #e9e9e9;
+        }
+
+        .autocomplete-active {
+            /*when navigating through the items using the arrow keys:*/
+            background-color: #FCC81D !important;
+            color: #ffffff;
+        }
+
+        .autocomplete-list {}
+    </style>
+{% endblock header %}
+
 
 {% block page %}
-
-<section class="watch-list">
-    <div class="container">
-        <div class="watch-list-line">
-            <h2 class="watch-list-line-heading-two">ديده بان</h2>
-            <p class="watch-list-line-paragraph">
-                در این صفحه شما می توانید با جستجو و اضافه کردن رمز ارز های مورد نظر خود آن ها را 
+    <section class="watch-list">
+        <div class="container">
+            <div class="watch-list-line">
+                <h2 class="watch-list-line-heading-two">ديده بان</h2>
+                <p class="watch-list-line-paragraph">
+                    در این صفحه شما می توانید با جستجو و اضافه کردن رمز ارز های مورد نظر خود آن ها را 
                 در دیده بان خود قرار دهید و  از  نوسانات لحظه ای تمام رمز ارزهای خود در کنار هم مطلع شوید.
-            </p>
-        </div>
-        <form action="{% url 'add_watch_list' %}" method="POST" autocomplete="off">
-            {% csrf_token %}
-            <div class="watch-list-search">
-                <div class="watch-list-search-autocomplete">
-                    <input id="autocompleteInput" name="currency" type="text" class="watch-list-search-autocomplete-input" placeholder="جستجوی رمز ارز...">
-                    <button type="submit" class="watch-list-autocomplete-search-button">افزودن</button>
-                </div>
+                </p>
             </div>
-        </form>
-        <table class="watch-list-table">
-            <thead class="watch-list-table-header">
-                <tr class="watch-list-table-row">
-                    <th class="watch-list-table-heading"> </th>
-                    <th class="watch-list-table-heading">نماد</th>
-                    <th class="watch-list-table-heading">قیمت دلاری</th>
-                    <th class="watch-list-table-heading">قیمت ریالی</th>
-                    <th class="watch-list-table-heading">روزانه</th>
-                </tr>
-            </thead>
-            <tbody class="watch-list-table-body" id="topCryptocurrencyBody">
+            <form action="{% url 'add_watch_list' %}" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="watch-list-search">
+                    <div class="watch-list-search-autocomplete">
+                        <input id="autocompleteInput" name="currency" type="text" class="watch-list-search-autocomplete-input"
+                            placeholder="جستجوی رمز ارز...">
+                        <button type="submit" class="watch-list-autocomplete-search-button">افزودن</button>
+                    </div>
+                </div>
+            </form>
+            <table class="watch-list-table">
+                <thead class="watch-list-table-header">  
+                    <tr class="watch-list-table-row">
+                        <th class="watch-list-table-heading">رديف</th>
+                        <th class="watch-list-table-heading">نماد</th>
+                        <th class="watch-list-table-heading">قيمت</th>
+                        <th class="watch-list-table-heading">قیمت دلاری</th>
+                        <th class="watch-list-table-heading">قیمت ریالی</th>
+                        <th class="watch-list-table-heading">روزانه</th>
+                        <th class="watch-list-table-heading">حجم بازار</th>
+                    </tr>
+                </thead>
+                <tbody class="watch-list-table-body" id="topCryptocurrencyBody">
+                    {% for cur in watch_list %}
+                        <tr class="watch-list-table-row" id="curr_{{cur.id}}">
+                            <td class="watch-list-table-description">
+                                {{ forloop.counter }}
+                                <a onclick="confirm_remove({{cur.id}})">
+                                    <i class="fa fa-trash-o fa-lg"></i>
+                                </a>
+                            </td>
+                            <td class="watch-list-table-description">
+                                <a href="{% url 'curr_tweets' cur.name %}">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                    <span class="watch-list-table-name">{{cur.name}}</span>
+                                        <img src="{{cur.image_url}}" alt="{{cur.symbol}}" class="watch-list-table-image">
+                                    </div>
+                                </a>
+                            </td>
+                            <td class="watch-list-table-description">
+                                <span id="mobile_dollor_{{cur.symbol}}" class="watch-list-table-price watch-list-table-price-dollar"></span>
+                                <span id="mobile_toman_{{cur.symbol}}" class="watch-list-table-price"></span>
+                                <span class="watch-list-table-unit">تومان</span>
+                            </td>
+                            <td class="watch-list-table-description">
+                                <span id="dollor_{{cur.symbol}}" class="watch-list-table-price watch-list-table-price-dollar"></span>
+                            </td>
+                            <td class="watch-list-table-description">
+                                <span id="toman_{{cur.symbol}}" class="watch-list-table-price"></span>
+                                <span class="watch-list-table-unit">تومان</span>
+                            </td>
+                            <td class="watch-list-table-description">
+                                <span id="1d_change_{{cur.symbol}}" class="watch-list-table-percent watch-list-table-percent-descending"></span>
+                            </td>
+                            <td class="watch-list-table-description">
+                                <span id="market_cap_{{cur.symbol}}" class="watch-list-table-price watch-list-table-price-dollar"></span>
+                                <span id="market_cap_unit_{{cur.symbol}}" class="watch-list-table-unit"></span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-                {% for cur in watch_list %}
-                <tr class="watch-list-table-row" id="curr_{{cur.id}}">
-                    <td class="watch-list-table-description">
-                        <a onclick="confirm_remove({{cur.id}})">
-                            <i class="fa fa-trash-o fa-lg"></i>
-                        </a>
-                    </td>
-                    <td class="watch-list-table-description">
-                        <img src="{{cur.image_url}}" alt="{{cur.symbol}}" class="watch-list-table-image">
-                        <span class="watch-list-table-name">{{cur.symbol}}</span>
-                    </td>
-                    <td class="watch-list-table-description">
-                        <span id="dollor_{{cur.symbol}}" class="watch-list-table-price">0</span>
-                        <span class="watch-list-table-unit">$</span>
-                    </td>
-                    <td class="watch-list-table-description">
-                        <span id="toman_{{cur.symbol}}" class="watch-list-table-price">0</span>
-                        <span class="watch-list-table-unit">تومان</span>
-                    </td>
-                    <td class="watch-list-table-description">
-                        <span id="1d_change_{{cur.symbol}}" class="watch-list-table-percent watch-list-table-percent-descending">0%</span>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    </section>
 
-</section>
-
-{% endblock page %} {% block scripts %}
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<!---------------------------autocomplete and add to watchlist------------------------>
-<script>
-    function autocomplete(inp, arr, images) {
-        var currentFocus;
-        inp.addEventListener("input", function(e) {
-            var a, b, i, val = this.value;
-            closeAllLists();
-            if (!val) {
-                return false;
-            }
-            currentFocus = -1;
-            a = document.createElement("DIV");
-            a.setAttribute("id", this.id + "autocomplete-list");
-            a.setAttribute("class", "autocomplete-items");
-            a.style.height = "600%";
-            a.style.overflow = "scroll";
-            this.parentNode.appendChild(a);
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                    b = document.createElement("DIV");
-                    b.innerHTML = "<img style='width:5%' src = '" + images[i] + "' alt='" + arr[i] + "'>";
-                    b.innerHTML += "<span style='color;#052058'>" + arr[i].substr(0, val.length) + "</span>";
-                    b.innerHTML += "<span style = 'color:#DDD'>" + arr[i].substr(val.length) + "</span>";
-                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                    b.addEventListener("click", function(e) {
-                        inp.value = this.getElementsByTagName("input")[0].value;
-                        closeAllLists();
-                    });
-                    a.appendChild(b);
-                }
-            }
-        });
-        inp.addEventListener("keydown", function(e) {
-            var x = document.getElementById(this.id + "autocomplete-list");
-            if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) {
-                currentFocus++;
-                addActive(x);
-            } else if (e.keyCode == 38) {
-                currentFocus--;
-                addActive(x);
-            } else if (e.keyCode == 13) {
-                e.preventDefault();
-                if (currentFocus > -1) {
-                    if (x) x[currentFocus].click();
-                }
-            }
-        });
-
-        function addActive(x) {
-            if (!x) return false;
-            removeActive(x);
-            if (currentFocus >= x.length) currentFocus = 0;
-            if (currentFocus < 0) currentFocus = (x.length - 1);
-            x[currentFocus].classList.add("autocomplete-active");
-        }
-
-        function removeActive(x) {
-            for (var i = 0; i < x.length; i++) {
-                x[i].classList.remove("autocomplete-active");
-            }
-        }
-
-        function closeAllLists(elmnt) {
-            var x = document.getElementsByClassName("autocomplete-items");
-            for (var i = 0; i < x.length; i++) {
-                if (elmnt != x[i] && elmnt != inp) {
-                    x[i].parentNode.removeChild(x[i]);
-                }
-            }
-        }
-        document.addEventListener("click", function(e) {
-            closeAllLists(e.target);
-        });
-    }
-
-    //get all currencies from back
-    var countries = [];
-    var images = []
-    $.ajax({
-        url: '/get_all_currencies',
-        type: 'GET',
-        dataType: "json",
-        success: function(currencies, s, x) {
-            currencies.forEach(element => {
-                countries.push(element.name);
-                countries.push(element.persian_name + '|' + element.name);
-                countries.push(element.symbol);
-                images.push(element.image_url);
-                images.push(element.image_url);
-                images.push(element.image_url);
-            });
-        }
-    });
-
-    autocomplete(document.getElementById("autocompleteInput"), countries, images);
-</script>
+{% endblock page %}
 
 
+{% block scripts %}
+
+    <script src="{% static 'js/jquery.min.js' %}"> </script>
 
 
-
-<!---------------------------update currencies info------------------------>
+    <!-----------------------update currencies------------------------------>
 <script>
     var dollor_rate = {{dollor_rate}};
-    var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change;
+    var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change, market_cap;
     var price_diff_per_frame={}, daily_change_diff_per_frame={};
 
     function numberWithCommas(x) {
@@ -263,15 +201,26 @@
         return parts.join(".");
     }
 
-    function update_window(symbol, price, one_day_change){
-        document.getElementById('1d_change_' + symbol).innerHTML = one_day_change.toFixed(2);
+    function update_window(symbol, price, daily_change){
+        // set toman price
         document.getElementById('toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        if(price < 10)
-            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(4));
-        else
-            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(2));
-        // fix the color of price_change 
-        document.getElementById('1d_change_' + symbol).style.backgroundColor = (one_day_change > 0) ? '#33cc33' : 'red';
+        document.getElementById('mobile_toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // set dollor price
+        if(price < 10){
+            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(4)) + ' $ ';
+            document.getElementById('mobile_dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(4)) + ' $ ';
+        } else{
+            document.getElementById('dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(2)) + ' $ ';
+            document.getElementById('mobile_dollor_' + symbol).innerHTML = numberWithCommas(price.toFixed(2)) + ' $ ';
+        } 
+        // fix daily change and it's color
+        if(daily_change < 0){
+            document.getElementById('1d_change_' + symbol).innerHTML = daily_change.toFixed(2) + "%";
+            document.getElementById('1d_change_' + symbol).style.backgroundColor = 'red';
+        }else{
+            document.getElementById('1d_change_' + symbol).innerHTML = daily_change.toFixed(2) + "%";
+            document.getElementById('1d_change_' + symbol).style.backgroundColor = '#009900';
+        }
     }
 
     function update_window_by_20_frame(){
@@ -315,7 +264,28 @@
         async:false
     }).responseText);
 
+    // set market_cap only once
+    for(var i=0; i< old_data.length; i++){
+        market_cap = old_data[i].market_cap;
+        if(market_cap < 1000000){
+            document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = numberWithCommas(market_cap.toFixed(0));
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'دلار'
+        }else if(market_cap >= 1000000 && market_cap <1000000000){
+            market_cap = market_cap / 1000000;
+            document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = numberWithCommas(market_cap.toFixed(2));
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'میلیون دلار'
+        }else if(market_cap >= 1000000000 && market_cap <1000000000000){
+            market_cap = market_cap / 1000000000;
+            document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = numberWithCommas(market_cap.toFixed(2));
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'میلیارد دلار'
+        }else if(market_cap >= 1000000000000 && market_cap <1000000000000000){
+            market_cap = market_cap / 1000000000000;
+            document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = numberWithCommas(market_cap.toFixed(3));
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'تریلیون دلار'
+        }
+    }
 
+    //change correct data to have a dynamic page
     for(var i=0; i< old_data.length; i++){
         var sign = Math.random() > 0.5 ? -1 : 1;
         old_data[i]['price'] += (old_data[i]['price'] * sign * 0.005);
@@ -331,28 +301,114 @@
 </script>
 
 
-<script>
-    function confirm_remove(curr_id) {
-        swal({
-                title: "آيا از حذف اين رمز ارز مطمئن هستيد؟",
-                icon: "warning",
-                buttons: ["خير", "بله"],
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    
-                    $.ajax({
-                        url: '/account/remove_watch_list/' + curr_id,
-                        type: 'GET',
-                        success: function(x) {
-                            document.getElementById('curr_'+curr_id).remove()
-                        }
-                    });
 
+    <!----------------------------autocomplete------------------------------>
+    <script>
+        function autocomplete(inp, arr, images) {
+            var currentFocus;
+            inp.addEventListener("input", function (e) {
+                var a, b, i, val = this.value;
+                closeAllLists();
+                if (!val) {
+                    return false;
+                }
+
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                this.parentNode.appendChild(a);
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                        b = document.createElement("DIV");
+                        b.innerHTML = "<img style='width:5%' src = '" + images[i] + "' alt='" + arr[i] + "'>";
+                        b.innerHTML += "<span style='color;#052058'>" + arr[i].substr(0, val.length) + "</span>";
+                        b.innerHTML += "<span style = 'color:#DDD'>" + arr[i].substr(val.length) + "</span>";
+                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                        b.addEventListener("click", function (e) {
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            closeAllLists();
+                        });
+                        a.appendChild(b);
+                    }
                 }
             });
-    }
-</script>
+            inp.addEventListener("keydown", function (e) {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40) {
+                    currentFocus++;
+                    addActive(x);
+                } else if (e.keyCode == 38) {
+                    currentFocus--;
+                    addActive(x);
+                } else if (e.keyCode == 13) {
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        if (x) x[currentFocus].click();
+                    }
+                }
+            });
+
+            function closeAllLists(elmnt) {
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                    if (elmnt != x[i] && elmnt != inp) {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
+                }
+            }
+            document.addEventListener("click", function (e) {
+                closeAllLists(e.target);
+            });
+        }
+
+        //get all currencies from back
+        var countries = [];
+        var images = []
+        $.ajax({
+            url: '/get_all_currencies',
+            type: 'GET',
+            dataType: "json",
+            success: function(currencies, s, x) {
+                currencies.forEach(element => {
+                    countries.push(element.name);
+                    countries.push(element.persian_name + '|' + element.name);
+                    countries.push(element.symbol);
+                    images.push(element.image_url);
+                    images.push(element.image_url);
+                    images.push(element.image_url);
+                });
+            }
+        });
+
+        autocomplete(document.getElementById("autocompleteInput"), countries, images);
+    </script>
+
+
+    <!----------------------------confirm remove from watchlist------------------------------>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function confirm_remove(curr_id) {
+            swal({
+                    title: "آيا از حذف اين رمز ارز مطمئن هستيد؟",
+                    icon: "warning",
+                    buttons: ["خير", "بله"],
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            url: '/account/remove_watch_list/' + curr_id,
+                            type: 'GET',
+                            success: function(x) {
+                                document.getElementById('curr_'+curr_id).remove()
+                            }
+                        });
+
+                    }
+                });
+        }
+    </script>
 
 {% endblock scripts %}
