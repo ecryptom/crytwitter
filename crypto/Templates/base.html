@@ -45,14 +45,13 @@
                                     <li class="main-menu-item"><a href="{% url 'list_currencies' 1 %}" class="main-menu-link">رمز ارزها </a></li>
                                     <li class="main-menu-item"><a href="{% url 'cryptomarket' %}" class="main-menu-link">نقشه بازار </a></li>
                                     <li class="main-menu-item"><a href="{% url 'watch_list_page' %}" class="main-menu-link">دیده بان </a></li>
-                                    <li class="main-menu-item main-submenu"><a class="main-menu-link">محصولات
-                                        </a>
-                                        <ul class="main-submenu-list">
+                                    <li class="main-menu-item"><a class="main-menu-link" href="{% url 'products_page' %}">محصولات</a>
+                                        <!--<ul class="main-submenu-list">
                                             {% for group in product_groups %}
                                                 <li class="main-submenu-item"><a href="{% url 'products_page' %}#{{group.name}}" class="main-submenu-link">{{group.name}}
                                                     </a></li>
                                             {% endfor %}
-                                        </ul>
+                                        </ul>-->
                                     </li>
                                     <li class="main-menu-item"><a href="{% url 'articles' %}" class="main-menu-link">مقالات </a></li>
                                 </ul>
@@ -102,14 +101,14 @@
                                                 class="responsive-menu-content-link">نقشه بازار</a></li>
                                         <li class="responsive-menu-content-item"><a href="{% url 'watch_list_page' %}"
                                                 class="responsive-menu-content-link">دیده بان</a></li>
-                                        <li class="responsive-menu-content-item responsive-submenu-content"><a
+                                        <li class="responsive-menu-content-item"><a href="{% url 'products_page' %}"
                                                 class="responsive-menu-content-link">محصولات</a>
-                                            <ul class="responsive-submenu-content-list">
+                                            <!--<ul class="responsive-submenu-content-list">
                                                 {% for group in product_groups %}
                                                     <li class="responsive-submenu-content-item"><a href="{% url 'products_page' %}#{{group.name}}" class="responsive-submenu-content-link">{{group.name}}
                                                         </a></li>
                                                 {% endfor %}
-                                            </ul>
+                                            </ul>-->
                                         </li>
                                         <li class="responsive-menu-content-item"><a href="{% url 'articles' %}"
                                                 class="responsive-menu-content-link">مقالات</a></li>
@@ -159,8 +158,7 @@
                 <div class="row footer-top-row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 footer-right-col">
                         <div class="footer-right"><img src="{% static 'img/logo.png' %}" class="footer-right-image" alt="ارز توییت" />
-                            <p class="footer-right-paragraph">اولویت اصلی تیم ارز توییتر ایجاد بستری آنلاین برای تبادل نظرات و اطلاعات در مورد رمز ارز های دیجیتال می باشد.
-این مجموعه در نظر دارد تا با ارائه خدماتی نوین و برجسته در راستای کمک به افزایش دانش و آگاهی در این حوزه گامی مهم بردارد. </p>
+                            <p class="footer-right-paragraph">{{footer_text}}</p>
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl- footer-left-col">

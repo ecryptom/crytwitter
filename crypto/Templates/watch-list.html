@@ -110,17 +110,14 @@
         <div class="container">
             <div class="watch-list-line">
                 <h2 class="watch-list-line-heading-two">ديده بان</h2>
-                <p class="watch-list-line-paragraph">
-                    در این صفحه شما می توانید با جستجو و اضافه کردن رمز ارز های مورد نظر خود آن ها را 
-                در دیده بان خود قرار دهید و  از  نوسانات لحظه ای تمام رمز ارزهای خود در کنار هم مطلع شوید.
-                </p>
+                <p class="watch-list-line-paragraph">{{watchlist_header}} </p>
             </div>
             <form action="{% url 'add_watch_list' %}" method="POST" autocomplete="off">
                 {% csrf_token %}
                 <div class="watch-list-search">
                     <div class="watch-list-search-autocomplete">
                         <input id="autocompleteInput" name="currency" type="text" class="watch-list-search-autocomplete-input"
-                            placeholder="جستجوی رمز ارز...">
+                            placeholder="{{watchlist_search_placeholder}}">
                         <button type="submit" class="watch-list-autocomplete-search-button">افزودن</button>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-from home.models import currency, dollor
+from home.models import currency, dollor, statics
 from accounts.models import user
 import json
 
@@ -32,3 +32,9 @@ if not user.objects.filter(username="arztwitter"):
         verified_phone=True
     )
     User.save()
+
+#initialze static texts in db
+statics(name='footer_text', descreption="متن فوتر").save()
+statics(name='index_search_placeholder', descreption="متن باکس جست و جوی صفحه اصلی").save()
+statics(name='watchlist_header', descreption="متن صفحه دیده بان").save()
+statics(name='watchlist_search_placeholder', descreption="متن باکس جست و جوی صفحه دیده بان").save()

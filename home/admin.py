@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import article, faq, index_comments
+from .models import article, faq, index_comments, statics
 
 #admin.site.register(article)
 #admin.site.register(article_chunk)
@@ -17,4 +17,8 @@ class FaqAdmin(admin.ModelAdmin):
 
 @admin.register(index_comments)
 class FaqAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(statics)
+class staticsAdmin(admin.ModelAdmin):
     pass

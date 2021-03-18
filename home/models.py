@@ -3,8 +3,17 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from utils.date_convertor import gregorian_to_shamsi
 from django.utils import timezone
 
-class alaki(models.Model):
-    text = RichTextUploadingField()
+class statics(models.Model):
+    name = models.CharField(max_length=50, unique=True, editable=False)
+    descreption = models.CharField(max_length=100, verbose_name='مشخصه')
+    value = models.TextField(verbose_name='متن اصلی', blank=True, null=True)
+
+    def __str__(self):
+        return self.descreption
+
+    class Meta:
+        verbose_name_plural = 'متن های ثابت'
+    
 
 class currency(models.Model):
     name = models.CharField(max_length=50)
