@@ -4,6 +4,7 @@ from string import ascii_letters
 from utils.date_convertor import gregorian_to_shamsi
 from django.utils import timezone
 import random
+from products.models import cart
 
 
 class UserManager(BaseUserManager):
@@ -49,4 +50,8 @@ class user(AbstractUser):
 
     class Meta:
         verbose_name_plural = 'کاربران'
+
+    def cart_counter(self):
+        Cart = self.cart_set.filter(paid=False)
+        return Cart[0].product_counter() if Cart else 0
 

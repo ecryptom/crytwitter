@@ -57,6 +57,13 @@ class cart(models.Model):
             cost += o.product.price * o.number * (100-o.product.off) * 0.01
         return cost
 
+    #return number of product in cart
+    def product_counter(self):
+        count = 0
+        for o in self.order_set.all():
+            count += o.number
+        return count
+
     #add a product to cart
     def add_product(self, ID):
         #check if this id is availble

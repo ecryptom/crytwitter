@@ -134,7 +134,8 @@ def get_currencies_info(req, page):
         'symbol': cur.symbol,
         'price': cur.price,
         '1d_change': cur.daily_price_change_pct,
-        '7d_change': cur.weekly_price_change_pct
+        '7d_change': cur.weekly_price_change_pct,
+        'market_cap': cur.market_cap,
     } for cur in currencies], safe=False)
 
 @csrf_exempt
