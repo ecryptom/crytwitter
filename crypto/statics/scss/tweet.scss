@@ -510,19 +510,6 @@
                             .tweet-content-center-comment-input-file {
                                 display: none !important;
                             }
-                            .tweet-content-center-comment-submit {
-                                position: absolute;
-                                bottom: 5px;
-                                left: 20px;
-                                background-color: $color-primary-one;
-                                color: $color-primary-two;
-                                border-radius: 50%;
-                                width: 30px;
-                                height: 30px;
-                                display: inline-flex;
-                                justify-content: center;
-                                align-items: center;
-                            }
                         }
                     }
                     .tweet-content-center-boxes-parent {
@@ -702,6 +689,7 @@
 }
 .tweet-content-center-comment-show-file{
     width: 100%;
+    direction: ltr;
     &.tweet-content-center-comment-show-file-hidden{
         visibility: hidden;
     }
@@ -720,3 +708,24 @@
     }
 }
 
+.emojionearea-wrapper{
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: $color-white;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: lighten($color-secondary, 20%);
+    border-radius: 2px;
+    transition: all ease .5s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: lighten($color-secondary, 25%);
+}
+}

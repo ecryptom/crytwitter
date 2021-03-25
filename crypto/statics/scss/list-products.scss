@@ -41,6 +41,18 @@
                     font-size: 14px;
                 }
             }
+            .list-products-boxes-status{
+                margin: 15px 0;
+                text-align: center;
+                font-size: 16px;
+                color: $color-primary-two;
+                .list-products-boxes-status-available{
+                color: $color-green;
+                }
+                .list-products-boxes-status-unavailable{
+                    color: $color-red;
+                    }
+            }
             .list-products-boxes-add-to-cart{
                 width: 100%;
                 padding: 8px 0;

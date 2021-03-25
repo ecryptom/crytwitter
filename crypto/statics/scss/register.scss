@@ -3,7 +3,7 @@
 @import "mixin";
 
 .page-wrapper {
-    margin-top: $margin-section;
+    margin-top: 30px;
 }
 .register {
     .register-container {
@@ -112,5 +112,11 @@
     }
     .register-left-col{
         order: 1;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .register-left-col{
+        display: none !important;
     }
 }
