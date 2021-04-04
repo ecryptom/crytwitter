@@ -4,7 +4,9 @@
 
 {% block header %}
     <title>ارز توییتر</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <link rel="stylesheet" href="{% static 'css/article.min.css' %}" />
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.4/plyr.css" />
 {% endblock header %}
 
 
@@ -39,6 +41,12 @@
                             </div>
                             {% endif %}
                             
+                            {% if article.video %}
+                                <video id="player" playsinline controls data-poster="pic/sample.jpg">
+                                    <source src="{{article.video.url}}" type="video/mp4" />
+                                </video>
+                            {% endif %}
+
                             <div class="article-left-description">
                                 {{article.content | safe}}
                             </div>
@@ -136,5 +144,47 @@
  
 {% block scripts %}
     <script src="{% static 'js/article.js' %}"></script>
+    <script src="{% static 'js/rtop.videoPlayer.1.0.1.min.js' %}"></script>
+
+    <script src="https://cdn.plyr.io/3.6.4/plyr.polyfilled.js"></script>
+    <script>
+        const player = new Plyr('#player', {
+            controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions',
+                'airplay', 'fullscreen'
+            ]
+        });
+    </script>
+
+<!--------------------------reply comment-------------------------->
+<script>
+    let sendReplyIcon = document.querySelectorAll(".fa.fa-reply.article-left-comments-footer-icon");
+    let sendReplyBox = document.querySelectorAll(".article-left-comments-send-reply");
+   
+    sendReplyIcon.forEach(element => {
+        element.addEventListener("click", function (e) {
+            let firstParent = e.target.parentElement.parentElement;
+            let replyBox = firstParent.querySelector(".article-left-comments-send-reply");
+            if (replyBox == null) {
+                let replyComments = firstParent.querySelector(".article-left-comments-reply");
+                let replyElement = document.createElement("div");
+                replyElement.classList.add("article-left-comments-send-reply");
+                replyElement.innerHTML = "  <form action='/reply_article_comment/"+ element.id +"' method='POST'><textarea name='text' placeholder='متن دیدگاه' class='article-left-comments-send-reply-text-area'></textarea><button type='submit' class='article-left-comments-send-reply-submit'>ارسال پاسخ</button></form>";
+                firstParent.insertBefore(replyElement, replyComments);
+                replyElement.style.height = replyElement.scrollHeight + "px";
+                e.target.classList.add("article-left-comments-footer-icon-close");
+            } else if (getComputedStyle(replyBox).height == "0px") {
+                replyBox.style.height = replyBox.scrollHeight + "px";
+                e.target.classList.add("article-left-comments-footer-icon-close");
+            } else {
+                replyBox.style.height = "0px";
+                e.target.classList.remove("article-left-comments-footer-icon-close");
+                setTimeout(function(){
+                    firstParent.removeChild(replyBox);
+                },1000);
+            }
+        })
+    });
+</script>
+
 {% endblock scripts %}
 

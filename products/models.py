@@ -9,9 +9,9 @@ class product(models.Model):
     details = models.TextField(default='', verbose_name='توضیحات کلی')
     details2 = models.TextField(default='', verbose_name='بخش توضیحات')
     group = models.ForeignKey('products.product_group', on_delete=models.CASCADE, null=True)
-    File = models.FileField(upload_to='product_files', null=True, blank=True)
+    File = models.FileField(upload_to='product_files', null=True, blank=True, verbose_name='فایل')
     properties = models.TextField(default='کیفیت:مناسب', verbose_name='ویژگی ها')
-    status = models.CharField(max_length=10, choices=(('موجود', 'موجود'), ('ناموجود', 'ناموجود')), default=('موجود', 'موجود'))
+    status = models.CharField(max_length=10, choices=(('موجود', 'موجود'), ('ناموجود', 'ناموجود')), default=('موجود', 'موجود'), verbose_name='وضعیت')
     tags = models.CharField(max_length=50 ,default='crypto;BTC;miner', verbose_name='تگ‌ها(با ; جدا شوند)')  #split tags with ";"
     image1 = models.FileField(upload_to='products', verbose_name='تصویر اول')
     image2 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')

@@ -53,7 +53,10 @@ def article_page(req, ID):
     return render(req, 'article.html', {'article':Article})
 
 def articles(req):
-    return render(req, 'list-articles.html', {'articles':article.objects.order_by('-id')})
+    articles = article.objects.filter(Type=req.GET.get('type')).order_by('-id') 
+    if req.GET.get('order') == 'views':
+        articles = articles.order_by('-views_count')
+    return render(req, 'list-articles.html', {'articles':articles, 'type':req.GET.get('type')})
 
 
 @login_required(login_url='login')

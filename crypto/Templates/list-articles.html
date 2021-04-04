@@ -17,6 +17,17 @@
         <section class="list-articles">
             <div class="container list-articles-container">
                 <h2 class="list-articles-heading-two">مقالات</h2>
+                <div class="list-articles-sort">
+                    <form action="{% url 'articles' %}" method="GET">
+                        <label for="sort">مرتب سازی بر اساس :</label>
+                        <select name="order" class="optionbox">
+                            <option value="time">جدیدترین مقالات</option>
+                            <option value="views">بیشترین بازدید</option>
+                        </select> 
+                        <input name="type" value={{type}} hidden>
+                        <button type="submit">مرتب سازی</button>
+                    </form>
+                </div>
                 <div class="list-articles-boxes-wrapper">
                     <div class="row list-articles-boxes-wrapper-row">
 
@@ -24,7 +35,9 @@
                         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                             <div class="list-articles-boxes">
                                 <div class="list-articles-boxes-header">
-                                    <img src="{{article.image.url}}" class="list-articles-boxes-header-image" alt="" />
+                                    <a href="{% url 'article' article.id %}" class="list-articles-boxes-content-link">
+                                        <img src="{{article.image.url}}" class="list-articles-boxes-header-image" alt="" />
+                                    </a>
                                 </div>
                                 <div class="list-articles-boxes-content">
                                     <h3 class="list-articles-boxes-content-heading-three">
