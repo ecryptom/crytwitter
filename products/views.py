@@ -88,6 +88,10 @@ def payment_request(req, ID):
     #check request user and cart status
     if req.user != Cart.user or Cart.paid:
         return redirect('cart')
+    #check if there is a non available product in cart
+    for o in Cart.order_set.all():
+        if not o.product.is_available():
+            return redirect('cart')
     result = client.service.PaymentRequest(MERCHANT, Cart.cost(), f'user_id:{req.user.id}, username:{req.user.username}', req.user.email, req.user.phone, CallbackURL)
     if result.Status == 100:
         Cart.Authority = str(result.Authority)
@@ -136,3 +140,12 @@ def remove_product(req, ID):
         return JsonResponse({'status':'failed'})
     remaining_number = Cart[0].remove_product(ID)
     return JsonResponse({'status':'success', 'number': remaining_number, 'cost':Cart[0].cost()})
+
+@csrf_exempt
+@login_required
+def remove_order(req, ID):
+    Order = order.objects.filter(id=ID)
+    if Order:
+        Order[0].delete()
+        return JsonResponse({'status':'success'})
+    return JsonResponse({'status':'failed'})

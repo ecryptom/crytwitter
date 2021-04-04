@@ -10,15 +10,15 @@ class product(models.Model):
     details2 = models.TextField(default='', verbose_name='بخش توضیحات')
     group = models.ForeignKey('products.product_group', on_delete=models.CASCADE, null=True)
     File = models.FileField(upload_to='product_files', null=True, blank=True)
-    properties = models.TextField(default='', verbose_name='ویژگی ها')
+    properties = models.TextField(default='کیفیت:مناسب', verbose_name='ویژگی ها')
     status = models.CharField(max_length=10, choices=(('موجود', 'موجود'), ('ناموجود', 'ناموجود')), default=('موجود', 'موجود'))
     tags = models.CharField(max_length=50 ,default='crypto;BTC;miner', verbose_name='تگ‌ها(با ; جدا شوند)')  #split tags with ";"
     image1 = models.FileField(upload_to='products', verbose_name='تصویر اول')
     image2 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
     image3 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر سوم')
-    image4 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر اول')
-    image5 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
-    image6 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر سوم')
+    image4 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر چهارم')
+    image5 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر پنجم')
+    image6 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر ششم')
     def net_price(self):
         return int(self.price * (100 - self.off) * 0.01)
     def split_tags(self):
@@ -67,8 +67,9 @@ class cart(models.Model):
     def cost(self):
         cost = 0
         for o in self.order_set.all():
-            cost += o.product.price * o.number * (100-o.product.off) * 0.01
-        return cost
+            if o.product.is_available():
+                cost += o.product.price * o.number * (100-o.product.off) * 0.01
+        return int(cost)
 
     #return number of product in cart
     def product_counter(self):
@@ -80,7 +81,11 @@ class cart(models.Model):
     #add a product to cart
     def add_product(self, ID):
         #check if this id is availble
-        if not product.objects.filter(id=ID):
+        Product = product.objects.filter(id=ID)
+        if not Product:
+            return 0
+        #check if product is available
+        if not Product[0].is_available():
             return 0
         has_related_order = False
         for o in self.order_set.all():
@@ -95,11 +100,16 @@ class cart(models.Model):
             new_order = order(product=product.objects.get(id=ID), cart=self, number=1)
             new_order.save()
             return 1
+        
 
     #remove a product from cart
     def remove_product(self, ID):
         #check if this id is availble
-        if not product.objects.filter(id=ID):
+        Product = product.objects.filter(id=ID)
+        if not Product:
+            return 0
+        #check if product is available
+        if not Product[0].is_available():
             return 0
         has_related_order = False
         for o in self.order_set.all():

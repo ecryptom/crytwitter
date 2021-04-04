@@ -23,21 +23,34 @@
                     {% for product in group.product_set.all %}
                         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                             <div class="list-products-boxes">
-                                <img src="{{product.image1.url}}" class="list-products-boxes-image" />
+                                <a href="{% url 'product' product.id %}" class="list-products-boxes-link">
+                                    <img src="{{product.image1.url}}" class="list-products-boxes-image" />
+                                </a>
                                 <h3 class="list-products-boxes-heading-three">
                                     <a href="{% url 'product' product.id %}" class="list-products-boxes-link">
-                                       {{product.name}}
+                                        {{product.name}}
                                     </a>
                                 </h3>      
                                 <div class="list-products-boxes-price">
                                     <span class="list-products-boxes-price-value">{{product.net_price}}</span>
                                     <span class="list-products-boxes-price-unit">تومان</span>
                                 </div>
-                                <div class="list-products-boxes-add-to-cart">
-                                    <a href="{% url 'add_product_to_cart' product.id %}" class="list-products-boxes-add-to-cart-link">
-                                    افزودن به سبد خرید
-                                    </a>
+                                <div class="list-products-boxes-status">
+                                    <span class="list-products-boxes-status-title">وضعیت : </span>
+                                    {% if product.is_available %}
+                                        <span class="list-products-boxes-status-available">موجود</span>
+                                    {% else %}
+                                        <span class="list-products-boxes-status-unavailable">ناموجود</span>
+                                    {% endif %}
                                 </div>
+                                {% if product.is_available %}
+                                    <div class="list-products-boxes-add-to-cart">
+                                        <a href="{% url 'add_product_to_cart' product.id %}" class="list-products-boxes-add-to-cart-link">
+                                        افزودن به سبد خرید
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                
                             </div>
                         </div>
                     {% endfor %}

@@ -64,6 +64,7 @@
                             </div>
                             <div class="panel-left-shopping-cart-content">
                                 {% if cart %}
+                                <div id="cart_table">
                                 <table class="panel-left-shopping-cart-content-table table table-bordered table-hover table-striped table-light" id="shoppingTable">
                                     <thead class="panel-left-shopping-cart-content-table-header thead-dark">
                                         <tr class="panel-left-shopping-cart-content-table-row">
@@ -81,28 +82,38 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="panel-left-shopping-cart-content-table-content">
+                                    <tbody id="cart_tbody" class="panel-left-shopping-cart-content-table-content">
                                         {% for order in cart.order_set.all %}
-                                        <tr id="order{{order.product.id}}" class="panel-left-shopping-cart-content-table-row">
-                                            <td class="panel-left-shopping-cart-content-table-data">
-                                                {{ forloop.counter }}
-                                            </td>
-                                            <td class="panel-left-shopping-cart-content-table-data">
-                                                <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
-                                            </td>
-                                            <td class="panel-left-shopping-cart-content-table-data">
-                                                {{order.product.net_price}}
-                                            </td>
-                                            <td class="panel-left-shopping-cart-content-table-data">
-                                                <a onclick="removeFromCart({{order.product.id}})" class="panel-left-shopping-cart-content-table-link">
-                                                    <i class="fa fa-minus shopping-cart-table-icon"></i>
-                                                </a>
-                                                <span id="number{{order.product.id}}" class="panel-left-shopping-cart-content-table-count">{{order.number}}</span>
-                                                <a onclick="addToCart({{order.product.id}})" class="panel-left-shopping-cart-content-table-link">
-                                                    <i class="fa fa-plus panel-left-shopping-cart-content-table-icon"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                            <tr id="order{{order.product.id}}" class="panel-left-shopping-cart-content-table-row">
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    {{ forloop.counter }}
+                                                </td>
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
+                                                </td>
+                                                    <td class="panel-left-shopping-cart-content-table-data">
+                                                        {% if order.product.is_available %}
+                                                            {{order.product.net_price}}
+                                                        {% else %}
+                                                            <span style="color:red">ناموجود</span>
+                                                        {% endif %}
+                                                    </td>
+                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                    {% if order.product.is_available %}
+                                                        <a onclick="removeFromCart({{order.product.id}})" class="panel-left-shopping-cart-content-table-link">
+                                                            <i class="fa fa-minus shopping-cart-table-icon"></i>
+                                                        </a>
+                                                        <span id="number{{order.product.id}}" class="panel-left-shopping-cart-content-table-count">{{order.number}}</span>
+                                                        <a onclick="addToCart({{order.product.id}})" class="panel-left-shopping-cart-content-table-link">
+                                                            <i class="fa fa-plus panel-left-shopping-cart-content-table-icon"></i>
+                                                        </a>
+                                                    {% else %}
+                                                        <a onclick="remove_order({{order.id}}, {{order.product.id}})">
+                                                            <span style="color:ted">حذف</span>
+                                                        </a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
                                         {% endfor %}
                                     </tbody>
                                     <tfoot class="panel-left-shopping-cart-content-table-footer">
@@ -122,10 +133,17 @@
                                     </tfoot>
                                 </table>
                                 <a href="{% url 'payment_request' cart.id %}" class="panel-left-shopping-cart-content-link">تأیید و پرداخت</a>
-                                {% else %}
-                                <div class="alert alert-danger w-75 mx-auto">
-                                    <p style="text-align: center">سبد خرید شما خالی است</p>
                                 </div>
+                                
+                                <div id="epmty_cart" hidden>
+                                        <div class="panel-left-shopping-cart-content-alert">  سبد خرید شما خالی است! </div>
+                                        <img src="{% static 'img/shopping-cart.png' %}" style="height: 230px;display: block;margin: 10px auto;width: 80%;" />
+                                    </div>
+                                {% else %}
+                                    <div id="epmty_cart">
+                                        <div class="panel-left-shopping-cart-content-alert">  سبد خرید شما خالی است! </div>
+                                        <img src="{% static 'img/shopping-cart.png' %}" style="height: 230px;display: block;margin: 10px auto;width: 80%;" />
+                                    </div>
                                 {% endif %}
 
                             </div>
@@ -206,8 +224,11 @@
     </section>
 
     </div>
-    {% endblock page %} {% block scripts %}
-    <script>
+    {% endblock page %} 
+{% block scripts %}
+
+<!---------------------add or remove product---------------------->
+<script>
         function addToCart(ID) {
             $.ajax({
                 url: '/product/add_product/' + ID,
@@ -227,13 +248,33 @@
                 url: '/product/remove_product/' + ID,
                 dataType: "json",
                 success: function(result, s, x) {
-                    if (result.number == 0)
+                    if (result.number == 0){
                         document.getElementById("order" + ID).remove();
+                        if(document.getElementById("cart_tbody").childElementCount == 0){
+                            document.getElementById("cart_table").remove();
+                            document.getElementById("epmty_cart").hidden = false;
+                        }
+                        }
+
                     else
                         document.getElementById("number" + ID).innerHTML = result.number;
                     document.getElementById("cost").innerHTML = result.cost;
                 }
             })
         }
-    </script>
+
+    function remove_order(order_id, product_id){
+        $.ajax({
+                url: '/product/remove_order/' + order_id,
+                dataType: "json",
+                success: function(result, s, x) {
+                    document.getElementById("order"+product_id).remove();
+                    if(document.getElementById("cart_tbody").childElementCount == 0){
+                        document.getElementById("cart_table").remove();
+                        document.getElementById("epmty_cart").hidden = false;
+                    }
+                }
+            })
+    }
+</script>
     {% endblock scripts %}

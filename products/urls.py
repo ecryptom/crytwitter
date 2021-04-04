@@ -14,4 +14,5 @@ urlpatterns = [
     ### APIs ###
     path('add_product/<int:ID>', add_product, name='add_product'),
     path('remove_product/<int:ID>', remove_product, name='remove_product'),
+    path('remove_order/<int:ID>', remove_order, name='remove_order'),
 ]
