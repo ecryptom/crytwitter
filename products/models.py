@@ -6,10 +6,12 @@ class product(models.Model):
     name = models.CharField(max_length=25, verbose_name='نام محصول')
     price = models.IntegerField(verbose_name='قیمت')
     off = models.IntegerField(default=0, verbose_name='تخفیف به درصد')
-    details = models.TextField(default='', verbose_name='توضیحات')
-    details2 = models.TextField(default='', verbose_name='توضیحات پایین')
+    details = models.TextField(default='', verbose_name='توضیحات کلی')
+    details2 = models.TextField(default='', verbose_name='بخش توضیحات')
     group = models.ForeignKey('products.product_group', on_delete=models.CASCADE, null=True)
-    status = models.CharField(max_length=10, choices=(('موچود', 'موچود'), ('ناموچود', 'ناموچود')), default=('موچود', 'موچود'))
+    File = models.FileField(upload_to='product_files', null=True, blank=True)
+    properties = models.TextField(default='', verbose_name='ویژگی ها')
+    status = models.CharField(max_length=10, choices=(('موجود', 'موجود'), ('ناموجود', 'ناموجود')), default=('موجود', 'موجود'))
     tags = models.CharField(max_length=50 ,default='crypto;BTC;miner', verbose_name='تگ‌ها(با ; جدا شوند)')  #split tags with ";"
     image1 = models.FileField(upload_to='products', verbose_name='تصویر اول')
     image2 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
@@ -18,9 +20,20 @@ class product(models.Model):
     image5 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر دوم')
     image6 = models.FileField(upload_to='products', null=True,blank=True, verbose_name='تصویر سوم')
     def net_price(self):
-        return self.price * (100 - self.off) * 0.01
+        return int(self.price * (100 - self.off) * 0.01)
     def split_tags(self):
         return self.tags.split(';')
+    def split_properties(self):
+        properties = []
+        for p in self.properties.replace('\r','').split('\n'):
+            try:
+                p = p.split(':')
+                properties.append({'key':p[0], 'value':p[1]})
+            except:
+                pass
+        return properties
+    def is_available(self):
+        return self.status == 'موجود'
     def __str__(self):
         return self.name
     class Meta:

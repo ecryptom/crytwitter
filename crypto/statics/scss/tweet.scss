@@ -9,7 +9,7 @@
     text-align: center;
 }
 .tweet {
-    margin-top: 20px;
+    margin-top: 50px;
     .tweet-header{
         .tweet-header-top-cryptocurrency{
             .tweet-header-top-cryptocurrency-list{
@@ -53,6 +53,7 @@
                             margin-top: 8px;
                             color: $color-secondary;
                             font-size: 12px;
+                            direction: ltr;
                             &.tweet-header-top-cryptocurrency-information-postivie{
                                 color: $color-green;
                             }
@@ -613,10 +614,15 @@
 }
 .emojie-box{
     z-index: 8;
-    right: 60px;
+    right: 80px;
     left: auto !important;
 }
-
+.emojionearea-button{
+    right: 30px !important;
+}
+.emojionearea-picker{
+    right: 55px !important;
+}
 @media only screen and (max-width:992px){
     .tweet-header-top-cryptocurrency-item{
         width: 12.5% !important;

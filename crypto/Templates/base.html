@@ -1,5 +1,6 @@
 {% load static %}
-<html>
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
@@ -151,50 +152,95 @@
 {% block page %}{% endblock page %}
 
 
-    <!-- START FOOTER -->
+<!-- START FOOTER -->
     <footer class="footer" id="footer">
-        <div class="footer-top">
-            <div class="container footer-container">
-                <div class="row footer-top-row">
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 footer-right-col">
-                        <div class="footer-right"><img src="{% static 'img/logo.png' %}" class="footer-right-image" alt="ارز توییت" />
-                            <p class="footer-right-paragraph">{{footer_text}}</p>
-                        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
+                    <div class="footer-about">
+                        <img src="{% static 'img/logo.png' %}" class="footer-about-image" alt="ارز توییتر" />
+                        <p class="footer-about-paragraph">
+                          اولویت اصلی تیم ارز توییتر ایجاد بستری آنلاین برای تبادل نظرات و اطلاعات در مورد رمز ارز های دیجیتال می باشد. این مجموعه در نظر دارد تا با ارائه خدماتی نوین و برجسته در راستای کمک به افزایش دانش و آگاهی در این حوزه گامی مهم بردارد.
+                        </p>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl- footer-left-col">
-                        <div class="footer-left">
-                            <div class="footer-left-social-networks"><a href="https://t.me/arztwittercom"
-                                    class="footer-left-social-networks-link"><i
-                                        class="fa fa-telegram footer-left-social-networks-icon"></i></a><a href="https://www.instagram.com/arztwitter/" 
-                                    class="footer-left-social-networks-link"><i
-                                        class="fa fa-instagram footer-left-social-networks-icon"></i></a><a href="https://twitter.com/Arztwiter" 
-                                    class="footer-left-social-networks-link"><i
-                                        class="fa fa-twitter footer-left-social-networks-icon"></i></a><a href="http://youtube.com/arztwitter" 
-                                    class="footer-left-social-networks-link"><i
-                                        class="fa fa-youtube footer-left-social-networks-icon"></i></a>
-                            </div>
-                            <div class="footer-left-contact">
-                                <h4 class="footer-left-contact-heading-four">ارتباط با ما</h4>
-                                <ul class="footer-left-contact-list">
-                                    <li class="footer-left-contact-item"><i
-                                            class="fa fa-map-marker footer-left-contact-icon"></i><span
-                                            class="footer-left-contact-span">تهران،امير آباد،خيابان ثاني</span></li>
-                                    <li class="footer-left-contact-item"><i
-                                            class="fa fa-phone footer-left-contact-icon"></i><span
-                                            class="footer-left-contact-span">09125412130</span></li>
-                                    <li class="footer-left-contact-item"><i
-                                            class="fa fa-envelope footer-left-contact-icon"></i><span
-                                            class="footer-left-contact-span">support@arztwitter.com</span></li>
-                                </ul>
+                    <div class="footer-contact">
+                       <div class="social-media">
+                        <a href="#">
+                            <i class="fa fa-twitter footer-contact-icon"></i>
+                          </a>
+                          <a href="#">
+                            <i class="fa fa-telegram footer-contact-icon"></i>
+                          </a>
+                          <a href="#">
+                            <i class="fa fa-instagram footer-contact-icon"></i>
+                          </a>
+                          <a href="#">
+                            <i class="fa fa-youtube footer-contact-icon"></i>
+                          </a>
+                       </div>
+                        <div class="footer-contact-email">
+                            <i class="fa fa-envelope"></i>
+                            support@arztwitter.com
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
+                    <div class="row">
+                        <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                            <h3 class="footer-heading-three">ارزتوییتر</h3>
+                            <ul class="footer-list">
+                                <li class="footer-list-item">
+                                    <a href="{% url 'products_page' %}" class="footer-link">محصولات</a>
+                                </li>
+                                <li class="footer-list-item">
+                                    <a href="{% url 'about_us' %}" class="footer-link">درباره ما</a>
+                                </li>
+                                <li class="footer-list-item">
+                                    <a class="footer-link">قوانین ما</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                            <h3 class="footer-heading-three">اطلاعات بازار</h3>
+                            <ul class="footer-list">
+                                <li class="footer-list-item">
+                                    <a href="{% url 'tweets' %}" class="footer-link">توئیت</a>
+                                </li>
+                                <li class="footer-list-item">
+                                    <a href="{% url 'list_currencies' 1 %}" class="footer-link">رمز ارز ها</a>
+                                </li>
+                                <li class="footer-list-item">
+                                    <a href="{% url 'cryptomarket'%}" class="footer-link">نقشه بازار</a>
+                                </li>
+                                <li class="footer-list-item">
+                                    <a href="{% url 'watch_list_page' %}" class="footer-link">دیده بان</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                            <h3 class="footer-heading-three">بیشتر یاد بگیرید</h3>
+                            <ul class="footer-list">
+                                <li class="footer-list-item">
+                                    <a class="footer-link"> مقالات آموزشی</a>
+                                </li>
+                                <li class="footer-list-item">
+                                    <a class="footer-link">تحلیل ها و اخبار</a>
+                                </li>
+                                <li class="footer-list-item">
+                                    <a class="footer-link">سوالات متداول</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                            <img src="{% static 'img/footer-logo.png' %}" class="footer-logo" />
+                            <div class="footer-copyright">
+                                کلیه حقوق متعلق به سایت <b>ارزتوییتر</b> می باشد و بازنشر محتوا با ذکر منبع بلا مانع است.
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p class="footer-bottom-paragraph"><span class="footer-bottom-copyright">&copy;</span>تمامی حقوق برای سایت
-                ارز توييتر محفوظ است و بازنشر محتوا با ذکر منبع بلامانع است. </p>
         </div>
     </footer>
     <!-- END FOOTER -->

@@ -125,30 +125,33 @@
             <table class="watch-list-table">
                 <thead class="watch-list-table-header">  
                     <tr class="watch-list-table-row">
-                        <th class="watch-list-table-heading">رديف</th>
                         <th class="watch-list-table-heading">نماد</th>
                         <th class="watch-list-table-heading">قيمت</th>
                         <th class="watch-list-table-heading">قیمت دلاری</th>
                         <th class="watch-list-table-heading">قیمت ریالی</th>
                         <th class="watch-list-table-heading">روزانه</th>
+                        <th class="watch-list-table-heading">هفتگی</th>
                         <th class="watch-list-table-heading">حجم بازار</th>
                     </tr>
                 </thead>
                 <tbody class="watch-list-table-body" id="topCryptocurrencyBody">
                     {% for cur in watch_list %}
                         <tr class="watch-list-table-row" id="curr_{{cur.id}}">
-                            <td class="watch-list-table-description">
+                           <!-- <td class="watch-list-table-description">
                                 {{ forloop.counter }}
                                 <a onclick="confirm_remove({{cur.id}})">
                                     <i class="fa fa-trash-o fa-lg"></i>
                                 </a>
-                            </td>
+                            </td>-->
                             <td class="watch-list-table-description">
                                 <a href="{% url 'curr_tweets' cur.name %}">
                                     <div class="d-flex align-items-center justify-content-center">
                                     <span class="watch-list-table-name">{{cur.name}}</span>
                                         <img src="{{cur.image_url}}" alt="{{cur.symbol}}" class="watch-list-table-image">
                                     </div>
+                                </a>
+                                <a onclick="confirm_remove({{cur.id}})">
+                                    <i class="fa fa-trash-o fa-lg"></i>
                                 </a>
                             </td>
                             <td class="watch-list-table-description">
@@ -165,6 +168,9 @@
                             </td>
                             <td class="watch-list-table-description">
                                 <span id="1d_change_{{cur.symbol}}" class="watch-list-table-percent watch-list-table-percent-descending"></span>
+                            </td>
+                            <td class="watch-list-table-description">
+                                <span id="7d_change_{{cur.symbol}}" class="watch-list-table-percent watch-list-table-percent-descending"></span>
                             </td>
                             <td class="watch-list-table-description">
                                 <span id="market_cap_{{cur.symbol}}" class="watch-list-table-price watch-list-table-price-dollar"></span>
@@ -189,8 +195,8 @@
     <!-----------------------update currencies------------------------------>
 <script>
     var dollor_rate = {{dollor_rate}};
-    var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change, market_cap;
-    var price_diff_per_frame={}, daily_change_diff_per_frame={};
+    var new_data, old_data, cur_index=0, frame=0, new_price, new_1d_change, new_1d_change, market_cap;
+    var price_diff_per_frame={}, daily_change_diff_per_frame={}, weekly_change_diff_per_frame={};
 
     function numberWithCommas(x) {
         var parts = x.toString().split(".");
@@ -198,7 +204,7 @@
         return parts.join(".");
     }
 
-    function update_window(symbol, price, daily_change){
+    function update_window(symbol, price, daily_change, weekly_change){
         // set toman price
         document.getElementById('toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         document.getElementById('mobile_toman_' + symbol).innerHTML = parseInt(price * dollor_rate).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -218,6 +224,14 @@
             document.getElementById('1d_change_' + symbol).innerHTML = daily_change.toFixed(2) + "%";
             document.getElementById('1d_change_' + symbol).style.backgroundColor = '#009900';
         }
+        // fix weekly change and it's color
+        if(weekly_change < 0){
+            document.getElementById('7d_change_' + symbol).innerHTML = weekly_change.toFixed(2) + "%";
+            document.getElementById('7d_change_' + symbol).style.backgroundColor = 'red';
+        }else{
+            document.getElementById('7d_change_' + symbol).innerHTML = weekly_change.toFixed(2) + "%";
+            document.getElementById('7d_change_' + symbol).style.backgroundColor = '#009900';
+        }
     }
 
     function update_window_by_20_frame(){
@@ -232,6 +246,7 @@
         for(cur_index=0; cur_index<new_data.length; cur_index++){
             price_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index].price - old_data[cur_index].price) / 20;
             daily_change_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index]['1d_change'] - old_data[cur_index]['1d_change']) / 20;
+            weekly_change_diff_per_frame[new_data[cur_index].symbol] = (new_data[cur_index]['7d_change'] - old_data[cur_index]['7d_change']) / 20;
         }
 
         frame = 1;
@@ -245,7 +260,8 @@
                 //calcute new data
                 new_price = cur['price'] + frame * price_diff_per_frame[cur.symbol];
                 new_1d_change = cur['1d_change'] + frame * daily_change_diff_per_frame[cur.symbol];
-                update_window(cur.symbol, new_price, new_1d_change);
+                new_7d_change = cur['7d_change'] + frame * weekly_change_diff_per_frame[cur.symbol];
+                update_window(cur.symbol, new_price, new_1d_change, new_7d_change);
                 cur_index++;
             });      
             frame++;
@@ -287,7 +303,8 @@
         var sign = Math.random() > 0.5 ? -1 : 1;
         old_data[i]['price'] += (old_data[i]['price'] * sign * 0.005);
         old_data[i]['1d_change'] += (old_data[i]['1d_change'] * sign * 0.005);
-        update_window(old_data[i].symbol, old_data[i]['price'], old_data[i]['1d_change']);
+        old_data[i]['7d_change'] += (old_data[i]['7d_change'] * sign * 0.005);
+        update_window(old_data[i].symbol, old_data[i]['price'], old_data[i]['1d_change'], old_data[i]['7d_change']);
     }
     update_window_by_20_frame();
 

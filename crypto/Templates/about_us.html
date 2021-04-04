@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+    <title>درباره ما</title>
+    <link rel="stylesheet" href="{% static 'css/about.min.css' %}" />
+{% endblock header %}
+
+
+{% block page %}
+
+<section class="about">
+        <div class="container">
+            <div class="about-formation">
+                <h3>شکل گیری</h3>
+                <p>
+                    جرقه ی ایجاد سایت ارز توییتر در سال 1399 زد شده و هم اکنون ما مفتخر هستیم که با ایجاد
+                    بستری مناسب برای آموزش و آگاهی دادن به شما عزیزان درکنارتان باشیم. رسالت تیم ما گرد
+                    هم آوردن فعاالن حوزه ی رمز ارزها با محیطی کاملاً صمیمی در کنار یکدیگر می باشد که چه
+                    بسا این صمیمیت باعث افزایش اثرگذاری در یاد گیری می باشد.
+                    شما می توانید بدون هیچ محدودتی و آزادانه نظرات و سواالت و تحلیل های خود را در سایت
+                    خودتان ارزتوییتر به اشترک بگذارید و از نظرات دیگران نیز مطلع شوید چه بسا این کار می
+                    تواند به نوعی به مثابه رفع اشکال تمام دوره های آموزشی شما باشید.
+                </p>
+            </div>
+            <div class="about-members-team">
+                <h3>اعضای تیم ما</h3>
+                <ul>
+                    <li>
+                        <img src="{% static 'img/default-user.jpg' %}" />
+                        <h4>مصطفی مهدی یوسف</h4>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/default-user.jpg' %}" />
+                        <h4>علی صادقی</h4>
+                    </li>
+                    <li>
+                        <img src="{% static 'img/default-user.jpg' %}" />
+                        <h4>علی حلاج اکباتان</h4>
+                    </li>
+                </ul>
+            </div>
+            <div class="about-contact">
+                <h3>تماس با ما</h3>
+                <p>
+                    برای ارتباط با ما می توانید با ایمیل زیر در ارتباط باشید حتما در اسرع وقت پاسخگو خواهیم بود.
+                </p>
+                <a>
+                    support@arztwitter.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+{% endblock page %}

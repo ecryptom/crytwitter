@@ -48,7 +48,7 @@
     background-color: $color-white;
     width: 100%;
     direction: ltr;
-    th:nth-child(3),td:nth-child(3){
+    th:nth-child(2),td:nth-child(2){
       display: none;
     }
     .watch-list-table-header{
@@ -58,7 +58,7 @@
           border-bottom: 1px solid $color-secondary-light;
         padding: 10px;
         color: $color-white;
-        text-align: left;
+        text-align: center;
     
         }
       }
@@ -66,15 +66,14 @@
     }
     .watch-list-table-body{
       direction: rtl;
-      a{
-        text-align: left;
-      }
+      text-align: center;
+
       .watch-list-table-row{
 
         .watch-list-table-description{
           padding: 10px 0;
           border-bottom: 1px solid $color-secondary-light;
-          text-align: left;
+          text-align: center;
           padding-left: 10px;
         .watch-list-table-count{
           padding-right: 5px;
@@ -127,13 +126,13 @@
 }
 
 @media only screen and (max-width:768px){
+  th:nth-child(3) , td:nth-child(3),
   th:nth-child(4) , td:nth-child(4),
-  th:nth-child(5) , td:nth-child(5),
-  th:nth-child(7) , td:nth-child(7),
-  th:nth-child(8) , td:nth-child(8){
+  th:nth-child(6) , td:nth-child(6),
+  th:nth-child(7) , td:nth-child(7){
     display: none;
   }
-  th:nth-child(3) , td:nth-child(3){
+  th:nth-child(2) , td:nth-child(2){
     display: table-cell !important;
   }
   .watch-list-table-price{

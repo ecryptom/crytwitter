@@ -505,6 +505,8 @@
                     .panel-left-shopping-cart-content-table-content{
                         .panel-left-shopping-cart-content-table-row{
                             .panel-left-shopping-cart-content-table-data{
+                    vertical-align: middle;
+
                                 img{
                                     width: 70px;
                                     height: 70px;
@@ -583,6 +585,9 @@
       &::before {
         content: attr(data-label);
       }
+      }
+      tbody td:first-child{
+          display: none !important;
       }
     }
 

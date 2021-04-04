@@ -19,9 +19,13 @@
             }
         }
         .shopping-cart-table-content{
+        
             .shopping-cart-table-row{
                 .shopping-cart-table-data{
                     font-size: 14px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     .shopping-cart-table-link{
                         font-size: 13px;
                         margin:0 5px;

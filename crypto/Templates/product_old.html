@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <title>ارز توییتر</title>
+    <link rel="stylesheet" href="{% static 'css/product.min.css' %}" />
+{% endblock header %}
+
+
+{% block page %}
+    <div class="page-wrapper">
+        <section class="product">
+            <div class="container product-container">
+                <div class="product-features">
+                    <div class="row  product-features-row">
+                        <div class="col-12 col-sm-12 col-md-8 col-lg-7 col-xl-8 product-features-details-col">
+                            <div class="product-features-details">
+                                <h1 class="product-features-details-heading-one">{{product.name}}
+                                </h1>
+                                <p class="product-features-details-paragraph">{{product.details}}
+                                </p>
+                                <div class="product-features-details-price">
+                                    <span class="product-features-details-price-title">قیمت :</span>
+                                    <span class="product-features-details-price-value">{{product.price}} تومان</span>
+                                    <span class="product-features-details-price-value">{{product.net_price}} تومان</span>
+                                    <span class="product-features-details-price-percent">{{product.off}} درصد تخفیف</span>
+                                </div>
+                                <div class="product-features-details-add-to-cart">
+                                    <a href="{% url 'add_product_to_cart' product.id %}" class="product-features-details-add-to-cart-link">
+                                        <svg class="product-features-details-add-to-cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                            <path d="M121.263 390.737c-11.144 0-20.21-9.065-20.21-20.21V87.578c0-33.433-27.2-60.633-60.633-60.633H0v40.42h40.42c11.145 0 20.212 9.067 20.212 20.212v282.946c0 33.434 27.2 60.632 60.632 60.632h336.842v-40.42H121.263zM154.947 431.158c-14.86 0-26.947 12.09-26.947 26.947s12.09 26.947 26.947 26.947 26.947-12.09 26.947-26.947-12.088-26.947-26.947-26.947zM384 431.158c-14.86 0-26.947 12.09-26.947 26.947s12.09 26.947 26.947 26.947c14.86 0 26.947-12.09 26.947-26.947S398.86 431.158 384 431.158z"></path>
+                                            <path d="M141.474 114.526v87.58h343.158L512 114.525M141.474 242.526v87.58h303.158l27.37-87.58"></path>
+                                        </svg>
+                                        افزودن به سبد خرید
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-5 col-xl-4 product-features-picture-col">
+                            <div class="product-features-picture">
+                                <div class=" product-features-picture-main">
+                                    <img id="productImage" src="{{product.image1.url}}"
+                                        class="product-features-picture-main-image" alt="" />
+                                </div>
+                                <div class="product-features-picture-gallery">
+                                    <div class="swiper-container product-features-picture-gallery-swiper-container">
+                                        <div class="swiper-wrapper product-features-picture-gallery-swiper-wrapper">
+                                            {% if product.image1 %}
+                                                <div class="swiper-slide product-features-picture-gallery-swiper-slide">
+                                                    <img src="{{product.image1.url}}"
+                                                        class="product-features-picture-gallery-image" alt="" />
+                                                </div>
+                                            {% endif %}
+                                            {% if product.image2 %}
+                                                <div class="swiper-slide product-features-picture-gallery-swiper-slide">
+                                                    <img src="{{product.image2.url}}"
+                                                        class="product-features-picture-gallery-image" alt="" />
+                                                </div>
+                                            {% endif %}
+                                            {% if product.image3 %}
+                                                <div class="swiper-slide product-features-picture-gallery-swiper-slide">
+                                                    <img src="{{product.image3.url}}"
+                                                        class="product-features-picture-gallery-image" alt="" />
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div
+                                            class="swiper-pagination product-features-picture-gallery-swiper-pagination">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-description">
+                    <p>
+                        {{product.details2}}
+                    </p>
+                </div>
+                <div class="product-tags">
+                    <h5 class="product-tags-heading-five">
+                        برچسب ها
+                    </h5>
+                    <ul class="product-tags-list">
+                        {% for tag in product.split_tags %}
+                            <li class="product-tags-item">
+                                {{tag}}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="product-comments">
+                    <div class="product-comments-send">
+                        <h5 class="product-comments-send-heading-five">
+                          دیدگاه خود را با ما به اشتراک بگذارید
+                        </h5>
+                        <form action="{% url 'product_comment' product.id %}" method="POST">
+                        {% csrf_token %}
+                            <textarea name="text" placeholder="متن دیدگاه" class="product-comments-send-text-area"></textarea>
+                            <button type="submit" class="product-comments-send-submit"> ارسال دیدگاه</button>
+                        </form>
+                    </div>
+                    <ul class="product-comments-list">
+                    {% for comment in product.product_comment_set.all %}
+                    {% if not comment.reply_to %}
+                        <li class="product-comments-item">
+                            <div class="product-comments-header">
+                                <div class="product-comments-header-right">
+                                    <img src="{{comment.user.image.url}}"
+                                        class="product-comments-header-right-image" />
+                                </div>
+                                <div class="product-comments-header-left">
+                                    <span class="product-comments-header-left-name">{{comment.user.name}}
+                                        </span>
+                                    <span
+                                        class="product-comments-header-left-date">{{comment.shamsi_date}}</span>
+                                </div>
+                            </div>
+                            <div class="product-comments-content">
+                                <p class="product-comments-content-paragraph">
+                                    {{comment.text | linebreaksbr}}
+                                </p>
+                            </div>
+                            <div class="product-comments-footer">
+                                <i class="fa fa-reply product-comments-footer-icon" id="{{comment.id}}"></i>
+                            </div>   
+                            <div class="product-comments-reply">
+                                <ul class="product-comments-reply-list">
+                                {% for reply in comment.replies_in.all %}
+                                    <li class="product-comments-reply-item">
+                                        <div class="product-comments-reply-header">
+                                            <div class="product-comments-reply-header-right">
+                                                <img src="{{reply.user.image.url}}"
+                                                    class="product-comments-reply-header-right-image" />
+                                            </div>
+                                            <div class="product-comments-reply-header-left">
+                                                <span class="product-comments-reply-header-left-name">{{reply.user.name}}
+                                                    </span>
+                                                <span
+                                                    class="product-comments-reply-header-left-date">{{reply.shamsi_date}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-comments-reply-content">
+                                            <p class="product-comments-reply-content-paragraph">
+                                                {{reply.text | linebreaksbr}}
+                                            </p>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                     
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock page %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/product.js' %}"></script>
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+{% endblock scripts %}

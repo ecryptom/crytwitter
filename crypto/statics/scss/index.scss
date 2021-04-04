@@ -10,14 +10,11 @@ body {
 .header{
   height: 100vh;
   background-image: url("../img/backgroundproPage.jpg");
-  display:-webkit-flex;
-  display:-moz-flex;
-  display:-ms-flexbox;
   display:flex;
-  display:-webkit-box;
   flex-direction:column;
   justify-content: space-between;
-  
+  flex-wrap: nowrap;
+
   .header-banner{
   position: relative;
 
@@ -612,7 +609,7 @@ direction: ltr;
 
 @media only screen and (max-width: 576px) {
   .header-banner{
-    margin-top: -50px !important;
+    margin-top: -30px !important;
   }
   .header-banner-search{
     margin-top: 2px !important;

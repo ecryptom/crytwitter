@@ -17,7 +17,16 @@ CallbackURL = os.getenv('BASE_URL') + '/product/payment_verify'
 
 def product_page(req, ID):
     if req.method == 'GET':
-        return render(req, 'product.html', {'product': product.objects.get(id=ID)})
+        Product = product.objects.get(id=ID)
+        #check if user can download a product
+        can_download = False
+        if Product.File and req.user.is_authenticated:
+            for Cart in req.user.cart_set.filter(paid=True):
+                for Order in Cart.order_set.all():
+                    if Order.product == Product:
+                        can_download = True
+                        break
+        return render(req, 'product.html', {'product': Product, 'can_download':can_download})
 
 def products_page(req):
     groups = product_group.objects.all()

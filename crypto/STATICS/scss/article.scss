@@ -471,6 +471,26 @@
     }
 }
 
+.plyr{
+    margin:30px 0;
+    border-radius: 10px;
+}
+
+.plyr__control--overlaid {
+    background: #F2B80C;
+}
+
+.plyr__control:hover {
+    background: #F2B80C !important;
+}
+
+.plyr--full-ui.plyr--video input[type=range] {
+    color: #F2B80C;
+}
+
+.plyr__poster {
+    background-size: cover;
+}
 
 @media only screen and (max-width:992px){
     .article-right-col{

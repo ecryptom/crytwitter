@@ -39,7 +39,8 @@ def home(req):
         'questions': faq.objects.all(),
         'comments': index_comments.objects.all(),
         'twits_count': twit.objects.count(),
-        'users_count': user.objects.filter(verified_phone=True).count()
+        'users_count': user.objects.filter(verified_phone=True).count(),
+        'views_count': statics.objects.get(name='views_count').value
         })
 
 def cryptomarket(req):
@@ -97,6 +98,9 @@ def list_currencies(req, page):
         'dollor_rate':dollor.objects.get().rate,
         'page':page,
         })
+
+def about_us(req):
+    return render(req, 'about_us.html')
 
 
 def error_404(req, exception):

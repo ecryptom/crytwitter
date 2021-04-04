@@ -3,7 +3,7 @@
 @import "mixin";
 
 .page-wrapper {
-    margin-top: 30px;
+    margin-top: 50px;
 }
 .register {
     .register-container {
@@ -13,6 +13,7 @@
         padding-right: 0;
         padding-left: 0;
         background-color: $color-white;
+        
     }
     .register-right-col {
         padding-left: 0;
@@ -76,7 +77,7 @@
         .register-right-anchors {
             text-align: right;
             width: 80%;
-            margin: auto;
+            margin: 0 20px;
             margin-bottom: 100px;
 
             .register-right-link {
@@ -102,7 +103,7 @@
     .register-left{
         height: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
     }
 }
 

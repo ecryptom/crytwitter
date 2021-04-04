@@ -10,6 +10,7 @@ urlpatterns = [
     path('reply_article_comment/<int:ID>', reply_article_comment_view, name='reply_article_comment'),
     path('index_search', index_search, name='index_search'),
     path('list_currencies/<int:page>', list_currencies, name='list_currencies'),
+    path('about_us', about_us, name='about_us'),
 
 
     ######  APIs  #######
