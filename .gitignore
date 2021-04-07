@@ -116,3 +116,6 @@ media/
  **/migrations/**
  !**/migrations
  !**/migrations/__init__.py
+products/migrations/0001_initial.py
+twits/migrations/0001_initial.py
+accounts/migrations/0001_initial.py

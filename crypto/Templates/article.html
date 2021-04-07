@@ -41,9 +41,9 @@
                             </div>
                             {% endif %}
                             
-                            {% if article.video %}
+                            {% if article.video_url %}
                                 <video id="player" playsinline controls data-poster="pic/sample.jpg">
-                                    <source src="{{article.video.url}}" type="video/mp4" />
+                                    <source src="{{article.video_url}}" type="video/mp4" />
                                 </video>
                             {% endif %}
 
