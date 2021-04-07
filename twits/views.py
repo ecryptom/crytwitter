@@ -14,17 +14,19 @@ from home.views import which_currency
 from products.models import product_group
 from accounts.models import user
 
-#connect to database (because mysql.connector.django can not save emojis)
-mydb = mysql.connector.connect(
-  host=os.getenv('DATABASE_HOST'),
-  port=os.getenv('DATABASE_PORT'),
-  user=os.getenv('DATABASE_USER_NAME'),
-  password=os.getenv('DATABASE_USER_PASSWORD'),
-  database=os.getenv('DATABASE_NAME'),
-)
-
-#global user
-arztwitter = user.objects.get(username='arztwitter')
+try:
+    #connect to database (because mysql.connector.django can not save emojis)
+    mydb = mysql.connector.connect(
+      host=os.getenv('DATABASE_HOST'),
+      port=os.getenv('DATABASE_PORT'),
+      user=os.getenv('DATABASE_USER_NAME'),
+      password=os.getenv('DATABASE_USER_PASSWORD'),
+      database=os.getenv('DATABASE_NAME'),
+    )
+    #global user
+    arztwitter = user.objects.get(username='arztwitter')
+except:
+    pass
 
 def tweets(req):
     #check if there is any tweets

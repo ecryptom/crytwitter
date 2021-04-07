@@ -12,7 +12,10 @@ from accounts.models import user
 #count of currencies in on page of list_currencies
 page_size = 40
 #id of first currency
-first_currency_id = currency.objects.first().id
+try:
+    first_currency_id = currency.objects.first().id
+except:
+    pass
 
 
 #get a string and return cur if exist
