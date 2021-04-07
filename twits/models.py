@@ -37,6 +37,8 @@ class report(models.Model):
     Type = models.CharField(choices=(('تبلیغ', 'تبلیغ'), ('تکرار', 'تکرار'), ('توهین', 'توهین')), max_length=5)
     status = models.CharField(choices=(('رد', 'رد'), ('پذیرفته', 'پذیرفته'), ('ندیده', 'ندیده')), default='ندیده', max_length=8)
     
+    class Meta:
+        verbose_name_plural = 'گزارش توییت'
 
     def twit_info(self):
         return f'''

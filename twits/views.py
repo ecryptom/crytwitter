@@ -36,10 +36,13 @@ def tweets(req):
         mycursor = mydb.cursor()
         mycursor.execute(f"select text from twits_twit where id>={last_tweets.last().id} order by -id")
         texts = mycursor.fetchall()
-        i=0
-        for t in last_tweets:
-            t.text =  texts[i][0]
-            i+=1
+        try:
+            i=0
+            for t in last_tweets:
+                t.text =  texts[i][0]
+                i+=1
+        except:
+            pass
     return render(req, 'tweet.html', {
         'tweets':last_tweets,
         'top_curs':currency.objects.order_by('-market_cap')[:10],
@@ -59,10 +62,13 @@ def curr_tweets(req, curr_name):
         mycursor = mydb.cursor()
         mycursor.execute(f"select text from twits_twit where (id>={last_tweets.last().id}) and (currency_id={curr.id}) order by -id")
         texts = mycursor.fetchall()
-        i=0
-        for t in last_tweets:
-            t.text =  texts[i][0]
-            i+=1
+        try:
+            i=0
+            for t in last_tweets:
+                t.text =  texts[i][0]
+                i+=1
+        except:
+            pass
     return render(req, 'tweet.html', {
         'tweets':last_tweets, 
         'currency':curr, 
@@ -78,10 +84,10 @@ def tweet(req):
         req.user = arztwitter
     #check file size
     File = req.FILES.get('file')
-    if File and File.size > 1000000:
+    if File and File.size > 3000000:
         return redirect('tweets')
     #check twit len
-    if len(req.POST['text']) > 550:
+    if len(req.POST['text']) > 2000:
         return redirect('tweets')
     #check if twit is empty
     if not (req.POST['text'] or File):
@@ -102,6 +108,8 @@ def tweet(req):
     mycursor = mydb.cursor()
     mycursor.execute(f"update twits_twit set text='{req.POST['text']}' where id={t.id}")
     mydb.commit()
+    if req.user == arztwitter:
+        return redirect('login')
     if req.POST.get('curr_tweet'):
         return redirect('curr_tweets', req.POST['currency'])
     return redirect('tweets')
@@ -114,10 +122,10 @@ def retweet(req, ID):
         req.user = arztwitter
     #check file size
     File = req.FILES.get('file')
-    if File and File.size > 1000000:
+    if File and File.size > 3000000:
         return redirect('tweets')
     #check twit len
-    if len(req.POST['text']) > 550:
+    if len(req.POST['text']) > 2000:
         return redirect('tweets')
     #check if twit is empty
     if not (req.POST['text'] or File):
@@ -139,6 +147,8 @@ def retweet(req, ID):
     mycursor = mydb.cursor()
     mycursor.execute(f"update twits_twit set text='{req.POST['text']}' where id={t.id}")
     mydb.commit()
+    if req.user == arztwitter:
+        return redirect('login')
     if req.POST.get('curr_tweet'):
         return redirect('curr_tweets', req.POST['currency'])
     return redirect('tweets')

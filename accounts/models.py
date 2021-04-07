@@ -46,6 +46,7 @@ class user(AbstractUser):
     name = models.CharField(max_length=30 ,default='')
     shamsi_joined_date = models.CharField(max_length=11, null=True)
     watch_list = models.ManyToManyField('home.currency')
+    address = models.TextField(null=True, blank=True)
     objects = UserManager()
 
     class Meta:

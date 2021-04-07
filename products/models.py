@@ -3,7 +3,7 @@ from utils.date_convertor import gregorian_to_shamsi
 from django.utils import timezone
 
 class product(models.Model):
-    name = models.CharField(max_length=25, verbose_name='نام محصول')
+    name = models.CharField(max_length=60, verbose_name='نام محصول')
     price = models.IntegerField(verbose_name='قیمت')
     off = models.IntegerField(default=0, verbose_name='تخفیف به درصد')
     details = models.TextField(default='', verbose_name='توضیحات کلی')

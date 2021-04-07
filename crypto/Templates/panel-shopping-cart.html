@@ -85,20 +85,22 @@
                                     <tbody id="cart_tbody" class="panel-left-shopping-cart-content-table-content">
                                         {% for order in cart.order_set.all %}
                                             <tr id="order{{order.product.id}}" class="panel-left-shopping-cart-content-table-row">
-                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                <td data-label="شماره" class="panel-left-shopping-cart-content-table-data">
                                                     {{ forloop.counter }}
                                                 </td>
-                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                <td data-label="محصول" class="panel-left-shopping-cart-content-table-data">
                                                     <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
                                                 </td>
-                                                    <td class="panel-left-shopping-cart-content-table-data">
-                                                        {% if order.product.is_available %}
-                                                            {{order.product.net_price}}
-                                                        {% else %}
-                                                            <span style="color:red">ناموجود</span>
-                                                        {% endif %}
+                                                {% if order.product.is_available %}
+                                                    <td data-label="قيمت" id="order_price{{order.id}}" onafterprint="split('order_price{{order.id}}')" class="panel-left-shopping-cart-content-table-data">
+                                                        {{order.product.net_price}}
                                                     </td>
-                                                <td class="panel-left-shopping-cart-content-table-data">
+                                                {% else %}
+                                                    <td data-label="قيمت" class="panel-left-shopping-cart-content-table-data">
+                                                        <span style="color:red">ناموجود</span>
+                                                    </td>
+                                                {% endif %}
+                                                <td data-label="تعداد" class="panel-left-shopping-cart-content-table-data">
                                                     {% if order.product.is_available %}
                                                         <a onclick="removeFromCart({{order.product.id}})" class="panel-left-shopping-cart-content-table-link">
                                                             <i class="fa fa-minus shopping-cart-table-icon"></i>
@@ -116,22 +118,10 @@
                                             </tr>
                                         {% endfor %}
                                     </tbody>
-                                    <tfoot class="panel-left-shopping-cart-content-table-footer">
-                                        <tr class="panel-left-shopping-cart-content-table-row table-info">
-                                            <td class="panel-left-shopping-cart-content-table-data">
-                                                جمع كل:
-                                            </td>
-                                            <td class="panel-left-shopping-cart-content-table-data">
-                                            </td>
-                                            <td id="cost" class="panel-left-shopping-cart-content-table-data">
-                                                {{cart.cost}}
-                                            </td>
-                                            <td class="panel-left-shopping-cart-content-table-data">
-                                                -
-                                            </td>
-                                        </tr>
-                                    </tfoot>
                                 </table>
+                                <div class="sum" >
+                                        جمع کل : <span id="cost" id="order_price{{order.id}}" onload="split('order_price{{order.id}}')" >{{cart.cost}}</span> تومان
+                                    </div>
                                 <a href="{% url 'payment_request' cart.id %}" class="panel-left-shopping-cart-content-link">تأیید و پرداخت</a>
                                 </div>
                                 
@@ -203,7 +193,7 @@
                                                 </td>
                                                 <td class="panel-left-shopping-cart-content-table-data">
                                                 </td>
-                                                <td id="cost" class="panel-left-shopping-cart-content-table-data">
+                                                <td onch id="cost" class="panel-left-shopping-cart-content-table-data">
                                                     {{paid_cart.cost}}
                                                 </td>
                                                 <td class="panel-left-shopping-cart-content-table-data">
@@ -227,8 +217,25 @@
     {% endblock page %} 
 {% block scripts %}
 
+<!---------------------split number with camma---------------------->
+<script>
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
+    function split(id){
+        obj = document.getElementById(id);
+        obj.innerText = numberWithCommas(parseInt(obj.innerText));
+    }
+</script>
+
+
+
 <!---------------------add or remove product---------------------->
 <script>
+
         function addToCart(ID) {
             $.ajax({
                 url: '/product/add_product/' + ID,
