@@ -35,7 +35,7 @@ class article(models.Model):
     title = models.CharField(max_length=100, verbose_name='عنوان')
     Type = models.CharField(max_length=6, choices=(('خبری', 'خبری'), ('آموزشی', 'آموزشی')), default='خبری', verbose_name='نوع')
     image = models.ImageField(upload_to='articles', verbose_name='تصویر اصلی', default='ali')
-    video_url = models.URLField(null=True, verbose_name='لینک فیلم')
+    video_url = models.URLField(null=True,blank=True, verbose_name='لینک فیلم')
     content = RichTextUploadingField(default=' ')
     has_menu = models.BooleanField(default=False, verbose_name='آنچه در این مقاله می خوانید')
     tags = models.CharField(max_length=100, default='مقاله;بیت کوین;ارزتوییتر;crypto', null=True, verbose_name='تگ ها(با علامت ; جدا شوند)')
