@@ -12,10 +12,23 @@ for cur_info in currencies_info:
     try:
         cur = currency.objects.get(symbol=cur_info['id'])
         cur.price = cur_info['price']
-        cur.daily_price_change_pct = float(cur_info['1d']['price_change_pct'])*100
-        cur.weekly_price_change_pct = float(cur_info['7d']['price_change_pct'])*100
-        cur.market_cap = cur_info['market_cap']
-        cur.turnover = cur_info['1d']['volume']
+        try:
+            cur.market_cap = cur_info['market_cap']
+        except:
+            pass
+        try:
+            cur.daily_price_change_pct = float(cur_info['1d']['price_change_pct'])*100
+        except:
+            pass
+        try:
+            cur.weekly_price_change_pct = float(cur_info['7d']['price_change_pct'])*100
+        except:
+            pass
+        try:
+            cur.turnover = cur_info['1d']['volume']
+        except:
+            pass
         cur.save()
+        print(cur.id)
     except:
         pass

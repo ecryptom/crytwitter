@@ -32,7 +32,7 @@
                                     </a>
                                 </h3>      
                                 <div class="list-products-boxes-price">
-                                    <span class="list-products-boxes-price-value">{{product.net_price}}</span>
+                                    <span class="list-products-boxes-price-value withcommas">{{product.net_price}}</span>
                                     <span class="list-products-boxes-price-unit">تومان</span>
                                 </div>
                                 <div class="list-products-boxes-status">
@@ -67,5 +67,19 @@
 
 {% block scripts %}
     <script src="{% static 'js/typed.min.js' %}"></script>
+
+<!---------------------split number with camma---------------------->
+<script>
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+    prices = document.getElementsByClassName('withcommas');
+    for(var i=0; i< prices.length; i++){
+        prices[i].innerText = numberWithCommas(parseInt(prices[i].innerText));
+    }
+
+</script>
 {% endblock scripts %}
 

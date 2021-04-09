@@ -38,12 +38,12 @@
                                         <div class="product-features-details-price">
                                             <span class="product-features-details-price-title">قیمت :</span>
                                             {% if product.off != 0 %}
-                                                <span class="product-features-details-price-value">{{product.price}} تومان</span>
-                                                <span class="product-features-details-price-value">{{product.net_price}} تومان</span>
+                                                <span class="product-features-details-price-value withcommas">{{product.price}} تومان</span>
+                                                <span class="product-features-details-price-value withcommas">{{product.net_price}} تومان</span>
                                                 <span class="product-features-details-price-percent">{{product.off}} درصد تخفیف</span>
                                             {% else %}
                                                 <span class="product-features-details-price-value"></span>
-                                                <span class="product-features-details-price-value">{{product.price}}تومان</span>
+                                                <span class="product-features-details-price-value withcommas">{{product.price}}تومان</span>
                                             {% endif %}
                                         </div>
                                         <div class="product-features-details-add-to-cart">
@@ -294,5 +294,21 @@
         })
     });
 </script>
+
+
+<!---------------------split number with camma---------------------->
+<script>
+    function numberWithCommas(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+    prices = document.getElementsByClassName('withcommas');
+    for(var i=0; i< prices.length; i++){
+        prices[i].innerText = numberWithCommas(parseInt(prices[i].innerText));
+    }
+
+</script>
+
 {% endblock scripts %}
 

@@ -326,21 +326,25 @@
     // set market_cap only once
     for(var i=0; i< old_data.length; i++){
         market_cap = old_data[i].market_cap;
-        if(market_cap < 1000000){
+        if(market_cap == 1){
+            market_cap = market_cap / 1000000;
+            document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = '-';
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = ' ';
+        }else if(market_cap < 1000000){
             document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = numberWithCommas(market_cap.toFixed(0));
-            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'دلار'
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'دلار';
         }else if(market_cap >= 1000000 && market_cap <1000000000){
             market_cap = market_cap / 1000000;
             document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = numberWithCommas(market_cap.toFixed(2));
-            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'میلیون دلار'
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'میلیون دلار';
         }else if(market_cap >= 1000000000 && market_cap <1000000000000){
             market_cap = market_cap / 1000000000;
             document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = numberWithCommas(market_cap.toFixed(2));
-            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'میلیارد دلار'
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'میلیارد دلار';
         }else if(market_cap >= 1000000000000 && market_cap <1000000000000000){
             market_cap = market_cap / 1000000000000;
             document.getElementById('market_cap_' + old_data[i].symbol).innerHTML = numberWithCommas(market_cap.toFixed(3));
-            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'تریلیون دلار'
+            document.getElementById('market_cap_unit_' + old_data[i].symbol).innerHTML = 'تریلیون دلار';
         }
     }
 

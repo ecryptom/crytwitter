@@ -92,7 +92,7 @@
                                                     <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
                                                 </td>
                                                 {% if order.product.is_available %}
-                                                    <td data-label="قيمت" id="order_price{{order.id}}" onafterprint="split('order_price{{order.id}}')" class="panel-left-shopping-cart-content-table-data">
+                                                    <td data-label="قيمت" class="panel-left-shopping-cart-content-table-data withcommas">
                                                         {{order.product.net_price}}
                                                     </td>
                                                 {% else %}
@@ -120,7 +120,7 @@
                                     </tbody>
                                 </table>
                                 <div class="sum" >
-                                        جمع کل : <span id="cost" id="order_price{{order.id}}" onload="split('order_price{{order.id}}')" >{{cart.cost}}</span> تومان
+                                        جمع کل : <span id="cost" class="withcommas">{{cart.cost}}</span> تومان
                                     </div>
                                 <a href="{% url 'payment_request' cart.id %}" class="panel-left-shopping-cart-content-link">تأیید و پرداخت</a>
                                 </div>
@@ -224,11 +224,11 @@
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return parts.join(".");
     }
-
-    function split(id){
-        obj = document.getElementById(id);
-        obj.innerText = numberWithCommas(parseInt(obj.innerText));
+    prices = document.getElementsByClassName('withcommas');
+    for(var i=0; i< prices.length; i++){
+        prices[i].innerText = numberWithCommas(parseInt(prices[i].innerText));
     }
+
 </script>
 
 
@@ -245,7 +245,7 @@
                         document.getElementById("order" + ID).remove();
                     else
                         document.getElementById("number" + ID).innerHTML = result.number;
-                    document.getElementById("cost").innerHTML = result.cost;
+                    document.getElementById("cost").innerHTML = numberWithCommas(parseInt(result.cost));
                 }
             })
         }
@@ -265,7 +265,7 @@
 
                     else
                         document.getElementById("number" + ID).innerHTML = result.number;
-                    document.getElementById("cost").innerHTML = result.cost;
+                    document.getElementById("cost").innerHTML = numberWithCommas(parseInt(result.cost));
                 }
             })
         }
