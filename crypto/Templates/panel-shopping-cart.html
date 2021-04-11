@@ -62,6 +62,13 @@
                                     سبد خرید
                                 </h3>
                             </div>
+
+                    {% if message %}
+                        <div class="alert alert-info w-75 mx-auto">
+                            <p style="text-align: center">{{message}}</p>
+                        </div>
+                    {% endif %}
+
                             <div class="panel-left-shopping-cart-content">
                                 {% if cart %}
                                 <div id="cart_table">
@@ -89,7 +96,9 @@
                                                     {{ forloop.counter }}
                                                 </td>
                                                 <td data-label="محصول" class="panel-left-shopping-cart-content-table-data">
-                                                    <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
+                                                    <a href="{% url 'product' order.product.id %}">
+                                                        <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
+                                                    </a>
                                                 </td>
                                                 {% if order.product.is_available %}
                                                     <td data-label="قيمت" class="panel-left-shopping-cart-content-table-data withcommas">
@@ -175,7 +184,9 @@
                                                     {{ forloop.counter }}
                                                 </td>
                                                 <td class="panel-left-shopping-cart-content-table-data">
-                                                    <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
+                                                    <a href="{% url 'product' order.product.id %}">
+                                                        <img src="{{order.product.image1.url}}" class="" /> {{order.product.name}}
+                                                    </a>
                                                 </td>
                                                 <td class="panel-left-shopping-cart-content-table-data">
                                                     {{order.product.net_price}}

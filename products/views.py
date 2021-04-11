@@ -91,7 +91,10 @@ def payment_request(req, ID):
     #check if there is a non available product in cart
     for o in Cart.order_set.all():
         if not o.product.is_available():
-            return redirect('cart')
+            return render(req, 'panel-shopping-cart.html', {'cart':Cart, 'message':'لطفا محصولات ناموجود را از سبد خود حذف کنید'})
+    #check if user has been register his address
+    if not req.user.address:
+        return render(req, 'panel-shopping-cart.html', {'cart':Cart, 'message':'لطفا ابتدا آدرس خود را ثبت کنید'})
     result = client.service.PaymentRequest(MERCHANT, Cart.cost(), f'user_id:{req.user.id}, username:{req.user.username}', req.user.email, req.user.phone, CallbackURL)
     if result.Status == 100:
         Cart.Authority = str(result.Authority)
