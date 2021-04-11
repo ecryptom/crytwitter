@@ -828,7 +828,7 @@
         });
     function like_tweet(ID){
         $.ajax({
-            url: 'like_tweet/' + ID,
+            url: '/tweet/like_tweet/' + ID,
             type: 'GET',
             dataType: "json",
             success: function(resp, s, x) {
