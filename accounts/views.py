@@ -25,7 +25,7 @@ def verify_recaptcha(token):
     return json.loads(result.content.decode())['success']
 
 
-
+@csrf_exempt
 def login(req):
     if req.method == 'GET':
         return render(req, 'login.html', {
@@ -71,6 +71,7 @@ def logout(req):
     auth.logout(req)
     return redirect('home')
 
+@csrf_exempt
 def register(req, invite_code=''):
     if req.method == 'GET':
         return render(req, 'register.html', {
@@ -277,6 +278,8 @@ def edit_profile(req):
     else:
         #change name
         User.name = req.POST['name']
+        #change address
+        User.address = req.POST['address']
         #change image
         if req.FILES.get('image'):
             User.image = req.FILES.get('image')

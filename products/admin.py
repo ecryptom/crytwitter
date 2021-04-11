@@ -9,7 +9,7 @@ class ArticleAdmin_(admin.ModelAdmin):
 class ArticleAdmin_(admin.ModelAdmin):
     verbose_name_plural = 'سفارشات'
     search_fields = ('status', 'paid')
-    readonly_fields = ('cart_info', )
+    readonly_fields = ('cart_info', 'user_info')
 
 
 @admin.register(product_group)

@@ -366,22 +366,11 @@
                     <div class="'col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                         <div class="tweet-content-left">
                             <div class="tweet-content-left-tab">
-                                <ul class="nav nav-tabs tweet-content-left-tab-list" role="tablist">
-                                    <li class="nav-item tweet-content-left-tab-item">
                                         <a class="nav-link active tweet-content-left-tab-link" id="home-tab"
                                             data-toggle="tab" href="#clock" role="tab">
                                             <i class="fas fa-clock-o"></i>
                                             ساعت های جهانی
                                         </a>
-                                    </li>
-                                    <li class="nav-item tweet-content-left-tab-item">
-                                        <a class="nav-link tweet-content-left-tab-link" id="profile-tab"
-                                            data-toggle="tab" href="#profile" role="tab">
-                                            <i class="far fa-chart-bar"></i>
-                                            نرخ های جهانی
-                                        </a>
-                                    </li>
-                                </ul>
                                 <div class="tab-content tweet-content-left-tab-content">
                                     <div class="tab-pane fade show active tweet-content-left-tab-content-clock" id="clock" role="tabpanel">
                                        <ul class="tweet-content-left-tab-content-clock-list">
@@ -400,26 +389,6 @@
                                             <li class="tweet-content-left-tab-content-clock-item">
                                                 <span class="tweet-content-left-tab-content-clock-title">لندن :</span>
                                                 <span id="london" class="tweet-content-left-tab-content-clock-value">{{london_time}}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-pane fade active tweet-content-left-tab-content-clock" id="profile" role="tabpanel">
-                                        <ul class="tweet-content-left-tab-content-clock-list">
-                                            <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">دلار :</span>
-                                                <span id="" class="tweet-content-left-tab-content-clock-value"></span>
-                                            </li>
-                                            <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title"> یورو :</span>
-                                                <span id="" class="tweet-content-left-tab-content-clock-value"></span>
-                                            </li>
-                                            <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">طلا :</span>
-                                                <span id="" class="tweet-content-left-tab-content-clock-value"></span>
-                                            </li>
-                                            <li class="tweet-content-left-tab-content-clock-item">
-                                                <span class="tweet-content-left-tab-content-clock-title">پوند :</span>
-                                                <span id="" class="tweet-content-left-tab-content-clock-value"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -492,9 +461,9 @@
         document.getElementById('turnover_' + symbol).innerHTML = numberWithCommas(turnover.toFixed(0)) + '  $  '
         // set price
         if(price < 10)
-            document.getElementById('dollor_' + symbol).innerHTML = ' $ ' + numberWithCommas(price.toFixed(4));
-        else
             document.getElementById('dollor_' + symbol).innerHTML = ' $ ' + numberWithCommas(price.toFixed(2));
+        else
+            document.getElementById('dollor_' + symbol).innerHTML = ' $ ' + numberWithCommas(price.toFixed(0));
         // fix daily change and it's color
         if(daily_change < 0){
             document.getElementById('1d_change_' + symbol).innerHTML =  daily_change.toFixed(2) +  "%";
@@ -585,9 +554,9 @@
 
     function update_window(symbol, price, daily_change){
         if(price < 10)
-            document.getElementById('dollor_' + symbol).innerHTML = '$' + numberWithCommas(price.toFixed(4));
-        else
             document.getElementById('dollor_' + symbol).innerHTML = '$' + numberWithCommas(price.toFixed(2));
+        else
+            document.getElementById('dollor_' + symbol).innerHTML = '$' + numberWithCommas(parseInt(price));
         // fix daily change and it's color
         if(daily_change < 0){
             document.getElementById('1d_change_' + symbol).innerHTML = daily_change.toFixed(2) + "%";
@@ -849,33 +818,6 @@
 
  </script>
 {% endif %}
-
-
-
- <!----------------------report---------------------->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    $(".tweet-content-center-boxes-header-report-item a").click(function (e) {
-        e.preventDefault();
-    });
-    
-
-    function report(report_type, tweet_id){
-        $.ajax({
-        url: '{% url "report_req" %}?tweet_id=' + tweet_id + '&type=' + report_type,
-        type: 'GET',
-        dataType: "json",
-        success: function(resp, s, x) {
-            swal({
-                title: resp.message,
-                icon: resp.status,
-                button: "تأیید",
-                timer:300000
-            });
-        }
-        });
-    }
-</script>
 
 
 

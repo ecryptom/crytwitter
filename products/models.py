@@ -136,6 +136,14 @@ class cart(models.Model):
             '''
         info += f'\n قیمت کل:  {self.cost()}'
         return info
+
+    def user_info(self):
+        return f'''
+            username : {self.user.username}
+            name : {self.user.name}
+            phone : {self.user.phone}
+            email : {self.user.email}
+        '''
         
             
 class product_comment(models.Model):
