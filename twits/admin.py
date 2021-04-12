@@ -5,6 +5,7 @@ from .models import twit, report
 @admin.register(twit)
 class TwitAdmin(admin.ModelAdmin):
     verbose_name_plural = 'توییت ها'
+    search_fields = ('id')
 
 
 @admin.register(report)
