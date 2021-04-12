@@ -143,6 +143,7 @@ class cart(models.Model):
             name : {self.user.name}
             phone : {self.user.phone}
             email : {self.user.email}
+            address : {self.user.address}
         '''
         
             
