@@ -35,14 +35,12 @@
                                     <span class="list-products-boxes-price-value withcommas">{{product.net_price}}</span>
                                     <span class="list-products-boxes-price-unit">تومان</span>
                                 </div>
-                                <div class="list-products-boxes-status">
-                                    <span class="list-products-boxes-status-title">وضعیت : </span>
-                                    {% if product.is_available %}
-                                        <span class="list-products-boxes-status-available">موجود</span>
-                                    {% else %}
+                                {% if not product.is_available %}
+                                    <div class="list-products-boxes-status">
+                                        <span class="list-products-boxes-status-title">وضعیت : </span>
                                         <span class="list-products-boxes-status-unavailable">ناموجود</span>
-                                    {% endif %}
-                                </div>
+                                    </div>
+                                {% endif %}
                                 {% if product.is_available %}
                                     <div class="list-products-boxes-add-to-cart">
                                         <a href="{% url 'add_product_to_cart' product.id %}" class="list-products-boxes-add-to-cart-link">

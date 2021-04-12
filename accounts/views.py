@@ -11,10 +11,12 @@ import random, requests, os, json
 from .models import user
 from home.models import currency, dollor
 from home.views import which_currency
+from kavenegar import *
 
+
+api = KavenegarAPI(os.getenv('kavenegar_token'))
 forgot_password_text = lambda code : f'کد بازیابی رمز عبور شما در سایت ارزتوییتر : \n {code}'
 sms_text = lambda code : f'کد تایید ورود شما به سایت ارز توییتر:\n {code}'
-sms_signature = os.getenv('sms_signature')
 
 #verify recactcha response
 def verify_recaptcha(token):
@@ -136,7 +138,7 @@ def register(req, invite_code=''):
         User.verify_code_time = timezone.now()
         User.save()
         try:
-            requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={sms_text(User.verify_code)}&signature={sms_signature}')
+            api.sms_send(params = {'sender': '10004346', 'receptor': User.phone, 'message': sms_text(User.verify_code)})
             return render(req, 'verify.html', {'phone':User.phone, 'seconds':119})
         except:
             data.update({'error':'شماره تلفن نادرست است!'})
@@ -163,7 +165,7 @@ def resend_phone_code(req):
     User.verify_code_time = timezone.now()
     User.save()
     try:
-        requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User.phone}&&text={sms_text(User.verify_code)}&signature={sms_signature}')
+        api.sms_send(params = {'sender': '10004346', 'receptor': User.phone, 'message': sms_text(User.verify_code)})
         return render(req, 'verify.html', {'phone': User.phone, 'seconds':119})
     except:
         return JsonResponse({'status':'failed'})
@@ -199,7 +201,7 @@ def forgot_password(req):
             User[0].verify_code = random.randint(10000, 99999)
             User[0].verify_code_time = timezone.now()
             User[0].save()
-            requests.get(f'http://sms.parsgreen.ir/UrlService/sendSMS.ashx?from=10001398&to={User[0].phone}&&text={forgot_password_text(User[0].verify_code)}&signature={sms_signature}')
+            api.sms_send(params = {'sender': '10004346', 'receptor': User[0].phone, 'message': forgot_password_text(User[0].verify_code)})
             return render(req, 'forgot_password.html', {'step':'get_verification_code', 'phone':User[0].phone, 'message':'کد ارسال شده را وارد کنید'})
         except:
             return render(req, 'forgot_password.html', {

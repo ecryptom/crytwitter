@@ -29,6 +29,5 @@ for cur_info in currencies_info:
         except:
             pass
         cur.save()
-        print(cur.id)
     except:
         pass

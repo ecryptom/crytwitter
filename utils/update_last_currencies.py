@@ -31,7 +31,6 @@ def update(currencies):
             except:
                 pass
             cur.save()
-            print(cur.id)
         except:
             pass
 

@@ -26,9 +26,12 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 article-left-col">
                         <div class="article-left">
                             <h1 class="article-left-heading-one">{{article.title}}</h1>
-                            <div class="article-left-image-wrapper">
-                                <img src="{{article.image.url}}" class="article-left-image" />
-                            </div>
+
+                            {% if not article.video_url %}
+                                <div class="article-left-image-wrapper">
+                                    <img src="{{article.image.url}}" class="article-left-image" />
+                                </div>
+                            {% endif %}
 
                             {% if article.has_menu %}
                             <div class="article-left-cannibalization">
