@@ -1,5 +1,6 @@
-import requests, json
+import requests, json, time
 from home.models import currency
+from multiprocessing import Process
 
 
 all_currencies = currency.objects.all()
@@ -34,9 +35,24 @@ def update(currencies):
         except:
             pass
 
+def update_with_limit(currencies, t):
+    global Process, update
+    p = Process(target=update, args=(currencies, ))
+    p.start()
+    p.join(t)
+    if p.is_alive():
+        p.terminate()
 
-update(all_currencies[500:1000])
-update(all_currencies[1000:1500])
-update(all_currencies[1500:2000])
-update(all_currencies[2000:2500])
-update(all_currencies[2500:])
+update_with_limit(all_currencies[500:1000], 20)
+update_with_limit(all_currencies[1000:1500], 20)
+update_with_limit(all_currencies[1500:2000], 20)
+update_with_limit(all_currencies[2000:2500], 20)
+update_with_limit(all_currencies[2500:], 20)
+
+
+
+#update(all_currencies[500:1000])
+#update(all_currencies[1000:1500])
+#update(all_currencies[1500:2000])
+#update(all_currencies[2000:2500])
+#update(all_currencies[2500:])
