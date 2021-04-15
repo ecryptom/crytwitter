@@ -94,7 +94,7 @@ def payment_request(req, ID):
             return render(req, 'panel-shopping-cart.html', {'cart':Cart, 'message':'لطفا محصولات ناموجود را از سبد خود حذف کنید'})
     #check if user has been register his address
     if not req.user.address:
-        return render(req, 'panel-shopping-cart.html', {'cart':Cart, 'message':'لطفا ابتدا آدرس خود را ثبت کنید'})
+        return render(req, 'panel-shopping-cart.html', {'cart':Cart, 'message':'لطفا ابتدا آدرس خود را در بخش پنل کاربری ثبت کنید'})
     result = client.service.PaymentRequest(MERCHANT, Cart.cost(), f'user_id:{req.user.id}, username:{req.user.username}', req.user.email, req.user.phone, CallbackURL)
     if result.Status == 100:
         Cart.Authority = str(result.Authority)
@@ -116,6 +116,7 @@ def payment_verify(req):
         Cart.paid = True
         Cart.status = 'pending'
         Cart.RefID = str(result.RefID)
+        Cart.paid_info = Cart.cart_info()
         Cart.save()
         return redirect('cart')
     else:

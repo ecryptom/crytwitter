@@ -266,6 +266,7 @@ def edit_profile(req):
     if req.POST['submit'] == 'verify_email':
         User.verify_code = random.randint(10000, 99999)
         User.verify_code_time = timezone.now()
+        User.email = req.POST['email']
         User.save()
         message = render_to_string('emails/email_verification.html', {'code':User.verify_code})
         send_mail(

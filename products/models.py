@@ -59,6 +59,7 @@ class cart(models.Model):
     RefID = models.CharField(max_length=30, null=True, blank=True)
     Authority = models.CharField(max_length=45, null=True, blank=True)
     status = models.CharField(max_length=10, choices=(('payment', 'payment'), ('pending', 'pending'), ('done', 'done')), default='payment')
+    paid_info = models.TextField(null=True)
 
     class Meta:
         verbose_name_plural = 'سفارشات'
@@ -132,6 +133,7 @@ class cart(models.Model):
             info += f'''
                 محصول:  {o.product.name}
                 تعداد:  {o.number}
+                قیمت:   {o.product.net_price()}
                 -----------------------\n
             '''
         info += f'\n قیمت کل:  {self.cost()}'
