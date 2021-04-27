@@ -227,6 +227,8 @@
                             <form action="{% url 'tweet' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {% if currency %}
+                                    <!--this input is just for other currencies searching-->
+                                    <input id="autocompleteInput" placeholder="جست و جوی سایر ارزها">
                                     <input name="currency" id="autocompleteInput" type="text" hidden value={{currency.name}}>
                                     <input name="curr_tweet" id="autocompleteInput" type="text" hidden value={{currency.name}}>
                                 {% else %}
@@ -748,9 +750,8 @@
 
 
     <!-- -------------------autocomplete--------------------- -->
-{% if not currency %}
    <script>
-            function autocomplete(inp, arr, images) {
+            function autocomplete(inp, arr, images, type) {
            var currentFocus;
            inp.addEventListener("input", function(e) {
                var a, b, i, val = this.value;
@@ -769,7 +770,10 @@
                    b.innerHTML += "<span style = 'color:#DDD'>" + arr[i].substr(val.length) + "</span>";
                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                        b.addEventListener("click", function(e) {
-                       inp.value = this.getElementsByTagName("input")[0].value;
+                           inp.value = this.getElementsByTagName("input")[0].value;
+                            if(type=="currency")
+                                window.location.href = "/index_search?currency=" + this.getElementsByTagName("input")[0].value;
+
                        closeAllLists();
                    });
                    a.appendChild(b);
@@ -826,10 +830,13 @@
         }
     });
 
-    autocomplete(document.getElementById("autocompleteInput"), countries, images);
-
- </script>
+{% if not currency %}
+    autocomplete(document.getElementById("autocompleteInput"), countries, images, type="currencies");
+{% else %}
+    autocomplete(document.getElementById("autocompleteInput"), countries, images, type="currency");
 {% endif %}
+ </script>
+
 
 
 
